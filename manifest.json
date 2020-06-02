@@ -1,0 +1,25 @@
+{
+    "name": "imma draft",
+    "version": "1.01",
+    "description": "basic draft thing of imma",
+    "icons": {
+        "16": "images/imma_16.png",
+        "32": "images/imma_32.png",
+        "48": "images/imma_48.png",
+        "128": "images/imma_128.png"
+    },
+    "permissions": ["storage", "activeTab", "tabs", "notifications", "alarms", "history"],
+    "web_accessible_resources": [
+        "images/ironman_clear.PNG"
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "manifest_version": 2,
+    "browser_action": {
+        "default_title": "IMMA",
+        "default_icon": "images/imma_32.png",
+        "default_popup": "popup.html"
+    }
+}
