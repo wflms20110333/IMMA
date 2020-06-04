@@ -1,0 +1,15 @@
+body {
+    margin: 10px;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+h1 {
+    font-size: 15px;
+}
+
+#container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
