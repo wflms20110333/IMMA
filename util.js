@@ -2,5 +2,6 @@
  * Returns the current time
  */
 function getCurrentTime() {
-    return new Date.getTime();
+    var d = new Date;
+    return d.getTime();
 }
