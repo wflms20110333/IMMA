@@ -16,6 +16,7 @@ model = load_model('model/imma_dqn.h5')
 @app.route("/predict", methods=["POST"]) # not using address-bar params, so block GET requests
 def predict():
     ''' an example POST: {"data": [[3, 4.5, 2.6, 0.3]]} '''
+    data = {}
     inputParams = request.get_json() # get input
     inputData = nparray(inputParams['data']) # process input
     data["prediction"] = str(model.predict(inputData)) # make prediction
