@@ -3,7 +3,9 @@
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server
 * `model/` contains code for the ML model
-* `venv/` contains the files for the virtual environment; as described on [Flask's installation page](https://flask.palletsprojects.com/en/1.1.x/installation/),
+* `venv/` contains the files for the virtual environment; as described on [Flask's installation page](https://flask.palletsprojects.com/en/1.1.x/installation/)
+* `venv_windows/` contains the light Windows version of venv; run `venv_windows\Scripts\activate.bat` to activate. Also contains a `requirements.txt` listing libraries used, which is updated by running `pip freeze > venv_windows/requirements.txt`. To create from this file, run `pip install -f venv_windows/requirements.txt` [flask]
+* `venv_windows_train/` contains the heavy venv version including Keras libraries to train a model. Contains a `requirements.txt`. [keras, matplotlib, tensorflow, flask]
 
 > Use a virtual environment to manage the dependencies for your project, both in development and in production.
 
