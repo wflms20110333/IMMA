@@ -3,7 +3,7 @@
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server
 * `model/` contains code for the ML model
-* `venv/` contains the files for the virtual environment; as described on [Flask's installation page](https://flask.palletsprojects.com/en/1.1.x/installation/)
+* `venv/` contains the files for the virtual environment; as described on [Flask's installation page](https://flask.palletsprojects.com/en/1.1.x/installation/). Update: this folder is gitignored
 * `light_requirements.txt` contains the packages used in `venv_windows/`, a light Windows version of venv; updated by running `pip freeze > light_requirements.txt`. [flask]
 * `full_requirements.txt` also includes things such as Keras libraries to train a model. [keras, matplotlib, tensorflow, flask]
 
