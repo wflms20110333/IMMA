@@ -2,16 +2,20 @@
  * Get tabs in the current window
  * @param {* #TODO} callback 
  */
+/*
 function findCurrentTabs(callback) {
     var queryInfo = { currentWindow: true }; // query parameters
     chrome.tabs.query(queryInfo, (tabs) => { return tabs; }); // #note idk how this returning/callback/?? syntax works
     // ezou: this is an example of a lambda function, you should look it up :D
 }
+*/
 
 /**
  * Initialize an experience buffer to storage (~an array, intended to record the last ~20 URLs/events)
  * Should be able to key in to ['experience'] with indices, e.g. {"5": "google.com"}, with at max 20 indices (#note idk if better way to do this)
  */
+
+/*
 function initBuffer() {
     var currentTime = getCurrentTime(); // records time as ms, might want to process this? #todo
     var expBuff = { 'EXPBUFF': { 'experience': { "0": { "window_start": currentTime } }, 'last_index': 0, 'maxsize': 20, 'last_entry_time': currentTime } };
@@ -20,17 +24,15 @@ function initBuffer() {
     chrome.storage.sync.set(expBuff);
     console.log("Experience buffer initialized successfully"); // #todo add a debug mode?
 }
+*/
 
 /**
  * Save the specified entity to the experience buffer
  * @param {* #TODO} bufferObj 
  */
-function saveToBuffer(bufferObj) {
-    /* chrome.storage.sync.get(null, function(items) { // for debug
-      var allKeys = Object.keys(items);
-      alert(allKeys);
-    }); */
 
+/*
+function saveToBuffer(bufferObj) {
     var currentTime = getCurrentTime();
 
     chrome.storage.sync.get(['EXPBUFF'], function (items) { // load the experience buffer from storage
@@ -49,6 +51,7 @@ function saveToBuffer(bufferObj) {
         chrome.storage.sync.set(itemCopy); // save
     });
 }
+*/
 
 /**
  * Sends a placeholder notification (need to turn off focus mode to see pop-up)
@@ -64,19 +67,32 @@ function sendNotification() {
     });
 }
 
+/**
+ * Placeholder for getting history
+ */
+/*function getHistory(){
+    var queryItem = {"text": "", maxResults=4}
+    chrome.history.search(queryItem, (hist) => { return hist; })
+}*/
+
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    initBuffer(); // Initializes an experience buffer in storage
+    // initBuffer(); // Initializes an experience buffer in storage
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update
 chrome.tabs.onUpdated.addListener(function () {
     // First, save the opened urls to experience buffer
-    var openTabs = findCurrentTabs();
-    saveToBuffer(openTabs);
+    //var openTabs = findCurrentTabs();
+    //saveToBuffer(openTabs);
+
+    chrome.history.search(queryItem, (hist) => {
+        return hist;
+        // do server things??????????????????????????????????????????????????????????????????????????
+    })
 
     // If >10 seconds elapsed from lastEntryRead
-    chrome.storage.sync.get(['EXPBUFF'], function (result) {
+    /*chrome.storage.sync.get(['EXPBUFF'], function (result) {
         var lastEntryTime = result['EXPBUFF']['last_entry_time'];
         if (currentTime - lastEntryTime > 10000) {
             console.log(lastEntryTime); // debug
@@ -85,10 +101,10 @@ chrome.tabs.onUpdated.addListener(function () {
             // if result is positive, display notification, update experience buffer
             sendNotification(); // debug
         }
-    });
+    });*/
 
     // update lastEntryRead to current time
-    var currentTime = getCurrentTime();
-    chrome.storage.sync.set({ 'last_entry_time': currentTime }); // #note idk if this is okay in terms of asynchronous things??
+    //var currentTime = getCurrentTime();
+    //chrome.storage.sync.set({ 'last_entry_time': currentTime }); // #note idk if this is okay in terms of asynchronous things??
 });
 
