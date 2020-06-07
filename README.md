@@ -4,24 +4,24 @@
 * `server/` contains code for the Flask server
 * `model/` contains code for the ML model
 * `venv/` contains the files for the virtual environment; as described on [Flask's installation page](https://flask.palletsprojects.com/en/1.1.x/installation/)
-* `venv_windows/` contains the light Windows version of venv; run `venv_windows\Scripts\activate.bat` to activate. Also contains a `requirements.txt` listing libraries used, which is updated by running `pip freeze > venv_windows/requirements.txt`. To create from this file, run `pip install -f venv_windows/requirements.txt` [flask]
-* `venv_windows_train/` contains the heavy venv version including Keras libraries to train a model. Contains a `requirements.txt`. [keras, matplotlib, tensorflow, flask]
+* `light_requirements.txt` contains the packages used in `venv_windows/`, a light Windows version of venv; updated by running `pip freeze > light_requirements.txt`. [flask]
+* `full_requirements.txt` also includes things such as Keras libraries to train a model. [keras, matplotlib, tensorflow, flask]
 
-> Use a virtual environment to manage the dependencies for your project, both in development and in production.
+1) Activate your environment with `venv_windows\Scripts\activate.bat` or create a new venv if you don't have one yet
 
-> What problem does a virtual environment solve? The more Python projects you have, the more likely it is that you need to work with different versions of Python libraries, or even Python itself. Newer versions of libraries for one project can break compatibility in another project.
-
-> Virtual environments are independent groups of Python libraries, one for each project. Packages installed for one project will not affect other projects or the operating system’s packages.
+2) Update your virtual environment by running `pip install -f light_requirements.txt` or equivalent command within your intended active environment
 
 ## Running the Server
 
-Before the first time you run the server, make sure the path is set correctly:
+Run `python server/app.py` and use Postman or similar to test POST requests with JSON including key "data": [0.0, 1.0, 2.0, 3.0] or similar.
+
+On Mac: before the first time you run the server, make sure the path is set correctly:
 
 ```shell
 export FLASK_APP=server/app.py
 ```
 
-After every change, restart the server:
+If debug mode is set to False, after every change, restart the server with
 
 ```shell
 flask run
