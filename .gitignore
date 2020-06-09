@@ -1,3 +1,5 @@
 model/__pycache__/
 model/no_sync*
 venv/
+venv_windows/
+venv_windows_train/
