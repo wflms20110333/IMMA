@@ -1,22 +1,8 @@
-# An example siteIndex (numbers are the one-hot indices)
-'''
-docs.google.com	: 0
-www.facebook.com : 1
-github.com	: 2
-slack.com	:3
-calendar.google.com :4
-app.slack.com	:5
-piazza.com	:6
-etc
-'''
-
-# An example messageBank (one-hot representations corresponding to impact on 4-vector)
-messageBank = {"AMAZING!": [0, 0, 1, 1], "Great job": [0, 0, 0, 1], "You can do this!": [0, 1, 1, 1], "Try harder": [1, 1, 0, 0], "Take a break?": [0, 0, 1, 0]}
-questionBank = {"are you paying attention": [1,0,0,0], "are you focused": [0,1,0,0], "are you energized": [0,0,1,0], "are you happy": [0,0,0,1]}
-
 from collections import Counter
 from random import choice
 from nn1_code import RNN
+messageBank = {"AMAZING!": [0, 0, 1, 1], "Great job": [0, 0, 0, 1], "You can do this!": [0, 1, 1, 1], "Try harder": [1, 1, 0, 0], "Take a break?": [0, 0, 1, 0]} # (one-hot representations corresponding to impact on 4-vector)
+questionBank = [("are you paying attention", [1,0,0,0]), ("are you focused", [0,1,0,0]), ("are you energized", [0,0,1,0]), ("are you happy", [0,0,0,1])]
 
 def initializeSiteIndex(pastSites):
     ''' pastSites: the past 300 sites from history '''
@@ -48,3 +34,15 @@ def pickMessage(state):
         if bestScore[1] == None or score > bestScore[1]:
             bestScore = (message[0], score)
     return bestScore[0]
+
+# An example siteIndex (numbers are the one-hot indices)
+'''
+docs.google.com	: 0
+www.facebook.com : 1
+github.com	: 2
+slack.com	:3
+calendar.google.com :4
+app.slack.com	:5
+piazza.com	:6
+etc
+'''
