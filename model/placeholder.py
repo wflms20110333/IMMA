@@ -41,10 +41,10 @@ def giveQType1():
 
 def pickMessage(state):
     ''' Input is 4-vector of [attention, focus, energy, positivity], output is an action vector that maximizes the state change '''
+    # #todo replace with DQN, this is placeholder for now?
     bestScore = (None, None)
     for message in messageBank:
         score = sum(state and message[1]) # estimated future score
         if bestScore[1] == None or score > bestScore[1]:
             bestScore = (message[0], score)
     return bestScore[0]
-    
