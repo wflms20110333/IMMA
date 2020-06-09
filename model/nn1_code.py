@@ -1,19 +1,17 @@
-from keras.layers import Dense, Activation
+from keras.layers import Dense, Activation, SimpleRNN
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam
 import numpy as np
 
 
-class NNet(object):
-    def __init__(self, input_dim, output_dim, fname):
-        self.space_dims = space_dims # dictionary for signal/action/feedback dims
+class RNN(object):
+    def __init__(self, input_dim=30, output_dim=4, fname=None):
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.model_file = fname
 
-        self.net_1 = self.build_nn()
-        self.last_prediction = None # stores the last prediction made, used for online training
-        self.last_sample = None
+        self.net_1 = self.build_rnn()
+        self.last_sample = None # stores last sample, used for online training
 
     def batch_train(self, train_dat, train_label, test_dat, test_label): # fits to a training set
         self.net_1.fit(train_dat, train_label, epochs=20, batch_size=32)
@@ -23,18 +21,15 @@ class NNet(object):
         self.last_sample = sample # ditto for each future state
         return self.last_prediction
 
-    def online_train(self, feedback): # fits to one sample
-        if feedback == True: # network worked!
-            self.q_eval.fit(self.last_sample, self.last_prediction, verbose=0)
+    def online_train(self, feedback): # fits to one sample, where feedback is a more correct mapping for last sample
+        self.net_1.fit(self.last_sample, feedback, verbose=0)
 
-    def build_nn(self):
+    def build_rnn(self):
         model = Sequential([
-            Dense(16, input_shape=(self.input_dim,)),
-            Activation('relu'),
-            Dense(16),
-            Activation('relu'),
-            Dense(self.output_dim),
-            Activation('relu')
+            SimpleRNN(3),
+            Dense(16, input_shape=(self.input_dim,3), activation='relu'),
+            Dense(16, activation='relu')),
+            Dense(self.output_dim, activation='relu'))
         ])
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         return model
