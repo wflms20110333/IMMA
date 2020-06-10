@@ -2,11 +2,13 @@ from keras.models import load_model
 from numpy import array as nparray # only need np.array
 from flask import Flask, request, jsonify
 import model.placeholder as ph
+from flask_cors import CORS
 app = Flask(__name__)
+cors = CORS(app)
 
-@app.route('/')
+@app.route('/helloWorld')
 def hello_world():
-    return 'Hello, World! I made some changes :)'
+    return jsonify({'youDidIt': 'Hello, World! I made some changes :)'})
 
 # load the model, and pass in the custom metric function
 model = None # load_model('model/imma_dqn.h5')
