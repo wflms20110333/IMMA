@@ -1,11 +1,13 @@
 from keras.models import load_model
 from numpy import array as nparray # only need np.array
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 app = Flask(__name__)
+cors = CORS(app)
 
-@app.route('/')
+@app.route('/helloWorld')
 def hello_world():
-    return 'Hello, World! I made some changes :)'
+    return jsonify({'youDidIt': 'Hello, World! I made some changes :)'})
 
 # following https://towardsdatascience.com/deploying-keras-deep-learning-models-with-flask-5da4181436a2
 

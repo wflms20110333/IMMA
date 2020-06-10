@@ -1,0 +1,3 @@
+function helloWorld() {
+    fetchResponse('helloWorld');
+}
