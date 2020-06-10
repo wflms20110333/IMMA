@@ -1,7 +1,7 @@
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 from numpy import array as nparray # only need np.array
 from flask import Flask, request, jsonify
-import model.placeholder as ph
+import placeholder as ph
 from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app)
@@ -15,19 +15,24 @@ model = None # load_model('model/imma_dqn.h5')
 siteIndex = None
 
 # define a predict function as an endpoint 
+'''
 @app.route("/old_predict", methods=["POST"]) # not using address-bar params, so block GET requests
 def predict():
-    ''' an example POST: {"data": [[3, 4.5, 2.6, 0.3]]} '''
+    # an example POST: {"data": [[3, 4.5, 2.6, 0.3]]}
     data = {}
     inputParams = request.get_json() # get input
     inputData = nparray(inputParams['data']) # process input
     data["prediction"] = str(model.predict(inputData)) # make prediction
     return jsonify(data) # return prediction in json format
+'''
 
 @app.route("/evaluate_state", methods=["POST"]) # not using address-bar params, so block GET requests
 def evalState():
-    ''' an example POST: {"hist_for_init": ['google.com','fb',...], "current_tabs": ['github']} '''
-    inputParams = request.get_json() # get input
+    ''' an example POST: {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],
+	"current_tabs": ["github", "fb"]} '''
+    siteIndex = None # #todo this should be a user variable and not reloaded each time
+    model = None # ditto
+    inputParams = {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],"current_tabs": ["okokok", "fb"]} # get input
     if siteIndex == None: # initialize siteIndex if doesn't exist
         inputData = inputParams['hist_for_init']
         siteIndex = ph.initializeSiteIndex(inputData)
@@ -35,10 +40,14 @@ def evalState():
         model = ph.initializeNetwork()
 
     # convert current urls opened into vector, feed into RNN, and choose message
-    vecInput = ph.vectorizeInput(inputParams['current_tabs'], siteIndex)
-    currentState = model.online_predict(vecInput)
-    message = pickMessage(currentState)
-    return message
+    vectInput = ph.vectorizeInput(inputParams['current_tabs'], siteIndex)
+    #print("debug", "vectInput", vectInput, "type", type(vectInput), np.shape(vectInput))
+    currentState = model.online_predict(vectInput)
+    #print("model outputted index", currentState)
+    message = ph.pickMessage(currentState)
+    
+    message = {"message": message}
+    return jsonify(message)
 
 @app.route("/give_question", methods=["POST"]) # not using address-bar params, so block GET requests
 def giveQuestion():
@@ -46,4 +55,4 @@ def giveQuestion():
     # then process feedback: update messageBank or questionBank or train RNN
     pass
 
-app.run(debug=True, host='0.0.0.0') # host='0.0.0.0' enables remote connections?
+app.run(debug=True) # host='0.0.0.0' enables remote connections?
