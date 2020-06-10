@@ -1,9 +1,9 @@
 from tensorflow.keras.models import load_model
-from numpy import array as nparray # only need np.array
 from flask import Flask, request, jsonify
-import placeholder as ph
+import placeholder as ph # for the nnetwork models
 from flask_cors import CORS
-app = Flask(__name__)
+
+app = Flask(__name__) # declare app
 cors = CORS(app)
 
 @app.route('/helloWorld')
@@ -21,7 +21,7 @@ def predict():
     # an example POST: {"data": [[3, 4.5, 2.6, 0.3]]}
     data = {}
     inputParams = request.get_json() # get input
-    inputData = nparray(inputParams['data']) # process input
+    # inputData = nparray(inputParams['data']) # process input # fix np.array import if use
     data["prediction"] = str(model.predict(inputData)) # make prediction
     return jsonify(data) # return prediction in json format
 '''
@@ -32,7 +32,7 @@ def evalState():
 	"current_tabs": ["github", "fb"]} '''
     siteIndex = None # #todo this should be a user variable and not reloaded each time
     model = None # ditto
-    inputParams = {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],"current_tabs": ["okokok", "fb"]} # get input
+    inputParams = request.get_json()
     if siteIndex == None: # initialize siteIndex if doesn't exist
         inputData = inputParams['hist_for_init']
         siteIndex = ph.initializeSiteIndex(inputData)
@@ -41,12 +41,10 @@ def evalState():
 
     # convert current urls opened into vector, feed into RNN, and choose message
     vectInput = ph.vectorizeInput(inputParams['current_tabs'], siteIndex)
-    #print("debug", "vectInput", vectInput, "type", type(vectInput), np.shape(vectInput))
     currentState = model.online_predict(vectInput)
-    #print("model outputted index", currentState)
     message = ph.pickMessage(currentState)
     
-    message = {"message": message}
+    message = {"predictedState": str(currentState), "message": message}
     return jsonify(message)
 
 @app.route("/give_question", methods=["POST"]) # not using address-bar params, so block GET requests
