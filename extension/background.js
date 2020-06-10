@@ -2,13 +2,11 @@
  * Get tabs in the current window
  * @param {* #TODO} callback 
  */
-/*
+
 function findCurrentTabs(callback) {
     var queryInfo = { currentWindow: true }; // query parameters
-    chrome.tabs.query(queryInfo, (tabs) => { return tabs; }); // #note idk how this returning/callback/?? syntax works
-    // ezou: this is an example of a lambda function, you should look it up :D
+    chrome.tabs.query(queryInfo, (tabs) => { return tabs; });
 }
-*/
 
 /**
  * Initialize an experience buffer to storage (~an array, intended to record the last ~20 URLs/events)
@@ -55,25 +53,19 @@ function saveToBuffer(bufferObj) {
 
 /**
  * Sends a placeholder notification (need to turn off focus mode to see pop-up)
+ * * @param {* #TODO} content 
  */
-function sendNotification() {
+
+function sendNotification(content) {
     chrome.notifications.create('mozzarella', {
         type: 'basic',
         iconUrl: 'images/ironman_clear.PNG',
         title: 'this imma says',
-        message: 'time to take a nap',
+        message: content,
         //buttons: [{'title': 'yas'}, {'title': 'nah'}],
         requireInteraction: true
     });
 }
-
-/**
- * Placeholder for getting history
- */
-/*function getHistory(){
-    var queryItem = {"text": "", maxResults=4}
-    chrome.history.search(queryItem, (hist) => { return hist; })
-}*/
 
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
@@ -84,12 +76,15 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.tabs.onUpdated.addListener(function () {
     // First, save the opened urls to experience buffer
     //var openTabs = findCurrentTabs();
-    //saveToBuffer(openTabs);
 
+    /*
     chrome.history.search(queryItem, (hist) => {
         return hist;
         // do server things??????????????????????????????????????????????????????????????????????????
     })
+    */
+
+    alert(fetchResponse('helloWorld'));
 
     // If >10 seconds elapsed from lastEntryRead
     /*chrome.storage.sync.get(['EXPBUFF'], function (result) {

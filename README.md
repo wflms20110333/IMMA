@@ -6,13 +6,13 @@
 * `light_requirements.txt` contains a light Windows version of venv; updated by running `pip freeze > light_requirements.txt`. [flask]
 * `full_requirements.txt` also includes things such as Keras libraries to train a model. [keras, matplotlib, tensorflow, flask]
 
-1) Activate your environment with `venv_windows\Scripts\activate.bat` or create a new venv if you don't have one yet
+1) Activate your environment with `venv_windows_train\Scripts\activate.bat` or create a new venv if you don't have one yet
 
 2) Update your virtual environment by running `pip install -f light_requirements.txt` or equivalent command within your intended active environment
 
 ## Running the Server
 
-Run `python server/app.py` and use Postman or similar to test POST requests with JSON including key "data": [0.0, 1.0, 2.0, 3.0] or similar.
+Run `python server/app.py` (can use Postman or similar to test requests)
 
 On Mac: before the first time you run the server, make sure the path is set correctly:
 

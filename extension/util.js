@@ -14,6 +14,7 @@ function getCurrentTime() {
  */
 function fetchResponse(endpoint) {
     console.log('Fetching from ' + endpoint + '...');
+    var SERVER_URL = 'http://127.0.0.1:5000/'; // #todo move back to constants.js & fix importing
     fetch(SERVER_URL + endpoint)
         .then(function(response) {
             // the response of a fetch() request is a Stream object, which means
@@ -23,7 +24,7 @@ function fetchResponse(endpoint) {
             response.json().then(function(data) {
                 // prints each key-value pair in teh returned json
                 for (var propName in data) {
-                    console.log(propName, data[propName]);
+                    sendNotification(propName + "..." + data[propName]);
                 }
             });
         })
