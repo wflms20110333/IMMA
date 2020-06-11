@@ -1,6 +1,6 @@
 from collections import Counter
 from random import choice
-from nn1_code import nnRNN
+from .nn1_code import nnRNN
 import numpy as np
 
 messageBank = {"AMAZING!": [0, 0, 1, 1], "Great job": [0, 0, 0, 1], "You can do this!": [0, 1, 1, 1], "Try harder": [1, 1, 0, 0], "Take a break?": [0, 0, 1, 0]} # (one-hot representations corresponding to impact on 4-vector)

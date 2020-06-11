@@ -84,7 +84,8 @@ chrome.tabs.onUpdated.addListener(function () {
     })
     */
 
-    alert(fetchResponse('helloWorld'));
+   fetchResponse('helloWorld');
+    // alert(fetchResponse('helloWorld'));
 
     // If >10 seconds elapsed from lastEntryRead
     /*chrome.storage.sync.get(['EXPBUFF'], function (result) {
