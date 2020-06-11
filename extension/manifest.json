@@ -10,7 +10,7 @@
     },
     "permissions": ["storage", "activeTab", "tabs", "notifications", "alarms", "history"],
     "web_accessible_resources": [
-        "images/ironman_clear.PNG"
+        "images/ironman_clear.png"
     ],
     "background": {
         "scripts": ["util.js", "background.js"],

@@ -51,22 +51,6 @@ function saveToBuffer(bufferObj) {
 }
 */
 
-/**
- * Sends a placeholder notification (need to turn off focus mode to see pop-up)
- * * @param {* #TODO} content 
- */
-
-function sendNotification(content) {
-    chrome.notifications.create('mozzarella', {
-        type: 'basic',
-        iconUrl: 'images/ironman_clear.PNG',
-        title: 'this imma says',
-        message: content,
-        //buttons: [{'title': 'yas'}, {'title': 'nah'}],
-        requireInteraction: true
-    });
-}
-
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
     // initBuffer(); // Initializes an experience buffer in storage
@@ -83,9 +67,6 @@ chrome.tabs.onUpdated.addListener(function () {
         // do server things??????????????????????????????????????????????????????????????????????????
     })
     */
-
-   fetchResponse('helloWorld');
-    // alert(fetchResponse('helloWorld'));
 
     // If >10 seconds elapsed from lastEntryRead
     /*chrome.storage.sync.get(['EXPBUFF'], function (result) {

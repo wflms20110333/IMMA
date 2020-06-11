@@ -7,26 +7,35 @@ function getCurrentTime() {
 }
 
 /**
- * Fetches from an endpoint, printing the results to console
- * E.g. fetchResponse('helloWorld') fetches from 'http://127.0.0.1:5000/helloWorld'
+ * Sends a placeholder notification (need to turn off focus mode to see pop-up)
+ * @param {string} iconPath the relative path to the icon to display
+ * @param {string} msg the message to display
+ */
+function sendNotification(iconPath, msg) {
+    chrome.notifications.create('mozzarella', {
+        type: 'basic',
+        iconUrl: iconPath,
+        title: 'this imma says',
+        message: msg,
+        //buttons: [{'title': 'yas'}, {'title': 'nah'}],
+        requireInteraction: true
+    });
+}
+
+/**
+ * Fetches from an endpoint, then processes the results with the provided function
+ * E.g. serverQuery('helloWorld') fetches from 'http://127.0.0.1:5000/helloWorld'
  * Assumes the response is in JSON form
  * @param {string} endpoint the endpoint after url (as defined in constants.js)
+ * @param {function} f the function to process the JSON response from fetch()
  */
-function fetchResponse(endpoint) {
+function serverQuery(endpoint, f) {
     console.log('Fetching from ' + endpoint + '...');
-    var SERVER_URL = 'http://127.0.0.1:5000/'; // #todo move back to constants.js & fix importing
-    fetch(SERVER_URL + endpoint)
-        .then(function(response) {
-            // the response of a fetch() request is a Stream object, which means
-            //  that when we call the json() method, a Promise is returned since
-            //  the reading of the stream will happen asynchronously
-            // thus, response.json() can only be called once!
-            response.json().then(function(data) {
-                // prints each key-value pair in teh returned json
-                for (var propName in data) {
-                    sendNotification(propName + "..." + data[propName]);
-                }
-            });
-        })
-        .then(data => {});
+    fetch(SERVER_URL + endpoint).then(function(response) {
+        // the response of a fetch() request is a Stream object, which means
+        //  that when we call the json() method, a Promise is returned since
+        //  the reading of the stream will happen asynchronously
+        // thus, response.json() can only be called once!
+        response.json().then(f);
+    }).then(data => {});
 }
