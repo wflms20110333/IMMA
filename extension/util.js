@@ -64,7 +64,6 @@ function sendNotification(iconPath, msg) {
  */
 function serverQuery(endpoint, f) {
     console.log('Fetching from ' + endpoint + '...');
-    var SERVER_URL = 'http://127.0.0.1:5000/'; // copied over since still invisible? #todo fix
     fetch(SERVER_URL + endpoint).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
         //  that when we call the json() method, a Promise is returned since
@@ -79,7 +78,6 @@ function serverQuery(endpoint, f) {
  */
 function serverPOST(endpoint, inputObject, f) {
     console.log('Fetching from ' + endpoint + '...');
-    var SERVER_URL = 'http://127.0.0.1:5000/'; // copied over since still invisible? #todo fix
     fetch(SERVER_URL + endpoint, {
         method: 'POST',
         headers: {

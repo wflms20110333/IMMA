@@ -13,7 +13,7 @@
         "images/ironman_clear.png"
     ],
     "background": {
-        "scripts": ["util.js", "background.js"],
+        "scripts": ["util.js", "constants.js", "background.js"],
         "persistent": false
     },
     "manifest_version": 2,
