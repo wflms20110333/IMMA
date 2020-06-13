@@ -1,59 +1,24 @@
-/**
- * Get tabs in the current window
- * @param {* #TODO} callback 
- */
-
-function findCurrentTabs(callback) {
-    var queryInfo = { currentWindow: true }; // query parameters
-    chrome.tabs.query(queryInfo, (tabs) => { return tabs; });
-}
-
-/**
- * Initialize an experience buffer to storage (~an array, intended to record the last ~20 URLs/events)
- * Should be able to key in to ['experience'] with indices, e.g. {"5": "google.com"}, with at max 20 indices (#note idk if better way to do this)
- */
-
-/*
-function initBuffer() {
-    var currentTime = getCurrentTime(); // records time as ms, might want to process this? #todo
-    var expBuff = { 'EXPBUFF': { 'experience': { "0": { "window_start": currentTime } }, 'last_index': 0, 'maxsize': 20, 'last_entry_time': currentTime } };
-    // #note: currently saving everything to one experience buffer key, & loading the entire thing every time
-    // but should prob save the separate keys separately? but then things were buggy when I did that so idk, #todo
-    chrome.storage.sync.set(expBuff);
-    console.log("Experience buffer initialized successfully"); // #todo add a debug mode?
-}
-*/
-
-/**
- * Save the specified entity to the experience buffer
- * @param {* #TODO} bufferObj 
- */
-
-/*
-function saveToBuffer(bufferObj) {
-    var currentTime = getCurrentTime();
-
-    chrome.storage.sync.get(['EXPBUFF'], function (items) { // load the experience buffer from storage
-        var expIndex = items['EXPBUFF']['last_index'];
-        var expSize = items['EXPBUFF']['maxsize'];
-
-        var itemCopy = items; // make copy of the experience buffer to alter
-
-        expIndex++; // increment the index to write to
-        if (expIndex > expSize) {
-            expIndex = 0;
+function helloWorld() {
+    console.log('in helloWorld');
+    var data = serverQuery('helloWorld', function(data) {
+        // prints each key-value pair in the returned json
+        for (var propName in data) {
+            sendNotification('../images/ironman_clear.PNG', propName + '... '+ data[propName]);
         }
-
-        itemCopy['EXPBUFF']['experience'][expIndex] = { bufferObj: currentTime }; // add object and time to experience buffer
-        itemCopy['EXPBUFF']['last_index'] = expIndex;
-        chrome.storage.sync.set(itemCopy); // save
     });
 }
-*/
+
+function pickMessage() {
+    console.log('in evaluateState');
+    var testInput = {"hist_for_init":["goo","fb","okok","fb","fb","goo","fb"],"current_tabs":["github","fb"]};
+    var data = serverPOST('evaluateState', testInput, function(data) {
+        sendNotification('../images/ironman_clear.PNG', data["message"]);
+    });
+}
 
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    // initBuffer(); // Initializes an experience buffer in storage
+    pickMessage();
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update
