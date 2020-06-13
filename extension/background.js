@@ -1,4 +1,4 @@
-function helloWorld() {
+/*function helloWorld() {
     console.log('in helloWorld');
     var data = serverQuery('helloWorld', function(data) {
         // prints each key-value pair in the returned json
@@ -6,19 +6,11 @@ function helloWorld() {
             sendNotification('../images/ironman_clear.PNG', propName + '... '+ data[propName]);
         }
     });
-}
-
-function pickMessage() {
-    console.log('in evaluateState');
-    var testInput = {"hist_for_init":["goo","fb","okok","fb","fb","goo","fb"],"current_tabs":["github","fb"]};
-    var data = serverPOST('evaluateState', testInput, function(data) {
-        sendNotification('../images/ironman_clear.PNG', data["message"]);
-    });
-}
+}*/
 
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    pickMessage();
+    findCurrentTabs(pickMessage); // gets current tabs open, then callback to pick a message
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update

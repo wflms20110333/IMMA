@@ -8,12 +8,34 @@ function getCurrentTime() {
 
 /**
  * Get tabs in the current window
- * @param {* #TODO} callback 
+ * @param {function} callback to run with the current tabs as input
  */
-
 function findCurrentTabs(callback) {
-    var queryInfo = { currentWindow: true }; // query parameters
-    chrome.tabs.query(queryInfo, (tabs) => { return tabs; });
+    // using placeholder history-for-initializing right now
+    var tabInfo = {"hist_for_init":["goo","fb","okok","fb","fb","goo","fb"],"current_tabs":[]};
+
+    var queryInfo = { currentWindow: true }; // query parameters for finding tabs
+
+    chrome.tabs.query(queryInfo, (tabs) => {
+        for (var tabIndex in tabs) {
+            var tabUrl = tabs[tabIndex]['url'];
+            // Remove "http", keep only up to 2nd /, get rid of any ? arguments, limit to 100 characters
+            tabUrl = tabUrl.split("//")[1].split("/", 2).join("/").split("?", 1)[0].substring(0, 100);
+            tabInfo["current_tabs"].push(tabUrl);
+        }
+        callback(tabInfo);
+    });
+}
+
+/**
+ * Calls serverPOST to send a notification based on the current state
+ * @param {Object} currentTabs the current tabs open
+ */
+function pickMessage(currentTabs) {
+    console.log('in evaluateState');
+    var data = serverPOST('evaluateState', currentTabs, function(data) {
+        sendNotification('../images/ironman_clear.PNG', data["message"]);
+    });
 }
 
 /**
