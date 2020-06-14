@@ -12,15 +12,15 @@ function getCurrentTime() {
  */
 function findCurrentTabs(callback) {
     // using placeholder history-for-initializing right now
-    var tabInfo = {"hist_for_init":["goo","fb","okok","fb","fb","goo","fb"],"current_tabs":[]};
+    var tabInfo = {"hist_for_init": PLACEHOLDER_SITES, "current_tabs": []};
 
     var queryInfo = { currentWindow: true }; // query parameters for finding tabs
 
     chrome.tabs.query(queryInfo, (tabs) => {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
-            // Remove "http", keep only up to 2nd /, get rid of any ? arguments, limit to 100 characters
-            tabUrl = tabUrl.split("//")[1].split("/", 2).join("/").split("?", 1)[0].substring(0, 100);
+            // Remove "http", keep only up to 1st /, limit to 50 characters
+            tabUrl = tabUrl.split("//")[1].split("/")[0].substring(0, 50);
             tabInfo["current_tabs"].push(tabUrl);
         }
         callback(tabInfo);

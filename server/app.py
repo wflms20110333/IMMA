@@ -44,7 +44,7 @@ def evaluate_state():
     currentState = model.online_predict(vectInput)
     message = ph.pickMessage(currentState)
     
-    message = {"predictedState": str(currentState), "message": message}
+    message = {"modelInput": str(vectInput), "predictedState": str(currentState), "message": message}
     return jsonify(message)
 
 @app.route("/giveQuestion", methods=["POST"]) # not using address-bar params, so block GET requests
