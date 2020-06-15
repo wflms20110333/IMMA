@@ -1,6 +1,6 @@
 from collections import Counter
 from random import choice
-from nn1_code import nnRNN
+from .nn1_code import nnRNN
 import numpy as np
 import random
 from os import linesep # line separator e.g. \r\n
@@ -48,24 +48,32 @@ def pickMessage(state):
             # Control which lines to read
             stripped_line = line.strip()
             if stripped_line == '|messageBank':
-                readingLine == True
+                readingLine = True
             elif stripped_line == '|questionBank':
-                readingLine == False
+                readingLine = False
                 break
 
             # Add valid lines to question bank
             elif readingLine:
                 messageName = stripped_line.split('\t')[0] # get string version of score vector
                 messageScore = stripped_line.split('\t')[1:]
-                messageScore = np.array([np.float32(i) for i in questionScorer]) # convert to nparray
+                messageScore = np.array([np.float32(i) for i in messageScore]) # convert to nparray
                 messageBank.append((messageName, messageScore))
 
-    bestScore = (None, None)
-    for message in messageBank.keys():
-        score = sum([state[i]==messageBank[message][i] for i in range(4)]) # estimated future score
-        #print("DEBUGGGG", state, message, score)
-        if bestScore[1] == None or score > bestScore[1]:
-            bestScore = (message, score)
+    bestScore = (random.choice(messageBank)[0], None) # default to random message
+
+    # Next, going to add the message-input score to the current-input score
+    # Want to maximize scores that are all-around high
+    # Each part of the score is transformed by (-1/x) to penalize scores close to zero
+
+    for message in messageBank:
+        if np.any(state + message[1] <= 0): # don't calculate -1/x since will become very positive
+            pass
+        else:
+            score = sum([  (-1)/(state[i] + message[1][i])  for i in range(4)]) # estimated future score
+            if bestScore[1] == None or score > bestScore[1]:
+                bestScore = (message[0], score)
+
     return bestScore[0]
 
 def pickQuestion():
@@ -89,10 +97,9 @@ def pickQuestion():
                 questionName = stripped_line.split('\t')[0] # get string version of score vector
                 questionScorer = stripped_line.split('\t')[1:]
                 questionScorer = np.array([np.float32(i) for i in questionScorer]) # convert to nparray
-                print("debug", questionName, "no", questionScorer)
+                #print("debug", questionName, "with", questionScorer)
                 availableQuestions.append((questionName, questionScorer))
     
-    print("done??")
     return random.choice(availableQuestions)
 
 def learnFromQuestion(openedSites, questionScore, delta=0.01):
@@ -125,7 +132,7 @@ def learnFromQuestion(openedSites, questionScore, delta=0.01):
 
     return
 
-if __name__ == '__main__': # testing functions
+if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     #print(vectorizeInput(['calendar.google.com', 'translate.google.com']))
     #print(pickQuestion())
     #learnFromQuestion(['calendar.google.com', 'translate.google.com'], np.array([0, 0, 0, -1.0]))

@@ -29,7 +29,7 @@ def evaluate_state():
 
 @app.route("/getQuestion", methods=["POST"])
 def getQuestion():
-    # Pick a question randomly
+    ''' Picks a question randomly '''
     return ph.pickQuestion()
 
 @app.route("/processAnswer", methods=["POST"])
