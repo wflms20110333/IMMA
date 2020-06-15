@@ -12,7 +12,7 @@ function getCurrentTime() {
  */
 function findCurrentTabs(callback) {
     // using placeholder history-for-initializing right now
-    var tabInfo = {"hist_for_init": PLACEHOLDER_SITES, "current_tabs": []};
+    var tabInfo = {"current_tabs": []};
 
     var queryInfo = { currentWindow: true }; // query parameters for finding tabs
 
