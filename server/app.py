@@ -30,7 +30,9 @@ def evaluate_state():
 @app.route("/getQuestion", methods=["POST"])
 def getQuestion():
     ''' Picks a question randomly '''
-    return ph.pickQuestion()
+    pickedQuestion = ph.pickQuestion()
+    message = {"question": pickedQuestion[0], "questionWeight": str(pickedQuestion[1])}
+    return jsonify(message)
 
 @app.route("/processAnswer", methods=["POST"])
 def processAnswer():

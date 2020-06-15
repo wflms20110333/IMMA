@@ -1,6 +1,7 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    findCurrentTabs(pickMessage); // gets current tabs open, then callback to pick and send a message
+    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+    getNewQuestion(); // gets current tabs open, contacts server for question, then sends notification
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update

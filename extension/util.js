@@ -31,10 +31,21 @@ function findCurrentTabs(callback) {
  * Calls serverPOST to send a notification based on the current state
  * @param {Object} currentTabs the current tabs open
  */
-function pickMessage(currentTabs) {
+function sendMessage(currentTabs) {
     console.log('in evaluateState');
     var data = serverPOST('evaluateState', currentTabs, function(data) {
         sendNotification('../images/ironman_clear.PNG', data["message"]);
+    });
+}
+
+/**
+ * Calls serverPOST to get a question to ask the user
+ */
+function getNewQuestion() {
+    console.log('in getQuestion');
+    var nullJSON = {"empty": "empty"};
+    var data = serverPOST('getQuestion', nullJSON, function(data) {
+        sendNotification('../images/ironman_clear.PNG', data["question"]);
     });
 }
 
@@ -75,6 +86,9 @@ function serverQuery(endpoint, f) {
 
 /**
  * See above; function for POSTing with input JSON
+ * @param {string} endpoint the endpoint after url (as defined in constants.js)
+ * @param {Object} inputObject the input JSON object
+ * @param {function} f the function to process the JSON response from fetch()
  */
 function serverPOST(endpoint, inputObject, f) {
     console.log('Fetching from ' + endpoint + '...');
