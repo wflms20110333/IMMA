@@ -3,7 +3,6 @@ from random import choice
 from .nn1_code import nnRNN
 import numpy as np
 import random
-from os import linesep # line separator e.g. \r\n
 
 def initializeNetwork():
     ''' Returns an instance of RNN model '''
