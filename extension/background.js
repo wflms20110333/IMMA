@@ -1,16 +1,6 @@
-/*function helloWorld() {
-    console.log('in helloWorld');
-    var data = serverQuery('helloWorld', function(data) {
-        // prints each key-value pair in the returned json
-        for (var propName in data) {
-            sendNotification('../images/ironman_clear.PNG', propName + '... '+ data[propName]);
-        }
-    });
-}*/
-
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    findCurrentTabs(pickMessage); // gets current tabs open, then callback to pick a message
+    findCurrentTabs(pickMessage); // gets current tabs open, then callback to pick and send a message
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update

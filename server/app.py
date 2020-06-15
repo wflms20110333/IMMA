@@ -10,47 +10,36 @@ cors = CORS(app)
 def hello_world():
     return jsonify({'youDidIt': 'Hello, World! I made some changes :)'})
 
-# load the model, and pass in the custom metric function
-model = None # load_model('model/imma_dqn.h5')
-siteIndex = None
-
-# define a predict function as an endpoint 
-'''
-@app.route("/old_predict", methods=["POST"]) # not using address-bar params, so block GET requests
-def predict():
-    # an example POST: {"data": [[3, 4.5, 2.6, 0.3]]}
-    data = {}
-    inputParams = request.get_json() # get input
-    # inputData = nparray(inputParams['data']) # process input # fix np.array import if use
-    data["prediction"] = str(model.predict(inputData)) # make prediction
-    return jsonify(data) # return prediction in json format
-'''
+# initialize variable for model
+model = ph.initializeNetwork()
 
 @app.route("/evaluateState", methods=["POST"]) # not using address-bar params, so block GET requests
 def evaluate_state():
-    ''' an example POST: {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],
-	"current_tabs": ["github", "fb"]} '''
-    siteIndex = None # #todo this should be a user variable and not reloaded each time
-    model = None # ditto
+    ''' an example POST: {"current_tabs": ["github", "fb"]} '''
+    global model # force to look in module scope not definition scope
     inputParams = request.get_json()
-    if siteIndex == None: # initialize siteIndex if doesn't exist
-        inputData = inputParams['hist_for_init']
-        siteIndex = ph.initializeSiteIndex(inputData)
-    if model == None: # initialize model if doesn't exist
-        model = ph.initializeNetwork()
 
     # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = ph.vectorizeInput(inputParams['current_tabs'], siteIndex)
+    vectInput = ph.vectorizeInput(inputParams['current_tabs'])
     currentState = model.online_predict(vectInput)
     message = ph.pickMessage(currentState)
     
     message = {"modelInput": str(vectInput), "predictedState": str(currentState), "message": message}
     return jsonify(message)
 
-@app.route("/giveQuestion", methods=["POST"]) # not using address-bar params, so block GET requests
-def giveQuestion():
-    #todo pick a question randomly
-    # then process feedback: update messageBank or questionBank or train RNN
-    pass
+@app.route("/getQuestion", methods=["POST"])
+def getQuestion():
+    # Pick a question randomly
+    return ph.pickQuestion()
+
+@app.route("/processAnswer", methods=["POST"])
+def processAnswer():
+    ''' an example POST: {"current_tabs": ["github", "fb"], "last_question_score": [1,0,0,0]} '''
+    inputParams = request.get_json()
+
+    # Update site file
+    ph.learnFromQuestion(inputParams['current_tabs'], inputParams['last_question_score'])
+
+    return jsonify({"success": True})
 
 app.run(debug=True) # host='0.0.0.0' enables remote connections?
