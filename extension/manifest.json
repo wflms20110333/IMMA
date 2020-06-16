@@ -8,7 +8,7 @@
         "48": "images/new_imma_48.png",
         "128": "images/new_imma_128.png"
     },
-    "permissions": ["storage", "activeTab", "tabs", "notifications", "alarms", "history"],
+    "permissions": ["storage", "activeTab", "tabs", "notifications", "history"],
     "web_accessible_resources": [
         "images/ironman_clear.png"
     ],

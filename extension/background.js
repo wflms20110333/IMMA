@@ -1,8 +1,28 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
-    getNewQuestion(); // gets current tabs open, contacts server for question, then sends notification
+    //findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+    sendNewQuestion(); // gets current tabs open, contacts server for question, then sends notification
 });
+
+// User responds to a question notification
+chrome.notifications.onButtonClicked.addListener(function (notificationID, buttonIndex) {
+    // string notificationId, integer buttonIndex
+
+    // Check if the notification type is that of a question
+    if (notificationID == "Notif_Question") {
+        // If so, run the training procedure with feedback
+        chrome.storage.sync.get(['LAST_QUESTION_WEIGHT'], function (questionWeight) {
+            var lastEntryTime = result['EXPBUFF']['last_entry_time'];
+            if (currentTime - lastEntryTime > 10000) {
+                console.log(lastEntryTime); // debug
+                // query the server for result
+                // aaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAA how to???
+                // if result is positive, display notification, update experience buffer
+                sendNotification(); // debug
+            }
+        });
+    }
+}
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update
 chrome.tabs.onUpdated.addListener(function () {

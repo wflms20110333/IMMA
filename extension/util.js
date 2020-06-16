@@ -29,38 +29,64 @@ function findCurrentTabs(callback) {
 
 /**
  * Calls serverPOST to send a notification based on the current state
- * @param {Object} currentTabs the current tabs open
+ * @param {Object} currentTabs json of the current tabs open
  */
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
     var data = serverPOST('evaluateState', currentTabs, function(data) {
-        sendNotification('../images/ironman_clear.PNG', data["message"]);
+        sendNotification(data["message"]);
     });
 }
 
 /**
  * Calls serverPOST to get a question to ask the user
  */
-function getNewQuestion() {
-    console.log('in getQuestion');
+function sendNewQuestion() {
+    console.log('in sendNewQuestion');
     var nullJSON = {"empty": "empty"};
     var data = serverPOST('getQuestion', nullJSON, function(data) {
-        sendNotification('../images/ironman_clear.PNG', data["question"]);
+        sendNotifQuestion(data["question"]);
     });
 }
 
 /**
- * Sends a placeholder notification (need to turn off focus mode to see pop-up)
- * @param {string} iconPath the relative path to the icon to display
- * @param {string} msg the message to display
+ * Calls serverPOST to update using question weights
+ * @param {Array} currentTabs list of the current tabs open
+ * @param {Array} lastQuestionWeights array of the last given question's weights
  */
-function sendNotification(iconPath, msg) {
-    chrome.notifications.create('mozzarella', {
+function updateWithAnswer(lastTabs, lastQuestionWeights) {
+    console.log('in updateWithAnswer');
+    var json_obj = {"current_tabs": lastTabs, "last_question_score": lastQuestionWeights};
+    var data = serverPOST('processAnswer', json_obj, null);
+}
+
+/**
+ * Sends a notification to the user
+ * @param {string} msg the message to display
+ * https://developer.chrome.com/apps/notifications for more information
+ */
+function sendNotification(msg) {
+    chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
-        iconUrl: iconPath,
-        title: 'this imma says',
+        iconUrl: '../images/ironman_clear.png',
+        title: '#TODO LOAD FROM CHROME MEMORY INSTEAD',
         message: msg,
-        //buttons: [{'title': 'yas'}, {'title': 'nah'}],
+        priority: 2,
+        requireInteraction: true // #TODO make this a user preference
+    });
+}
+
+/**
+ * Sends a notification to the user, & has answer buttons
+ * @param {string} msg the question to display
+ */
+function sendNotifQuestion(msg) {
+    chrome.notifications.create('Notif_Question', { // <= notification ID
+        type: 'basic',
+        iconUrl: '../images/ironman_clear.png',
+        title: '#TODO LOAD FROM CHROME MEMORY INSTEAD',
+        message: msg,
+        buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,
         requireInteraction: true
     });

@@ -1,12 +1,23 @@
-|messageBank
-AMAZING!	 0	0	1	1
-Great job	0	0	0	1
-You can do this!	0	1	1	1
-Try harder	1	1	0	0
-Take a break?	0	0	1	0
-|questionBank
-Are you paying attention?	1	0	0	0
-Are you focused?	 0	1	0	0
-Are you energized?	0	0	1	0
-Are you happy?	0	0	0	1
-|end
+{
+    "information": {
+        "name": "Iron Man",
+        "imageLink": "images/ironman_clear.png",
+        "catchphrase": "go to bed or I'll sell all your toys"
+    },
+
+    "messageBank": {
+        "Amazing!": [0, 0, 1, 1],
+        "Great job!": [0, 0, 0, 1],
+        "You can do this!": [0, 1, 1, 1],
+        "Try harder": [1, 1, 0, 0],
+        "Take a break?": [0, 0, 1, 0]
+    },
+
+    "questionBank": {
+        "Are you paying attention?": [1, 0, 0, 0],
+        "Are you focused?": [0, 1, 0, 0],
+        "Are you energized?": [0, 0, 1, 0],
+        "Are you happy?": [0, 0, 0, 1]
+    }
+
+}

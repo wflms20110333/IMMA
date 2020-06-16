@@ -3,26 +3,35 @@ from random import choice
 from .nn1_code import nnRNN
 import numpy as np
 import random
+import json
 
 def initializeNetwork():
     ''' Returns an instance of RNN model '''
+
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
     return myRNN # #todo return only weights
 
-def vectorizeInput(openedSites):
-    ''' Given a set of currently opened tabs e.g. ['calendar.google.com', 'translate.google.com']
-    Then use a site-scoring file like 001.usersetting to generate a vector
-    An example result  [0 .6 0 0 .3 0 0 0 ... 0 0 0 .5
+def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"):
+    ''' Creates an array of numbers from a given list of sites
+
+    openedSites -- a set of currently opened tabs e.g. ['calendar.google.com', 'translate.google.com']
+
+    userSettingFile -- a site-scoring file containing stats for each possible site
+
+    Returns an array, e.g.
+                        [0 .6 0 0 .3 0 0 0 ... 0 0 0 .5
                         0 .2 0 0 .1 0 0 0 ... 0 0 0 .2
                         0 .3 0 0 .1 0 0 0 ... 0 0 0 .9
                         0 .9 0 0 .1 0 0 0 ... 0 0 0 .7]
     '''
+    # TODO where to host user setting files?
+
     # Initialize an array of zeroes
     vectInput = np.zeros((1, 4, 30))
 
     # Load list of the user's possible sites & their scores for that site into allSites
     #TODO avoid rereading the whole file each time?
-    with open("server/model/001.usersetting","r") as f:
+    with open(userSettingFile,"r") as f:
         allSites = [line.rstrip() for line in f]
 
     # For each opened site, set its entry in vectInput to the relevant score vector
@@ -35,71 +44,50 @@ def vectorizeInput(openedSites):
     return vectInput
 
 def pickMessage(state):
-    ''' Input is 4-vector of [attention, focus, energy, positivity], output is an action vector that maximizes the state change '''
+    ''' Picks which message will maximize predicted positive state change
+
+    state -- a 4-vector of [attention, focus, energy, positivity]
+
+    Returns a string '''
+
     #TODO replace with DQN, this is placeholder for now?
     #TODO avoid rereading the whole file each time?
     #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
 
-    messageBank = []
-    readingLine = False
-    with open("server/model/001.imma", "r") as f:
-        for line in f:
-            # Control which lines to read
-            stripped_line = line.strip()
-            if stripped_line == '|messageBank':
-                readingLine = True
-            elif stripped_line == '|questionBank':
-                readingLine = False
-                break
+    with open("server/model/001.imma", "r") as json_file: # load bank of messages
+        data = json.load(json_file)
+        messageBank = data["messageBank"]
 
-            # Add valid lines to question bank
-            elif readingLine:
-                messageName = stripped_line.split('\t')[0] # get string version of score vector
-                messageScore = stripped_line.split('\t')[1:]
-                messageScore = np.array([np.float32(i) for i in messageScore]) # convert to nparray
-                messageBank.append((messageName, messageScore))
+    randomMessage = random.choice(list(messageBank.keys()))
+    bestScore = (randomMessage, None) # default to random message
 
-    bestScore = (random.choice(messageBank)[0], None) # default to random message
-
-    # Next, going to add the message-input score to the current-input score
+    # Next, going to add the message-input score to the current-state score
     # Want to maximize scores that are all-around high
     # Each part of the score is transformed by (-1/x) to penalize scores close to zero
 
-    for message in messageBank:
-        if np.any(state + message[1] <= 0): # don't calculate -1/x since will become very positive
-            pass
+    for message in messageBank.keys():
+        if np.any(state + messageBank[message] <= 0): # don't calculate -1/x since will become very positive
+            pass # assume that result with a negative component is not a good result
         else:
-            score = sum([  (-1)/(state[i] + message[1][i])  for i in range(4)]) # estimated future score
+            score = sum([  (-1)/(state[i] + messageBank[message][i])  for i in range(4)]) # estimated -1/x future score
             if bestScore[1] == None or score > bestScore[1]:
-                bestScore = (message[0], score)
+                bestScore = (message, score)
 
-    return bestScore[0]
+    return bestScore[0] # return the best message
 
 def pickQuestion():
-    ''' Pick a random question, e.g. Are you paying attention?, and return that along with question's score vector'''
+    ''' Picks a random question and also gives its corresponding predicted impact
+    
+    Returns a string and an array '''
     #TODO avoid rereading the whole file each time?
 
-    availableQuestions = []
-    readingLine = False
-    with open("server/model/001.imma", "r") as f:
-        for line in f:
-            # Control which lines to read
-            stripped_line = line.strip()
-            if stripped_line == '|questionBank':
-                readingLine = True
-            elif stripped_line == '|end':
-                readingLine = False
-                break
+    with open("server/model/001.imma", "r") as json_file:
+        data = json.load(json_file)
+        questionBank = data["questionBank"]
 
-            # Add valid lines to question bank
-            elif readingLine:
-                questionName = stripped_line.split('\t')[0] # get string version of score vector
-                questionScorer = stripped_line.split('\t')[1:]
-                questionScorer = np.array([np.float32(i) for i in questionScorer]) # convert to nparray
-                #print("debug", questionName, "with", questionScorer)
-                availableQuestions.append((questionName, questionScorer))
+    randomQuestion = random.choice(list(questionBank.keys()))
     
-    return random.choice(availableQuestions)
+    return (randomQuestion, questionBank[randomQuestion])
 
 def learnFromQuestion(openedSites, questionScore, delta=0.01):
     ''' Given a question score vector like [1 0 0 0]
