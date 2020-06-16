@@ -1,8 +1,6 @@
 # IMMA
 
-![Rilakkuma message](readme_img1.PNG)
-
-![Shia message](readme_img2.PNG)
+![Rilakkuma message](readme_img1.PNG) ![Shia message](readme_img2.PNG)
 
 * `docs/` contains code for the main website
 * `extension/` contains code for the chrome extension (client)
