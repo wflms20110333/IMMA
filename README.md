@@ -1,5 +1,6 @@
 # IMMA
 
+* `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server
 * `model/` contains code for the ML model
