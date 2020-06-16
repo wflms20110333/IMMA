@@ -1,0 +1,24 @@
+{
+    "information": {
+        "name": "Iron Man",
+        "imageLink": "images/001_ironman.png",
+		"class": "superhero",
+		"description": "A Marvel superhero and a founding member of the Avengers, Iron Man is known for his bravery and his genius intellect.",
+        "catchphrase": "Go to bed, or I'll sell all your toys"
+    },
+
+    "messageBank": {
+        "Not bad!": [0, 0, 0, 1],
+        "You can do this!": [0.5, 0, 0, 0.5],
+        "Getting better! Keep going.": [1, 0, 0, 0],
+        "Hm, impressive!": [0, 0, 1, 0]
+    },
+
+    "questionBank": {
+        "Are you paying attention?": [1, 0, 0, 0],
+        "Are you focused?": [0, 1, 0, 0],
+        "Are you energized?": [0, 0, 1, 0],
+        "Are you happy?": [0, 0, 0, 1]
+    }
+
+}

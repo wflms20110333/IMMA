@@ -22,20 +22,20 @@ def evaluate_state():
     # convert current urls opened into vector, feed into RNN, and choose message
     vectInput = ph.vectorizeInput(inputParams['current_tabs'])
     currentState = model.online_predict(vectInput)
-    message = ph.pickMessage(currentState)
-    
-    message = {"modelInput": str(vectInput), "predictedState": str(currentState), "message": message}
+    message, imName = ph.pickMessage(currentState, inputParams['imma_name'])
+    message = {"modelInput": str(vectInput), "predictedState": str(currentState), "message": message, "imma_name": imName}
     return jsonify(message)
 
 @app.route("/getQuestion", methods=["POST"])
-def getQuestion():
+def get_question():
     ''' Picks a question randomly '''
-    pickedQuestion = ph.pickQuestion()
-    message = {"question": pickedQuestion[0], "questionWeight": pickedQuestion[1]}
+    inputParams = request.get_json()
+    pickedQuestion, questionWeight, imName = ph.pickQuestion(inputParams['imma_name'])
+    message = {"question": pickedQuestion, "questionWeight": questionWeight, "imma_name": imName}
     return jsonify(message)
 
 @app.route("/processAnswer", methods=["POST"])
-def processAnswer():
+def process_answer():
     ''' Given the weights of the last question & the user's answer (#TODO), update the site scores of the user
     An example POST: {"current_tabs": ["github", "fb"], "last_question_score": [1,0,0,0]} '''
     inputParams = request.get_json()

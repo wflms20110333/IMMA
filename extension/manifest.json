@@ -10,7 +10,11 @@
     },
     "permissions": ["storage", "activeTab", "tabs", "notifications", "history"],
     "web_accessible_resources": [
-        "images/ironman_clear.png"
+        "images/character images/001_ironman.png",
+        "images/character images/002_hoshi.png",
+        "images/character images/003_rilakkuma.png",
+        "images/character images/004_shia.png",
+        "images/character images/005_moana.png"
     ],
     "background": {
         "scripts": ["util.js", "constants.js", "background.js"],

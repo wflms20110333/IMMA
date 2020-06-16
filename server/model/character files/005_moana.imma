@@ -1,0 +1,24 @@
+{
+    "information": {
+        "name": "Moana",
+        "imageLink": "images/005_moana.png",
+		"class": "princess",
+		"description": "Moana is a fearless voyager, courageous and empathetic, with big dreams and a love for the ocean.",
+        "catchphrase": "Lead with pride!"
+    },
+
+    "messageBank": {
+        "Don't give up!": [0, 0.5, 0.5, 0],
+		"You've got this!": [0, 0, 0.5, 0.5],
+		"Focus!": [0, 0, 1, 0],
+		"Great job!": [0.5, 0, 0.5, 0]
+    },
+
+    "questionBank": {
+        "Are you paying attention?": [1, 0, 0, 0],
+        "Are you focused?": [0, 1, 0, 0],
+        "Are you energized?": [0, 0, 1, 0],
+        "Are you happy?": [0, 0, 0, 1]
+    }
+
+}

@@ -43,20 +43,25 @@ def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"
 
     return vectInput
 
-def pickMessage(state):
+def pickMessage(state, immaName):
     ''' Picks which message will maximize predicted positive state change
 
     state -- a 4-vector of [attention, focus, energy, positivity]
 
-    Returns a string '''
+    immaName -- the name of the current active character
+
+    Returns the message (string), and the full character name (string) '''
 
     #TODO replace with DQN, this is placeholder for now?
     #TODO avoid rereading the whole file each time?
     #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
 
-    with open("server/model/001.imma", "r") as json_file: # load bank of messages
+    #TODO add more randomness!
+
+    with open("server/model/character files/"+immaName+".imma", "r") as json_file: # load bank of messages
         data = json.load(json_file)
         messageBank = data["messageBank"]
+        imName = data["information"]["name"]
 
     randomMessage = random.choice(list(messageBank.keys()))
     bestScore = (randomMessage, None) # default to random message
@@ -73,21 +78,24 @@ def pickMessage(state):
             if bestScore[1] == None or score > bestScore[1]:
                 bestScore = (message, score)
 
-    return bestScore[0] # return the best message
+    return bestScore[0], imName # return the best message
 
-def pickQuestion():
+def pickQuestion(immaName):
     ''' Picks a random question and also gives its corresponding predicted impact
 
-    Returns a string and an array '''
+    immaName -- the name of the current active character
+
+    Returns the question (string), the question weights (array), and the full character name (string) '''
     #TODO avoid rereading the whole file each time?
 
-    with open("server/model/001.imma", "r") as json_file:
+    with open("server/model/character files/"+immaName+".imma", "r") as json_file:
         data = json.load(json_file)
         questionBank = data["questionBank"]
+        imName = data["information"]["name"]
 
     randomQuestion = random.choice(list(questionBank.keys()))
     
-    return (randomQuestion, questionBank[randomQuestion])
+    return randomQuestion, questionBank[randomQuestion], imName
 
 def learnFromQuestion(openedSites, questionScore, delta=0.01):
     ''' Given a question score vector, update each relevant site score by +/- delta

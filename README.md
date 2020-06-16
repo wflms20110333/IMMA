@@ -27,3 +27,8 @@ flask run
 ```
 
 This will launch the server at `http://127.0.0.1:5000/`.
+
+chrome extension storage stuff:
+imma_name: the filename of the current, active character
+last_tabs: the tabs the user last had open
+last_q_weight: the score of the last question given

@@ -1,5 +1,14 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
+    chrome.storage.sync.set({'imma_name': "003_rilakkuma"});
+    /* available options
+     * 001_ironman
+     * 002_hoshi
+     * 003_rilakkuma
+     * 004_shia
+     * 005_moana
+     */
+
     //findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
     sendNewQuestion(); // gets current tabs open, contacts server for question, then sends notification
 });

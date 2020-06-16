@@ -32,8 +32,12 @@ function findCurrentTabs(callback) {
  */
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
-    serverPOST('evaluateState', currentTabs, function(data) {
-        sendNotification(data["message"]);
+
+    chrome.storage.sync.get(['imma_name'], function (result) {
+        currentTabs["imma_name"] = result['imma_name']; // append imma name information
+        serverPOST('evaluateState', currentTabs, function(data) {
+            sendNotification(data["message"], data['imma_name'], result['imma_name']);
+        });
     });
 }
 
@@ -42,11 +46,14 @@ function sendMessage(currentTabs) {
  */
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
-    var nullJSON = {"empty": "empty"};
-    serverPOST('getQuestion', nullJSON, function(data) {
-        sendNotifQuestion(data["question"]);
-        chrome.storage.sync.set({'last_q_weight': data["questionWeight"]});
-    });
+
+    chrome.storage.sync.get(['imma_name'], function (result) {
+        var immaName = {"imma_name": result['imma_name']}; // pass on imma name information
+        serverPOST('getQuestion', immaName, function(data) {
+            sendNotifQuestion(data["question"], data['imma_name'], result['imma_name']);
+            chrome.storage.sync.set({'last_q_weight': data["questionWeight"]});
+        });
+    }); 
 }
 
 /**
@@ -68,11 +75,11 @@ function updateWithAnswer(buttonIndex) {
  * @param {string} msg the message to display
  * https://developer.chrome.com/apps/notifications for more information
  */
-function sendNotification(msg) {
+function sendNotification(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
-        iconUrl: '../images/ironman_clear.png',
-        title: '#TODO LOAD FROM CHROME MEMORY INSTEAD',
+        iconUrl: '../images/character images/'+immaFilename+'.png',
+        title: immaName + ":",
         message: msg,
         priority: 2,
         requireInteraction: true // #TODO make this a user preference
@@ -83,11 +90,11 @@ function sendNotification(msg) {
  * Sends a notification to the user, & has answer buttons
  * @param {string} msg the question to display
  */
-function sendNotifQuestion(msg) {
+function sendNotifQuestion(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
-        iconUrl: '../images/ironman_clear.png',
-        title: '#TODO LOAD FROM CHROME MEMORY INSTEAD',
+        iconUrl: '../images/character images/'+immaFilename+'.png',
+        title: immaName + ":",
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,
