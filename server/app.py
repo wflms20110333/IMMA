@@ -26,8 +26,8 @@ def predict():
     return jsonify(data) # return prediction in json format
 '''
 
-@app.route("/evaluate_state", methods=["POST"]) # not using address-bar params, so block GET requests
-def evalState():
+@app.route("/evaluateState", methods=["POST"]) # not using address-bar params, so block GET requests
+def evaluate_state():
     ''' an example POST: {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],
 	"current_tabs": ["github", "fb"]} '''
     siteIndex = None # #todo this should be a user variable and not reloaded each time
@@ -44,10 +44,10 @@ def evalState():
     currentState = model.online_predict(vectInput)
     message = ph.pickMessage(currentState)
     
-    message = {"predictedState": str(currentState), "message": message}
+    message = {"modelInput": str(vectInput), "predictedState": str(currentState), "message": message}
     return jsonify(message)
 
-@app.route("/give_question", methods=["POST"]) # not using address-bar params, so block GET requests
+@app.route("/giveQuestion", methods=["POST"]) # not using address-bar params, so block GET requests
 def giveQuestion():
     #todo pick a question randomly
     # then process feedback: update messageBank or questionBank or train RNN

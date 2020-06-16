@@ -1,25 +1,25 @@
 {
-    "name": "imma draft",
-    "version": "1.01",
-    "description": "basic draft thing of imma",
+    "name": "IMMA",
+    "version": "1.02",
+    "description": "A customizable AI friend to accompany you and keep you motivated! (???)",
     "icons": {
-        "16": "images/imma_16.png",
-        "32": "images/imma_32.png",
-        "48": "images/imma_48.png",
-        "128": "images/imma_128.png"
+        "16": "images/new_imma_16.png",
+        "32": "images/new_imma_32.png",
+        "48": "images/new_imma_48.png",
+        "128": "images/new_imma_128.png"
     },
     "permissions": ["storage", "activeTab", "tabs", "notifications", "alarms", "history"],
     "web_accessible_resources": [
         "images/ironman_clear.png"
     ],
     "background": {
-        "scripts": ["util.js", "background.js"],
+        "scripts": ["util.js", "constants.js", "background.js"],
         "persistent": false
     },
     "manifest_version": 2,
     "browser_action": {
         "default_title": "IMMA",
-        "default_icon": "images/imma_32.png",
+        "default_icon": "images/new_imma_32.png",
         "default_popup": "popup/popup.html"
     }
 }
