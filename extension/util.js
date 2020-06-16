@@ -7,13 +7,11 @@ function getCurrentTime() {
 }
 
 /**
- * Get tabs in the current window
+ * Returns {"current_tabs": tabs in the current window} & updates memory of last opened tabs
  * @param {function} callback to run with the current tabs as input
  */
 function findCurrentTabs(callback) {
-    // using placeholder history-for-initializing right now
     var tabInfo = {"current_tabs": []};
-
     var queryInfo = { currentWindow: true }; // query parameters for finding tabs
 
     chrome.tabs.query(queryInfo, (tabs) => {
@@ -23,41 +21,46 @@ function findCurrentTabs(callback) {
             tabUrl = tabUrl.split("//")[1].split("/")[0].substring(0, 50);
             tabInfo["current_tabs"].push(tabUrl);
         }
+        chrome.storage.sync.set({'last_tabs': tabInfo["current_tabs"]});
         callback(tabInfo);
     });
 }
 
 /**
- * Calls serverPOST to send a notification based on the current state
+ * Calls serverPOST to pick a good notification, then sends that notification
  * @param {Object} currentTabs json of the current tabs open
  */
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
-    var data = serverPOST('evaluateState', currentTabs, function(data) {
+    serverPOST('evaluateState', currentTabs, function(data) {
         sendNotification(data["message"]);
     });
 }
 
 /**
- * Calls serverPOST to get a question to ask the user
+ * Calls serverPOST to pick a question, then sends that question & updates memory of last question stats
  */
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
     var nullJSON = {"empty": "empty"};
-    var data = serverPOST('getQuestion', nullJSON, function(data) {
+    serverPOST('getQuestion', nullJSON, function(data) {
         sendNotifQuestion(data["question"]);
+        chrome.storage.sync.set({'last_q_weight': data["questionWeight"]});
     });
 }
 
 /**
- * Calls serverPOST to update using question weights
- * @param {Array} currentTabs list of the current tabs open
- * @param {Array} lastQuestionWeights array of the last given question's weights
+ * Calls serverPOST to update using memory's last tabs and last question weights
  */
-function updateWithAnswer(lastTabs, lastQuestionWeights) {
+function updateWithAnswer(buttonIndex) {
     console.log('in updateWithAnswer');
-    var json_obj = {"current_tabs": lastTabs, "last_question_score": lastQuestionWeights};
-    var data = serverPOST('processAnswer', json_obj, null);
+    chrome.storage.sync.get(['last_tabs', 'last_q_weight'], function (result) {
+        var qWeights = result['last_q_weight'];
+        result['last_q_weight'] = qWeights.map(function(element) { // multiply by +1 or -1
+            return element*buttonIndex;
+        });
+        serverPOST('processAnswer', result, null);
+    });
 }
 
 /**
@@ -93,6 +96,7 @@ function sendNotifQuestion(msg) {
 }
 
 /**
+ * UNUSED
  * Fetches from an endpoint, then processes the results with the provided function
  * E.g. serverQuery('helloWorld') fetches from 'http://127.0.0.1:5000/helloWorld'
  * Assumes the response is in JSON form
@@ -126,8 +130,8 @@ function serverPOST(endpoint, inputObject, f) {
         body: JSON.stringify(inputObject),
     }).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
-        //  that when we call the json() method, a Promise is returned since
-        //  the reading of the stream will happen asynchronously
+        // that when we call the json() method, a Promise is returned since
+        // the reading of the stream will happen asynchronously
         // thus, response.json() can only be called once!
         response.json().then(f);
     }).then(data => {});

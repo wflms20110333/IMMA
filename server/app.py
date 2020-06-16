@@ -31,7 +31,7 @@ def evaluate_state():
 def getQuestion():
     ''' Picks a question randomly '''
     pickedQuestion = ph.pickQuestion()
-    message = {"question": pickedQuestion[0], "questionWeight": str(pickedQuestion[1])}
+    message = {"question": pickedQuestion[0], "questionWeight": pickedQuestion[1]}
     return jsonify(message)
 
 @app.route("/processAnswer", methods=["POST"])
@@ -41,7 +41,7 @@ def processAnswer():
     inputParams = request.get_json()
 
     # Update site file
-    ph.learnFromQuestion(inputParams['current_tabs'], inputParams['last_question_score'])
+    ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'])
 
     return jsonify({"success": True})
 

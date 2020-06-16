@@ -77,7 +77,7 @@ def pickMessage(state):
 
 def pickQuestion():
     ''' Picks a random question and also gives its corresponding predicted impact
-    
+
     Returns a string and an array '''
     #TODO avoid rereading the whole file each time?
 
@@ -90,27 +90,26 @@ def pickQuestion():
     return (randomQuestion, questionBank[randomQuestion])
 
 def learnFromQuestion(openedSites, questionScore, delta=0.01):
-    ''' Given a question score vector like [1 0 0 0]
-    Then update site score of each vector by +/- delta, e.g. for delta = 0.3 and negative answer
-                       [0 .3 0 0 .0 0 0 0 ... 0 0 0 .2
-                        0 .2 0 0 .1 0 0 0 ... 0 0 0 .2
-                        0 .3 0 0 .1 0 0 0 ... 0 0 0 .9
-                        0 .9 0 0 .1 0 0 0 ... 0 0 0 .7]
-    '''
+    ''' Given a question score vector, update each relevant site score by +/- delta
+
+    openedSites -- a set of the last opened tabs e.g. ['calendar.google.com', 'translate.google.com']
+
+    questionScore -- an array, the weights of the last question given
+
+    delta -- how much to adjust site scores by '''
+
     #TODO avoid rereading the whole file each time?
     with open("server/model/001.usersetting","r") as f:
         allSites = [line.rstrip() for line in f]
-    #print("list of", len(allSites), allSites[:5])
 
     # For each opened site, change its score vector
-    #TODO use chrome memory saving instead of text file
+    #TODO use chrome memory saving instead of text file?
     with open("server/model/001.usersetting", "w") as f:
         for i, ithSite in enumerate(allSites):
             if ithSite.split('\t')[0] in openedSites: # write the different score vector
                 prevScoreVector = ithSite.strip().split('\t')[1:] # get string version of previous score vector
                 prevScoreVector = np.array([np.float32(i) for i in prevScoreVector]) # convert to nparray
-                #print(type(prevScoreVector), type(questionScore), type(delta))
-                scoreVector = np.around(prevScoreVector - (questionScore * delta), decimals=4) # subtract question score
+                scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
 
                 f.write(ithSite.split('\t')[0] + '\t' + '\t'.join(str(z) for z in scoreVector) + '\n') # convert back to string
 
@@ -120,7 +119,4 @@ def learnFromQuestion(openedSites, questionScore, delta=0.01):
     return
 
 if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
-    #print(vectorizeInput(['calendar.google.com', 'translate.google.com']))
-    #print(pickQuestion())
-    #learnFromQuestion(['calendar.google.com', 'translate.google.com'], np.array([0, 0, 0, -1.0]))
     print("done")
