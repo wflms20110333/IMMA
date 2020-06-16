@@ -33,6 +33,8 @@ function findCurrentTabs(callback) {
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
 
+    // #TODO make a list of everything that's kept in storage & put it in the readme
+
     chrome.storage.sync.get(['imma_name'], function (result) {
         currentTabs["imma_name"] = result['imma_name']; // append imma name information
         serverPOST('evaluateState', currentTabs, function(data) {
