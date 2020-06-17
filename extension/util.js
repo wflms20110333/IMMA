@@ -11,17 +11,17 @@ function getCurrentTime() {
  * @param {function} callback to run with the current tabs as input
  */
 function findCurrentTabs(callback) {
-    var tabInfo = {"current_tabs": []};
+    var tabInfo = {'current_tabs': []};
     var queryInfo = { currentWindow: true }; // query parameters for finding tabs
 
     chrome.tabs.query(queryInfo, (tabs) => {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
             // Remove "http", keep only up to 1st /, limit to 50 characters
-            tabUrl = tabUrl.split("//")[1].split("/")[0].substring(0, 50);
-            tabInfo["current_tabs"].push(tabUrl);
+            tabUrl = tabUrl.split('//')[1].split('/')[0].substring(0, 50);
+            tabInfo['current_tabs'].push(tabUrl);
         }
-        chrome.storage.sync.set({'last_tabs': tabInfo["current_tabs"]});
+        chrome.storage.sync.set({'last_tabs': tabInfo['current_tabs']});
         callback(tabInfo);
     });
 }
@@ -36,9 +36,9 @@ function sendMessage(currentTabs) {
     // #TODO make a list of everything that's kept in storage & put it in the readme
 
     chrome.storage.sync.get(['imma_name'], function (result) {
-        currentTabs["imma_name"] = result['imma_name']; // append imma name information
+        currentTabs['imma_name'] = result['imma_name']; // append imma name information
         serverPOST('evaluateState', currentTabs, function(data) {
-            sendNotification(data["message"], data['imma_name'], result['imma_name']);
+            sendNotification(data['message'], data['imma_name'], result['imma_name']);
         });
     });
 }
@@ -50,10 +50,10 @@ function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
     chrome.storage.sync.get(['imma_name'], function (result) {
-        var immaName = {"imma_name": result['imma_name']}; // pass on imma name information
+        var immaName = {'imma_name': result['imma_name']}; // pass on imma name information
         serverPOST('getQuestion', immaName, function(data) {
-            sendNotifQuestion(data["question"], data['imma_name'], result['imma_name']);
-            chrome.storage.sync.set({'last_q_weight': data["questionWeight"]});
+            sendNotifQuestion(data['question'], data['imma_name'], result['imma_name']);
+            chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
         });
     }); 
 }
@@ -80,8 +80,8 @@ function updateWithAnswer(buttonIndex) {
 function sendNotification(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
-        iconUrl: '../images/character images/'+immaFilename+'.png',
-        title: immaName + ":",
+        iconUrl: "../images/character images/"+immaFilename+".png",
+        title: immaName + ':',
         message: msg,
         priority: 2,
         requireInteraction: true // #TODO make this a user preference
@@ -95,8 +95,8 @@ function sendNotification(msg, immaName, immaFilename) {
 function sendNotifQuestion(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
-        iconUrl: '../images/character images/'+immaFilename+'.png',
-        title: immaName + ":",
+        iconUrl: "../images/character images/"+immaFilename+".png",
+        title: immaName + ':',
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,
@@ -113,7 +113,7 @@ function sendNotifQuestion(msg, immaName, immaFilename) {
  * @param {function} f the function to process the JSON response from fetch()
  */
 function serverQuery(endpoint, f) {
-    console.log('Fetching from ' + endpoint + '...');
+    console.log("Fetching from " + endpoint + "...");
     fetch(SERVER_URL + endpoint).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
         //  that when we call the json() method, a Promise is returned since
@@ -130,7 +130,7 @@ function serverQuery(endpoint, f) {
  * @param {function} f the function to process the JSON response from fetch()
  */
 function serverPOST(endpoint, inputObject, f) {
-    console.log('Fetching from ' + endpoint + '...');
+    console.log("Fetching from " + endpoint + "...");
     fetch(SERVER_URL + endpoint, {
         method: 'POST',
         headers: {

@@ -6,15 +6,15 @@ import random
 import json
 
 def initializeNetwork():
-    ''' Returns an instance of RNN model '''
+    """ Returns an instance of RNN model """
 
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
     return myRNN
 
 def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"):
-    ''' Creates an array of numbers from a given list of sites
+    """ Creates an array of numbers from a given list of sites
 
-    openedSites -- a set of currently opened tabs e.g. ['calendar.google.com', 'translate.google.com']
+    openedSites -- a set of currently opened tabs e.g. ["calendar.google.com", "translate.google.com"]
 
     userSettingFile -- a site-scoring file containing stats for each possible site
 
@@ -23,7 +23,7 @@ def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"
                         0 .2 0 0 .1 0 0 0 ... 0 0 0 .2
                         0 .3 0 0 .1 0 0 0 ... 0 0 0 .9
                         0 .9 0 0 .1 0 0 0 ... 0 0 0 .7]
-    '''
+    """
     # TODO where to host user setting files?
 
     # Initialize an array of zeroes
@@ -31,7 +31,7 @@ def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"
 
     # Load list of the user's possible sites & their scores for that site into allSites
     #TODO avoid rereading the whole file each time?
-    with open(userSettingFile,"r") as f:
+    with open(userSettingFile,'r') as f:
         allSites = [line.rstrip() for line in f]
 
     # For each opened site, set its entry in vectInput to the relevant score vector
@@ -44,23 +44,23 @@ def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"
     return vectInput
 
 def pickMessage(state, immaName):
-    ''' Picks which message will maximize predicted positive state change
+    """ Picks which message will maximize predicted positive state change
 
     state -- a 4-vector of [attention, focus, energy, positivity]
 
     immaName -- the name of the current active character
 
-    Returns the message (string), and the full character name (string) '''
+    Returns the message (string), and the full character name (string) """
 
     #TODO replace with DQN, this is placeholder for now?
     #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
 
     #TODO add more randomness!
 
-    with open("server/model/character files/"+immaName+".imma", "r") as json_file: # load bank of messages
+    with open("server/model/character files/"+immaName+".imma", 'r') as json_file: # load bank of messages
         data = json.load(json_file)
-        messageBank = data["messageBank"]
-        imName = data["information"]["name"]
+        messageBank = data['messageBank']
+        imName = data['information']['name']
 
     randomMessage = random.choice(list(messageBank.keys()))
     bestScore = (randomMessage, None) # default to random message
@@ -80,38 +80,38 @@ def pickMessage(state, immaName):
     return bestScore[0], imName # return the best message
 
 def pickQuestion(immaName):
-    ''' Picks a random question and also gives its corresponding predicted impact
+    """ Picks a random question and also gives its corresponding predicted impact
 
     immaName -- the name of the current active character
 
-    Returns the question (string), the question weights (array), and the full character name (string) '''
+    Returns the question (string), the question weights (array), and the full character name (string) """
     
-    with open("server/model/character files/"+immaName+".imma", "r") as json_file:
+    with open("server/model/character files/"+immaName+".imma", 'r') as json_file:
         data = json.load(json_file)
-        questionBank = data["questionBank"]
-        imName = data["information"]["name"]
+        questionBank = data['questionBank']
+        imName = data['information']['name']
 
     randomQuestion = random.choice(list(questionBank.keys()))
     
     return randomQuestion, questionBank[randomQuestion], imName
 
 def learnFromQuestion(openedSites, questionScore, delta=0.01):
-    ''' Given a question score vector, update each relevant site score by +/- delta
+    """ Given a question score vector, update each relevant site score by +/- delta
 
     openedSites -- a set of the last opened tabs e.g. ['calendar.google.com', 'translate.google.com']
 
     questionScore -- an array, the weights of the last question given
 
-    delta -- how much to adjust site scores by '''
+    delta -- how much to adjust site scores by """
 
     #TODO avoid rereading the whole file each time?
 
-    with open("server/model/001.usersetting","r") as f:
+    with open("server/model/001.usersetting",'r') as f:
         allSites = [line.rstrip() for line in f]
 
     # For each opened site, change its score vector
     #TODO use chrome memory saving instead of text file?
-    with open("server/model/001.usersetting", "w") as f:
+    with open("server/model/001.usersetting", 'w') as f:
         for i, ithSite in enumerate(allSites):
             if ithSite.split('\t')[0] in openedSites: # write the different score vector
                 prevScoreVector = ithSite.strip().split('\t')[1:] # get string version of previous score vector
