@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(function () {
      */
 
     findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
-    //sendNewQuestion(); // gets current tabs open, contacts server for question, then sends notification
+    //sendNewQuestion(); // contacts server for question, then sends notification
 });
 
 // User responds to a question notification

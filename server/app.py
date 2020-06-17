@@ -36,8 +36,8 @@ def get_question():
 
 @app.route("/processAnswer", methods=["POST"])
 def process_answer():
-    ''' Given the weights of the last question & the user's answer (#TODO), update the site scores of the user
-    An example POST: {"current_tabs": ["github", "fb"], "last_question_score": [1,0,0,0]} '''
+    ''' Given the weights of the last question & the user's answer, update the site scores of the user
+    An example POST: {"last_tabs": ["github", "fb"], "last_q_weight": [1,0,0,0]} '''
     inputParams = request.get_json()
 
     # Update site file

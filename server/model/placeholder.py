@@ -9,7 +9,7 @@ def initializeNetwork():
     ''' Returns an instance of RNN model '''
 
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
-    return myRNN # #todo return only weights
+    return myRNN
 
 def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"):
     ''' Creates an array of numbers from a given list of sites
@@ -53,7 +53,6 @@ def pickMessage(state, immaName):
     Returns the message (string), and the full character name (string) '''
 
     #TODO replace with DQN, this is placeholder for now?
-    #TODO avoid rereading the whole file each time?
     #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
 
     #TODO add more randomness!
@@ -86,8 +85,7 @@ def pickQuestion(immaName):
     immaName -- the name of the current active character
 
     Returns the question (string), the question weights (array), and the full character name (string) '''
-    #TODO avoid rereading the whole file each time?
-
+    
     with open("server/model/character files/"+immaName+".imma", "r") as json_file:
         data = json.load(json_file)
         questionBank = data["questionBank"]
@@ -107,6 +105,7 @@ def learnFromQuestion(openedSites, questionScore, delta=0.01):
     delta -- how much to adjust site scores by '''
 
     #TODO avoid rereading the whole file each time?
+
     with open("server/model/001.usersetting","r") as f:
         allSites = [line.rstrip() for line in f]
 
