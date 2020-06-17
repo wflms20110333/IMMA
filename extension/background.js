@@ -1,16 +1,26 @@
-/*function helloWorld() {
-    console.log('in helloWorld');
-    var data = serverQuery('helloWorld', function(data) {
-        // prints each key-value pair in the returned json
-        for (var propName in data) {
-            sendNotification('../images/ironman_clear.PNG', propName + '... '+ data[propName]);
-        }
-    });
-}*/
-
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    findCurrentTabs(pickMessage); // gets current tabs open, then callback to pick a message
+    chrome.storage.sync.set({'imma_name': "004_shia"});
+    /* available options
+     * 001_ironman
+     * 002_hoshi
+     * 003_rilakkuma
+     * 004_shia
+     * 005_moana
+     */
+
+    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+    //sendNewQuestion(); // contacts server for question, then sends notification
+});
+
+// User responds to a question notification
+chrome.notifications.onButtonClicked.addListener(function (notificationID, buttonIndex) {
+    // Check if the notification type is that of a question
+    if (notificationID == "Notif_Question") {
+        // If so, run the training procedure with feedback
+        updateWithAnswer(-2*buttonIndex+1); // pass on which button was clicked (0 or 1) => (1 or -1)
+        chrome.notifications.clear("Notif_Question");
+    }
 });
 
 // Whenever user goes to a new site #todo or when 1 minute elapsed since last update

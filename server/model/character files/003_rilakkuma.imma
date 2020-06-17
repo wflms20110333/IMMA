@@ -1,0 +1,26 @@
+{
+    "information": {
+        "name": "Rilakkuma",
+        "imageLink": "images/003_rilakkuma.png",
+		"class": "cartoon",
+		"description": "Rilakkuma is a lazy bear to make you smile and relax!",
+        "catchphrase": "I can't wait for it to rain again..."
+    },
+
+    "messageBank": {
+        "Good job!": [0, 0, 0.5, 0.5],
+        "It's enough to do what you can!": [0, 0, 1, 0],
+        "I can't wait for it to rain again...": [0, 0, 0.5, 0.5],
+        "Keep going!": [0.5, 0.5, 0, 0],
+		"Be sure to rest your eyes!": [0.5, 0, 0, 0.5],
+		"Zzz... sleepy...": [0, 0, 0, 1]
+    },
+
+    "questionBank": {
+        "Are you paying attention?": [1, 0, 0, 0],
+        "Are you focused?": [0, 1, 0, 0],
+        "Are you energized?": [0, 0, 1, 0],
+        "Are you happy?": [0, 0, 0, 1]
+    }
+
+}

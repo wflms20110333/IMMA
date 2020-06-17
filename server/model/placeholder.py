@@ -2,71 +2,128 @@ from collections import Counter
 from random import choice
 from .nn1_code import nnRNN
 import numpy as np
-
-messageBank = {"AMAZING!": [0, 0, 1, 1], "Great job": [0, 0, 0, 1], "You can do this!": [0, 1, 1, 1], "Try harder": [1, 1, 0, 0], "Take a break?": [0, 0, 1, 0]} # (one-hot representations corresponding to impact on 4-vector)
-questionBank = [("are you paying attention", [1,0,0,0]), ("are you focused", [0,1,0,0]), ("are you energized", [0,0,1,0]), ("are you happy", [0,0,0,1])]
-
-def initializeSiteIndex(pastSites):
-    ''' pastSites: the past 300 sites from history '''
-    commonSites = [site[0] for site in Counter(pastSites).most_common(30)] # get the 30 most used sites
-    siteIndex = dict(zip(commonSites, range(len(commonSites)))) # dictionary mapping URLs to indices
-    return siteIndex
-
-def vectorizeInput(siteList, siteIndex):
-    vectInput = np.array([[[0 for i in range(30)]]], dtype=np.float32)
-    for site in siteList:
-        if site in siteIndex:
-            vectInput[0][0][siteIndex[site]] = 1
-    return vectInput
+import random
+import json
 
 def initializeNetwork():
+    ''' Returns an instance of RNN model '''
+
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
-    return myRNN # #todo return only weights
+    return myRNN
 
-# Reinforced with Question Type 1 at regular intervals: are you focused?
-def giveQType1():
-    return choice(questionBank)
+def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"):
+    ''' Creates an array of numbers from a given list of sites
 
-def pickMessage(state):
-    ''' Input is 4-vector of [attention, focus, energy, positivity], output is an action vector that maximizes the state change '''
-    # #todo replace with DQN, this is placeholder for now?
-    bestScore = (None, None)
+    openedSites -- a set of currently opened tabs e.g. ['calendar.google.com', 'translate.google.com']
+
+    userSettingFile -- a site-scoring file containing stats for each possible site
+
+    Returns an array, e.g.
+                        [0 .6 0 0 .3 0 0 0 ... 0 0 0 .5
+                        0 .2 0 0 .1 0 0 0 ... 0 0 0 .2
+                        0 .3 0 0 .1 0 0 0 ... 0 0 0 .9
+                        0 .9 0 0 .1 0 0 0 ... 0 0 0 .7]
+    '''
+    # TODO where to host user setting files?
+
+    # Initialize an array of zeroes
+    vectInput = np.zeros((1, 4, 30))
+
+    # Load list of the user's possible sites & their scores for that site into allSites
+    #TODO avoid rereading the whole file each time?
+    with open(userSettingFile,"r") as f:
+        allSites = [line.rstrip() for line in f]
+
+    # For each opened site, set its entry in vectInput to the relevant score vector
+    for i, ithSite in enumerate(allSites):
+        if ithSite.split('\t')[0] in openedSites:
+            scoreVector = ithSite.strip().split('\t')[1:] # get string version of score vector
+            scoreVector = np.array([np.float32(i) for i in scoreVector]) # convert to nparray
+            vectInput[0, :, i] = scoreVector # set entry to score vector
+
+    return vectInput
+
+def pickMessage(state, immaName):
+    ''' Picks which message will maximize predicted positive state change
+
+    state -- a 4-vector of [attention, focus, energy, positivity]
+
+    immaName -- the name of the current active character
+
+    Returns the message (string), and the full character name (string) '''
+
+    #TODO replace with DQN, this is placeholder for now?
+    #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
+
+    #TODO add more randomness!
+
+    with open("server/model/character files/"+immaName+".imma", "r") as json_file: # load bank of messages
+        data = json.load(json_file)
+        messageBank = data["messageBank"]
+        imName = data["information"]["name"]
+
+    randomMessage = random.choice(list(messageBank.keys()))
+    bestScore = (randomMessage, None) # default to random message
+
+    # Next, going to add the message-input score to the current-state score
+    # Want to maximize scores that are all-around high
+    # Each part of the score is transformed by (-1/x) to penalize scores close to zero
+
     for message in messageBank.keys():
-        score = sum([state[i]==messageBank[message][i] for i in range(4)]) # estimated future score
-        #print("DEBUGGGG", state, message, score)
-        if bestScore[1] == None or score > bestScore[1]:
-            bestScore = (message, score)
-    return bestScore[0]
+        if np.any(state + messageBank[message] <= 0): # don't calculate -1/x since will become very positive
+            pass # assume that result with a negative component is not a good result
+        else:
+            score = sum([  (-1)/(state[i] + messageBank[message][i])  for i in range(4)]) # estimated -1/x future score
+            if bestScore[1] == None or score > bestScore[1]:
+                bestScore = (message, score)
 
-if __name__ == '__main__': # for debug
-    '''
-    siteIndex = None # #todo this should be a user variable and not reloaded each time
-    model = None # ditto
-    inputParams = {"hist_for_init": ["google.com","fb", "okokok", "fb", "fb", "google.com", "fb"],"current_tabs": ["okokok", "fb"]} # get input
-    if siteIndex == None: # initialize siteIndex if doesn't exist
-        inputData = inputParams['hist_for_init']
-        siteIndex = initializeSiteIndex(inputData)
-    if model == None: # initialize model if doesn't exist
-        model = initializeNetwork()
+    return bestScore[0], imName # return the best message
 
-    # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = vectorizeInput(inputParams['current_tabs'], siteIndex)
-    #print("debug", "vectInput", vectInput, "type", type(vectInput), np.shape(vectInput))
-    currentState = model.online_predict(vectInput)
-    #print("model outputted index", currentState)
-    message = pickMessage(currentState)
-    print(message)
-    '''
+def pickQuestion(immaName):
+    ''' Picks a random question and also gives its corresponding predicted impact
+
+    immaName -- the name of the current active character
+
+    Returns the question (string), the question weights (array), and the full character name (string) '''
+    
+    with open("server/model/character files/"+immaName+".imma", "r") as json_file:
+        data = json.load(json_file)
+        questionBank = data["questionBank"]
+        imName = data["information"]["name"]
+
+    randomQuestion = random.choice(list(questionBank.keys()))
+    
+    return randomQuestion, questionBank[randomQuestion], imName
+
+def learnFromQuestion(openedSites, questionScore, delta=0.01):
+    ''' Given a question score vector, update each relevant site score by +/- delta
+
+    openedSites -- a set of the last opened tabs e.g. ['calendar.google.com', 'translate.google.com']
+
+    questionScore -- an array, the weights of the last question given
+
+    delta -- how much to adjust site scores by '''
+
+    #TODO avoid rereading the whole file each time?
+
+    with open("server/model/001.usersetting","r") as f:
+        allSites = [line.rstrip() for line in f]
+
+    # For each opened site, change its score vector
+    #TODO use chrome memory saving instead of text file?
+    with open("server/model/001.usersetting", "w") as f:
+        for i, ithSite in enumerate(allSites):
+            if ithSite.split('\t')[0] in openedSites: # write the different score vector
+                prevScoreVector = ithSite.strip().split('\t')[1:] # get string version of previous score vector
+                prevScoreVector = np.array([np.float32(i) for i in prevScoreVector]) # convert to nparray
+                scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
+
+                f.write(ithSite.split('\t')[0] + '\t' + '\t'.join(str(z) for z in scoreVector) + '\n') # convert back to string
+
+            else:
+                f.write(ithSite + '\n')
+
+    return
+
+if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     print("done")
-
-# An example siteIndex (numbers are the one-hot indices)
-'''
-docs.google.com    : 0
-www.facebook.com : 1
-github.com    : 2
-slack.com    :3
-calendar.google.com :4
-app.slack.com    :5
-piazza.com    :6
-etc
-'''

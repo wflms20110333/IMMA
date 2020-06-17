@@ -1,0 +1,28 @@
+{
+    "information": {
+        "name": "Hoshi",
+        "imageLink": "images/002_hoshi.png",
+		"class": "music idol",
+		"description": "A member of the K-pop group Seventeen, Hoshi is a multitalented performer known for his positive energy!",
+        "catchphrase": "Let's fight and win!"
+    },
+
+    "messageBank": {
+		"Don't give up!": [0, 0, 1, 0],
+        "Good job!": [0, 0, 0.5, 0.5],
+		"*finger hearts*": [0, 0, 0, 1],
+		"Sswa!": [0, 0, 0.5, 0.5],
+        "You can do this!": [0.5, 0, 0.5, 0],
+        "Take a break?": [0, 0, 1, 0],
+		"You've done well!": [0, 0.5, 0, 0.5],
+		"Focus!": [0, 1, 0, 0]
+    },
+
+    "questionBank": {
+        "Are you paying attention?": [1, 0, 0, 0],
+        "Are you focused?": [0, 1, 0, 0],
+        "Are you energized?": [0, 0, 1, 0],
+        "Are you happy?": [0, 0, 0, 1]
+    }
+
+}
