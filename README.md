@@ -2,7 +2,7 @@
 
 ![Rilakkuma message](readme_img1.PNG) ![Shia message](readme_img2.PNG)
 
-* `docs/` contains code for the main website
+* `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server; `server/model/` contains code for the ML model
 * `full_requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)

@@ -139,7 +139,7 @@ li a:hover {
 No media query for `xs` since this is the default in Bootstrap */
 header {
 	border-radius: 0;
-	background: url(../imgs/header_background.png) no-repeat top right;
+	background: url(imgs/header_background.png) no-repeat top right;
 	background-color: var(--color-header-background);
 	height: 300px;
 }
