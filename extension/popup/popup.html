@@ -7,38 +7,49 @@
 </head>
 
 <body>
-    <h1> . . . . . . IMMA Menu (in progress!) . . . . . . </h1>
-    <div id="mainbar" class="bar">
+    <header>
+        <h1> . . . . . . IMMA Menu (in progress!) . . . . . . </h1>
+        <div id="mainbar" class="bar">
+            <h2><img src="/images/new_imma_16.png" alt="Icon"> IMMA</h2>
+        </div>
+    </header>
+
+    <main>
+        <div id="characterpick" class="picker">
+            <h2 style="color:white">character picking goes here</h2>
+            <p><b>active [---]</b></p>
+            <p><b>feedback</b></p>
+            <p><b>customize</b></p>
+        </div>
+    </main>
+
+    <section>
+        <div id="storebar" class="bar">
+            <h2>VISIT THE IMMA STORE</h2>
+        </div>
+    </section>
+
+    <section>
+        <div id="Options" class="tabcontent">
+            <p>option text here</p>
+            <p>option text here</p>
+        </div>
         
-        <h2><img src="/images/new_imma_16.png" alt="Icon"> IMMA</h2>
-    </div>
-    <div id="characterpick" class="picker">
-        <h2 style="color:white">character picking goes here</h2>
-        <p><b>active [---]</b></p>
-        <p><b>feedback</b></p>
-        <p><b>customize</b></p>
-    </div>
-    <div id="storebar" class="bar">
-        <h2>VISIT THE IMMA STORE</h2>
-    </div>
+        <div id="Account" class="tabcontent">
+            <p>account things here</p>
+            <p>account things here</p>
+        </div>
 
-    <!-- // doesn't work with chrome extension security, #todo fix
-    <div id="Options" class="tabcontent">
-        <p>option text here</p>
-        <p>option text here</p>
-    </div>
-      
-    <div id="Account" class="tabcontent">
-        <p>account things here</p>
-        <p>account things here</p>
-    </div>
+        <div class="tab">
+            <button class="tablinks" onclick="openPopupTab(event, 'Options')" id="defaultOpen">Options</button>
+            <button class="tablinks" onclick="openPopupTab(event, 'Account')">Account</button>
+        </div>
+    </section>
 
-    <div class="tab">
-        <button class="tablinks" onclick="openPopupTab(event, 'Options')" id="defaultOpen">Options</button>
-        <button class="tablinks" onclick="openPopupTab(event, 'Account')">Account</button>
-    </div>-->
+    <footer>
+        <p>footer things here</p>
+    </footer>
 
-    <h1>#todo tab things go here</h1>
     <br>
 </body>
 

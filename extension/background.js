@@ -9,17 +9,17 @@ chrome.runtime.onInstalled.addListener(function () {
      * 005_moana
      */
 
-    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+    //findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
     //sendNewQuestion(); // contacts server for question, then sends notification
 });
 
 // User responds to a question notification
 chrome.notifications.onButtonClicked.addListener(function (notificationID, buttonIndex) {
     // Check if the notification type is that of a question
-    if (notificationID == "Notif_Question") {
+    if (notificationID == 'Notif_Question') {
         // If so, run the training procedure with feedback
         updateWithAnswer(-2*buttonIndex+1); // pass on which button was clicked (0 or 1) => (1 or -1)
-        chrome.notifications.clear("Notif_Question");
+        chrome.notifications.clear('Notif_Question');
     }
 });
 
