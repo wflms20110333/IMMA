@@ -13,7 +13,7 @@
 
 2) Update your virtual environment by running `pip install -f full_requirements.txt` or equivalent within the active environment
 
-## Running the Server
+## Running the server
 
 Run `python server/app.py` (can use Postman or similar to test requests)
 
@@ -40,6 +40,8 @@ ssh -i IMMA.pem ec2-user@ec2-35-164-170-145.us-west-2.compute.amazonaws.com
 ```
 
 Then the app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
+
+To exit the SSH session, type `logout`.
 
 ## Development
 
