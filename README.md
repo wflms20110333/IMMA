@@ -31,6 +31,16 @@ flask run
 
 This will launch the server at `http://127.0.0.1:5000/`.
 
+### Deploying the server
+
+SSH into the EC2 instance with
+
+```shell
+ssh -i IMMA.pem ec2-user@ec2-35-164-170-145.us-west-2.compute.amazonaws.com
+```
+
+Then the app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
+
 ## Development
 
 Try out different functions by altering content of `chrome.runtime.onInstalled.addListener` in `background.js`
