@@ -33,6 +33,8 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
+The server is located at <http://ec2-35-164-170-145.us-west-2.compute.amazonaws.com/>.
+
 SSH into the EC2 instance with
 
 ```shell
