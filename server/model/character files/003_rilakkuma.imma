@@ -1,7 +1,7 @@
 {
     "information": {
         "name": "Rilakkuma",
-        "imageLink": "images/003_rilakkuma.png",
+        "imageLink": "003_rilakkuma.png",
 		"class": "cartoon",
 		"description": "Rilakkuma is a lazy bear to make you smile and relax!",
         "catchphrase": "I can't wait for it to rain again..."

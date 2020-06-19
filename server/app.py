@@ -2,47 +2,74 @@ from tensorflow.keras.models import load_model
 from flask import Flask, request, jsonify
 import model.placeholder as ph # for the nnetwork models
 from flask_cors import CORS
+import json
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
-
-@app.route('/helloWorld')
-def hello_world():
-    return jsonify({'youDidIt': "Hello, World! I made some changes :)"})
 
 # initialize variable for model
 model = ph.initializeNetwork()
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
-    """ an example POST: {'current_tabs': ["github", "fb"]} """
+    """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
+    an example POST: {'current_tabs': ["github", "fb"]} """
     global model # force to look in module scope not definition scope
     inputParams = request.get_json()
 
     # convert current urls opened into vector, feed into RNN, and choose message
     vectInput = ph.vectorizeInput(inputParams['current_tabs'])
     currentState = model.online_predict(vectInput)
-    message, imName = ph.pickMessage(currentState, inputParams['imma_name'])
-    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': message, 'imma_name': imName}
+    message = ph.pickMessage(currentState, inputParams['message_bank'])
+    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': message}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
 def get_question():
     """ Picks a question randomly """
     inputParams = request.get_json()
-    pickedQuestion, questionWeight, imName = ph.pickQuestion(inputParams['imma_name'])
-    message = {'question': pickedQuestion, 'questionWeight': questionWeight, 'imma_name': imName}
+    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'])
+    message = {'question': pickedQuestion, 'questionWeight': questionWeight}
     return jsonify(message)
 
 @app.route('/processAnswer', methods=['POST'])
 def process_answer():
     """ Given the weights of the last question & the user's answer, update the site scores of the user
-    An example POST: {"last_tabs": ["github", "fb"], "last_q_weight": [1,0,0,0]} """
+    An example POST: {'last_tabs': ["github", "fb"], 'last_q_weight': [1,0,0,0]} """
     inputParams = request.get_json()
 
     # Update site file
     ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'])
 
     return jsonify({'success': True})
+
+@app.route('/retrieveIMMA', methods=['POST'])
+def retrieve_imma():
+    """ Given an imma code, return an imma file
+    An example POST: {'keycode': "aBcImMaCoDe"} """
+    inputParams = request.get_json()
+
+    # Authenticate the character code, either False or the name of the file #TODO generate unique codes
+    temp_code_dict = {
+        'snapsnapsnap': '001_ironman',
+        'horanghae': '002_hoshi',
+        'lazybear': '003_rilakkuma',
+        'justDOit': '004_shia',
+        'waterwater': '005_moana'
+    }
+    if inputParams['keycode'] in temp_code_dict.keys():
+        codeAuth = temp_code_dict[inputParams['keycode']]
+    else:
+        codeAuth = False
+
+    # If have a valid code
+    if codeAuth != False:
+        # retrieve imma file
+        with open("server/model/character files/" + codeAuth + ".imma") as immaFile: #TODO where to store these files?
+            immaData = json.load(immaFile)
+        immaData['success'] = True
+        return jsonify(immaData)
+    else:
+        return jsonify({'success': False})
 
 app.run(debug=True) # host='0.0.0.0' enables remote connections?

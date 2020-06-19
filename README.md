@@ -58,7 +58,10 @@ Calling `findCurrentTabs(sendMessage)` retrieves the current tabs that are open 
 ### Items kept in chrome extension memory
 
 ```
-'imma_name': (string) filename of the current active character, e.g. '001_ironman'
+'imma_name': (string) filename of the active character, e.g. '001_ironman'
+'image_link': (string) link to image for the active character
+'message_bank': (json) storage of possible messages for the active character
+'question_bank': (json) storage of possible questions for the active character
 'last_tabs': (array) list of the last retrieved tabs, e.g. ['calendar.google.com', 'app.slack.com']
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5]
 ```

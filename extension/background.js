@@ -1,15 +1,18 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.sync.set({'imma_name': "004_shia"});
-    /* available options
-     * 001_ironman
-     * 002_hoshi
-     * 003_rilakkuma
-     * 004_shia
-     * 005_moana
+    /* available options (codes are just placeholders) (needs manual server restart)
+    temp_code_dict = {
+        'snapsnapsnap': '001_ironman',
+        'horanghae': '002_hoshi',
+        'lazybear': '003_rilakkuma',
+        'justDOit': '004_shia',
+        'waterwater': '005_moana'
+    }
      */
 
-    //findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+    loadCharacterCode("horanghae");
+    
+    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
     //sendNewQuestion(); // contacts server for question, then sends notification
 });
 
