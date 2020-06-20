@@ -32,13 +32,10 @@ function findCurrentTabs(callback) {
  */
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
-
-    // #TODO make a list of everything that's kept in storage & put it in the readme
-
-    chrome.storage.sync.get(['imma_name'], function (result) {
-        currentTabs['imma_name'] = result['imma_name']; // append imma name information
+    chrome.storage.sync.get(['imma_name', 'image_link', 'message_bank'], function (result) {
+        currentTabs['message_bank'] = result['message_bank']; // pass on message bank as well
         serverPOST('evaluateState', currentTabs, function(data) {
-            sendNotification(data['message'], data['imma_name'], result['imma_name']);
+            sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
     });
 }
@@ -49,10 +46,10 @@ function sendMessage(currentTabs) {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name'], function (result) {
-        var immaName = {'imma_name': result['imma_name']}; // pass on imma name information
-        serverPOST('getQuestion', immaName, function(data) {
-            sendNotifQuestion(data['question'], data['imma_name'], result['imma_name']);
+    chrome.storage.sync.get(['imma_name', 'image_link', 'question_bank'], function (result) {
+        var jsonObj = {'question_bank': result['question_bank']}; // to pass on question bank
+        serverPOST('getQuestion', jsonObj, function(data) {
+            sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
         });
     }); 
@@ -60,6 +57,7 @@ function sendNewQuestion() {
 
 /**
  * Calls serverPOST to update using memory's last tabs and last question weights
+ * @param {number} buttonIndex which response button was pressed for that question
  */
 function updateWithAnswer(buttonIndex) {
     console.log('in updateWithAnswer');
@@ -73,6 +71,27 @@ function updateWithAnswer(buttonIndex) {
 }
 
 /**
+ * Calls serverPOST to load a character file
+ * @param {string} redeemCode a character code to redeem
+ */
+
+function loadCharacterCode(redeemCode) {
+    console.log('in getCharacterFile');
+    var jsonObj = {'keycode': redeemCode}
+    serverPOST('retrieveIMMA', jsonObj, function(data) {
+        if (data['success'] == false) { // code invalid
+            sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
+        } else { // code valid
+            chrome.storage.sync.set({'imma_name': data['information']['name']});
+            chrome.storage.sync.set({'image_link': data['information']['imageLink']});
+            chrome.storage.sync.set({'message_bank': data['messageBank']});
+            chrome.storage.sync.set({'question_bank': data['questionBank']});
+            //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
+        } 
+    });
+}
+
+/**
  * Sends a notification to the user
  * @param {string} msg the message to display
  * https://developer.chrome.com/apps/notifications for more information
@@ -80,7 +99,7 @@ function updateWithAnswer(buttonIndex) {
 function sendNotification(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
-        iconUrl: "../images/character images/"+immaFilename+".png",
+        iconUrl: "../images/character images/"+immaFilename,
         title: immaName + ':',
         message: msg,
         priority: 2,
@@ -95,7 +114,7 @@ function sendNotification(msg, immaName, immaFilename) {
 function sendNotifQuestion(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
-        iconUrl: "../images/character images/"+immaFilename+".png",
+        iconUrl: "../images/character images/"+immaFilename,
         title: immaName + ':',
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],

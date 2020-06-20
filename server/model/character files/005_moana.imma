@@ -1,7 +1,7 @@
 {
     "information": {
         "name": "Moana",
-        "imageLink": "images/005_moana.png",
+        "imageLink": "005_moana.png",
 		"class": "princess",
 		"description": "Moana is a fearless voyager, courageous and empathetic, with big dreams and a love for the ocean.",
         "catchphrase": "Lead with pride!"

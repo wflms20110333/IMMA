@@ -1,7 +1,7 @@
 {
     "information": {
         "name": "Iron Man",
-        "imageLink": "images/001_ironman.png",
+        "imageLink": "001_ironman.png",
 		"class": "superhero",
 		"description": "A Marvel superhero and a founding member of the Avengers, Iron Man is known for his bravery and his genius intellect.",
         "catchphrase": "Go to bed, or I'll sell all your toys"
