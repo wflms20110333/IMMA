@@ -93,6 +93,22 @@ function loadCharacterCode(redeemCode) {
 }
 
 /**
+ * Sets an alarm to quickly give a message, and updates recent_message_ct
+ */
+
+function setQuickAlarm() {
+    console.log('in setQuickAlarm');
+    
+    chrome.storage.sync.get(['recent_message_ct'], function (result) {
+        lastMessageCt = parseInt(result['recent_message_ct'])
+        chrome.storage.sync.set({'recent_message_ct': lastMessageCt + 1}); // will give a message, increment counter
+
+        var nextDelay = Date.now() + (1 * 1000); // seconds to milliseconds past epoch
+        chrome.alarms.create("message", {when: nextDelay});
+    });
+}
+
+/**
  * Calls serverPOST to set an alarm to give the next message/question, and updates recent_message_ct
  */
 

@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'user_setting': "server/model/001.usersetting"});
     chrome.storage.sync.set({'recent_message_ct': '0'}); // count of messages given since last question given
     loadCharacterCode("horanghae");
-    setNextAlarm(); // set first alarm
+    setQuickAlarm(); // set first alarm
 });
 
 // User responds to a question notification
