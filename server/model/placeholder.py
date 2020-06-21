@@ -5,13 +5,36 @@ import numpy as np
 import random
 import json
 
+def getNextAlarmStats(messageCt, userSettingFile):
+    """ Returns the duration until next alarm (in seconds) and the type of alarm
+
+    messageCt -- messages given since last question
+
+    userSettingFile -- file containing user preferences for alarm, etc duration/type """
+
+    # Load list of the user's possible sites & their scores
+    with open(userSettingFile, 'r') as f:
+        userData = json.load(f)
+
+    # Mean and stdev for duration until next alarm (in seconds)
+    nextAlarm = abs(np.random.normal(userData['AlarmSpacing'], userData['AlarmStdev']))
+
+    # Mean and stdev for having 1 question per every X messages
+    nextQuestion = abs(np.random.normal(userData['QuestionFreq'], userData['QuestionStdev']))
+    if nextQuestion >= int(messageCt):
+        nextQuestion = "message"
+    else:
+        nextQuestion = "question"
+    
+    return nextAlarm, nextQuestion
+
 def initializeNetwork():
     """ Returns an instance of RNN model """
 
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
     return myRNN
 
-def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"):
+def vectorizeInput(openedSites, userSettingFile):
     """ Creates an array of numbers from a given list of sites
 
     openedSites -- a set of currently opened tabs e.g. ["calendar.google.com", "translate.google.com"]
@@ -29,16 +52,15 @@ def vectorizeInput(openedSites, userSettingFile = "server/model/001.usersetting"
     # Initialize an array of zeroes
     vectInput = np.zeros((1, 4, 30))
 
-    # Load list of the user's possible sites & their scores for that site into allSites
-    #TODO avoid rereading the whole file each time?
-    with open(userSettingFile,'r') as f:
-        allSites = [line.rstrip() for line in f]
+    # Load list of the user's possible sites & their scores
+    with open(userSettingFile, 'r') as f:
+        userData = json.load(f)
 
     # For each opened site, set its entry in vectInput to the relevant score vector
-    for i, ithSite in enumerate(allSites):
-        if ithSite.split('\t')[0] in openedSites:
-            scoreVector = ithSite.strip().split('\t')[1:] # get string version of score vector
-            scoreVector = np.array([np.float32(i) for i in scoreVector]) # convert to nparray
+    for openSite in enumerate(openedSites):
+        if openSite in userData['sites'].keys():
+            scoreVector = userData['sites'][openSite]
+            scoreVector = np.array(scoreVector) # convert to nparray # unused [np.float32(i) for i in scoreVector]
             vectInput[0, :, i] = scoreVector # set entry to score vector
 
     return vectInput
@@ -84,33 +106,34 @@ def pickQuestion(questionBank):
     
     return randomQuestion, questionBank[randomQuestion]
 
-def learnFromQuestion(openedSites, questionScore, delta=0.01):
+def learnFromQuestion(openedSites, questionScore, userSettingFile, delta=0.01):
     """ Given a question score vector, update each relevant site score by +/- delta
 
     openedSites -- a set of the last opened tabs e.g. ['calendar.google.com', 'translate.google.com']
 
     questionScore -- an array, the weights of the last question given
 
+    userSettingFile -- a site-scoring file containing stats for each possible site
+
     delta -- how much to adjust site scores by """
 
     #TODO avoid rereading the whole file each time?
 
-    with open("server/model/001.usersetting",'r') as f:
-        allSites = [line.rstrip() for line in f]
+    with open(userSettingFile, 'r') as f:
+        userData = json.load(f)
 
     # For each opened site, change its score vector
     #TODO use chrome memory saving instead of text file?
-    with open("server/model/001.usersetting", 'w') as f:
-        for i, ithSite in enumerate(allSites):
-            if ithSite.split('\t')[0] in openedSites: # write the different score vector
-                prevScoreVector = ithSite.strip().split('\t')[1:] # get string version of previous score vector
-                prevScoreVector = np.array([np.float32(i) for i in prevScoreVector]) # convert to nparray
-                scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
+    for openSite in enumerate(openedSites):
+        if openSite in userData['sites'].keys():
+            prevScoreVector = userData['sites'][openSite]
+            prevScoreVector = np.array(scoreVector) # convert to nparray # unused [np.float32(i) for i in scoreVector]
+            scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
+            userData['sites'][openSite] = scoreVector
 
-                f.write(ithSite.split('\t')[0] + '\t' + '\t'.join(str(z) for z in scoreVector) + '\n') # convert back to string
-
-            else:
-                f.write(ithSite + '\n')
+    # Update the file
+    with open(userSettingFile, 'w') as f:
+        json.dump(userData, f)
 
     return
 

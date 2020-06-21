@@ -32,8 +32,9 @@ function findCurrentTabs(callback) {
  */
 function sendMessage(currentTabs) {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'message_bank'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'message_bank', 'user_setting'], function (result) {
         currentTabs['message_bank'] = result['message_bank']; // pass on message bank as well
+        currentTabs['user_setting'] = result['user_setting']; // pass on user setting as well
         serverPOST('evaluateState', currentTabs, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
@@ -61,7 +62,7 @@ function sendNewQuestion() {
  */
 function updateWithAnswer(buttonIndex) {
     console.log('in updateWithAnswer');
-    chrome.storage.sync.get(['last_tabs', 'last_q_weight'], function (result) {
+    chrome.storage.sync.get(['last_tabs', 'last_q_weight', 'user_setting'], function (result) {
         var qWeights = result['last_q_weight'];
         result['last_q_weight'] = qWeights.map(function(element) { // multiply by +1 or -1
             return element*buttonIndex;
@@ -76,7 +77,7 @@ function updateWithAnswer(buttonIndex) {
  */
 
 function loadCharacterCode(redeemCode) {
-    console.log('in getCharacterFile');
+    console.log('in loadCharacterCode');
     var jsonObj = {'keycode': redeemCode}
     serverPOST('retrieveIMMA', jsonObj, function(data) {
         if (data['success'] == false) { // code invalid
@@ -88,6 +89,28 @@ function loadCharacterCode(redeemCode) {
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
+    });
+}
+
+/**
+ * Calls serverPOST to set an alarm to give the next message/question, and updates recent_message_ct
+ */
+
+function setNextAlarm() {
+    console.log('in setNextAlarm');
+    
+    chrome.storage.sync.get(['recent_message_ct', 'user_setting'], function (result) {
+        serverPOST('getAlarm', result, function(data) {
+            if (data['mType'] == "question") {
+                chrome.storage.sync.set({'recent_message_ct': 0}); // will give a question, reset counter
+            } else {
+                lastMessageCt = parseInt(result['recent_message_ct'])
+                chrome.storage.sync.set({'recent_message_ct': lastMessageCt + 1}); // will give a message, increment counter
+            }
+
+            var nextDelay = Date.now() + (data['mDuration'] * 1000); // seconds to milliseconds past epoch
+            chrome.alarms.create(data['mType'], {when: nextDelay});
+        });
     });
 }
 
