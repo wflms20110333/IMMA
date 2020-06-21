@@ -10,10 +10,10 @@ chrome.runtime.onInstalled.addListener(function () {
     }
      */
 
+    chrome.storage.sync.set({'user_setting': "server/model/001.usersetting"});
+    chrome.storage.sync.set({'recent_message_ct': '0'}); // count of messages given since last question given
     loadCharacterCode("horanghae");
-    
-    findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
-    //sendNewQuestion(); // contacts server for question, then sends notification
+    setQuickAlarm(); // set first alarm
 });
 
 // User responds to a question notification
@@ -21,37 +21,20 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
     // Check if the notification type is that of a question
     if (notificationID == 'Notif_Question') {
         // If so, run the training procedure with feedback
+        setNextAlarm(); // set another alarm
         updateWithAnswer(-2*buttonIndex+1); // pass on which button was clicked (0 or 1) => (1 or -1)
         chrome.notifications.clear('Notif_Question');
     }
 });
 
-// Whenever user goes to a new site #todo or when 1 minute elapsed since last update
-chrome.tabs.onUpdated.addListener(function () {
-    // First, save the opened urls to experience buffer
-    //var openTabs = findCurrentTabs();
-
-    /*
-    chrome.history.search(queryItem, (hist) => {
-        return hist;
-        // do server things??????????????????????????????????????????????????????????????????????????
-    })
-    */
-
-    // If >10 seconds elapsed from lastEntryRead
-    /*chrome.storage.sync.get(['EXPBUFF'], function (result) {
-        var lastEntryTime = result['EXPBUFF']['last_entry_time'];
-        if (currentTime - lastEntryTime > 10000) {
-            console.log(lastEntryTime); // debug
-            // query the server for result
-            // aaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAA how to???
-            // if result is positive, display notification, update experience buffer
-            sendNotification(); // debug
-        }
-    });*/
-
-    // update lastEntryRead to current time
-    //var currentTime = getCurrentTime();
-    //chrome.storage.sync.set({ 'last_entry_time': currentTime }); // #note idk if this is okay in terms of asynchronous things??
+// Whenever alarm fires
+chrome.alarms.onAlarm.addListener(function (alarmInfo) {
+    if (alarmInfo['name'] == "question") { // send a question to user
+        sendNewQuestion(); // contacts server for question, then sends notification
+        // (wait until button clicked to set new timer)
+    } else { // send a message to user
+        findCurrentTabs(sendMessage); // gets current tabs open, contacts server for message, then sends notification
+        setNextAlarm(); // set timer for another alarm immediately
+    }    
 });
 
