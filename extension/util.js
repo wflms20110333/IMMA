@@ -8,6 +8,7 @@ function getCurrentTime() {
 
 /**
  * Returns {"current_tabs": tabs in the current window}
+ * @param {function} callback to run with the current tabs as input
  */
 function findCurrentTabs(callback) {
     var tabInfo = {'current_tabs': []};
@@ -26,7 +27,6 @@ function findCurrentTabs(callback) {
 
 /**
  * Calls serverPOST to pick a good notification, then sends that notification
- * @param {Object} currentTabs json of the current tabs open
  */
 function sendMessage() {
     console.log('in evaluateState');
@@ -116,7 +116,7 @@ function setQuickAlarm() {
 function setNextAlarm() {
     console.log('in setNextAlarm');
     
-    chrome.storage.sync.get(['recent_message_ct', 'user_setting', 'question_ratio', 'mood'], function (result) {
+    chrome.storage.sync.get(['recent_message_ct', 'user_setting', 'question_ratio'], function (result) {
         serverPOST('getAlarm', result, function(data) {
             if (data['mType'] == "question") {
                 chrome.storage.sync.set({'recent_message_ct': 0}); // will give a question, reset counter
@@ -140,7 +140,7 @@ function sendNotification(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,
-        title: immaName + ':',
+        title: immaName,
         message: msg,
         priority: 2,
         requireInteraction: true // #TODO make this a user preference
@@ -155,7 +155,7 @@ function sendNotifQuestion(msg, immaName, immaFilename) {
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,
-        title: immaName + ':',
+        title: immaName,
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,

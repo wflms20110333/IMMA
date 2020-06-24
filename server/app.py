@@ -21,10 +21,12 @@ def evaluate_state():
     global model # force to look in module scope not definition scope
     inputParams = request.get_json()
 
-    # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
+    # predict mood
+    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
     currentState = inputParams['mood']
-    pickedMessage, _ = ph.pickMessage(currentState, inputParams['message_bank'])
+
+    # pick a message
+    pickedMessage, _ = ph.pickMessage(predictedMood+currentState, inputParams['message_bank'])
     message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
@@ -32,23 +34,11 @@ def evaluate_state():
 def get_question():
     """ Picks a question randomly """
     inputParams = request.get_json()
+
+    # Pick a question
     pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'])
-    message = {'question': pickedQuestion, 'questionWeight': questionWeight}
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    print(message["questionWeight"])
+    message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
     return jsonify(message)
-
-'''
-@app.route('/processAnswer', methods=['POST'])
-def process_answer():
-    """ Given the weights of the last question & the user's answer, update the site scores of the user """
-    inputParams = request.get_json()
-
-    # Update site file
-    ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'], inputParams['user_setting'])
-
-    return jsonify({'success': True})
-'''
 
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():

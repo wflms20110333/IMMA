@@ -38,22 +38,15 @@ def initializeNetwork():
     return myRNN
 
 def vectorizeInput(openedSites, userSettingFile):
-    """ Creates an array of numbers from a given list of sites
+    """ Predicts offset in mood based on the current open sites
 
     openedSites -- a set of the last opened tabs e.g. {'calendar.google.com': 10000, 'translate.google.com': 10000}
 
-    userSettingFile -- a site-scoring file containing stats for each possible site
-
-    Returns an array, e.g.
-                        [0 .6 0 0 .3 0 0 0 ... 0 0 0 .5
-                        0 .2 0 0 .1 0 0 0 ... 0 0 0 .2
-                        0 .3 0 0 .1 0 0 0 ... 0 0 0 .9
-                        0 .9 0 0 .1 0 0 0 ... 0 0 0 .7]
+    userSettingFile -- a site-scoring file containing effect for flagged sites
     """
     # TODO where to host user setting files?
 
-    # Initialize an array of zeroes
-    vectInput = np.zeros((1, 6, 30))
+    mood_delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0]) # predicted offset in mood
 
     # Load list of the user's possible sites & their scores
     with open(userSettingFile, 'r') as f:
@@ -64,19 +57,31 @@ def vectorizeInput(openedSites, userSettingFile):
         for openSite in openedSites.keys():
             if possibleSite == openSite:
                 scoreVector = userData['sites'][openSite]
+
+                timeMultiplier = 1 # the longer a site is opened, the greater the multiplier
                 timeTabOpen = int(time.time() * 1000 - openedSites[openSite])
-                scoreVector.append(timeTabOpen)
-                scoreVector = np.array(scoreVector) # convert to nparray # unused [np.float32(i) for i in scoreVector]
-                vectInput[0, :, i] = scoreVector # set entry to score vector
+                if timeTabOpen < 10000: # less than 10 seconds
+                    timeMultiplier = 0.5
+                elif timeTabOpen > 30000: # more than 30 seconds
+                    timeMultiplier = 1.1
+                elif timeTabOpen > 120000: # more than 120 seconds
+                    timeMultiplier = 1.25
+                elif timeTabOpen > 240000: # more than 240 seconds
+                    timeMultiplier = 1.5
 
-    return vectInput
+                predictedImpact = timeMultiplier * scoreVector # impact per each site
+                mood_delta += predictedImpact
 
-def queryTabbedFile(filename, customMessages):
+    return mood_delta
+
+def queryTabbedFile(filename, customMessages, state=None):
     """ Loads the default questions/messages for immas to send
 
     filename -- name of file with the default questions/messages
     
     customMessages -- custom messages/questions to also consider, a dictionary of messages to scores
+
+    state -- the current mood, irrelevant if for question
 
     Returns the question/message (string) and the question/message weights (array)
 
@@ -120,7 +125,7 @@ def queryTabbedFile(filename, customMessages):
 def pickMessage(state, messageBank):
     """ Picks which message will maximize predicted positive state change
 
-    state -- a 5-vector of [???? todo]
+    state -- a 5-vector of the current mood
 
     messageBank -- a dictionary of messages
 
@@ -130,7 +135,7 @@ def pickMessage(state, messageBank):
     #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
     #TODO add more randomness!
 
-    return queryTabbedFile("server/model/character files/MessageBank.txt", messageBank)
+    return queryTabbedFile("server/model/character files/MessageBank.txt", messageBank, state)
 
 def pickQuestion(questionBank):
     """ Picks a random question and also gives its corresponding predicted impact

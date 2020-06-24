@@ -40,19 +40,18 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     }    
 });
 
-// Whenever tabs are updated
+// Whenever tabs are updated, update last_tabs tracker
 chrome.tabs.onUpdated.addListener(function () {
-    // Find which tabs are open (& their opening times)
     findCurrentTabs(function (openTabs) {
         chrome.storage.sync.get(['last_tabs'], function (result) {
-            // First, get actual open tabs and get current time
+            // First, get which tabs are open and get current time
             var tabList = openTabs['current_tabs'];
             var currentTime = getCurrentTime();
 
-            // Load past tabs for comparison
+            // Load saved past tabs for comparison
             var lastTabs = result['last_tabs'];
 
-            // Writing new tab times
+            // Compare current tabs to saved past tabs
             var newTabs = {};
             for (var tabIndex in tabList) {
                 var tabName = tabList[tabIndex];
