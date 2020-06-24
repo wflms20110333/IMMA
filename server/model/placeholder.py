@@ -58,6 +58,8 @@ def vectorizeInput(openedSites, userSettingFile):
             if possibleSite == openSite:
                 scoreVector = userData['sites'][openSite]
 
+                #print("Debug: score vector match in open tabs!", scoreVector)
+
                 timeMultiplier = 1 # the longer a site is opened, the greater the multiplier
                 timeTabOpen = int(time.time() * 1000 - openedSites[openSite])
                 if timeTabOpen < 10000: # less than 10 seconds
@@ -71,6 +73,7 @@ def vectorizeInput(openedSites, userSettingFile):
 
                 predictedImpact = timeMultiplier * scoreVector # impact per each site
                 mood_delta += predictedImpact
+                #print("mood delta is now", mood_delta)
 
     return mood_delta
 

@@ -25,9 +25,13 @@ def evaluate_state():
     predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
     currentState = inputParams['mood']
 
+    print("Debug: current predicted mood is", predictedMood, "and current is", currentState, "for total", predictedMood + currentState)
+
+    predictedMood = np.clip(predictedMood + currentState, 0.0, 5.0) # limit moods between 0 and 5
+
     # pick a message
-    pickedMessage, _ = ph.pickMessage(predictedMood+currentState, inputParams['message_bank'])
-    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': pickedMessage}
+    pickedMessage, _ = ph.pickMessage(predictedMood, inputParams['message_bank'])
+    message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
