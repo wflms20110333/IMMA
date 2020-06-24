@@ -10,6 +10,10 @@ cors = CORS(app)
 # initialize variable for model
 model = ph.initializeNetwork()
 
+@app.route('/')
+def hello_world():
+    return "Whale, hello there!"
+
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
@@ -18,7 +22,7 @@ def evaluate_state():
     inputParams = request.get_json()
 
     # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = ph.vectorizeInput(inputParams['current_tabs'])
+    vectInput = ph.vectorizeInput(inputParams['current_tabs'], inputParams['user_setting'])
     currentState = model.online_predict(vectInput)
     message = ph.pickMessage(currentState, inputParams['message_bank'])
     message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': message}
@@ -34,14 +38,25 @@ def get_question():
 
 @app.route('/processAnswer', methods=['POST'])
 def process_answer():
-    """ Given the weights of the last question & the user's answer, update the site scores of the user
-    An example POST: {'last_tabs': ["github", "fb"], 'last_q_weight': [1,0,0,0]} """
+    """ Given the weights of the last question & the user's answer, update the site scores of the user """
     inputParams = request.get_json()
 
     # Update site file
-    ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'])
+    ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'], inputParams['user_setting'])
 
     return jsonify({'success': True})
+
+@app.route('/getAlarm', methods=['POST'])
+def get_alarm():
+    """ Given link to user setting file and messages since last question
+    
+    Return duration til next alarm (in seconds) & type of alarm """
+    inputParams = request.get_json()
+
+    # Update site file
+    mDuration, mType = ph.getNextAlarmStats(inputParams['recent_message_ct'], inputParams['user_setting'])
+
+    return jsonify({'mDuration': mDuration, 'mType': mType})
 
 @app.route('/retrieveIMMA', methods=['POST'])
 def retrieve_imma():
@@ -72,4 +87,5 @@ def retrieve_imma():
     else:
         return jsonify({'success': False})
 
-app.run(debug=True) # host='0.0.0.0' enables remote connections?
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')

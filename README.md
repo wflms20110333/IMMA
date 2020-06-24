@@ -86,6 +86,8 @@ Calling `findCurrentTabs(sendMessage)` retrieves the current tabs that are open 
 'image_link': (string) link to image for the active character
 'message_bank': (json) storage of possible messages for the active character
 'question_bank': (json) storage of possible questions for the active character
+'user_setting': (string) link to setting file for current user
 'last_tabs': (array) list of the last retrieved tabs, e.g. ['calendar.google.com', 'app.slack.com']
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5]
+'recent_message_ct': (number) messages sent since last question was sent
 ```
