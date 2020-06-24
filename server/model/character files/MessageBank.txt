@@ -1,0 +1,17 @@
+You're amazing!	1.0	-0.5	-0.5	0.2	0	0.0	0.8	0.8
+So cool!	0.7	-0.5	-0.5	0	0	0.1	0.7	0.7
+Impressive!	0.7	-0.5	-0.5	0	0	0.1	0.6	0.6
+You've been doing a good job!	0.4	-0.2	-0.2	0	0	0.5	0.3	0.3
+You've been doing a great job!	0.4	-0.2	-0.2	0	0	0.4	0.4	0.4
+You've done well!	0.4	-0.2	-0.2	0	0	0.3	0.7	0.6
+You can do this!	0.5	-0.5	-0.5	-0.2	0	0.3	0.8	0.5
+Don't give up!	0.5	-0.1	-0.7	-0.8	0	0.8	0.2	0.8
+Keep going!	0	0	-0.5	0	0	0.8	0.5	0.4
+Keep it up!	0	0	-0.5	0	0	0.7	0.3	0.4
+You're getting better! Keep going.	0.8	-0.2	-0.2	-0.5	0	0.8	0.2	0.3
+Not bad!	-0.5	-0.2	0	-0.1	0	0.5	0.0	0.1
+Concentrate!	0	0.1	-0.1	-1.0	-0.1	0.9	0.1	0.5
+Focus!	0	0.1	-0.1	-1.0	-0.1	0.9	0.1	0.5
+Stay hydrated!	0.5	0	-0.2	0.3	1.0	0.2	0.8	0.6
+Take a break?	0.3	-0.8	-0.3	0.5	0.8	0.1	0.8	0.6
+Be sure to rest your eyes!	0.3	-1.0	-0.3	0.5	1.0	0.1	0.8	0.6

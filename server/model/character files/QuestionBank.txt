@@ -1,0 +1,8 @@
+Are you happy?	1.0	0	0	0	0	0.0	0.8	0.5
+Are you feeling stressed?	0	1.0	0	0	0	0.2	0.4	0.5
+Do you need some advice?	0	0.3	0.3	0.3	0	0.5	0.1	0.2
+Are you feeling motivated?	0	0	-0.5	-0.5	0	0.8	0.4	0.8
+Are you focused?	0	0	-0.2	-0.8	0	1.0	0.4	0.4
+Have you walked around recently?	0	0	0	0	1.0	0.1	0.5	0.5
+Have you drunk water recently?	0	0	0	0	1.0	0.1	0.5	0.5
+Do you have good posture right now?	0	0	0	0	1.0	0.2	0.2	0.5

@@ -18,10 +18,10 @@ def evaluate_state():
     inputParams = request.get_json()
 
     # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = ph.vectorizeInput(inputParams['current_tabs'], inputParams['user_setting'])
-    currentState = model.online_predict(vectInput)
-    message = ph.pickMessage(currentState, inputParams['message_bank'])
-    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': message}
+    vectInput = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
+    currentState = inputParams['mood']
+    pickedMessage, _ = ph.pickMessage(currentState, inputParams['message_bank'])
+    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
@@ -30,8 +30,11 @@ def get_question():
     inputParams = request.get_json()
     pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'])
     message = {'question': pickedQuestion, 'questionWeight': questionWeight}
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print(message["questionWeight"])
     return jsonify(message)
 
+'''
 @app.route('/processAnswer', methods=['POST'])
 def process_answer():
     """ Given the weights of the last question & the user's answer, update the site scores of the user """
@@ -41,6 +44,7 @@ def process_answer():
     ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'], inputParams['user_setting'])
 
     return jsonify({'success': True})
+'''
 
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():
@@ -50,7 +54,7 @@ def get_alarm():
     inputParams = request.get_json()
 
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['recent_message_ct'], inputParams['user_setting'])
+    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['user_setting'])
 
     return jsonify({'mDuration': mDuration, 'mType': mType})
 

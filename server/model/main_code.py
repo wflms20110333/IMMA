@@ -7,7 +7,7 @@ timesteps = 300 # number of timesteps
 
 ''' Possible environment states '''
 max_signals = 20 # maximum number of categories of possible signals
-signal_dim = 4 # a 3D signal (URL type, URL ID, time on URL)
+signal_dim = 5 # a 3D signal (URL type, URL ID, time on URL)
 sim_signal = np.random.randint(0, max_signals, (timesteps,signal_dim)) # simulated signal
 
 ''' Possible feedback signals '''

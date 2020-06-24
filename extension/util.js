@@ -7,8 +7,7 @@ function getCurrentTime() {
 }
 
 /**
- * Returns {"current_tabs": tabs in the current window} & updates memory of last opened tabs
- * @param {function} callback to run with the current tabs as input
+ * Returns {"current_tabs": tabs in the current window}
  */
 function findCurrentTabs(callback) {
     var tabInfo = {'current_tabs': []};
@@ -21,7 +20,6 @@ function findCurrentTabs(callback) {
             tabUrl = tabUrl.split('//')[1].split('/')[0].substring(0, 50);
             tabInfo['current_tabs'].push(tabUrl);
         }
-        chrome.storage.sync.set({'last_tabs': tabInfo['current_tabs']});
         callback(tabInfo);
     });
 }
@@ -30,12 +28,10 @@ function findCurrentTabs(callback) {
  * Calls serverPOST to pick a good notification, then sends that notification
  * @param {Object} currentTabs json of the current tabs open
  */
-function sendMessage(currentTabs) {
+function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'message_bank', 'user_setting'], function (result) {
-        currentTabs['message_bank'] = result['message_bank']; // pass on message bank as well
-        currentTabs['user_setting'] = result['user_setting']; // pass on user setting as well
-        serverPOST('evaluateState', currentTabs, function(data) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
+        serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
     });
@@ -57,17 +53,21 @@ function sendNewQuestion() {
 }
 
 /**
- * Calls serverPOST to update using memory's last tabs and last question weights
+ * Given answer to last question & those weights, update mood
  * @param {number} buttonIndex which response button was pressed for that question
  */
 function updateWithAnswer(buttonIndex) {
     console.log('in updateWithAnswer');
-    chrome.storage.sync.get(['last_tabs', 'last_q_weight', 'user_setting'], function (result) {
-        var qWeights = result['last_q_weight'];
-        result['last_q_weight'] = qWeights.map(function(element) { // multiply by +1 or -1
-            return element*buttonIndex;
-        });
-        serverPOST('processAnswer', result, null);
+    chrome.storage.sync.get(['mood', 'last_q_weight'], function (result) {
+        var lastMood = result['mood'];
+        var lastWeight = result['last_q_weight'].split(',').map(Number);
+        // need to convert back to number array since it was json-ified
+
+        var newMood = [];
+        for (var index in lastMood) {
+            newMood.push(lastMood[index] + (buttonIndex * lastWeight[index]))
+        }
+        chrome.storage.sync.set({'mood': newMood});
     });
 }
 
@@ -87,6 +87,7 @@ function loadCharacterCode(redeemCode) {
             chrome.storage.sync.set({'image_link': data['information']['imageLink']});
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
+            chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
             //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
     });
@@ -115,7 +116,7 @@ function setQuickAlarm() {
 function setNextAlarm() {
     console.log('in setNextAlarm');
     
-    chrome.storage.sync.get(['recent_message_ct', 'user_setting'], function (result) {
+    chrome.storage.sync.get(['recent_message_ct', 'user_setting', 'question_ratio', 'mood'], function (result) {
         serverPOST('getAlarm', result, function(data) {
             if (data['mType'] == "question") {
                 chrome.storage.sync.set({'recent_message_ct': 0}); // will give a question, reset counter
