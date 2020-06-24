@@ -5,7 +5,7 @@
 * `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server; `server/model/` contains code for the ML model
-* `full_requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)
+* `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)
 
 ## Activating the environment
 
@@ -61,7 +61,7 @@ docker run -d -p 80:5000 --name imma-server imma
 
 To exit the SSH session, type `logout`.
 
-#### Outdated instructions for Apache Server
+### Outdated instructions for Apache Server
 
 The app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
 
