@@ -10,6 +10,10 @@ cors = CORS(app)
 # initialize variable for model
 model = ph.initializeNetwork()
 
+@app.route('/')
+def hello_world():
+    return "Whale, hello there!"
+
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
@@ -87,4 +91,5 @@ def retrieve_imma():
     else:
         return jsonify({'success': False})
 
-app.run(debug=True) # host='0.0.0.0' enables remote connections?
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')

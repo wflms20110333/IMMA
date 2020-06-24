@@ -5,7 +5,7 @@
 * `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
 * `extension/` contains code for the chrome extension (client)
 * `server/` contains code for the Flask server; `server/model/` contains code for the ML model
-* `full_requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)
+* `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)
 
 ## Activating the environment
 
@@ -33,17 +33,41 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-35-164-170-145.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-52-34-168-73.us-west-2.compute.amazonaws.com/>.
 
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ec2-user@ec2-35-164-170-145.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-52-34-168-73.us-west-2.compute.amazonaws.com
 ```
 
-Then the app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
+The server has been containerized with docker. After changing directories to `server/`,
+build the docker file after any changes with
+
+```shell
+docker build -t imma:latest .
+```
+
+And launch a container with
+
+```shell
+docker run -d -p 80:5000 --name imma-server imma
+```
+
+* To list all containers: `docker ps -a`
+* To stop all containers: `docker stop $(docker ps -aq)`
+* To remove all containers: `docker rm $(docker ps -aq)`
+* To ssh into a running container: `docker exec -it CONTAINER_NAME /bin/bash`
 
 To exit the SSH session, type `logout`.
+
+### Outdated instructions for Apache Server
+
+The app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
+
+* To start the server, run `sudo service httpd start`.
+* To restart the server, run `sudo service httpd restart`.
+* To stop the server, run `sudo service httpd stop`.
 
 ## Development
 
