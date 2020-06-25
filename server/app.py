@@ -21,30 +21,28 @@ def evaluate_state():
     global model # force to look in module scope not definition scope
     inputParams = request.get_json()
 
-    # convert current urls opened into vector, feed into RNN, and choose message
-    vectInput = ph.vectorizeInput(inputParams['current_tabs'], inputParams['user_setting'])
-    currentState = model.online_predict(vectInput)
-    message = ph.pickMessage(currentState, inputParams['message_bank'])
-    message = {'modelInput': str(vectInput), 'predictedState': str(currentState), 'message': message}
+    # predict mood
+    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
+    currentState = inputParams['mood']
+
+    print("Debug: current predicted mood is", predictedMood, "and current is", currentState, "for total", predictedMood + currentState)
+
+    predictedMood = np.clip(predictedMood + currentState, 0.0, 5.0) # limit moods between 0 and 5
+
+    # pick a message
+    pickedMessage, _ = ph.pickMessage(predictedMood, inputParams['message_bank'])
+    message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
 def get_question():
     """ Picks a question randomly """
     inputParams = request.get_json()
+
+    # Pick a question
     pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'])
-    message = {'question': pickedQuestion, 'questionWeight': questionWeight}
+    message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
     return jsonify(message)
-
-@app.route('/processAnswer', methods=['POST'])
-def process_answer():
-    """ Given the weights of the last question & the user's answer, update the site scores of the user """
-    inputParams = request.get_json()
-
-    # Update site file
-    ph.learnFromQuestion(inputParams['last_tabs'], inputParams['last_q_weight'], inputParams['user_setting'])
-
-    return jsonify({'success': True})
 
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():
@@ -54,7 +52,7 @@ def get_alarm():
     inputParams = request.get_json()
 
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['recent_message_ct'], inputParams['user_setting'])
+    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['user_setting'])
 
     return jsonify({'mDuration': mDuration, 'mType': mType})
 

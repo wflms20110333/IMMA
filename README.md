@@ -4,14 +4,15 @@
 
 * `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
 * `extension/` contains code for the chrome extension (client)
-* `server/` contains code for the Flask server; `server/model/` contains code for the ML model
-* `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > light_requirements.txt`)
+* `server/` contains code for the Flask server
+* `server/model/` contains code for the backend Python functions
+* `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > server/requirements.txt`)
 
 ## Activating the environment
 
 1) Create a new venv if you don't have one yet; activate with `venv_windows_train\Scripts\activate.bat` or equivalent command
 
-2) Update your virtual environment by running `pip install -f full_requirements.txt` or equivalent within the active environment
+2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment
 
 ## Running the server
 
@@ -69,25 +70,46 @@ The app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/http
 * To restart the server, run `sudo service httpd restart`.
 * To stop the server, run `sudo service httpd stop`.
 
-## Development
+## Summary of extension structure
 
-Try out different functions by altering content of `chrome.runtime.onInstalled.addListener` in `background.js`
+### Code files
 
-Calling `findCurrentTabs(sendMessage)` retrieves the current tabs that are open and converts that to an array using a site-scoring file. This array is then passed to the server, and an RNN predicts the user's current state. Based on the state, we then choose a message in the .imma file that maximizes the sum, and finally we send that message in a notification.
+There are four main code files: `extension/background.js`, `extension/util.js`, `server/app.py`, and `server/model/placeholder.py`.
 
-`sendNewQuestion` contacts server for a random question in the .imma file, then sends that question as a notification.
+`background.js` describes what the extension does at a higher level, i.e. what it should do at initialization and how it should respond to events. It calls functions in `util.js`.
 
-`updateWithAnswer`, within `chrome.notifications.onButtonClicked.addListener`, listens for the user's response to a question, and updates the site-scoring file by adding or subtracting `delta * question_weight` from each last active site.
+`util.js` contains the functions for the extension to send notifications, retrieve information from the server, etc.
+
+`app.py` manages server requests, passing on POST json data to `placeholder.py`.
+
+`placeholder.py` contains functions that the server performs to process data and so on.
+
+### Input files
+
+There are four types of input files; current examples: `MessageBank.txt`, `QuestionBank.txt`, `002_hoshi.imma`, and `001.usersetting`.
+
+`MessageBank.txt` is currently a tab-separated file that contains general messages alongside a score that denotes that message's mood impact on a 5.0 scale [happy, stressed, low-energy, distracted, wellbeing] as well as compatibility with character personality on a 0 to 1 scale [productivity, cheerful, energized].
+
+`QuestionBank.txt` is likewise a tab-separated file containing general questions alongside their scores.
+
+`002_hoshi.imma` and similar are character files that augment the MessageBank/QuestionBank, and contain general information about the character, as well as personality type and any custom messages/questions. (other imma files are not yet updated, just hoshi for now!)
+
+`001.usersetting` and similar are user setting files that contain user preferences and any information about "good" or "bad" browsing sites that the user has provided.
 
 ### Items kept in chrome extension memory
 
 ```
+General variables:
+'user_setting': (string) link to setting file for current user
+'recent_message_ct': (number) messages sent since last question was sent
+'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
+'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
+'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
+
+Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
-'message_bank': (json) storage of possible messages for the active character
-'question_bank': (json) storage of possible questions for the active character
-'user_setting': (string) link to setting file for current user
-'last_tabs': (array) list of the last retrieved tabs, e.g. ['calendar.google.com', 'app.slack.com']
-'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5]
-'recent_message_ct': (number) messages sent since last question was sent
+'message_bank': (json) storage of custom/extra messages for the active character
+'question_bank': (json) storage of custom/extra questions for the active character
+'question_ratio': (array) ratio of 1 question per X messages
 ```

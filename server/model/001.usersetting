@@ -1,1 +1,8 @@
-{"UserID": "NoneAssigned", "AlarmSpacing": 15.0, "AlarmStdev": 2.0, "QuestionFreq": 3.0, "QuestionStdev": 0.5, "sites": {"extensions": [-0.06, 0.01, 0.01, 0.01], "apps": [0.0, 0.0, 0.0, 0.0], "calendar.google.com": [-0.06, 3.01, 4.01, -0.16], "drive.google.com": [0.02, -0.01, 0.0, -0.01], "docs.google.com": [0.01, -0.0, 0.02, 0.0], "www.youtube.com": [0.0, 0.0, 0.0, 0.0], "www.google.com": [0.0, 0.0, 0.0, 0.0], "news.google.com": [0.0, 0.0, 0.0, 0.0], "translate.google.com": [1.0, 0.0, 0.0, 0.03], "www.facebook.com": [0.02, -0.01, 0.0, -0.01], "www.tiktok.com": [0.0, 0.0, 0.0, 0.0], "app.slack.com": [0.0, 0.0, 0.0, 0.0], "www.twitter.com": [0.0, 0.0, 0.0, 0.0], "www.linkedin.com": [0.0, 0.0, 0.0, 0.0], "www.instagram.com": [0.0, 0.0, 0.0, 0.0], "www.pinterest.com": [0.0, 0.0, 0.0, 0.0], "www.medium.com": [0.0, 0.0, 0.0, 0.0], "www.nytimes.com": [0.0, 0.0, 0.0, 0.0], "www.cnn.com": [0.0, 0.0, 0.0, 0.0], "www.reddit.com": [0.0, 0.0, 0.0, 0.0], "www.quora.com": [0.0, 0.0, 0.0, 0.0], "en.wikipedia.org": [0.0, 0.0, 0.0, 0.0], "www.netflix.com": [0.0, 0.0, 0.0, 0.0], "www.crunchyroll.com": [0.0, 0.0, 0.0, 0.0], "www.viki.com": [0.0, 0.0, 0.0, 0.0], "www.quizlet.com": [0.0, 0.0, 0.0, 0.0], "www.piazza.com": [0.0, 0.0, 0.0, 0.0], "www.amazon.com": [0.0, 0.0, 0.0, 0.0], "www.yelp.com": [0.0, 0.0, 0.0, 0.0], "www.dropbox.com ": [0.0, 0.0, 0.0, 0.0]}}
+{"UserID": "NoneAssigned", 
+"AlarmSpacing": 7.0, "AlarmStdev": 2.0, 
+"PersistentNotifs": "TODO",
+"sites": {"www.youtube.com": [1.0, 0.0, 0.0, 1.0, 0.0], 
+"www.facebook.com": [0.0, 0.0, 1.0, 0.0, 0.0], 
+"en.wikipedia.org": [0.0, 0.0, 0.0, 1.0, 0.0], 
+"www.quizlet.com": [0.0, 1.0, 0.0, 0.0, 0.0], 
+"www.piazza.com": [0.0, 1.0, 0.0, 0.0, 0.0]}}
