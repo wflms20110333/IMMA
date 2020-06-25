@@ -30,7 +30,7 @@ function findCurrentTabs(callback) {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
@@ -43,9 +43,8 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'question_bank'], function (result) {
-        var jsonObj = {'question_bank': result['question_bank']}; // to pass on question bank
-        serverPOST('getQuestion', jsonObj, function(data) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank'], function (result) {
+        serverPOST('getQuestion', result, function(data) {
             sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
         });
@@ -85,6 +84,7 @@ function loadCharacterCode(redeemCode) {
         } else { // code valid
             chrome.storage.sync.set({'imma_name': data['information']['name']});
             chrome.storage.sync.set({'image_link': data['information']['imageLink']});
+            chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
