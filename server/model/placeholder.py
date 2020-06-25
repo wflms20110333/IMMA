@@ -56,7 +56,7 @@ def vectorizeInput(openedSites, userSettingFile):
     for i, possibleSite in enumerate(userData['sites'].keys()):
         for openSite in openedSites.keys():
             if possibleSite == openSite:
-                scoreVector = userData['sites'][openSite]
+                scoreVector = np.array(userData['sites'][openSite])
 
                 #print("Debug: score vector match in open tabs!", scoreVector)
 
@@ -71,6 +71,7 @@ def vectorizeInput(openedSites, userSettingFile):
                 elif timeTabOpen > 240000: # more than 240 seconds
                     timeMultiplier = 1.5
 
+                print("debugggg", scoreVector, openSite)
                 predictedImpact = timeMultiplier * scoreVector # impact per each site
                 mood_delta += predictedImpact
                 #print("mood delta is now", mood_delta)

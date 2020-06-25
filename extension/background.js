@@ -15,6 +15,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'last_tabs': {}}); // initialize as no tabs currently open
     chrome.storage.sync.set({'mood': [3.0, 3.0, 3.0, 3.0, 3.0]}); // initialize neutral mood
     loadCharacterCode("horanghae"); // load first imma character from code
+    lastTabsUpdater();
     setQuickAlarm(); // set first alarm
 });
 
@@ -23,7 +24,6 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
     // Check if the notification type is that of a question
     if (notificationID == 'Notif_Question') {
         // If so, run the training procedure with feedback
-        setNextAlarm(); // set another alarm
         updateWithAnswer(-2*buttonIndex+1); // pass on feedback from which button was clicked (0 or 1) => (1 or -1)
         chrome.notifications.clear('Notif_Question');
     }
@@ -33,7 +33,7 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
 chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     if (alarmInfo['name'] == "question") { // send a question to user
         sendNewQuestion(); // contacts server for question, then sends notification
-        // (wait until button clicked to set new timer)
+        setNextAlarm(); // set timer for another alarm immediately
     } else { // send a message to user
         sendMessage(); // gets current tabs open, contacts server for message, then sends notification
         setNextAlarm(); // set timer for another alarm immediately
@@ -42,26 +42,5 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 
 // Whenever tabs are updated, update last_tabs tracker
 chrome.tabs.onUpdated.addListener(function () {
-    findCurrentTabs(function (openTabs) {
-        chrome.storage.sync.get(['last_tabs'], function (result) {
-            // First, get which tabs are open and get current time
-            var tabList = openTabs['current_tabs'];
-            var currentTime = getCurrentTime();
-
-            // Load saved past tabs for comparison
-            var lastTabs = result['last_tabs'];
-
-            // Compare current tabs to saved past tabs
-            var newTabs = {};
-            for (var tabIndex in tabList) {
-                var tabName = tabList[tabIndex];
-                if (tabName in lastTabs) { // this tab was open before, so use the old opening time
-                    newTabs[tabName] = lastTabs[tabName];
-                } else { // this tab was just opened
-                    newTabs[tabName] = currentTime;
-                }
-            }
-            chrome.storage.sync.set({'last_tabs': newTabs});
-        });
-    });
+    lastTabsUpdater();
 });
