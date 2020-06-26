@@ -8,46 +8,46 @@
 
 <body>
     <header id="headerbar" class="bar">
-        <div class="leftside">
-            <img src="/images/new_imma_fullsize.png" width="30" height="30" alt="Icon">
-            <img src="/images/TextCloseCut.png" width="70" height="26" alt="IMMA">
+        <div class="unscaled-left">
+            <img id="immalogo" src="/images/new_imma_fullsize.png" width="30" height="30" alt="Icon">
+            <img id="immalogowords" src="/images/TextCloseCut.png" width="70" height="26" alt="IMMA">
         </div>
-        <div class="rightside">
-            <img src="/images/icons/settings.png" width="20" height="20" alt="Settings">
-            <img src="/images/icons/account.png" width="20" height="20" alt="Account">
+        <div class="scaled-right">
+            <img src="/images/icons/settings.png" alt="Settings">
+            <img src="/images/icons/account.png" alt="Account">
         </div>
     </header>
 
     <main id="characterpicker" class="picker">
-        <div class="immaleft">
-            <img id="immaicon" src="/images/new_imma_128.png" width="120" height="120" alt="Icon">
+        <div class="unscaled-left">
+            <img id="immaicon" src="/images/new_imma_128.png" width="110" height="110" alt="Icon">
         </div>
-        <div class="immaright">
-            <h2 id="charactername">DEFAULT</h2>
-            <p><b></b>active</b>
-            <label class="switch">
-                <input type="checkbox" id="activeswitch"><span class="slider round"></span>
-            </label>
-            </p>
-            <p><img src="/images/icons/customize.png" width="20" height="20"><b>customize</b></p>
-            <p><img src="/images/icons/store.png" width="20" height="20"><b>visit store</b></p>
-            <p><img src="/images/icons/swap.png" width="20" height="20"><b>swap</b></p>
+        <div class="scaled-right">
+            <div id="charactername">DEFAULT</div>
+            <div>
+                active
+                <label class="switch"><input type="checkbox" id="activeswitch">
+                <span class="slider round"></span></label>
+            </div>
+            <div class="s-menu"><img src="/images/icons/swap.png"> Change IMMA</div>
+            <div class="s-menu"><img src="/images/icons/customize.png"> Customize</div>
+            <div class="s-menu"><img src="/images/icons/store.png"> Purchase new...</div>
         </div>
     </main>
 
     <footer id="footerbar" class="bar">
-        <div class="leftside">
+        <div class="scaled-left">
             <a href="https://www.facebook.com/"></a>
-                <img src="/images/icons/facebook.png" width="20" height="20" alt="Facebook">
+                <img src="/images/icons/facebook.png" alt="Facebook">
             <a href="https://www.twitter.com/">
-                <img src="/images/icons/twitter.png" width="20" height="20" alt="Twitter"></a>
+                <img src="/images/icons/twitter.png" alt="Twitter"></a>
             <a href="https://wflms20110333.github.io/IMMA/">
-                <img src="/images/icons/web.png" width="20" height="20" alt="Web"></a>
+                <img src="/images/icons/web.png" alt="Web"></a>
         </div>
-        <div class="rightside">
-            <img src="/images/icons/help_narrow.png" width="16" height="20" alt="Help">
-            <img src="/images/icons/desktop.png" width="20" height="20" alt="Desktop">
-            <img src="/images/icons/mobile.png" width="20" height="20" alt="Mobile">
+        <div class="scaled-right">
+            <img src="/images/icons/help_narrow.png" id="questionmark" alt="Help">
+            <img src="/images/icons/desktop.png" alt="Desktop">
+            <img src="/images/icons/mobile.png" alt="Mobile">
         </div>
     </footer>
 </body>
