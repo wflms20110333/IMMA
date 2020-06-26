@@ -31,16 +31,19 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
 
 // Whenever alarm fires
 chrome.alarms.onAlarm.addListener(function (alarmInfo) {
-    if (alarmInfo['name'] == "question") { // send a question to user
-        sendNewQuestion(); // contacts server for question, then sends notification
-        setNextAlarm(); // set timer for another alarm immediately
-    } else { // send a message to user
-        sendMessage(); // gets current tabs open, contacts server for message, then sends notification
-        setNextAlarm(); // set timer for another alarm immediately
-    }    
+    chrome.storage.sync.get(['immaActive'], function (result) {
+        if (result['immaActive'] == true){ // Active IMMA!!
+            if (alarmInfo['name'] == "question") { // send a question to user
+                sendNewQuestion(); // contacts server for question, then sends notification
+            } else { // send a message to user
+                sendMessage(); // gets current tabs open, contacts server for message, then sends notification
+            }
+        }
+        setNextAlarm(); // set timer for another alarm #TODO, set alarm only when reactivated rather than continuously setting while inactive
+    });
 });
 
 // Whenever tabs are updated, update last_tabs tracker
 chrome.tabs.onUpdated.addListener(function () {
-    lastTabsUpdater();
+    lastTabsUpdater(); // If the IMMA is inactive, tabs will be updated when the IMMA is active again
 });

@@ -112,10 +112,13 @@ function loadCharacterCode(redeemCode) {
         } else { // code valid
             chrome.storage.sync.set({'imma_name': data['information']['name']});
             chrome.storage.sync.set({'image_link': data['information']['imageLink']});
+            chrome.storage.sync.set({'color1': data['information']['color1']});
+            chrome.storage.sync.set({'color2': data['information']['color2']});
             chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
+            chrome.storage.sync.set({'immaActive': true});
             //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
     });

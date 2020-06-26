@@ -1,14 +1,35 @@
-/* // doesn't work with chrome extension security, #todo fix
-function openPopupTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+// Update colors of the popup menu
+chrome.storage.sync.get(['color1', 'color2'], function(data) {
+    document.getElementById('headerbar').style.backgroundColor = data['color1'];
+    document.getElementById('characterpicker').style.backgroundColor = data['color2'];
+    document.getElementById('footerbar').style.backgroundColor = data['color1'];
+  });
+
+// Update displayed IMMA information in the popup menu
+chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
+    document.getElementById('immaicon').src = "/images/character images/" + data['image_link'];
+    document.getElementById('charactername').textContent = data['imma_name'];
+});
+
+// Manage the activation switch
+var activeswitch = document.getElementById('activeswitch');
+activeswitch.checked = true; // active by default
+activeswitch.addEventListener('click', function() {
+    if(activeswitch.checked == true){ // activate imma
+        chrome.storage.sync.set({'immaActive': true});
+    }else{ // deactivate imma
+        chrome.storage.sync.set({'immaActive': false});
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-} */
+});
+
+// Code for enabling hyperlinks in popup
+var links = document.getElementsByTagName("a");
+for (var i = 0; i < links.length; i++) {
+    (function () {
+        var ln = links[i];
+        var location = ln.href;
+        ln.onclick = function () {
+            chrome.tabs.create({active: true, url: location});
+        };
+    })();
+}
