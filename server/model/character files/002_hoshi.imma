@@ -4,7 +4,8 @@
         "premade": "true",
         "uniqueID": "002_hoshi",
         "imageLink": "002_hoshi.png",
-		"color": "f59342",
+		"color1": "#f59342",
+        "color2": "#db7623",
 		"description": "A member of the K-pop group Seventeen, Hoshi is a multitalented performer known for his positive energy!",
         "catchphrase": "Let's fight and win!",
         "percentCustomQuotes": 0.2
@@ -26,12 +27,12 @@
     },
 
     "messageBank": {
-		"finger hearts!": [1.0, -0.6, -0.2, 0.1, 0.1],
-        "Sswa!": [0.7, -0.3, -0.2, 0.5, 0],
-        "Fighting!": [0.4, 0, -0.8, -0.1, 0]
+		"finger hearts!": [2, -1, 0, 0, 0],
+        "Sswa!": [2, 0, 0, 1, 0],
+        "Fighting!": [1, 0, -2, 0, 0]
     },
 
     "questionBank": {
-		"do you horanghae?": [1.0, 0, -0.5, 0, 0]
+		"do you horanghae?": [2, 0, -1, 0, 0]
     }
 }

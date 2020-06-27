@@ -24,13 +24,13 @@ def evaluate_state():
     # predict mood
     predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
     currentState = inputParams['mood']
+    # clip state to between 0 and 5
+    state = [min(max(i,0),5) for i in predictedMood+currentState]
 
-    print("Debug: current predicted mood is", predictedMood, "and current is", currentState, "for total", predictedMood + currentState)
-
-    predictedMood = np.clip(predictedMood + currentState, 0.0, 5.0) # limit moods between 0 and 5
+    print("Current mood:", state, "from site bonus", predictedMood, "and prior", currentState)
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(predictedMood, inputParams['message_bank'])
+    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'])
     message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
@@ -40,8 +40,9 @@ def get_question():
     inputParams = request.get_json()
 
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'])
+    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'])
     message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
+    print("Picked question with weight impact", questionWeight)
     return jsonify(message)
 
 @app.route('/getAlarm', methods=['POST'])

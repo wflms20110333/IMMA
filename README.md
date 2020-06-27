@@ -109,6 +109,7 @@ General variables:
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
+'custom_ratio': (number) how often to use custom quotes rather than pull from general database
 'message_bank': (json) storage of custom/extra messages for the active character
 'question_bank': (json) storage of custom/extra questions for the active character
 'question_ratio': (array) ratio of 1 question per X messages

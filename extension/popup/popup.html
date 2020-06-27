@@ -7,55 +7,52 @@
 </head>
 
 <body>
-    <header>
-        <h1> . . . . . . IMMA Menu (in progress!) . . . . . . </h1>
-        <div id="mainbar" class="bar">
-            <h2><img src="/images/new_imma_16.png" alt="Icon"> IMMA</h2>
+    <header id="headerbar" class="bar">
+        <div class="unscaled-left">
+            <img id="immalogo" src="/images/new_imma_fullsize.png" width="30" height="30" alt="Icon">
+            <img id="immalogowords" src="/images/TextCloseCut.png" width="70" height="26" alt="IMMA">
+        </div>
+        <div class="scaled-right">
+            <img src="/images/icons/settings.png" alt="Settings">
+            <img src="/images/icons/account.png" alt="Account">
         </div>
     </header>
 
-    <main>
-        <div id="characterpick" class="picker">
-            <h2 style="color:white">character picking goes here</h2>
-            <p><b>active [---]</b></p>
-            <p><b>feedback</b></p>
-            <p><b>customize</b></p>
+    <main id="characterpicker" class="picker">
+        <div class="unscaled-left">
+            <img id="immaicon" src="/images/new_imma_128.png" width="110" height="110" alt="Icon">
+        </div>
+        <div class="scaled-right">
+            <div id="charactername">DEFAULT</div>
+            <div>
+                active
+                <label class="switch"><input type="checkbox" id="activeswitch">
+                <span class="slider round"></span></label>
+            </div>
+            <div class="s-menu"><img src="/images/icons/swap.png"> Change IMMA</div>
+            <div class="s-menu"><img src="/images/icons/customize.png"> Customize</div>
+            <div class="s-menu"><img src="/images/icons/store.png"> Purchase new...</div>
         </div>
     </main>
 
-    <section>
-        <div id="storebar" class="bar">
-            <h2>VISIT THE IMMA STORE</h2>
+    <footer id="footerbar" class="bar">
+        <div class="scaled-left">
+            <a href="https://www.facebook.com/"></a>
+                <img src="/images/icons/facebook.png" alt="Facebook">
+            <a href="https://www.twitter.com/">
+                <img src="/images/icons/twitter.png" alt="Twitter"></a>
+            <a href="https://wflms20110333.github.io/IMMA/">
+                <img src="/images/icons/web.png" alt="Web"></a>
         </div>
-    </section>
-
-    <section>
-        <div id="Options" class="tabcontent">
-            <p>option text here</p>
-            <p>option text here</p>
+        <div class="scaled-right">
+            <img src="/images/icons/help_narrow.png" id="questionmark" alt="Help">
+            <img src="/images/icons/desktop.png" alt="Desktop">
+            <img src="/images/icons/mobile.png" alt="Mobile">
         </div>
-        
-        <div id="Account" class="tabcontent">
-            <p>account things here</p>
-            <p>account things here</p>
-        </div>
-
-        <div class="tab">
-            <button class="tablinks" onclick="openPopupTab(event, 'Options')" id="defaultOpen">Options</button>
-            <button class="tablinks" onclick="openPopupTab(event, 'Account')">Account</button>
-        </div>
-    </section>
-
-    <footer>
-        <p>footer things here</p>
     </footer>
-
-    <br>
 </body>
 
 <!-- JavaScript and HTML must be in separate files -->
-<script src="../constants.js"></script>
-<script src="../util.js"></script>
 <script src="popup.js"></script>
 
 </html>

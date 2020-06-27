@@ -26,11 +26,39 @@ function findCurrentTabs(callback) {
 }
 
 /**
+ * Updates last_tabs tracker
+ */
+function lastTabsUpdater() {
+    findCurrentTabs(function (openTabs) {
+        chrome.storage.sync.get(['last_tabs'], function (result) {
+            // First, get which tabs are open and get current time
+            var tabList = openTabs['current_tabs'];
+            var currentTime = getCurrentTime();
+
+            // Load saved past tabs for comparison
+            var lastTabs = result['last_tabs'];
+
+            // Compare current tabs to saved past tabs
+            var newTabs = {};
+            for (var tabIndex in tabList) {
+                var tabName = tabList[tabIndex];
+                if (tabName in lastTabs) { // this tab was open before, so use the old opening time
+                    newTabs[tabName] = lastTabs[tabName];
+                } else { // this tab was just opened
+                    newTabs[tabName] = currentTime;
+                }
+            }
+            chrome.storage.sync.set({'last_tabs': newTabs});
+        });
+    });
+}
+
+/**
  * Calls serverPOST to pick a good notification, then sends that notification
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
@@ -43,9 +71,8 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'question_bank'], function (result) {
-        var jsonObj = {'question_bank': result['question_bank']}; // to pass on question bank
-        serverPOST('getQuestion', jsonObj, function(data) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank'], function (result) {
+        serverPOST('getQuestion', result, function(data) {
             sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
         });
@@ -85,9 +112,13 @@ function loadCharacterCode(redeemCode) {
         } else { // code valid
             chrome.storage.sync.set({'imma_name': data['information']['name']});
             chrome.storage.sync.set({'image_link': data['information']['imageLink']});
+            chrome.storage.sync.set({'color1': data['information']['color1']});
+            chrome.storage.sync.set({'color2': data['information']['color2']});
+            chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
+            chrome.storage.sync.set({'immaActive': true});
             //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
     });

@@ -1,67 +1,131 @@
-
 body {
+  overflow: hidden;
   margin: 0px;
   white-space: nowrap;
-  font-size: 10px;
-  font-family: Verdana, sans-serif;
-}
-
-h1 {
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', sans-serif;
+  width: 280px;
 }
 
 /* Style a bar */
 .bar {
-  overflow: hidden;
-  padding: 0px 12px;
-  border: 2px solid #000000;
-  border-bottom: none;
-  background: linear-gradient(to bottom, #ffffff 0%, #f5f5fc 100%);
+  height: 30px;
 }
 
-/* Style the character picker */
+/* Style the central character picker */
 .picker {
-  overflow: hidden;
-  padding: 0px 12px;
-  border: 2px solid #000000;
-  border-bottom: none;
-  background: radial-gradient(circle, #7b5ae0, #6600ff);
+  height: 155px;
 }
 
-/* Style tabs */
-.tab {
-overflow: hidden;
-border: 2px solid #000000;
-background-color: #ccccd9;
+/* Icon scaling */
+.scaled-left img, .scaled-right img {
+  margin-top: 5px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Style tab buttons */
-.tab button {
-float: left;
-border: none;
-outline: none;
-cursor: pointer;
-padding: 14px 16px;
-transition: 0.5s;
-font-size: 17px;
-background-color: inherit;
+/* Directing icons */
+.unscaled-left, .scaled-left {
+  position: absolute;
+  left: 7px;
 }
 
-/* Style hovered tab */
-.tab button:hover {
-background-color: #ddd;
+.scaled-right {
+  position: absolute;
+  right: 7px;
 }
 
-/* Style active tab */
-.tab button.active {
-background-color: #ebebf0;
+.scaled-right div {
+  margin-right: 10px;
+  height: 24px;
 }
 
-/* Style tab content */
-.tabcontent {
-display: none;
-padding: 6px 12px;
-border: 2px solid #000000;
-border-bottom: none;
-background-color: #ebebf0;
+.s-menu img {
+  transform: translate(0, 20%);
+}
+
+/* Styling specific elements */
+#immalogo {
+  margin-top: 1px;
+  width: 28px;
+  height: 28px;
+}
+
+#immalogowords {
+  position: absolute;
+  top: 4px;
+  left: 33px;
+  width: 59px;
+  height: 23px;
+}
+
+#immaicon {
+  margin-top: 20px;
+  margin-left: 13px;
+}
+
+#charactername {
+  margin-top: 13px;
+  font-size: 18px;
+  color: white;
+}
+
+#questionmark {
+  width: 16px;
+}
+
+/* Below is CSS for the toggle switch */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(158, 158, 158);
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+input:checked + .slider {
+  background-color: #007a10;
+}
+
+/* Moves the slide circle */
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded slider outside */
+.slider.round {
+  border-radius: 17px;
+}
+
+/* Rounded slider inside */
+.slider.round:before {
+  border-radius: 50%;
 }
