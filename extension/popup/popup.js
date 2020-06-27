@@ -20,6 +20,15 @@ activeswitch.addEventListener('click', function() {
         chrome.extension.getBackgroundPage().setQuickAlarm();
     }else{ // deactivate imma
         chrome.storage.sync.set({'immaActive': false});
+        chrome.alarms.clearAll();
+        // clear all existing notifications
+        chrome.notifications.getAll((items) => {
+            if ( items ) {
+                for (let key in items) {
+                    chrome.notifications.clear(key);
+                }
+            }
+        });
     }
 });
 
