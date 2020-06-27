@@ -58,7 +58,7 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood', 'textingstyle'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
@@ -71,7 +71,7 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle'], function (result) {
         serverPOST('getQuestion', result, function(data) {
             sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
@@ -118,8 +118,8 @@ function loadCharacterCode(redeemCode) {
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
+            chrome.storage.sync.set({'textingstyle': data['textstyle']});
             chrome.storage.sync.set({'immaActive': true});
-            //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
     });
 }
