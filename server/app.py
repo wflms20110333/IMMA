@@ -7,9 +7,6 @@ import json
 app = Flask(__name__) # declare app
 cors = CORS(app)
 
-# initialize variable for model
-model = ph.initializeNetwork()
-
 @app.route('/')
 def hello_world():
     return "Whale, hello there!"
@@ -24,6 +21,7 @@ def evaluate_state():
     # predict mood
     predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
     currentState = inputParams['mood']
+    # #TODO less weight to inactive tabs
     # clip state to between 0 and 5
     state = [min(max(i,0),5) for i in predictedMood+currentState]
 

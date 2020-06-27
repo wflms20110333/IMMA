@@ -1,6 +1,5 @@
 from collections import Counter
 from random import choice
-from .nn1_code import nnRNN
 import numpy as np
 import random
 import json
@@ -153,10 +152,6 @@ def pickMessage(state, messageBank, customRatio):
 
     Returns the message (string), and the full character name (string) """
 
-    #TODO replace with DQN, this is placeholder for now?
-    #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
-    #TODO add more randomness!
-
     return queryTabbedFile("server/model/character files/MessageBank.txt", messageBank, customRatio, state)
 
 def pickQuestion(questionBank, customRatio):
@@ -171,39 +166,6 @@ def pickQuestion(questionBank, customRatio):
     randomQuestion = random.choice(list(questionBank.keys()))
     
     return queryTabbedFile("server/model/character files/QuestionBank.txt", questionBank, customRatio)
-
-'''
-def learnFromQuestion(openedSites, questionScore, userSettingFile, delta=0.01):
-    """ Given a question score vector, update each relevant site score by +/- delta
-
-    openedSites -- a set of the last opened tabs e.g. {'calendar.google.com': 10000, 'translate.google.com': 10000}
-
-    questionScore -- an array, the weights of the last question given
-
-    userSettingFile -- a site-scoring file containing stats for each possible site
-
-    delta -- how much to adjust site scores by """
-
-    #TODO avoid rereading the whole file each time?
-
-    with open(userSettingFile, 'r') as f:
-        userData = json.load(f)
-
-    # For each opened site, change its score vector
-    #TODO use chrome memory saving instead of text file?
-    for openSite in enumerate(openedSites.keys()):
-        if openSite in userData['sites'].keys():
-            prevScoreVector = userData['sites'][openSite]
-            prevScoreVector = np.array(scoreVector) # convert to nparray # unused [np.float32(i) for i in scoreVector]
-            scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
-            userData['sites'][openSite] = scoreVector
-
-    # Update the file
-    with open(userSettingFile, 'w') as f:
-        json.dump(userData, f)
-
-    return
-'''
 
 if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     print("done")

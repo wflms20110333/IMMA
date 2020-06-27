@@ -9,7 +9,6 @@ chrome.runtime.onInstalled.addListener(function () {
         'waterwater': '005_moana'
     }
      */
-
     chrome.storage.sync.set({'user_setting': "server/model/001.usersetting"});
     chrome.storage.sync.set({'recent_message_ct': '0'}); // count of messages given since last question given
     chrome.storage.sync.set({'last_tabs': {}}); // initialize as no tabs currently open
@@ -31,15 +30,17 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
 
 // Whenever alarm fires
 chrome.alarms.onAlarm.addListener(function (alarmInfo) {
-    chrome.storage.sync.get(['immaActive'], function (result) {
+    chrome.storage.sync.get(['immaActive', 'imma_name', 'image_link'], function (result) {
         if (result['immaActive'] == true){ // Active IMMA!!
             if (alarmInfo['name'] == "question") { // send a question to user
                 sendNewQuestion(); // contacts server for question, then sends notification
+            } else if (alarmInfo['name'] == "quickmessage") { // send a message that imma is now activated
+                sendNotification(result['imma_name'] + " has been loaded!", "IMMA", result['image_link']);
             } else { // send a message to user
                 sendMessage(); // gets current tabs open, contacts server for message, then sends notification
             }
+            setNextAlarm(); // set timer for another alarm
         }
-        setNextAlarm(); // set timer for another alarm #TODO, set alarm only when reactivated rather than continuously setting while inactive
     });
 });
 

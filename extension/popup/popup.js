@@ -17,6 +17,7 @@ activeswitch.checked = true; // active by default
 activeswitch.addEventListener('click', function() {
     if(activeswitch.checked == true){ // activate imma
         chrome.storage.sync.set({'immaActive': true});
+        chrome.extension.getBackgroundPage().setQuickAlarm();
     }else{ // deactivate imma
         chrome.storage.sync.set({'immaActive': false});
     }

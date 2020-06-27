@@ -125,19 +125,13 @@ function loadCharacterCode(redeemCode) {
 }
 
 /**
- * Sets an alarm to quickly give a message, and updates recent_message_ct
+ * Sets an alarm to quickly give a setup message
  */
 
 function setQuickAlarm() {
     console.log('in setQuickAlarm');
-    
-    chrome.storage.sync.get(['recent_message_ct'], function (result) {
-        lastMessageCt = parseInt(result['recent_message_ct'])
-        chrome.storage.sync.set({'recent_message_ct': lastMessageCt + 1}); // will give a message, increment counter
-
-        var nextDelay = Date.now() + (1 * 1000); // seconds to milliseconds past epoch
-        chrome.alarms.create("message", {when: nextDelay});
-    });
+    var nextDelay = Date.now() + (1 * 200); // alarm in 0.2 second
+    chrome.alarms.create("quickmessage", {when: nextDelay});
 }
 
 /**
@@ -168,6 +162,8 @@ function setNextAlarm() {
  * https://developer.chrome.com/apps/notifications for more information
  */
 function sendNotification(msg, immaName, immaFilename) {
+    chrome.notifications.clear('Notif_Question'); // avoid overlap
+
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,
@@ -183,6 +179,8 @@ function sendNotification(msg, immaName, immaFilename) {
  * @param {string} msg the question to display
  */
 function sendNotifQuestion(msg, immaName, immaFilename) {
+    chrome.notifications.clear('Notif_Message'); // avoid overlap
+
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,
