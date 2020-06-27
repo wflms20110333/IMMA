@@ -10,9 +10,11 @@
 
 ## Activating the environment
 
-1) Create a new venv if you don't have one yet; activate with `venv_windows_train\Scripts\activate.bat` or equivalent command
+1) Create a new venv if you don't have one yet. Activate the virtual environment with
+* `venv_windows_train\Scripts\activate.bat` for Windows
+* `source venv/bin/activate` for Mac and Linux
 
-2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment
+2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
 
 ## Running the server
 
@@ -34,12 +36,32 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-52-34-168-73.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-35-161-78-68.us-west-2.compute.amazonaws.com/>.
+
+#### Starting a new EC2 instance (Ubuntu)
+
+Setting up Docker:
+
+```shell
+sudo apt-get update
+sudo apt-get remove docker docker-engine docker.io
+sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -a -G docker ubuntu
+```
+
+Installing PostgreSQL:
+```shell
+sudo apt-get install postgresql-client
+```
+
+#### Maintaining the current server
 
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ubuntu@ec2-52-34-168-73.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-35-161-78-68.us-west-2.compute.amazonaws.com
 ```
 
 The server has been containerized with docker. After changing directories to `server/`,
