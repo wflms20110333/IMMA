@@ -7,6 +7,41 @@ function getCurrentTime() {
 }
 
 /**
+ * Cleans up any expired alarms
+ */
+function cleanExpiredAlarms() {
+    chrome.alarms.getAll(function (activeAlarms) {
+        for (var alarmIndex in activeAlarms) {
+            var alarmTime = activeAlarms[alarmIndex]['scheduledTime'];
+            if (getCurrentTime() > alarmTime) {
+                console.log("Expired alarm cleaned")
+                chrome.alarms.clear(activeAlarms[alarmIndex]['name']);
+            }
+        }
+    });
+}
+
+/**
+ * Updates last_tabs, cleans alarms, ensures an alarm is running
+ */
+function updaterAndCleaner() {
+    lastTabsUpdater(); // If the IMMA is inactive, tabs will be updated when the IMMA is active again
+    cleanExpiredAlarms(); // Gets rid of any expired alarms
+
+    // Check that if the extension is active, that there is at least one alarm running
+    chrome.storage.sync.get(['immaActive'], function (result) {
+        if (result['immaActive'] == true){ // If imma is active
+            chrome.alarms.getAll(function (activeAlarms) {
+                if (activeAlarms.length == 0) { // but no alarms running
+                    console.log("No alarms running?")
+                    setNextAlarm(); // then set an alarm
+                }
+            });
+        }
+    });
+}
+
+/**
  * Returns {"current_tabs": tabs in the current window}
  * @param {function} callback to run with the current tabs as input
  */
@@ -18,7 +53,12 @@ function findCurrentTabs(callback) {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
             // Remove "http", keep only up to 1st /, limit to 50 characters
-            tabUrl = tabUrl.split('//')[1].split('/')[0].substring(0, 50);
+            tabUrl = tabUrl.split('//')
+            if (tabUrl.length > 1) {
+                tabUrl = tabUrl[1].split('/')[0].substring(0, 50);
+            } else {
+                tabUrl = tabUrl[0].substring(0, 50);
+            }
             tabInfo['current_tabs'].push(tabUrl);
         }
         callback(tabInfo);

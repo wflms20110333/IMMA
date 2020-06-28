@@ -39,12 +39,20 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
             } else { // send a message to user
                 sendMessage(); // gets current tabs open, contacts server for message, then sends notification
             }
+            chrome.alarms.clearAll();
             setNextAlarm(); // set timer for another alarm
         }
     });
 });
 
+// Things to do when window loaded
+chrome.runtime.onStartup.addListener(function () {
+    console.log("Startup: running clean");
+    updaterAndCleaner();
+});
+
 // Whenever tabs are updated, update last_tabs tracker
 chrome.tabs.onUpdated.addListener(function () {
-    lastTabsUpdater(); // If the IMMA is inactive, tabs will be updated when the IMMA is active again
+    console.log("Tab: running clean");
+    updaterAndCleaner();
 });

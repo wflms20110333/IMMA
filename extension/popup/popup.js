@@ -12,6 +12,13 @@ chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
     document.getElementById('charactername').textContent = data['imma_name'];
 });
 
+// Update the activation switch to the activation state
+console.log("updating toggle switch-");
+var activeswitch = document.getElementById('activeswitch');
+chrome.storage.sync.get(['immaActive'], function(data) {
+    activeswitch.checked = data['immaActive'];
+});
+
 // Manage the activation switch
 var activeswitch = document.getElementById('activeswitch');
 activeswitch.checked = true; // active by default
