@@ -26,6 +26,7 @@ chrome.notifications.onButtonClicked.addListener(function (notificationID, butto
         updateWithAnswer(-2*buttonIndex+1); // pass on feedback from which button was clicked (0 or 1) => (1 or -1)
         chrome.notifications.clear('Notif_Question');
     }
+    sendMessage(); // instant message after question response
 });
 
 // Whenever alarm fires
