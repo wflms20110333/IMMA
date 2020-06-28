@@ -16,7 +16,7 @@ body {
 /* Style the central character picker */
 .picker {
   height: 155px;
-  background-image: radial-gradient(circle, #a3a3a3 50%, #8a8a8a 100%);
+  background-image: radial-gradient(circle, #acacac 50%, #8a8a8a 100%);
 }
 
 /* Icon scaling */
