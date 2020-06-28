@@ -1,8 +1,9 @@
 // Update colors of the popup menu
 chrome.storage.sync.get(['color1', 'color2'], function(data) {
-    document.getElementById('headerbar').style.backgroundColor = data['color1'];
-    document.getElementById('characterpicker').style.backgroundColor = data['color2'];
-    document.getElementById('footerbar').style.backgroundColor = data['color1'];
+    //document.getElementById('clearbox').style.backgroundColor = data['color2'];
+    //document.getElementById('clearbox').style.opacity = 0.75;
+    //document.getElementById('characterpicker').style.backgroundColor = data['color2'];
+    //document.getElementById('footerbar').style.backgroundColor = data['color1'];
   });
 
 // Update displayed IMMA information in the popup menu
