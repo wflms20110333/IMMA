@@ -8,25 +8,44 @@
 
 <body>
     <header>
+        <div>
+            <p>X close window</p>
+            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA">
+            <img id="rightlogo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
+        </div>
     </header>
 
     <main>
+        <div class="sidebar">
+            <div>IMMA Settings</div>
+            <div>Account Settings</div>
+            <div>My Purchases</div>
+            <div>FAQ</div>
+        </div>
+        <div class="settingscontent">
+            <h1>Settings</h1>
+            <div>
+                <div>Message Frequency
+                    <input type="range" min="1" max="20" value="5" class="slider" id="frequency-slider">
+                    <p id="slider-text"></p>
+                </div>
+                <div>Auto-Fade Messages
+                    <label class="switch"><input type="checkbox" id="autofade-switch">
+                    <span class="slider round"></span></label>
+                </div>
+                <div>Send Feedback</div>
+                <div>Contact Us</div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></p>> 
-        <a target="_blank" href="https://icons8.com/icons/set/guest-male--v1">Account icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/paint-palette--v1">Paint Palette icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/monitor">Monitor icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/facebook-circled">Facebook Circled icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/question-mark">Question Mark icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/iphone--v1">iPhone icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/settings-3--v3">Automation icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/shopping-cart--v1">Shopping Cart icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/replace">Replace icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/twitter-squared">Twitter Squared icon</a>
-        <a target="_blank" href="https://icons8.com/icons/set/globe--v1">Globe icon</a>
+    <br>
 
+    <footer>
+        <p>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></p>
     </footer>
 </body>
+
+<script src="options.js"></script>
+
 </html>
