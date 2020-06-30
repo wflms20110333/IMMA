@@ -84,6 +84,22 @@ docker run -d -p 80:5000 --name imma-server imma
 
 To exit the SSH session, type `logout`.
 
+### Database instructions
+
+Due to the AWS security groups set up, the database can only be connected to from the server. To connect, run the following command:
+
+```shell
+psql --host=imma-database.cvhxkbafjiir.us-west-2.rds.amazonaws.com --port=5432 --username=postgres --password --dbname=imma
+```
+
+When prompted for the password, enter `imma-postgres`.
+
+Common commands:
+
+* Switch databases: `\c dbname`
+* List all databases: `\l`
+* List all tables in current database: `\dt`
+
 ### Outdated instructions for Apache Server
 
 The app is located at `/var/www/html/flaskapp`, the error logs are at `/etc/httpd/logs/error_log` (you will need `sudo` permission to read this), and the WSGI config file is at `/etc/httpd/conf.d/vhost.conf`.
