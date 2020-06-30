@@ -1,0 +1,17 @@
+div {
+    background-color: bisque;
+    margin: 20px;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

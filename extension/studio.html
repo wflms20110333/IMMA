@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>IMMA Studio</title>
+    <link rel="stylesheet" type="text/css" href="studio.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <img id="imma-logo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
+            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA"> Studio
+            <p style="float: right;">X close window</p>
+        </div>
+    </header>
+
+    <div class="column">
+        <div class="menu-box">
+            <p>Cheerful Serious</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality1">
+            <p>Energized Laidback</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality2">
+            <p>Productivity Positivity</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality3">
+        </div>
+        <br>
+        <div class="menu-box">
+            <p>Concise Verbose</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style1">
+            <p>None Emojis</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style2">
+            <p>None Capitalization</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style3">
+            <p>None Punctuation</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style4">
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="name-box">
+            <p>Name</p>
+            <p id="imma-name">Imma Name</p>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        </div>
+        <div class="open box">
+            <button>New</button>
+            <button>Open</button>
+            <button>Export</button>
+        </div>
+        <div class="menu-box">
+            Change icon
+            Add custom messages
+            Go to store
+        </div>
+    </div>
+
+    <div class="column">
+        <img id="guide-logo" src="images/Yellow.png" width="50px" height="50px" alt="Icon">
+        <p>Hello! Instructions yada yada yada</p>
+    </div>
+
+</body>
+
+<script src="options.js"></script>
+
+</html>

@@ -1,0 +1,18 @@
+div {
+    background-color: bisque;
+    margin: 20px;
+}
+
+.sidebar, .settingscontent {
+    float: left;
+    text-align: center;
+    background-color: silver;
+}
+
+.sidebar {
+    width: 20%;
+}
+
+.settingscontent {
+    width: 70%;
+}
