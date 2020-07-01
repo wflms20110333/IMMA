@@ -17,7 +17,7 @@
         "images/character images/005_moana.png"
     ],
     "background": {
-        "scripts": ["util.js", "constants.js", "background.js"],
+        "scripts": ["util.js", "constants.js", "background.js", "jquery-3.5.1.min.js"],
         "persistent": false
     },
     "manifest_version": 2,

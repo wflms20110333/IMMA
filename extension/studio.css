@@ -1,6 +1,11 @@
+body {
+    background-color: cyan;
+    margin: 0px;
+}
+
 div {
     background-color: bisque;
-    margin: 20px;
+    margin: 10px;
 }
 
 .column {
@@ -9,9 +14,43 @@ div {
     text-align: center;
 }
 
+.column-shrinkable {
+    float: left;
+    width: calc(40% - 60px);
+    text-align: center;
+}
+
+.column-equal {
+    float: left;
+    width: 33%;
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: inherit;
+    height: 50px;
+}
+
+#instructions {
+    display: none;
+}
+#imagechoosing {
+    display: none;
+}
+
+.studio {
+    background-color: rebeccapurple;
+}
+
 /* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
+}
+
+input {
+    text-align: center;
 }
