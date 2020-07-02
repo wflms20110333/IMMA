@@ -39,9 +39,9 @@ def select_user(email):
     select_statement = user_settings_table.select().where(user_settings_table.c.email == email)
     return execute_statement(select_statement).first()
 
-def get_tracked_sites_length(email):
+def get_tracked_sites(email):
     row_proxy = select_user(email)
-    return len(row_proxy["tracked_sites"])
+    return row_proxy["tracked_sites"]
 
 def update_notif_frequency(email, new_notif_frequency):
     update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(notif_frequency=new_notif_frequency)
@@ -51,17 +51,31 @@ def update_notif_fade(email, new_notif_fade):
     update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(notif_fade=new_notif_fade)
     execute_statement(update_statement)
 
-def add_tracked_site(email, new_tracked_site):
-    tracked_sites_length = get_tracked_sites_length(email)
-    update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values({
-        user_settings_table.c.tracked_sites[tracked_sites_length]: new_tracked_site
-    })
-    execute_statement(update_statement)
+def add_tracked_site(email, site_to_add):
+    tracked_sites = get_tracked_sites(email)
+    if site_to_add not in tracked_sites:
+        tracked_sites.append(site_to_add)
+        update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(tracked_sites=tracked_sites)
+        execute_statement(update_statement)
+
+def remove_tracked_site(email, site_to_remove):
+    tracked_sites = get_tracked_sites(email)
+    if site_to_remove in tracked_sites:
+        tracked_sites.remove(site_to_remove)
+        update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(tracked_sites=tracked_sites)
+        execute_statement(update_statement)
 
 def delete_user(email):
     delete_statement = user_settings_table.delete().where(user_settings_table.c.email == email)
     execute_statement(delete_statement)
 
 # insert_user("ezou@mit.edu", 10, True, [])
-add_tracked_site("ezou@mit.edu", "google.com")
+read_table(user_settings_table)
+add_tracked_site("ezou@mit.edu", "taobao.com")
+read_table(user_settings_table)
+remove_tracked_site("ezou@mit.edu", "baidu.com")
+read_table(user_settings_table)
+remove_tracked_site("ezou@mit.edu", "taobao.com")
+read_table(user_settings_table)
+add_tracked_site("ezou@mit.edu", "github.com")
 read_table(user_settings_table)
