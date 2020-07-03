@@ -14,6 +14,13 @@
 
 2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment
 
+## Running the website
+
+```shell
+cd docs
+python3 -m http.server
+```
+
 ## Running the server
 
 Run `python server/app.py` (can use Postman or similar to test requests)

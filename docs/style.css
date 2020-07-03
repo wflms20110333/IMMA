@@ -2,8 +2,9 @@
 	--color-very-light-grey: #cccccc;
 	--color-light-grey: #aaaaaa;
 	--color-medium-grey: #666666;
-	--color-header-background: rgba(20,0,0,0.4);
-	--color-theme: #444444;
+	--color-header-background: rgba(181, 181, 181, 0.4);
+	/* --color-theme: #444444; */
+	--color-theme: white;
 	--font-theme: 'Open Sans', serif, sans-serif;
 	--font-headline: 'Merriweather', serif, sans-serif;
 	--font-caption: 'Oxygen', serif, sans-serif;
@@ -50,7 +51,7 @@ header {
 }
 
 .navbar-tab-wrapper:hover {
-	background-color: white;
+	background-color: var(--color-light-grey);
 }
 
 .navbar-tab-wrapper:hover .navbar-tab {
@@ -90,6 +91,8 @@ header {
 hr {
 	border-top: dashed 1px;
 	color: var(--color-light-grey);
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .about-logo {
@@ -99,7 +102,7 @@ hr {
 }
 
 .about-txt {
-	color: var(--color-light-grey);
+	color: var(--color-medium-grey);
 }
 
 /*
@@ -117,14 +120,14 @@ hr {
 
 li a {
 	display: block;
-	color: white;
+	color: black;
 	text-align: center;
 	padding: 0px 16px 0px 16px;
 	text-decoration: none;
 }
 
 li a:hover {
-	color: black;
+	color: grey;
 }
 
 .contact-fa {
