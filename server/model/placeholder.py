@@ -1,10 +1,10 @@
 from collections import Counter
 from random import choice
-from .nn1_code import nnRNN
 import numpy as np
 import random
 import json
 import time
+import re
 
 def getNextAlarmStats(questionRatio, messageCt, userSettingFile):
     """ Returns the duration until next alarm (in seconds) and the type of alarm
@@ -71,7 +71,6 @@ def vectorizeInput(openedSites, userSettingFile):
                 elif timeTabOpen > 240000: # more than 240 seconds
                     timeMultiplier = 1.5
 
-                print("debugggg", scoreVector, openSite)
                 predictedImpact = timeMultiplier * scoreVector # impact per each site
                 mood_delta += predictedImpact
                 #print("mood delta is now", mood_delta)
@@ -142,7 +141,43 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
     ans = random.choice(bestFive)
     return ans, ','.join([str(p) for p in messageBank[ans][:5]]) # return one from the top five messages
 
-def pickMessage(state, messageBank, customRatio):
+def stylize_string(msg, textstyle):
+    """ Applies a texting style to the message
+
+    msg -- string of the message
+
+    textstyle -- json of the current imma's texting style
+
+    Returns the stylized message (string) """
+
+    msg2 = msg
+
+    # First, extract any emojis
+    emoji = ""
+    if '[' in msg:
+        emoji = re.match(r"[^[]*\[([^]]*)\]", msg2).groups()[0]
+        msg2 = re.sub("[\[].*?[\]]", "", msg2)
+    
+    offset = random.uniform(-0.1, 0.1)
+    if textstyle['capitalization'] < 0.4+offset: # don't capitalize
+        msg2 = msg2.lower()
+    elif textstyle['capitalization'] > 0.9+offset: # extra capitalizing
+        msg2 = msg2.upper()
+
+    offset = random.uniform(-0.1, 0.1)
+    if textstyle['punctuation'] < 0.2+offset: # don't have punctuation
+        msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '')
+    elif textstyle['punctuation'] > 0.9+offset: # extra extra punctuation
+        msg2 = msg2.replace('!', '!!!!').replace('?', '????')
+    elif textstyle['punctuation'] > 0.7+offset: # extra punctuation
+        msg2 = msg2.replace('!', '!!').replace('?', '??')
+    
+    if random.uniform(0, 1) < textstyle['emojis']: # do have emojis
+        msg2 = msg2 + emoji
+
+    return msg2
+
+def pickMessage(state, messageBank, customRatio, textstyle):
     """ Picks which message will maximize predicted positive state change
 
     state -- a 5-vector of the predicted mood
@@ -151,59 +186,28 @@ def pickMessage(state, messageBank, customRatio):
 
     customRatio -- ratio of custom content to use
 
+    textstyle -- json of the current imma's texting style
+
     Returns the message (string), and the full character name (string) """
 
-    #TODO replace with DQN, this is placeholder for now?
-    #TODO redundant file-reading code in pickQuestion, make a separate function for processing text file
-    #TODO add more randomness!
+    ans = queryTabbedFile("server/model/character files/MessageBank.txt", messageBank, customRatio, state)
+    return (stylize_string(ans[0], textstyle), ans[1])
 
-    return queryTabbedFile("server/model/character files/MessageBank.txt", messageBank, customRatio, state)
-
-def pickQuestion(questionBank, customRatio):
+def pickQuestion(questionBank, customRatio, textstyle):
     """ Picks a random question and also gives its corresponding predicted impact
 
     questionBank -- a dictionary of questions
 
     customRatio -- ratio of custom content to use
 
+    textstyle -- json of the current imma's texting style
+
     Returns the question (string), the question weights (array) """
     
     randomQuestion = random.choice(list(questionBank.keys()))
     
-    return queryTabbedFile("server/model/character files/QuestionBank.txt", questionBank, customRatio)
-
-'''
-def learnFromQuestion(openedSites, questionScore, userSettingFile, delta=0.01):
-    """ Given a question score vector, update each relevant site score by +/- delta
-
-    openedSites -- a set of the last opened tabs e.g. {'calendar.google.com': 10000, 'translate.google.com': 10000}
-
-    questionScore -- an array, the weights of the last question given
-
-    userSettingFile -- a site-scoring file containing stats for each possible site
-
-    delta -- how much to adjust site scores by """
-
-    #TODO avoid rereading the whole file each time?
-
-    with open(userSettingFile, 'r') as f:
-        userData = json.load(f)
-
-    # For each opened site, change its score vector
-    #TODO use chrome memory saving instead of text file?
-    for openSite in enumerate(openedSites.keys()):
-        if openSite in userData['sites'].keys():
-            prevScoreVector = userData['sites'][openSite]
-            prevScoreVector = np.array(scoreVector) # convert to nparray # unused [np.float32(i) for i in scoreVector]
-            scoreVector = np.around(prevScoreVector - (np.array(questionScore) * delta), decimals=4) # subtract question score
-            userData['sites'][openSite] = scoreVector
-
-    # Update the file
-    with open(userSettingFile, 'w') as f:
-        json.dump(userData, f)
-
-    return
-'''
+    ans = queryTabbedFile("server/model/character files/QuestionBank.txt", questionBank, customRatio)
+    return (stylize_string(ans[0], textstyle), ans[1])
 
 if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     print("done")

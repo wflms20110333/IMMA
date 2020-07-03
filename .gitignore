@@ -1,6 +1,4 @@
 server/model/__pycache__/
 server/__pycache__/
-venv/
-venv_windows/
-venv_windows_train/
+venv_light/
 IMMA.pem

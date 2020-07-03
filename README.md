@@ -10,9 +10,11 @@
 
 ## Activating the environment
 
-1) Create a new venv if you don't have one yet; activate with `venv_windows_train\Scripts\activate.bat` or equivalent command
+1) Create a new venv if you don't have one yet. Activate the virtual environment with
+* `venv_windows_train\Scripts\activate.bat` for Windows
+* `source venv/bin/activate` for Mac and Linux
 
-2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment
+2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
 
 ## Running the website
 
@@ -41,12 +43,32 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-52-34-168-73.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-35-161-78-68.us-west-2.compute.amazonaws.com/>.
+
+#### Starting a new EC2 instance (Ubuntu)
+
+Setting up Docker:
+
+```shell
+sudo apt-get update
+sudo apt-get remove docker docker-engine docker.io
+sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -a -G docker ubuntu
+```
+
+Installing PostgreSQL:
+```shell
+sudo apt-get install postgresql-client
+```
+
+#### Maintaining the current server
 
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ubuntu@ec2-52-34-168-73.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-35-161-78-68.us-west-2.compute.amazonaws.com
 ```
 
 The server has been containerized with docker. After changing directories to `server/`,
@@ -68,6 +90,22 @@ docker run -d -p 80:5000 --name imma-server imma
 * To ssh into a running container: `docker exec -it CONTAINER_NAME /bin/bash`
 
 To exit the SSH session, type `logout`.
+
+### Database instructions
+
+Due to the AWS security groups set up, the database can only be connected to from the server. To connect, run the following command:
+
+```shell
+psql --host=imma-database.cvhxkbafjiir.us-west-2.rds.amazonaws.com --port=5432 --username=postgres --password --dbname=imma
+```
+
+When prompted for the password, enter `imma-postgres`.
+
+Common commands:
+
+* Switch databases: `\c dbname`
+* List all databases: `\l`
+* List all tables in current database: `\dt`
 
 ### Outdated instructions for Apache Server
 
@@ -117,6 +155,7 @@ Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
 'custom_ratio': (number) how often to use custom quotes rather than pull from general database
+'textingstyle': (json) describes texting style of the current imma
 'message_bank': (json) storage of custom/extra messages for the active character
 'question_bank': (json) storage of custom/extra questions for the active character
 'question_ratio': (array) ratio of 1 question per X messages

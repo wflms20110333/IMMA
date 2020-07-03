@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>IMMA Studio</title>
+    <link rel="stylesheet" type="text/css" href="studio.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <img id="imma-logo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
+            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA"> Studio
+            <p style="float: right;">X close window</p>
+        </div>
+    </header>
+
+    <div class="studio">
+    <div class="column" id="leftmenu">
+        <div class="menu-box">
+            <p>Cheerful Serious</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality1">
+            <p>Energized Laidback</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality2">
+            <p>Productivity Positivity</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="personality3">
+        </div>
+        <br>
+        <div class="menu-box">
+            <p>EMOJIS Concise Verbose</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style1">
+            <p>None Emojis</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style2">
+            <p>None Capitalization</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style3">
+            <p>None Punctuation</p>
+            <input type="range" min="1" max="20" value="10" class="slider" id="style4">
+        </div>
+    </div>
+
+    <div class="column" id="central">
+        <div class="name-box">
+            <p>Name</p>
+            <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        </div>
+        <div class="open box">
+            <input type="button" value="New" class="filing" id="new" />
+            <input type="button" value="Open" class="filing" id="open" />
+            <input type="button" value="Export" class="filing" id="export" />
+        </div>
+        <div class="menu-box">
+            Change icon
+            Add custom messages
+            Go to store
+        </div>
+    </div>
+
+    <div class="column-shrinkable" id="instructions">
+        <img id="guide-logo" src="images/Yellow.png" width="50px" height="50px" alt="Icon">
+        <p>Hello! Instructions yada yada yada</p>
+    </div>
+
+    <div class="column-shrinkable" id="messagemaking">
+        <div class="menu-box">
+            <fieldset id="pullfrom">
+                <legend>Create message</legend>
+                <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
+                <br>
+                <label>Stat1</label>
+                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat1">
+                <br>
+                <label>Stat2</label>
+                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat2">
+                <br>
+                <label>Stat3</label>
+                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat3">
+            </fieldset>
+            <br>
+            <input type="button" value="Add message" class="add" id="add">
+            <br><br>
+            <fieldset id="yourform"><legend>Custom messages</legend></fieldset>
+        </div>
+    </div>
+
+    <div class="column-shrinkable" id="imagechoosing">
+        <div class="column-equal">
+            <p>Fine</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+
+            <p>Bored</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        </div>
+        <div class="column-equal">
+            <p>Happy</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        
+            <p>Stressed</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        </div>
+        <div class="column-equal">
+            <p>Excited</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        
+            <p>Distracted</p>
+            <button>+</button>
+            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+        </div>
+        <br>
+    </div>
+    </div>
+
+</body>
+
+<script src="jquery-3.5.1.min.js"></script>
+<script src="studio.js"></script>
+
+</html>
