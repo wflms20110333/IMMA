@@ -7,6 +7,41 @@ function getCurrentTime() {
 }
 
 /**
+ * Cleans up any expired alarms
+ */
+function cleanExpiredAlarms() {
+    chrome.alarms.getAll(function (activeAlarms) {
+        for (var alarmIndex in activeAlarms) {
+            var alarmTime = activeAlarms[alarmIndex]['scheduledTime'];
+            if (getCurrentTime() > alarmTime) {
+                console.log("Expired alarm cleaned")
+                chrome.alarms.clear(activeAlarms[alarmIndex]['name']);
+            }
+        }
+    });
+}
+
+/**
+ * Updates last_tabs, cleans alarms, ensures an alarm is running
+ */
+function updaterAndCleaner() {
+    lastTabsUpdater(); // If the IMMA is inactive, tabs will be updated when the IMMA is active again
+    cleanExpiredAlarms(); // Gets rid of any expired alarms
+
+    // Check that if the extension is active, that there is at least one alarm running
+    chrome.storage.sync.get(['immaActive'], function (result) {
+        if (result['immaActive'] == true){ // If imma is active
+            chrome.alarms.getAll(function (activeAlarms) {
+                if (activeAlarms.length == 0) { // but no alarms running
+                    console.log("No alarms running?")
+                    setNextAlarm(); // then set an alarm
+                }
+            });
+        }
+    });
+}
+
+/**
  * Returns {"current_tabs": tabs in the current window}
  * @param {function} callback to run with the current tabs as input
  */
@@ -18,7 +53,12 @@ function findCurrentTabs(callback) {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
             // Remove "http", keep only up to 1st /, limit to 50 characters
-            tabUrl = tabUrl.split('//')[1].split('/')[0].substring(0, 50);
+            tabUrl = tabUrl.split('//')
+            if (tabUrl.length > 1) {
+                tabUrl = tabUrl[1].split('/')[0].substring(0, 50);
+            } else {
+                tabUrl = tabUrl[0].substring(0, 50);
+            }
             tabInfo['current_tabs'].push(tabUrl);
         }
         callback(tabInfo);
@@ -58,7 +98,7 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood', 'textingstyle'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link']);
         });
@@ -71,7 +111,7 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle'], function (result) {
         serverPOST('getQuestion', result, function(data) {
             sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
@@ -118,26 +158,20 @@ function loadCharacterCode(redeemCode) {
             chrome.storage.sync.set({'message_bank': data['messageBank']});
             chrome.storage.sync.set({'question_bank': data['questionBank']});
             chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
+            chrome.storage.sync.set({'textingstyle': data['textstyle']});
             chrome.storage.sync.set({'immaActive': true});
-            //sendNotification("New IMMA successfully loaded!", data['information']['name'], data['information']['imageLink']); #TODO put this back in once have implemented timers to space out messages
         } 
     });
 }
 
 /**
- * Sets an alarm to quickly give a message, and updates recent_message_ct
+ * Sets an alarm to quickly give a setup message
  */
 
 function setQuickAlarm() {
     console.log('in setQuickAlarm');
-    
-    chrome.storage.sync.get(['recent_message_ct'], function (result) {
-        lastMessageCt = parseInt(result['recent_message_ct'])
-        chrome.storage.sync.set({'recent_message_ct': lastMessageCt + 1}); // will give a message, increment counter
-
-        var nextDelay = Date.now() + (1 * 1000); // seconds to milliseconds past epoch
-        chrome.alarms.create("message", {when: nextDelay});
-    });
+    var nextDelay = Date.now() + (1 * 200); // alarm in 0.2 second
+    chrome.alarms.create("quickmessage", {when: nextDelay});
 }
 
 /**
@@ -168,6 +202,8 @@ function setNextAlarm() {
  * https://developer.chrome.com/apps/notifications for more information
  */
 function sendNotification(msg, immaName, immaFilename) {
+    chrome.notifications.clear('Notif_Question'); // avoid overlap
+
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,
@@ -183,6 +219,8 @@ function sendNotification(msg, immaName, immaFilename) {
  * @param {string} msg the question to display
  */
 function sendNotifQuestion(msg, immaName, immaFilename) {
+    chrome.notifications.clear('Notif_Message'); // avoid overlap
+
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
         iconUrl: "../images/character images/"+immaFilename,

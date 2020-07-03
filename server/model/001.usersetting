@@ -1,5 +1,5 @@
 {"UserID": "NoneAssigned", 
-"AlarmSpacing": 7.0, "AlarmStdev": 2.0, 
+"AlarmSpacing": 15.0, "AlarmStdev": 2.0, 
 "PersistentNotifs": "TODO",
 "sites": {"www.youtube.com": [1.0, 0.0, 0.0, 1.0, 0.0], 
 "www.facebook.com": [0.0, 0.0, 1.0, 0.0, 0.0], 

@@ -1,0 +1,61 @@
+body, html {
+    margin: 0px;
+    height: 100%;
+    background-image: linear-gradient(#ffffff, #cecece);
+}
+
+div {
+    margin: 10px;
+}
+
+.column, .column-shrinkable, .column-equal {
+    outline: auto;
+    margin: 10px;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+.column-shrinkable {
+    float: left;
+    width: calc(40% - 60px);
+    text-align: center;
+}
+
+.column-equal {
+    float: left;
+    width: 33%;
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: inherit;
+    height: 50px;
+}
+
+#instructions {
+    display: none;
+}
+#imagechoosing {
+    display: none;
+}
+
+.studio {
+    background-color: rebeccapurple;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input {
+    text-align: center;
+}

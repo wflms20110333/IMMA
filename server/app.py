@@ -7,9 +7,6 @@ import model.placeholder as ph # for the nnetwork models
 app = Flask(__name__) # declare app
 cors = CORS(app)
 
-# initialize variable for model
-model = ph.initializeNetwork()
-
 @app.route('/')
 def hello_world():
     return "Whale, hello there!"
@@ -30,7 +27,7 @@ def evaluate_state():
     print("Current mood:", state, "from site bonus", predictedMood, "and prior", currentState)
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'])
+    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'])
     message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
@@ -40,7 +37,7 @@ def get_question():
     inputParams = request.get_json()
 
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'])
+    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'], inputParams['textingstyle'])
     message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)

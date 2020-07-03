@@ -1,26 +1,36 @@
 {
     "information": {
         "name": "Rilakkuma",
+        "premade": "true",
+        "uniqueID": "003_rilakkuma",
         "imageLink": "003_rilakkuma.png",
-		"class": "cartoon",
+		"color1": "#ffffff",
+        "color2": "#f2a6f5",
 		"description": "Rilakkuma is a lazy bear to make you smile and relax!",
-        "catchphrase": "I can't wait for it to rain again..."
+        "catchphrase": "I can't wait for it to rain again...",
+        "percentCustomQuotes": 0.6
+    },
+
+    "personality": {
+		"productivity": 0.3,
+        "cheerful": 0.9,
+        "energized": 0.3,
+        "questioning": 0.2
+    },
+
+    "textstyle": {
+		"emojis": 0.5,
+        "capitalization": 0.5,
+        "punctuation": 0.5
     },
 
     "messageBank": {
-        "Good job!": [0, 0, 0.5, 0.5],
-        "It's enough to do what you can!": [0, 0, 1, 0],
-        "I can't wait for it to rain again...": [0, 0, 0.5, 0.5],
-        "Keep going!": [0.5, 0.5, 0, 0],
-		"Be sure to rest your eyes!": [0.5, 0, 0, 0.5],
-		"Zzz... sleepy...": [0, 0, 0, 1]
+		"It's enough to do what you can!": [2, -1, 0, 0, 0],
+        "Zzz... sleepy...": [0, 0, -1, -1, 2],
+        "I can't wait for it to rain again...": [0, 0, 0, 0, 0]
     },
 
     "questionBank": {
-        "Are you paying attention?": [1, 0, 0, 0],
-        "Are you focused?": [0, 1, 0, 0],
-        "Are you energized?": [0, 0, 1, 0],
-        "Are you happy?": [0, 0, 0, 1]
+		"Hello?!": [2, 0, -1, 0, 0]
     }
-
 }
