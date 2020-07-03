@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $('.urlButton').each(function(index,element) { // link image-updating buttons
+        $(this).click(function(){
+            var urlBoxId = this.id + "-url";
+            var newImgUrl = document.getElementById(urlBoxId).value;
+            var imgBoxId = this.id + "-img";
+            document.getElementById(imgBoxId).src = newImgUrl;
+        });
+    });
+    
     $("#add").click(function() { // process for creating custom messages
         // where to place next message
         var iDiv = document.createElement('div');
@@ -44,17 +53,20 @@ $(document).ready(function() {
             punctuation: document.getElementById('style3').value
         };
         dict.messageBank = {};
-        
-        $('.messageBlock').each(function(index,element) {
-            //element is the specific field:
+        $('.messageBlock').each(function(index,element) { // fill the message bank
             var messageName = element.value[0];
             dict.messageBank.messageName = element.value[1];
         });
 
-        var blob = new Blob(["fghjkldqwertyuiop"], {
-            type: "text/plain;charset=utf-8"
+        // next, actually export the file
+        var jsonDict = JSON.stringify(dict);
+        var file = new Blob([jsonDict], {
+            type: "application/json"
         });
-        saveAs(blob, "yournewfile.txt");
+        url = URL.createObjectURL(file);
+        var a = document.getElementById('export');
+        a.href = url;
+        a.download = dict.information.name + ".brbug";
     });
 });
 
