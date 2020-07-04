@@ -36,6 +36,18 @@ $(document).ready(function() {
         iDiv.appendChild(removeButton);
     });
 
+    // process for importing imma files
+    var fileSelected = document.getElementById('open');
+    fileSelected.addEventListener('change', function (e) { 
+        var fileTobeRead = fileSelected.files[0];
+        var fileReader = new FileReader(); 
+        fileReader.onload = function (e) { 
+            openJsonDat(JSON.parse(fileReader.result));
+        }
+        fileReader.readAsText(fileTobeRead);
+    }, false);
+
+    // process for exporting imma files
     $("#export").click(function() {
         var dict = {}; // empty object to fill then export
         dict.information = {
@@ -55,7 +67,7 @@ $(document).ready(function() {
         dict.messageBank = {};
         $('.messageBlock').each(function(index,element) { // fill the message bank
             var messageName = element.value[0];
-            dict.messageBank.messageName = element.value[1];
+            dict.messageBank[messageName] = element.value[1];
         });
 
         // next, actually export the file
@@ -73,3 +85,36 @@ $(document).ready(function() {
 $(window).bind('beforeunload', function(){ // warns users of an unsaved model
     return 'Are you sure you want to leave?';
 });
+
+function openJsonDat(jDat) {
+    // load normal stuff
+    document.getElementById('imma-name').value = jDat.information.name;
+    document.getElementById('personality1').value = jDat.personality.productivity;
+    document.getElementById('personality2').value = jDat.personality.cheerful;
+    document.getElementById('personality3').value = jDat.personality.energized;
+    document.getElementById('style1').value = jDat.personality.emojis;
+    document.getElementById('style2').value = jDat.personality.capitalization;
+    $(".messageBlock").remove(); // clear messages
+    for (var key in jDat.messageBank){ // import messages
+        // where to place next message
+        var iDiv = document.createElement('div');
+        iDiv.className = 'messageBlock';
+        document.getElementById('yourform').appendChild(iDiv);
+        
+        // create remove button
+        var removeButton = document.createElement('button');
+        removeButton.class = 'remove';
+        removeButton.innerHTML = 'Remove';
+        removeButton.onclick = function() {
+            $(this).parent().remove();
+        };
+
+        var flabel = key;
+        var fstats = jDat.messageBank[key];
+
+        // export contents
+        iDiv.value = [flabel, fstats];
+        iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
+        iDiv.appendChild(removeButton);
+    }
+}
