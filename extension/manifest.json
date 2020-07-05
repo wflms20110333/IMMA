@@ -9,6 +9,7 @@
         "128": "images/new_imma_128.png"
     },
     "permissions": ["storage", "activeTab", "tabs", "notifications", "history", "alarms"],
+    "optional_permissions": ["http://*/", "https://*/"],
     "web_accessible_resources": [
         "images/character images/001_ironman.png",
         "images/character images/002_hoshi.png",

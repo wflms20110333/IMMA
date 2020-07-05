@@ -18,23 +18,21 @@
     <div class="studio">
     <div class="column" id="leftmenu">
         <div class="menu-box">
-            <p>Cheerful Serious</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality1">
-            <p>Energized Laidback</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality2">
-            <p>Productivity Positivity</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality3">
+            <p>Serious ... Cheerful</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality1">
+            <p>Laidback ... Energetic</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality2">
+            <p>Productivity ... Positivity</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality3">
         </div>
         <br>
         <div class="menu-box">
-            <p>EMOJIS Concise Verbose</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style1">
-            <p>None Emojis</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style2">
-            <p>None Capitalization</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style3">
-            <p>None Punctuation</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style4">
+            <p>None ... Emojis</p>
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="style1">
+            <p>None ... Capitalization</p>
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="style2">
+            <p>None ... Punctuation</p>
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="style3">
         </div>
     </div>
 
@@ -42,7 +40,7 @@
         <div class="name-box">
             <p>Name</p>
             <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
-            <img id="im0-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <img id="im0-img" src="images/character images/004_shia.png" width="70px" height="70px" alt="Icon">
             <p>Image</p>
             <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button>
         </div>
@@ -51,11 +49,6 @@
             <input type="file" id="open" accept=".brbug">
             <input type="button" value="Save" class="filing" id="save">
             <a class="filing" id="export">Export</a>
-        </div>
-        <div class="menu-box">
-            Change icon
-            Add custom messages
-            Go to store
         </div>
     </div>
 
@@ -70,14 +63,20 @@
                 <legend>Create message</legend>
                 <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
                 <br>
-                <label>Stat1</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat1">
+                <label>Happiness</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                 <br>
-                <label>Stat2</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat2">
+                <label>Relaxation</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
                 <br>
-                <label>Stat3</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat3">
+                <label>Determination</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
+                <br>
+                <label>Focus</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat4">
+                <br>
+                <label>Wellbeing</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat5">
             </fieldset>
             <br>
             <input type="button" value="Add message" class="add" id="add">

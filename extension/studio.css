@@ -43,6 +43,11 @@ textarea {
     background-color: rebeccapurple;
 }
 
+/* choosing multiple images isn't yet implemented */
+#imagechoosing {
+    display: none;
+}
+
 /* Clear floats after the columns */
 .row:after {
     content: "";

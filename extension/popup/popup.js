@@ -8,7 +8,7 @@ chrome.storage.sync.get(['color1', 'color2'], function(data) {
 
 // Update displayed IMMA information in the popup menu
 chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
-    document.getElementById('immaicon').src = "/images/character images/" + data['image_link'];
+    document.getElementById('immaicon').src = data['image_link'];
     document.getElementById('charactername').textContent = data['imma_name'];
 });
 

@@ -220,7 +220,7 @@ function sendNotification(msg, immaName, immaFilename) {
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
-        iconUrl: "../images/character images/"+immaFilename,
+        iconUrl: immaFilename,
         title: immaName,
         message: msg,
         priority: 2,
@@ -237,7 +237,7 @@ function sendNotifQuestion(msg, immaName, immaFilename) {
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
-        iconUrl: "../images/character images/"+immaFilename,
+        iconUrl: immaFilename,
         title: immaName,
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],

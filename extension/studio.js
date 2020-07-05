@@ -18,11 +18,15 @@ $(document).ready(function() {
         var fstat1 = document.getElementById('msgstat1').value;
         var fstat2 = document.getElementById('msgstat2').value;
         var fstat3 = document.getElementById('msgstat3').value;
+        var fstat4 = document.getElementById('msgstat4').value;
+        var fstat5 = document.getElementById('msgstat5').value;
         // clear contents
         document.getElementById('messagecontent').value = "";
-        document.getElementById('msgstat1').value = 5;
-        document.getElementById('msgstat2').value = 5;
-        document.getElementById('msgstat3').value = 5;
+        document.getElementById('msgstat1').value = 0;
+        document.getElementById('msgstat2').value = 0;
+        document.getElementById('msgstat3').value = 0;
+        document.getElementById('msgstat4').value = 0;
+        document.getElementById('msgstat5').value = 0;
         // create remove button
         var removeButton = document.createElement('button');
         removeButton.class = 'remove';
@@ -31,8 +35,8 @@ $(document).ready(function() {
             $(this).parent().remove();
         };
         // export contents
-        iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
-        iDiv.innerHTML = (flabel + " (stats = " + fstat1 + ", " + fstat2 + ", " + fstat3 + ") ");
+        iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
+        iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
         iDiv.appendChild(removeButton);
     });
 
@@ -62,7 +66,7 @@ $(document).ready(function() {
         url = URL.createObjectURL(file);
         var a = document.getElementById('export');
         a.href = url;
-        a.download = dict.information.name + ".brbug";
+        a.download = jsonDict.information.name + ".brbug";
     });
 });
 
@@ -70,14 +74,28 @@ $(window).bind('beforeunload', function(){ // warns users of an unsaved model
     return 'Are you sure you want to leave?';
 });
 
+function allowExternalURLs() {
+    chrome.permissions.request({
+      permissions: ["http://*/", "https://*/"]
+    }, function(granted) {
+      // The callback argument will be true if the user granted the permissions.
+      if (granted == false) {
+        alert("Please enable web permissions to use online image files");
+      }
+    });
+}
+
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
+    document.getElementById('im0-url').value = jDat.information.imageLink;
+    document.getElementById('im0-img').src = jDat.information.imageLink;
     document.getElementById('personality1').value = jDat.personality.productivity;
     document.getElementById('personality2').value = jDat.personality.cheerful;
     document.getElementById('personality3').value = jDat.personality.energized;
     document.getElementById('style1').value = jDat.personality.emojis;
     document.getElementById('style2').value = jDat.personality.capitalization;
+    document.getElementById('style3').value = jDat.personality.punctuation;
     $(".messageBlock").remove(); // clear messages
     for (var key in jDat.messageBank){ // import messages
         // where to place next message
@@ -107,7 +125,8 @@ function absorbToDict() {
     var dict = {}; // empty object to fill then export
     dict.information = {
         name: document.getElementById('imma-name').value,
-        premade: false
+        premade: false,
+        imageLink: document.getElementById('im0-url').value
     };
     dict.personality = {
         productivity: document.getElementById('personality1').value,

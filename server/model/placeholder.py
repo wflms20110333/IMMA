@@ -95,7 +95,7 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
 
     messageBank = {} # messages to choose from
 
-    if random.uniform(0, 1) < customRatio: # use a custom message
+    if random.uniform(0, 1) < customRatio and len(customMessages) > 0: # use a custom message
         print("custom content! =-=-=-=-=-=-=-=-=-=-=")
         messageBank = customMessages
     else: # use a general message
