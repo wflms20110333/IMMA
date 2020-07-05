@@ -78,7 +78,7 @@ def vectorizeInput(openedSites, userSettingFile):
     return mood_delta
 
 def queryTabbedFile(filename, customMessages, customRatio, state=None):
-    """ Loads the default questions/messages for immas to send
+    """ Loads the default questions/messages for immas to send, & then picks the message
 
     filename -- name of file with the default questions/messages
     
@@ -88,14 +88,14 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
 
     state -- the current mood, irrelevant if for question
 
-    Returns the question/message (string) and the question/message weights (array)
+    Returns the question/message (string) and the question/message weights (string i.e. array connected by commas)
 
     #TODO placeholder until if we use a database (?) which might be more efficient (?)
     """
 
     messageBank = {} # messages to choose from
 
-    if random.uniform(0, 1) < customRatio and len(customMessages) > 0: # use a custom message
+    if random.uniform(0, 1) < float(customRatio) and len(customMessages) > 0: # use a custom message
         print("custom content! =-=-=-=-=-=-=-=-=-=-=")
         messageBank = customMessages
     else: # use a general message
@@ -110,33 +110,35 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
                 messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
                 messageBank[messageName] = messageStats
 
-    # Pick out the best 5 messages that maximize scores, then pick one randomly of those 5
+    # First, pick a random message/question
     randomMessage = random.choice(list(messageBank.keys()))
 
-    if np.all(state == None): # not dependent on mood, so can just pick a random message!
+    if np.all(state == None): # not dependent on mood (i.e. picking a question), so can just pick a random message!
         print("picking a random question! =-=-=-=-=-=-=-=-=-=-=", randomMessage)
         return randomMessage, ','.join([str(p) for p in messageBank[randomMessage][:5]])
-
+    
+    # Basically, search for the best 5 messages that maximize scores, then pick one randomly of those 5
     bestFive = [randomMessage for i in range(5)] # default to random message if not rewritten
     bestScores = [-np.inf for i in range(5)]
     
-    # Next, going to add the message-input score to the current-state score
+    # Next, going to iterate through each possible message (at most 20 messages)
+    # Add the message impact to the current state (happiness, relaxation, determination, focus, wellbeing) (0.0-5.0 scale)
     # Want to maximize scores that are all-around high
     # Each part of the score is transformed by (-1/x) to penalize scores close to zero
     
     for message in random.sample(messageBank.keys(), min(20, len(messageBank.keys()))): # Check at most 20 messages
-        #print("debug / evaluating potential message", message)
-        if np.any(np.array(state) + np.array(messageBank[message])[:5] <= 0): # don't calculate -1/x since will become very positive
+        numericVec = np.array(messageBank[message])[:5].astype(np.float)
+        if np.any(np.array(state) + numericVec <= 0): # don't calculate -1/x since will become very positive
             pass # assume that result with a negative component is not a good result
         else:
-            score = sum([  (-1)/(state[i] + messageBank[message][i])  for i in range(4)]) # estimated -1/x future score
+            score = sum([  (-1)/(state[i] + numericVec[i])  for i in range(4)]) # estimated -1/x future score
             score = np.around(score, decimals=4)
             #print("---------score compare", score, "to", bestScores)
-            for k, priorScore in enumerate(bestScores): # see if breaks the record with any of the 5 scores
-                if score > bestScores[k]:
-                    bestScores[k] = score
-                    bestFive[k] = message
-                    break
+            k = np.argmin(bestScores)
+            if score > bestScores[k]: # see if breaks the record with any of the 5 scores
+                bestScores[k] = score
+                bestFive[k] = message
+                break
 
     ans = random.choice(bestFive)
     return ans, ','.join([str(p) for p in messageBank[ans][:5]]) # return one from the top five messages

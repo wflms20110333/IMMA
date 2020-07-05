@@ -53,6 +53,7 @@ $(document).ready(function() {
 
     // process for exporting imma files
     $("#save").click(function() {
+        //allowExternalURLs();
         var jsonDict = absorbToDict();
         loadCharacterFromJson(jsonDict);
     });
@@ -66,7 +67,7 @@ $(document).ready(function() {
         url = URL.createObjectURL(file);
         var a = document.getElementById('export');
         a.href = url;
-        a.download = jsonDict.information.name + ".brbug";
+        a.download = document.getElementById('imma-name').value + ".brbug";
     });
 });
 
@@ -76,7 +77,7 @@ $(window).bind('beforeunload', function(){ // warns users of an unsaved model
 
 function allowExternalURLs() {
     chrome.permissions.request({
-      permissions: ["http://*/", "https://*/"]
+      permissions: [] // #TODO work out optional image permissions, right now is required anyway? & only works for certain pictures!
     }, function(granted) {
       // The callback argument will be true if the user granted the permissions.
       if (granted == false) {
@@ -90,6 +91,7 @@ function openJsonDat(jDat) {
     document.getElementById('imma-name').value = jDat.information.name;
     document.getElementById('im0-url').value = jDat.information.imageLink;
     document.getElementById('im0-img').src = jDat.information.imageLink;
+    document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
     document.getElementById('personality1').value = jDat.personality.productivity;
     document.getElementById('personality2').value = jDat.personality.cheerful;
     document.getElementById('personality3').value = jDat.personality.energized;
@@ -126,7 +128,8 @@ function absorbToDict() {
     dict.information = {
         name: document.getElementById('imma-name').value,
         premade: false,
-        imageLink: document.getElementById('im0-url').value
+        imageLink: document.getElementById('im0-url').value,
+        percentCustomQuotes: document.getElementById('percentCustom').value
     };
     dict.personality = {
         productivity: document.getElementById('personality1').value,

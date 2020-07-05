@@ -170,7 +170,6 @@ function loadCharacterFromJson(jsonData) {
     chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
     chrome.storage.sync.set({'message_bank': data['messageBank']});
     chrome.storage.sync.set({'question_bank': data['questionBank']});
-    chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
     for (var key in data['textstyle']) {
         data['textstyle'][key] = parseFloat(data['textstyle'][key]);
     }
