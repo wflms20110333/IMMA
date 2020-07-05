@@ -150,19 +150,33 @@ function loadCharacterCode(redeemCode) {
         if (data['success'] == false) { // code invalid
             sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
         } else { // code valid
-            chrome.storage.sync.set({'imma_name': data['information']['name']});
-            chrome.storage.sync.set({'image_link': data['information']['imageLink']});
-            chrome.storage.sync.set({'color1': data['information']['color1']});
-            chrome.storage.sync.set({'color2': data['information']['color2']});
-            chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
-            chrome.storage.sync.set({'message_bank': data['messageBank']});
-            chrome.storage.sync.set({'question_bank': data['questionBank']});
-            chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
-            chrome.storage.sync.set({'textingstyle': data['textstyle']});
-            chrome.storage.sync.set({'immaActive': true});
+            loadCharacterFromJson(data);
         } 
     });
 }
+
+function loadCharacterFromJson(jsonData) {
+    console.log('in loadCharacterFromJson');
+    if (typeof jsonData === 'string' || jsonData instanceof String) {
+        var data = JSON.parse(jsonData);
+    } else {
+        var data = jsonData;
+    }
+    
+    chrome.storage.sync.set({'imma_name': data['information']['name']});
+    chrome.storage.sync.set({'image_link': data['information']['imageLink']});
+    chrome.storage.sync.set({'color1': data['information']['color1']});
+    chrome.storage.sync.set({'color2': data['information']['color2']});
+    chrome.storage.sync.set({'custom_ratio': data['information']['percentCustomQuotes']});
+    chrome.storage.sync.set({'message_bank': data['messageBank']});
+    chrome.storage.sync.set({'question_bank': data['questionBank']});
+    chrome.storage.sync.set({'question_ratio': data['personality']['questioning']});
+    for (var key in data['textstyle']) {
+        data['textstyle'][key] = parseFloat(data['textstyle'][key]);
+    }
+    chrome.storage.sync.set({'textingstyle': data['textstyle']});
+    chrome.storage.sync.set({'immaActive': true});
+};
 
 /**
  * Sets an alarm to quickly give a setup message
@@ -170,7 +184,7 @@ function loadCharacterCode(redeemCode) {
 
 function setQuickAlarm() {
     console.log('in setQuickAlarm');
-    var nextDelay = Date.now() + (1 * 200); // alarm in 0.2 second
+    var nextDelay = Date.now() + (1 * 800); // alarm in 0.8 second
     chrome.alarms.create("quickmessage", {when: nextDelay});
 }
 

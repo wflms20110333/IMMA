@@ -48,30 +48,14 @@ $(document).ready(function() {
     }, false);
 
     // process for exporting imma files
-    $("#export").click(function() {
-        var dict = {}; // empty object to fill then export
-        dict.information = {
-            name: document.getElementById('imma-name').value,
-            premade: false
-        };
-        dict.personality = {
-            productivity: document.getElementById('personality1').value,
-            cheerful: document.getElementById('personality2').value,
-            energized: document.getElementById('personality3').value
-        };
-        dict.textstyle = {
-            emojis: document.getElementById('style1').value,
-            capitalization: document.getElementById('style2').value,
-            punctuation: document.getElementById('style3').value
-        };
-        dict.messageBank = {};
-        $('.messageBlock').each(function(index,element) { // fill the message bank
-            var messageName = element.value[0];
-            dict.messageBank[messageName] = element.value[1];
-        });
+    $("#save").click(function() {
+        var jsonDict = absorbToDict();
+        loadCharacterFromJson(jsonDict);
+    });
 
-        // next, actually export the file
-        var jsonDict = JSON.stringify(dict);
+    // process for exporting imma files
+    $("#export").click(function() {
+        var jsonDict = absorbToDict();
         var file = new Blob([jsonDict], {
             type: "application/json"
         });
@@ -117,4 +101,31 @@ function openJsonDat(jDat) {
         iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
         iDiv.appendChild(removeButton);
     }
+}
+
+function absorbToDict() {
+    var dict = {}; // empty object to fill then export
+    dict.information = {
+        name: document.getElementById('imma-name').value,
+        premade: false
+    };
+    dict.personality = {
+        productivity: document.getElementById('personality1').value,
+        cheerful: document.getElementById('personality2').value,
+        energized: document.getElementById('personality3').value
+    };
+    dict.textstyle = {
+        emojis: document.getElementById('style1').value,
+        capitalization: document.getElementById('style2').value,
+        punctuation: document.getElementById('style3').value
+    };
+    dict.messageBank = {};
+    $('.messageBlock').each(function(index,element) { // fill the message bank
+        var messageName = element.value[0];
+        dict.messageBank[messageName] = element.value[1];
+    });
+
+    // next, actually export the file
+    var jsonDict = JSON.stringify(dict);
+    return jsonDict;
 }
