@@ -166,7 +166,7 @@ def personalize(messages, personality):
     personality -- array of personality [cheer, energy, positivity]"""
     messageScores = []
     for m in messages:
-        mScore = [messages[m][i] * personality[i] for i in range(3)] # calculate score for each message
+        mScore = [messages[m][i] * float(personality[i]) for i in range(3)] # calculate score for each message
         messageScores.append([m, mScore])
     messageScores.sort(key=lambda x:x[1]) # sort by how good the scores are
 

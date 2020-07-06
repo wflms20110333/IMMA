@@ -19,6 +19,17 @@ chrome.storage.sync.get(['immaActive'], function(data) {
     activeswitch.checked = data['immaActive'];
 });
 
+// Manage character loading (similar to "open" code in studio.js)
+var fileSelected = document.getElementById('loader');
+fileSelected.addEventListener('change', function (e) { 
+    var fileTobeRead = fileSelected.files[0];
+    var fileReader = new FileReader(); 
+    fileReader.onload = function (e) { 
+        chrome.extension.getBackgroundPage().loadCharacterFromJson(JSON.parse(fileReader.result));
+    }
+    fileReader.readAsText(fileTobeRead);
+}, false);
+
 // Manage the activation switch
 var activeswitch = document.getElementById('activeswitch');
 activeswitch.checked = true; // active by default

@@ -8,6 +8,10 @@ $(document).ready(function() {
         });
     });
     
+    $("#new").click(function() { // reload page
+        location.reload();
+    });
+
     $("#add").click(function() { // process for creating custom messages
         // where to place next message
         var iDiv = document.createElement('div');
@@ -131,7 +135,7 @@ function absorbToDict() {
         imageLink: document.getElementById('im0-url').value,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
-    
+
     dict.personality = [document.getElementById('personality1').value, document.getElementById('personality2').value, document.getElementById('personality3').value];
 
     dict.textstyle = {
