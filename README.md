@@ -109,6 +109,7 @@ General variables:
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
+'personality': (array) numbers for current character's cheer, energy, positivity
 'custom_ratio': (number) how often to use custom quotes rather than pull from general database
 'textingstyle': (json) describes texting style of the current imma
 'message_bank': (json) storage of custom/extra messages for the active character

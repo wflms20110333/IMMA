@@ -92,9 +92,9 @@ function openJsonDat(jDat) {
     document.getElementById('im0-url').value = jDat.information.imageLink;
     document.getElementById('im0-img').src = jDat.information.imageLink;
     document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
-    document.getElementById('personality1').value = jDat.personality.productivity;
-    document.getElementById('personality2').value = jDat.personality.cheerful;
-    document.getElementById('personality3').value = jDat.personality.energized;
+    document.getElementById('personality1').value = jDat.personality[0];
+    document.getElementById('personality2').value = jDat.personality[1];
+    document.getElementById('personality3').value = jDat.personality[2];
     document.getElementById('style1').value = jDat.personality.emojis;
     document.getElementById('style2').value = jDat.personality.capitalization;
     document.getElementById('style3').value = jDat.personality.punctuation;
@@ -131,11 +131,9 @@ function absorbToDict() {
         imageLink: document.getElementById('im0-url').value,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
-    dict.personality = {
-        productivity: document.getElementById('personality1').value,
-        cheerful: document.getElementById('personality2').value,
-        energized: document.getElementById('personality3').value
-    };
+    
+    dict.personality = [document.getElementById('personality1').value, document.getElementById('personality2').value, document.getElementById('personality3').value];
+
     dict.textstyle = {
         emojis: document.getElementById('style1').value,
         capitalization: document.getElementById('style2').value,

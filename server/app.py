@@ -26,7 +26,7 @@ def evaluate_state():
     print("Current mood:", state, "from site bonus", predictedMood, "and prior", currentState)
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'])
+    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
     message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
     return jsonify(message)
 
@@ -36,7 +36,7 @@ def get_question():
     inputParams = request.get_json()
 
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'], inputParams['textingstyle'])
+    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
     message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)

@@ -11,11 +11,7 @@
         "percentCustomQuotes": 0.2
     },
 
-    "personality": {
-		"productivity": 0.6,
-        "cheerful": 0.9,
-        "energized": 0.9
-    },
+    "personality": [0.6, 0.9, 0.9],
 
     "textstyle": {
 		"emojis": 0.5,
