@@ -18,6 +18,7 @@
     <div class="studio">
     <div class="column" id="leftmenu">
         <div class="menu-box">
+            <h3 title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">Personality [?]</h3>
             <p>Serious ... Cheerful</p>
             <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality1">
             <p>Laidback ... Energetic</p>
@@ -27,6 +28,7 @@
         </div>
         <br>
         <div class="menu-box">
+            <h3 title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">Texting style [?]</h3>
             <p>None ... Emojis</p>
             <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style1">
             <p>None ... Capitalization</p>
@@ -38,10 +40,10 @@
 
     <div class="column" id="central">
         <div class="name-box">
-            <p>Name</p>
+            <h3 title="Pick a name for your bug!">Name [?]</h3>
             <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
             <img id="im0-img" src="images/character images/004_shia.png" width="70px" height="70px" alt="Icon">
-            <p>Image</p>
+            <h3 title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">Avatar [?]</h3>
             <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button>
         </div>
         <div class="open-box">
@@ -54,17 +56,18 @@
 
     <div class="column-shrinkable" id="instructions">
         <img id="guide-logo" src="images/Yellow.png" width="50px" height="50px" alt="Icon">
-        <p>Hello! Instructions yada yada yada</p>
+        <p>Hello! Instructions yada yada yada, hover over any [?] to view tips</p>
     </div>
 
     <div class="column-shrinkable" id="messagemaking">
         <div class="menu-box">
-            <p>Ratio of custom content</p>
+            <h3 title="Create your own messages for your bug!">Custom messages [?]</h3>
+            <p title="How often to use custom content (versus built-in content)">Ratio of custom content [?]</p>
             <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
             <fieldset id="pullfrom">
                 <legend>Create message</legend>
                 <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                <br>
+                <p title="Rate how this message would affect you (0=no effect, 1=high effect)">Stats [?]</p>
                 <label>Happiness</label>
                 <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                 <br>
