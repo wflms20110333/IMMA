@@ -38,15 +38,14 @@ textarea {
     height: 50px;
 }
 
-#instructions {
-    display: none;
-}
-#imagechoosing {
-    display: none;
-}
 
 .studio {
     background-color: rebeccapurple;
+}
+
+/* choosing multiple images isn't yet implemented */
+#imagechoosing {
+    display: none;
 }
 
 /* Clear floats after the columns */
@@ -58,4 +57,14 @@ textarea {
 
 input {
     text-align: center;
+}
+
+.filing {
+    background-color: salmon;
+    padding: 5px;
+    border: none;
+}
+
+.imgUrlBox {
+    background-color: sandybrown;
 }

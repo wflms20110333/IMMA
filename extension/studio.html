@@ -18,63 +18,70 @@
     <div class="studio">
     <div class="column" id="leftmenu">
         <div class="menu-box">
-            <p>Cheerful Serious</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality1">
-            <p>Energized Laidback</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality2">
-            <p>Productivity Positivity</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="personality3">
+            <h3 title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">Personality [?]</h3>
+            <p>Serious ... Cheerful</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality1">
+            <p>Laidback ... Energetic</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality2">
+            <p>Productivity ... Positivity</p>
+            <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality3">
         </div>
         <br>
         <div class="menu-box">
-            <p>EMOJIS Concise Verbose</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style1">
-            <p>None Emojis</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style2">
-            <p>None Capitalization</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style3">
-            <p>None Punctuation</p>
-            <input type="range" min="1" max="20" value="10" class="slider" id="style4">
+            <h3 title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">Texting style [?]</h3>
+            <p>None ... Emojis</p>
+            <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style1">
+            <p>None ... Capitalization</p>
+            <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style2">
+            <p>None ... Punctuation</p>
+            <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style3">
         </div>
     </div>
 
     <div class="column" id="central">
         <div class="name-box">
-            <p>Name</p>
+            <h3 title="Pick a name for your bug!">Name [?]</h3>
             <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <img id="im0-img" src="images/character images/004_shia.png" width="70px" height="70px" alt="Icon">
+            <h3 title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">Avatar [?]</h3>
+            <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button>
         </div>
-        <div class="open box">
+        <div class="open-box">
             <input type="button" value="New" class="filing" id="new" />
-            <input type="button" value="Open" class="filing" id="open" />
-            <input type="button" value="Export" class="filing" id="export" />
-        </div>
-        <div class="menu-box">
-            Change icon
-            Add custom messages
-            Go to store
+            <input type="file" id="open" accept=".brbug">
+            <input type="button" value="Save" class="filing" id="save">
+            <a class="filing" id="export">Export</a>
         </div>
     </div>
 
     <div class="column-shrinkable" id="instructions">
         <img id="guide-logo" src="images/Yellow.png" width="50px" height="50px" alt="Icon">
-        <p>Hello! Instructions yada yada yada</p>
+        <p>Hello! Instructions yada yada yada, hover over any [?] to view tips</p>
     </div>
 
     <div class="column-shrinkable" id="messagemaking">
         <div class="menu-box">
+            <h3 title="Create your own messages for your bug!">Custom messages [?]</h3>
+            <p title="How often to use custom content (versus built-in content)">Ratio of custom content [?]</p>
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
             <fieldset id="pullfrom">
                 <legend>Create message</legend>
                 <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
+                <p title="Rate how this message would affect you (0=no effect, 1=high effect)">Stats [?]</p>
+                <label>Happiness</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                 <br>
-                <label>Stat1</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat1">
+                <label>Relaxation</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
                 <br>
-                <label>Stat2</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat2">
+                <label>Determination</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
                 <br>
-                <label>Stat3</label>
-                <input type="range" class="slider" min=0 max=10 value=5 id="msgstat3">
+                <label>Focus</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat4">
+                <br>
+                <label>Wellbeing</label>
+                <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat5">
             </fieldset>
             <br>
             <input type="button" value="Add message" class="add" id="add">
@@ -85,31 +92,31 @@
 
     <div class="column-shrinkable" id="imagechoosing">
         <div class="column-equal">
-            <p>Fine</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Fine <button id="im1" class="urlButton">+</button></p>
+            <input type="text" id="im1-url" class="imgUrlBox" autocomplete="off">
+            <img id="im1-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
 
-            <p>Bored</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Bored <button id="im2" class="urlButton">+</button></p>
+            <input type="text" id="im2-url" class="imgUrlBox" autocomplete="off">
+            <img id="im2-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
         </div>
         <div class="column-equal">
-            <p>Happy</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Happy <button id="im3" class="urlButton">+</button></p>
+            <input type="text" id="im3-url" class="imgUrlBox" autocomplete="off">
+            <img id="im3-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
         
-            <p>Stressed</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Stressed <button id="im4" class="urlButton">+</button></p>
+            <input type="text" id="im4-url" class="imgUrlBox" autocomplete="off">
+            <img id="im4-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
         </div>
         <div class="column-equal">
-            <p>Excited</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Excited <button id="im5" class="urlButton">+</button></p>
+            <input type="text" id="im5-url" class="imgUrlBox" autocomplete="off">
+            <img id="im5-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
         
-            <p>Distracted</p>
-            <button>+</button>
-            <img id="imma-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
+            <p>Distracted <button id="im6" class="urlButton">+</button></p>
+            <input type="text" id="im6-url" class="imgUrlBox" autocomplete="off">
+            <img id="im6-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
         </div>
         <br>
     </div>
@@ -118,6 +125,7 @@
 </body>
 
 <script src="jquery-3.5.1.min.js"></script>
+<script src="util.js"></script>
 <script src="studio.js"></script>
 
 </html>

@@ -3,7 +3,7 @@
         "name": "Hoshi",
         "premade": "true",
         "uniqueID": "002_hoshi",
-        "imageLink": "002_hoshi.png",
+        "imageLink": "../images/character images/002_hoshi.png",
 		"color1": "#ffffff",
         "color2": "#db7623",
 		"description": "A member of the K-pop group Seventeen, Hoshi is a multitalented performer known for his positive energy!",
@@ -11,12 +11,7 @@
         "percentCustomQuotes": 0.2
     },
 
-    "personality": {
-		"productivity": 0.6,
-        "cheerful": 0.9,
-        "energized": 0.9,
-        "questioning": 0.3
-    },
+    "personality": [0.6, 0.9, 0.9],
 
     "textstyle": {
 		"emojis": 0.5,

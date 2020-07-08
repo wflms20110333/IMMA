@@ -5,6 +5,7 @@ import random
 import json
 import time
 import re
+import math
 
 def getNextAlarmStats(questionRatio, messageCt, userSettingFile):
     """ Returns the duration until next alarm (in seconds) and the type of alarm
@@ -77,10 +78,12 @@ def vectorizeInput(openedSites, userSettingFile):
 
     return mood_delta
 
-def queryTabbedFile(filename, customMessages, customRatio, state=None):
-    """ Loads the default questions/messages for immas to send
+def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None, personality=None):
+    """ Loads the default questions/messages for immas to send, & then picks the message
 
     filename -- name of file with the default questions/messages
+
+    textstyle -- json of the current imma's texting style
     
     customMessages -- custom messages/questions to also consider, a dictionary of messages to scores
 
@@ -88,14 +91,18 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
 
     state -- the current mood, irrelevant if for question
 
-    Returns the question/message (string) and the question/message weights (array)
+    personality -- array of cheer, energy, positivity; necessary for picking default questions
+
+    Returns the question/message (string) and the question/message weights (string i.e. array connected by commas)
 
     #TODO placeholder until if we use a database (?) which might be more efficient (?)
     """
 
     messageBank = {} # messages to choose from
 
-    if random.uniform(0, 1) < customRatio: # use a custom message
+    useCustomContent = random.uniform(0, 1) < float(customRatio) and len(customMessages) > 0
+
+    if useCustomContent: # use a custom message
         print("custom content! =-=-=-=-=-=-=-=-=-=-=")
         messageBank = customMessages
     else: # use a general message
@@ -110,36 +117,64 @@ def queryTabbedFile(filename, customMessages, customRatio, state=None):
                 messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
                 messageBank[messageName] = messageStats
 
-    # Pick out the best 5 messages that maximize scores, then pick one randomly of those 5
+    # First, pick a random message/question
     randomMessage = random.choice(list(messageBank.keys()))
 
-    if np.all(state == None): # not dependent on mood, so can just pick a random message!
+    if np.all(state == None): # not dependent on mood (i.e. picking a question), so can just pick a random message!
         print("picking a random question! =-=-=-=-=-=-=-=-=-=-=", randomMessage)
-        return randomMessage, ','.join([str(p) for p in messageBank[randomMessage][:5]])
-
+        return stylize_string(randomMessage, textstyle), ','.join([str(p) for p in messageBank[randomMessage][:5]])
+    
+    # if using preexisting message, cut down message space based on personality
+    if not useCustomContent:
+        messageBank = personalize(messageBank, personality)
+        randomMessage = random.choice(list(messageBank.keys())) # pick new random message within range
+    
+    # Basically, search for the best 5 messages that maximize scores, then pick one randomly of those 5
     bestFive = [randomMessage for i in range(5)] # default to random message if not rewritten
     bestScores = [-np.inf for i in range(5)]
     
-    # Next, going to add the message-input score to the current-state score
+    # Next, going to iterate through each possible message (at most 20 messages)
+    # Add the message impact to the current state (happiness, relaxation, determination, focus, wellbeing) (0.0-5.0 scale)
     # Want to maximize scores that are all-around high
     # Each part of the score is transformed by (-1/x) to penalize scores close to zero
     
     for message in random.sample(messageBank.keys(), min(20, len(messageBank.keys()))): # Check at most 20 messages
-        #print("debug / evaluating potential message", message)
-        if np.any(np.array(state) + np.array(messageBank[message])[:5] <= 0): # don't calculate -1/x since will become very positive
+        numericVec = np.array(messageBank[message])[:5].astype(np.float)
+        if np.any(np.array(state) + numericVec <= 0): # don't calculate -1/x since will become very positive
             pass # assume that result with a negative component is not a good result
         else:
-            score = sum([  (-1)/(state[i] + messageBank[message][i])  for i in range(4)]) # estimated -1/x future score
+            score = sum([  (-1)/(state[i] + numericVec[i])  for i in range(4)]) # estimated -1/x future score
             score = np.around(score, decimals=4)
             #print("---------score compare", score, "to", bestScores)
-            for k, priorScore in enumerate(bestScores): # see if breaks the record with any of the 5 scores
-                if score > bestScores[k]:
-                    bestScores[k] = score
-                    bestFive[k] = message
-                    break
+            k = np.argmin(bestScores)
+            if score > bestScores[k]: # see if breaks the record with any of the 5 scores
+                bestScores[k] = score
+                bestFive[k] = message
+                break
 
     ans = random.choice(bestFive)
-    return ans, ','.join([str(p) for p in messageBank[ans][:5]]) # return one from the top five messages
+    ans_stats = ','.join([str(p) for p in messageBank[ans][:5]])
+    if not useCustomContent:
+        ans = stylize_string(ans, textstyle)
+    return ans, ans_stats # return one from the top five messages
+
+def personalize(messages, personality):
+    """ Retains 50% of messages that most match personality. Scores are from character personality (-1 to +1) multiplied by message personality (-1 to +1)
+
+    messages -- dictionary of possible messages to scores
+
+    personality -- array of personality [cheer, energy, positivity]"""
+    messageScores = []
+    for m in messages:
+        mScore = [messages[m][i] * float(personality[i]) for i in range(3)] # calculate score for each message
+        messageScores.append([m, mScore])
+    messageScores.sort(key=lambda x:x[1]) # sort by how good the scores are
+
+    untilIndex = max(1, math.floor(0.5 * (len(messages) - 1))) # find how many messages to keep
+
+    messageKeys = [mess[0] for mess in messageScores[:untilIndex]] # extract the message keys only
+    
+    return dict([(mess, messages[mess]) for mess in messageKeys])
 
 def stylize_string(msg, textstyle):
     """ Applies a texting style to the message
@@ -177,7 +212,7 @@ def stylize_string(msg, textstyle):
 
     return msg2
 
-def pickMessage(state, messageBank, customRatio, textstyle):
+def pickMessage(state, messageBank, customRatio, textstyle, personality):
     """ Picks which message will maximize predicted positive state change
 
     state -- a 5-vector of the predicted mood
@@ -188,12 +223,14 @@ def pickMessage(state, messageBank, customRatio, textstyle):
 
     textstyle -- json of the current imma's texting style
 
-    Returns the message (string), and the full character name (string) """
+    personality -- json
 
-    ans = queryTabbedFile("server/model/character files/MessageBank.txt", messageBank, customRatio, state)
-    return (stylize_string(ans[0], textstyle), ans[1])
+    Returns the message (string), and the full character name (string)"""
 
-def pickQuestion(questionBank, customRatio, textstyle):
+    ans = queryTabbedFile("server/model/character files/MessageBank.txt", textstyle, messageBank, customRatio, state, personality)
+    return ans
+
+def pickQuestion(questionBank, customRatio, textstyle, personality):
     """ Picks a random question and also gives its corresponding predicted impact
 
     questionBank -- a dictionary of questions
@@ -202,12 +239,14 @@ def pickQuestion(questionBank, customRatio, textstyle):
 
     textstyle -- json of the current imma's texting style
 
+    personality -- json
+
     Returns the question (string), the question weights (array) """
     
     randomQuestion = random.choice(list(questionBank.keys()))
     
-    ans = queryTabbedFile("server/model/character files/QuestionBank.txt", questionBank, customRatio)
-    return (stylize_string(ans[0], textstyle), ans[1])
+    ans = queryTabbedFile("server/model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
+    return ans
 
 if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     print("done")

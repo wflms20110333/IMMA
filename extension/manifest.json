@@ -8,13 +8,15 @@
         "48": "images/new_imma_48.png",
         "128": "images/new_imma_128.png"
     },
-    "permissions": ["storage", "activeTab", "tabs", "notifications", "history", "alarms"],
+    "permissions": ["storage", "activeTab", "tabs", "notifications", "history", "alarms", "http://*/", "https://*/"],
+    "optional_permissions": [],
     "web_accessible_resources": [
         "images/character images/001_ironman.png",
         "images/character images/002_hoshi.png",
         "images/character images/003_rilakkuma.png",
         "images/character images/004_shia.png",
-        "images/character images/005_moana.png"
+        "images/character images/005_moana.png",
+        "http://*/", "https://*/"
     ],
     "background": {
         "scripts": ["util.js", "constants.js", "background.js", "jquery-3.5.1.min.js"],

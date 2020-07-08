@@ -8,7 +8,7 @@ chrome.storage.sync.get(['color1', 'color2'], function(data) {
 
 // Update displayed IMMA information in the popup menu
 chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
-    document.getElementById('immaicon').src = "/images/character images/" + data['image_link'];
+    document.getElementById('immaicon').src = data['image_link'];
     document.getElementById('charactername').textContent = data['imma_name'];
 });
 
@@ -18,6 +18,17 @@ var activeswitch = document.getElementById('activeswitch');
 chrome.storage.sync.get(['immaActive'], function(data) {
     activeswitch.checked = data['immaActive'];
 });
+
+// Manage character loading (similar to "open" code in studio.js)
+var fileSelected = document.getElementById('loader');
+fileSelected.addEventListener('change', function (e) { 
+    var fileTobeRead = fileSelected.files[0];
+    var fileReader = new FileReader(); 
+    fileReader.onload = function (e) { 
+        chrome.extension.getBackgroundPage().loadCharacterFromJson(JSON.parse(fileReader.result));
+    }
+    fileReader.readAsText(fileTobeRead);
+}, false);
 
 // Manage the activation switch
 var activeswitch = document.getElementById('activeswitch');
