@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-from tensorflow.keras.models import load_model
 import model.placeholder as ph # for the nnetwork models
 
 app = Flask(__name__) # declare app

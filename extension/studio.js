@@ -58,20 +58,35 @@ $(document).ready(function() {
     // process for exporting imma files
     $("#save").click(function() {
         //allowExternalURLs();
-        var jsonDict = absorbToDict();
-        loadCharacterFromJson(jsonDict);
+        // need to have these fields filled before save
+        if (document.getElementById('imma-name').value == ""){
+            alert("Don't forget to select a name for your Browserbug!")
+        } else if (document.getElementById('im0-url').value == "") {
+            alert("Don't forget to select an avatar for your Browserbug!")
+        } else {
+            var jsonDict = absorbToDict();
+            loadCharacterFromJson(jsonDict);
+            alert(document.getElementById('imma-name').value + " has been activated!")
+        }
     });
 
     // process for exporting imma files
     $("#export").click(function() {
-        var jsonDict = absorbToDict();
-        var file = new Blob([jsonDict], {
-            type: "application/json"
-        });
-        url = URL.createObjectURL(file);
-        var a = document.getElementById('export');
-        a.href = url;
-        a.download = document.getElementById('imma-name').value + ".brbug";
+        // need to have these fields filled before save
+        if (document.getElementById('imma-name').value == ""){
+            alert("Don't forget to select a name for your Browserbug!")
+        } else if (document.getElementById('im0-url').value == "") {
+            alert("Don't forget to select an avatar for your Browserbug!")
+        } else {
+            var jsonDict = absorbToDict();
+            var file = new Blob([jsonDict], {
+                type: "application/json"
+            });
+            url = URL.createObjectURL(file);
+            var a = document.getElementById('export');
+            a.href = url;
+            a.download = document.getElementById('imma-name').value + ".brbug";
+        }
     });
 });
 
@@ -122,7 +137,7 @@ function openJsonDat(jDat) {
 
         // export contents
         iDiv.value = [flabel, fstats];
-        iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
+        iDiv.innerHTML = (flabel + " (stats = "+fstats[0]+", "+fstats[1]+", "+fstats[2]+", "+fstats[3]+", "+fstats[4]+") ");
         iDiv.appendChild(removeButton);
     }
 }
