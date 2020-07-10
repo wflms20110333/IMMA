@@ -22,10 +22,9 @@ function cleanExpiredAlarms() {
 }
 
 /**
- * Updates last_tabs, cleans alarms, ensures an alarm is running
+ * cleans alarms, ensures an alarm is running
  */
-function updaterAndCleaner() {
-    lastTabsUpdater(); // If the IMMA is inactive, tabs will be updated when the IMMA is active again
+function cleaner() {
     cleanExpiredAlarms(); // Gets rid of any expired alarms
 
     // Check that if the extension is active, that there is at least one alarm running
@@ -98,9 +97,9 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'user_setting', 'mood', 'textingstyle', 'personality'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs'], function (result) {
         serverPOST('evaluateState', result, function(data) {
-            sendNotification(data['message'], result['imma_name'], result['image_link']);
+            sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
         });
     });
 }
@@ -111,9 +110,9 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs'], function (result) {
         serverPOST('getQuestion', result, function(data) {
-            sendNotifQuestion(data['question'], result['imma_name'], result['image_link']);
+            sendNotifQuestion(data['question'], result['imma_name'], result['image_link'], result['persist_notifs']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
         });
     }); 
@@ -195,7 +194,7 @@ function setQuickAlarm() {
 function setNextAlarm() {
     console.log('in setNextAlarm');
     
-    chrome.storage.sync.get(['recent_message_ct', 'user_setting', 'question_ratio'], function (result) {
+    chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function (result) {
         serverPOST('getAlarm', result, function(data) {
             if (data['mType'] == "question") {
                 chrome.storage.sync.set({'recent_message_ct': 0}); // will give a question, reset counter
@@ -215,7 +214,7 @@ function setNextAlarm() {
  * @param {string} msg the message to display
  * https://developer.chrome.com/apps/notifications for more information
  */
-function sendNotification(msg, immaName, immaFilename) {
+function sendNotification(msg, immaName, immaFilename, persistNotifs) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
@@ -224,7 +223,7 @@ function sendNotification(msg, immaName, immaFilename) {
         title: immaName,
         message: msg,
         priority: 2,
-        requireInteraction: true // #TODO make this a user preference
+        requireInteraction: (persistNotifs == 'true')
     });
 }
 
@@ -232,7 +231,7 @@ function sendNotification(msg, immaName, immaFilename) {
  * Sends a notification to the user, & has answer buttons
  * @param {string} msg the question to display
  */
-function sendNotifQuestion(msg, immaName, immaFilename) {
+function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs) {
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
@@ -242,7 +241,7 @@ function sendNotifQuestion(msg, immaName, immaFilename) {
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,
-        requireInteraction: true
+        requireInteraction: (persistNotifs == 'true')
     });
 }
 

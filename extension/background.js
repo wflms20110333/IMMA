@@ -9,14 +9,18 @@ chrome.runtime.onInstalled.addListener(function () {
         'waterwater': '005_moana'
     }
      */
-    chrome.storage.sync.set({'user_setting': "server/model/001.usersetting"});
+    chrome.storage.sync.set({'alarm_spacing': 12}); // needs to be valid value in bDict in options.js
+    chrome.storage.sync.set({'persist_notifs': 'false'});
+    chrome.storage.sync.set({'flagged_sites': {"www.youtube.com":[1.0,0.0,0.0,1.0,0.0],"www.facebook.com":[0.0,0.0,1.0,0.0,0.0]}});
+
     chrome.storage.sync.set({'recent_message_ct': '0'}); // count of messages given since last question given
     chrome.storage.sync.set({'last_tabs': {}}); // initialize as no tabs currently open
     chrome.storage.sync.set({'mood': [3.0, 3.0, 3.0, 3.0, 3.0]}); // initialize neutral mood
     chrome.storage.sync.set({'question_ratio': 0.2}); // ratio of questions
+
     loadCharacterCode("horanghae"); // load first imma character from code
     lastTabsUpdater();
-    setQuickAlarm(); // set first alarm
+    setQuickAlarm(); // set first alarm for 0.8 second
 });
 
 // User responds to a question notification
@@ -37,7 +41,7 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
             if (alarmInfo['name'] == "question") { // send a question to user
                 sendNewQuestion(); // contacts server for question, then sends notification
             } else if (alarmInfo['name'] == "quickmessage") { // send a message that imma is now activated
-                sendNotification(result['imma_name'] + " has been loaded!", "IMMA", result['image_link']);
+                sendNotification(result['imma_name'] + " has been loaded!", "Browserbug", result['image_link']);
             } else { // send a message to user
                 sendMessage(); // gets current tabs open, contacts server for message, then sends notification
             }
@@ -49,12 +53,20 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
-    console.log("Startup: running clean");
-    updaterAndCleaner();
+    console.log("Startup: running update, clean");
+    lastTabsUpdater(); // update tabs, but not too often
+    chrome.alarms.clearAll();
+    setNextAlarm(); // set timer for one & only one alarm
+    cleaner();
 });
+
+var tabsLastUpdated = getCurrentTime();
 
 // Whenever tabs are updated, update last_tabs tracker
 chrome.tabs.onUpdated.addListener(function () {
-    console.log("Tab: running clean");
-    updaterAndCleaner();
+    if (getCurrentTime() - tabsLastUpdated > 2000) {
+        console.log("Tab: running update");
+        tabsLastUpdated = getCurrentTime();
+        lastTabsUpdater(); // update tabs, but not too often
+    }
 });

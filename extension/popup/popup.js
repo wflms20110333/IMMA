@@ -51,6 +51,9 @@ activeswitch.addEventListener('click', function() {
     }
 });
 
+console.log("Popup: running alarm clean");
+chrome.extension.getBackgroundPage().cleaner();
+
 // Code for enabling hyperlinks in popup
 var links = document.getElementsByTagName("a");
 for (var i = 0; i < links.length; i++) {

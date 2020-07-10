@@ -1,9 +1,24 @@
 // Manage the message frequency slider
+var fDict = {1: [12, "every 10-15 seconds"], 2: [22, "every 15-30 seconds"], 3: [37, "every 30-45 seconds"],
+            4: [52, "every 45-60 seconds"], 5: [120, "every ~2 minutes"], 6: [300, "every ~5 minutes"],
+            7: [600, "every ~10 minutes"], 8: [900, "every ~15 minutes"], 9: [1800, "every ~30 minutes"],
+            10: [3600, "every ~1 hour"]}
+var bDict = {'12': [1, "every 10-15 seconds"], '22': [2, "every 15-30 seconds"], '37': [3, "every 30-45 seconds"],
+            '52': [4, "every 45-60 seconds"], '120': [5, "every ~2 minutes"], '300': [6, "every ~5 minutes"],
+            '600': [7, "every ~10 minutes"], '900': [8, "every ~15 minutes"], '1800': [9, "every ~30 minutes"],
+            '3600': [10, "every ~1 hour"]}
+// Manage the message frequency slider
 var freqslider = document.getElementById('frequency-slider');
 var slidertext = document.getElementById('slider-text');
-updateMessageFrequency(freqslider.value, slidertext);
-freqslider.oninput = function() {
-    updateMessageFrequency(freqslider.value, slidertext);
+chrome.storage.sync.get(['alarm_spacing'], function (result) { // on initialization
+    freqslider.value = bDict[result['alarm_spacing']][0];
+    slidertext.textContent = bDict[result['alarm_spacing']][1];
+});
+freqslider.oninput = function() { // display text change
+    slidertext.textContent = fDict[freqslider.value][1];    
+};
+freqslider.onchange = function() { // update actual options
+    chrome.storage.sync.set({'alarm_spacing': fDict[freqslider.value][0]});
 };
 
 // Manage the fade checkbox
@@ -12,37 +27,6 @@ fadeswitch.checked = true; // active by default
 fadeswitch.addEventListener('click', function() {
     updateAutoDelete(fadeswitch.checked);
 });
-
-/**
- * Update the user's preferred message frequency
- * @param {number} xScale x-position of slider, between 0 and 20
- * @param {string} sliderText text alongside the slider to label with amount
- */
-function updateMessageFrequency(xScale, sliderText) {
-    console.log('in updateMessageFrequency');
-
-    // First third of the slider: 5 seconds to 60 seconds
-    // Second third of the slider: 1 minute to 5 minutes
-    // Last third of the slider: 5 minutes to 20 minutes
-
-    var intScale = Math.ceil(xScale/2);
-    var answer = null;
-    switch (intScale) {
-        case 1:answer = [7, "every 10-15 seconds"];break;
-        case 2:answer = [12, "every 15-30 seconds"];break;
-        case 3:answer = [17, "every 30-45 seconds"];break;
-        case 4:answer = [22, "every 45-60 seconds"];break;
-        case 5:answer = [32, "every ~2 minutes"];break;
-        case 6:answer = [60, "every ~5 minutes"];break;
-        case 7:answer = [120, "every ~10 minutes"];break;
-        case 8:answer = [300, "every ~15 minutes"];break;
-        case 9:answer = [600, "every ~30 minutes"];break;
-        case 10:answer = [1200, "every ~1 hour"];break;
-    }
-    sliderText.textContent = answer[1];
-
-    // #TODO Update usersettings file to have this message frequency
-}
 
 /**
  * Updates whether to auto-delete messages

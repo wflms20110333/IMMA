@@ -18,7 +18,7 @@ def evaluate_state():
     inputParams = request.get_json()
 
     # predict mood
-    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
+    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
     currentState = inputParams['mood']
     # clip state to between 0 and 5
     state = [min(max(i,0),5) for i in predictedMood+currentState]
@@ -43,13 +43,11 @@ def get_question():
 
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():
-    """ Given link to user setting file and messages since last question
-    
-    Return duration til next alarm (in seconds) & type of alarm """
+    """ Return duration til next alarm (in seconds) & type of alarm """
     inputParams = request.get_json()
 
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['user_setting'])
+    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['alarm_spacing'])
 
     return jsonify({'mDuration': mDuration, 'mType': mType})
 

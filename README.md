@@ -145,11 +145,16 @@ There are four types of input files; current examples: `MessageBank.txt`, `Quest
 
 ```
 General variables:
-'user_setting': (string) link to setting file for current user
+#TODO add weird codes to the variable names in chrome memory
 'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
 'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
+
+User preferences:
+"alarm_spacing": (number) preferred time interval between alarms (in seconds)
+"persist_notifs": (bool) whether to have persistent notifications
+"flagged_sites": (json) maps site names to their score impacts
 
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
