@@ -1,3 +1,15 @@
+// Code for enabling hyperlinks in popup, do this first
+var links = document.getElementsByTagName("a");
+for (var i = 0; i < links.length; i++) {
+    (function () {
+        var ln = links[i];
+        var location = ln.href;
+        ln.onclick = function () {
+            chrome.tabs.create({active: true, url: location});
+        };
+    })();
+}
+
 // Update colors of the popup menu
 chrome.storage.sync.get(['color1', 'color2'], function(data) {
     //document.getElementById('clearbox').style.backgroundColor = data['color2'];
@@ -53,15 +65,3 @@ activeswitch.addEventListener('click', function() {
 
 console.log("Popup: running alarm clean");
 chrome.extension.getBackgroundPage().cleaner();
-
-// Code for enabling hyperlinks in popup
-var links = document.getElementsByTagName("a");
-for (var i = 0; i < links.length; i++) {
-    (function () {
-        var ln = links[i];
-        var location = ln.href;
-        ln.onclick = function () {
-            chrome.tabs.create({active: true, url: location});
-        };
-    })();
-}

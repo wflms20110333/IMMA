@@ -14,7 +14,7 @@
 * `venv_windows_train\Scripts\activate.bat` for Windows
 * `source venv/bin/activate` for Mac and Linux
 
-2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
+2) Update your virtual environment by running `pip install -r server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
 
 ## Running the website
 
