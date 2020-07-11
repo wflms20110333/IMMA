@@ -1,3 +1,4 @@
+import boto3
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -9,6 +10,17 @@ cors = CORS(app)
 @app.route('/')
 def hello_world():
     return "Whale, hello there!"
+
+@app.route('/uploadImg', methods=['POST'])
+def upload_image():
+    try:
+        img_file = request.files['uploaded-img']
+        conn = boto3.client('s3')
+        bucket_name = "imma-bucket"
+        conn.upload_fileobj(img_file, bucket_name, 'uploaded_file.png')
+        return "upload success!"
+    except Exception as e:
+        return str(e)
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
