@@ -1,0 +1,25 @@
+{
+    "information": {
+        "name": "Browserbee",
+        "imageLink": "../images/character images/null_image.png",
+		"description": "Hello there! Browserbee is your default Browserbug.",
+        "percentCustomQuotes": 0.2
+    },
+
+    "personality": [0.6, 0.9, 0.9],
+
+    "textstyle": {
+		"emojis": 0.5,
+        "capitalization": 0.5,
+        "punctuation": 0.5
+    },
+
+    "messageBank": {
+		"Go go go!": [2, -1, 0, 0, 0],
+        "Spectacular!": [1, 0, -2, 0, 0]
+    },
+
+    "questionBank": {
+		"How are things going?": [2, 0, -1, 0, 0]
+    }
+}

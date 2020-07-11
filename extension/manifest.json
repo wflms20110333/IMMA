@@ -1,5 +1,5 @@
 {
-    "name": "IMMA",
+    "name": "Browserbug",
     "version": "1.02",
     "description": "A customizable AI friend to accompany you and provide messages of encouragement!",
     "icons": {
@@ -24,8 +24,8 @@
     },
     "manifest_version": 2,
     "browser_action": {
-        "default_title": "IMMA",
-        "default_icon": "images/new_imma_32.png",
+        "default_title": "Browserbug",
+        "default_icon": "images/new_imma_48.png",
         "default_popup": "popup/popup.html"
     }
 }

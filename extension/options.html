@@ -8,32 +8,70 @@
 
 <body>
     <div class="topbar" style="background-color: aqua;">
-        <div style="float: left;">
+        <div>
             <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA">
             <img id="rightlogo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
-        </div>
-        <div style="float: right;">
             <p>X close window</p>
         </div>
     </div>
 
     <div>
         <div class="sidebar">
-            <div>IMMA Settings</div>
-            <div>Account Settings</div>
-            <div>My Purchases</div>
+            <div>Browserbug Settings</div>
             <div>FAQ</div>
         </div>
         <div class="settingscontent">
             <h1>Settings</h1>
+            <p>Hover over any setting for more information! It may take a moment for changes to take effect.</p>
             <div>
-                <div>Message Frequency
+                <div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
+                    <label class="switch"><input type="checkbox" id="silent-switch">
+                </div>
+                <div title="How often should your Browserbug send you messages?">Message Frequency
                     <input type="range" min="1" max="20" value="5" class="slider" id="frequency-slider">
                     <p id="slider-text"></p>
+                    <!-- js implemented! -->
                 </div>
-                <div>Auto-Fade Messages
+                <div title="Should messages automatically close out after a period of time?">Auto-Fade Messages
                     <label class="switch"><input type="checkbox" id="autofade-switch">
-                    <span class="slider round"></span></label>
+                </div>
+                <div title="Let your Browserbug know which sites you want to (or don't want to) be on.">
+                    <fieldset id="pullfrom">
+                        <legend>Flag a site</legend>
+                        <textarea id="messagecontent" maxlength="90" style="resize: none;">google.com</textarea>
+                        <p>Rate how this site usually affects you (-1=negative effect, 1=positive effect)</p>
+                        <label>Happiness</label>
+                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat1"><br>
+                        <label>Relaxation</label>
+                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat2"><br>
+                        <label>Determination</label>
+                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat3"><br>
+                        <label>Focus</label>
+                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat4"><br>
+                        <label>Wellbeing</label>
+                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat5">
+                        
+                    </fieldset>
+                    <br>
+                    <input type="button" value="Add flag to site" class="add" id="add">
+                    <br><br>
+                    <fieldset id="yourform"><legend>Your flagged sites</legend></fieldset>
+                </div>
+                <p>How does site tracking affect my privacy?</p>
+                <div id="privacycontent">
+                <p><b>The short answer: </b>Although we do track which sites you visit, we can't see that information.</p>
+                <p>To preserve your privacy, we keep information locally on your own computer whenever possible.</p>
+                <p><b>The long answer: </b>Processing of your visited sites is done locally on your device.</p>
+                <p>And even locally, we don't store a record of which sites you've visited in the past.</p>
+                <p>We only measure which sites you currently have open.</p>
+                <p>Your predicted mood, along with your Browserbug's settings, is anonymously sent to our server so we can choose the best message for you.</p>
+                <p>We don't record, analyze, or otherwise use any server interactions.</p>
+                <p>(Partly because we're too lazy, but also because we believe that it would be an invasion of your privacy.)</p>
+                <p>We profit through users' purchases of premium features, and through donations. (Servers are expensive, please help us offset costs!)</p>
+                <p>If we ever include advertisements, we won't ever try to share or sell your information to those third parties.</p>
+                <p>And in general, we don't share or sell your data. (It's not like we have much data anyway...)</p>
+                <p><b>The even longer answer: </b>Want more details? Check out our <a href="privacypolicy.html">Privacy Policy!</a></p>
+                <p>Feel free to read it to learn more about how we interact with data!</p>
                 </div>
                 <div>Send Feedback</div>
                 <div>Contact Us</div>
@@ -45,6 +83,8 @@
 
     <footer>
         <p>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></p>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="termsofuse.html">Terms of Use</a>
     </footer>
 </body>
 

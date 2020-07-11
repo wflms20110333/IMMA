@@ -1,63 +1,83 @@
+// Manage the silence checkbox
+var silentswitch = document.getElementById('silent-switch');
+chrome.storage.sync.get(['silence'], function (result) { // on initialization
+    silentswitch.checked = result['silence'];
+});
+silentswitch.addEventListener('click', function() {
+    chrome.storage.sync.set({'silence': silentswitch.checked});
+});
+
+// Manage the message frequency slider
+var fDict = {1: [12, "every 10-15 seconds"], 2: [22, "every 15-30 seconds"], 3: [37, "every 30-45 seconds"],
+            4: [52, "every 45-60 seconds"], 5: [120, "every ~2 minutes"], 6: [300, "every ~5 minutes"],
+            7: [600, "every ~10 minutes"], 8: [900, "every ~15 minutes"], 9: [1800, "every ~30 minutes"],
+            10: [3600, "every ~1 hour"]}
+var bDict = {'12': [1, "every 10-15 seconds"], '22': [2, "every 15-30 seconds"], '37': [3, "every 30-45 seconds"],
+            '52': [4, "every 45-60 seconds"], '120': [5, "every ~2 minutes"], '300': [6, "every ~5 minutes"],
+            '600': [7, "every ~10 minutes"], '900': [8, "every ~15 minutes"], '1800': [9, "every ~30 minutes"],
+            '3600': [10, "every ~1 hour"]}
 // Manage the message frequency slider
 var freqslider = document.getElementById('frequency-slider');
 var slidertext = document.getElementById('slider-text');
-updateMessageFrequency(freqslider.value, slidertext);
-freqslider.oninput = function() {
-    updateMessageFrequency(freqslider.value, slidertext);
+chrome.storage.sync.get(['alarm_spacing'], function (result) { // on initialization
+    freqslider.value = bDict[result['alarm_spacing']][0];
+    slidertext.textContent = bDict[result['alarm_spacing']][1];
+});
+freqslider.oninput = function() { // display text change
+    slidertext.textContent = fDict[freqslider.value][1];    
+};
+freqslider.onchange = function() { // update actual options
+    chrome.storage.sync.set({'alarm_spacing': fDict[freqslider.value][0]});
 };
 
 // Manage the fade checkbox
 var fadeswitch = document.getElementById('autofade-switch');
-fadeswitch.checked = true; // active by default
+chrome.storage.sync.get(['persist_notifs'], function (result) { // on initialization
+    fadeswitch.checked = result['persist_notifs'];
+});
 fadeswitch.addEventListener('click', function() {
-    updateAutoDelete(fadeswitch.checked);
+    chrome.storage.sync.set({'persist_notifs': fadeswitch.checked});
 });
 
-/**
- * Update the user's preferred message frequency
- * @param {number} xScale x-position of slider, between 0 and 20
- * @param {string} sliderText text alongside the slider to label with amount
- */
-function updateMessageFrequency(xScale, sliderText) {
-    console.log('in updateMessageFrequency');
+// Manage site flagging
+// #TODO on initialization: fill list of flagged sites with the ones already flagged
+var addFlag = document.getElementById('add');
+addFlag.addEventListener('click', function() { // process for <flagging sites>, almost same as adding custom messages
+    // where to place next message
+    var iDiv = document.createElement('div');
+    iDiv.className = 'messageBlock';
+    document.getElementById('yourform').appendChild(iDiv);
+    // get contents
+    var flabel = document.getElementById('messagecontent').value;
+    var fstat1 = document.getElementById('msgstat1').value;
+    var fstat2 = document.getElementById('msgstat2').value;
+    var fstat3 = document.getElementById('msgstat3').value;
+    var fstat4 = document.getElementById('msgstat4').value;
+    var fstat5 = document.getElementById('msgstat5').value;
+    // clear contents
+    document.getElementById('messagecontent').value = "";
+    document.getElementById('msgstat1').value = 0;
+    document.getElementById('msgstat2').value = 0;
+    document.getElementById('msgstat3').value = 0;
+    document.getElementById('msgstat4').value = 0;
+    document.getElementById('msgstat5').value = 0;
+    // create remove button
+    var removeButton = document.createElement('button');
+    removeButton.class = 'remove';
+    removeButton.innerHTML = 'Remove';
+    removeButton.onclick = function() {
+        $(this).parent().remove();
+    };
+    // export contents
+    iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
+    iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
+    iDiv.appendChild(removeButton);
 
-    // First third of the slider: 5 seconds to 60 seconds
-    // Second third of the slider: 1 minute to 5 minutes
-    // Last third of the slider: 5 minutes to 20 minutes
-
-    var intScale = Math.ceil(xScale/2);
-    var answer = null;
-    switch (intScale) {
-        case 1:answer = [7, "every 10-15 seconds"];break;
-        case 2:answer = [12, "every 15-30 seconds"];break;
-        case 3:answer = [17, "every 30-45 seconds"];break;
-        case 4:answer = [22, "every 45-60 seconds"];break;
-        case 5:answer = [32, "every ~2 minutes"];break;
-        case 6:answer = [60, "every ~5 minutes"];break;
-        case 7:answer = [120, "every ~10 minutes"];break;
-        case 8:answer = [300, "every ~15 minutes"];break;
-        case 9:answer = [600, "every ~30 minutes"];break;
-        case 10:answer = [1200, "every ~1 hour"];break;
-    }
-    sliderText.textContent = answer[1];
-
-    // #TODO Update usersettings file to have this message frequency
-}
-
-/**
- * Updates whether to auto-delete messages
- * @param {boolean} toDelete whether to fade messages without user input
- */
-function updateAutoDelete(toDelete) {
-    console.log('in updateAutoDelete');
-    // #TODO Update usersettings file
-}
-
-/**
- * Allows user to enable/disable questions
- * @param {boolean} toEnable whether to allow questions
- */
-function updateQuestions(toDelete) {
-    console.log('in updateQuestions');
-    // #TODO Update usersettings file
-}
+    // next, update site flags
+    var flagSites = {};
+    $('.messageBlock').each(function(index,element) { // fill the message bank
+        var messageName = element.value[0];
+        flagSites[messageName] = element.value[1];
+    });
+    chrome.storage.sync.set({'flagged_sites': flagSites});
+});

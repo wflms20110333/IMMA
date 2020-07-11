@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-from tensorflow.keras.models import load_model
 import model.placeholder as ph # for the nnetwork models
 
 app = Flask(__name__) # declare app
@@ -19,7 +18,7 @@ def evaluate_state():
     inputParams = request.get_json()
 
     # predict mood
-    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['user_setting'])
+    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
     currentState = inputParams['mood']
     # clip state to between 0 and 5
     state = [min(max(i,0),5) for i in predictedMood+currentState]
@@ -44,13 +43,11 @@ def get_question():
 
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():
-    """ Given link to user setting file and messages since last question
-    
-    Return duration til next alarm (in seconds) & type of alarm """
+    """ Return duration til next alarm (in seconds) & type of alarm """
     inputParams = request.get_json()
 
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['user_setting'])
+    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['alarm_spacing'])
 
     return jsonify({'mDuration': mDuration, 'mType': mType})
 
@@ -62,11 +59,7 @@ def retrieve_imma():
 
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
     temp_code_dict = {
-        'snapsnapsnap': '001_ironman',
-        'horanghae': '002_hoshi',
-        'lazybear': '003_rilakkuma',
-        'justDOit': '004_shia',
-        'waterwater': '005_moana'
+        'default': '001_default'
     }
     if inputParams['keycode'] in temp_code_dict.keys():
         codeAuth = temp_code_dict[inputParams['keycode']]
@@ -76,7 +69,7 @@ def retrieve_imma():
     # If have a valid code
     if codeAuth != False:
         # retrieve imma file
-        with open("server/model/character files/" + codeAuth + ".imma") as immaFile: #TODO where to store these files?
+        with open("server/model/character files/" + codeAuth + ".bbug") as immaFile: #TODO where to store these files?
             immaData = json.load(immaFile)
         immaData['success'] = True
         return jsonify(immaData)

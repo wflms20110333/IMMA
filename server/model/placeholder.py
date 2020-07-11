@@ -7,21 +7,20 @@ import time
 import re
 import math
 
-def getNextAlarmStats(questionRatio, messageCt, userSettingFile):
+def getNextAlarmStats(questionRatio, messageCt, alarmGap):
     """ Returns the duration until next alarm (in seconds) and the type of alarm
 
     questionRatio -- ratio of 1 question per each x messages
 
     messageCt -- messages given since last question
 
-    userSettingFile -- file containing user preferences for alarm, etc duration/type """
-
-    # Load list of the user's possible sites & their scores
-    with open(userSettingFile, 'r') as f:
-        userData = json.load(f)
+    alarmGap -- user's preference for interval between alarms (in seconds) """
 
     # Mean and stdev for duration until next alarm (in seconds)
-    nextAlarm = abs(np.random.normal(userData['AlarmSpacing'], userData['AlarmStdev']))
+    if alarmGap < 120.0:
+        nextAlarm = abs(np.random.normal(alarmGap, 2.0)) # stdev of 2.0 seconds
+    else:
+        nextAlarm = abs(np.random.normal(alarmGap, 10.0)) # stdev of 10.0 seconds
 
     # Mean (stdev=1) for having 1 question per every X messages
     nextQuestion = abs(np.random.normal(questionRatio, 1))
@@ -38,26 +37,22 @@ def initializeNetwork():
     myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
     return myRNN
 
-def vectorizeInput(openedSites, userSettingFile):
+def vectorizeInput(openedSites, flaggedSites):
     """ Predicts offset in mood based on the current open sites
 
     openedSites -- a set of the last opened tabs e.g. {'calendar.google.com': 10000, 'translate.google.com': 10000}
 
-    userSettingFile -- a site-scoring file containing effect for flagged sites
+    flaggedSites -- json of site-scoring, containing effect for flagged sites
     """
     # TODO where to host user setting files?
 
     mood_delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0]) # predicted offset in mood
 
-    # Load list of the user's possible sites & their scores
-    with open(userSettingFile, 'r') as f:
-        userData = json.load(f)
-
     # For each opened site, set its entry in vectInput to the relevant score vector
-    for i, possibleSite in enumerate(userData['sites'].keys()):
+    for i, possibleSite in enumerate(flaggedSites.keys()):
         for openSite in openedSites.keys():
             if possibleSite == openSite:
-                scoreVector = np.array(userData['sites'][openSite])
+                scoreVector = np.array(flaggedSites[openSite])
 
                 #print("Debug: score vector match in open tabs!", scoreVector)
 
