@@ -154,6 +154,7 @@ General variables:
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)
 "persist_notifs": (bool) whether to have persistent notifications
+"silence": (bool) whether to silence notifications
 "flagged_sites": (json) maps site names to their score impacts
 
 Imma-specific character variables, updated with loadCharacterCode:

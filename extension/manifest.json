@@ -25,7 +25,7 @@
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Browserbug",
-        "default_icon": "images/new_imma_32.png",
+        "default_icon": "images/new_imma_48.png",
         "default_popup": "popup/popup.html"
     }
 }

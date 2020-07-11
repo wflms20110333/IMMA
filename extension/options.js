@@ -1,3 +1,12 @@
+// Manage the silence checkbox
+var silentswitch = document.getElementById('silent-switch');
+chrome.storage.sync.get(['silence'], function (result) { // on initialization
+    silentswitch.checked = result['silence'];
+});
+silentswitch.addEventListener('click', function() {
+    chrome.storage.sync.set({'silence': silentswitch.checked});
+});
+
 // Manage the message frequency slider
 var fDict = {1: [12, "every 10-15 seconds"], 2: [22, "every 15-30 seconds"], 3: [37, "every 30-45 seconds"],
             4: [52, "every 45-60 seconds"], 5: [120, "every ~2 minutes"], 6: [300, "every ~5 minutes"],
@@ -23,25 +32,51 @@ freqslider.onchange = function() { // update actual options
 
 // Manage the fade checkbox
 var fadeswitch = document.getElementById('autofade-switch');
-fadeswitch.checked = true; // active by default
+chrome.storage.sync.get(['persist_notifs'], function (result) { // on initialization
+    fadeswitch.checked = result['persist_notifs'];
+});
 fadeswitch.addEventListener('click', function() {
-    updateAutoDelete(fadeswitch.checked);
+    chrome.storage.sync.set({'persist_notifs': fadeswitch.checked});
 });
 
-/**
- * Updates whether to auto-delete messages
- * @param {boolean} toDelete whether to fade messages without user input
- */
-function updateAutoDelete(toDelete) {
-    console.log('in updateAutoDelete');
-    // #TODO Update usersettings file
-}
+// Manage site flagging
+var addFlag = document.getElementById('add');
+addFlag.addEventListener('click', function() { // process for <flagging sites>, almost same as adding custom messages
+    // where to place next message
+    var iDiv = document.createElement('div');
+    iDiv.className = 'messageBlock';
+    document.getElementById('yourform').appendChild(iDiv);
+    // get contents
+    var flabel = document.getElementById('messagecontent').value;
+    var fstat1 = document.getElementById('msgstat1').value;
+    var fstat2 = document.getElementById('msgstat2').value;
+    var fstat3 = document.getElementById('msgstat3').value;
+    var fstat4 = document.getElementById('msgstat4').value;
+    var fstat5 = document.getElementById('msgstat5').value;
+    // clear contents
+    document.getElementById('messagecontent').value = "";
+    document.getElementById('msgstat1').value = 0;
+    document.getElementById('msgstat2').value = 0;
+    document.getElementById('msgstat3').value = 0;
+    document.getElementById('msgstat4').value = 0;
+    document.getElementById('msgstat5').value = 0;
+    // create remove button
+    var removeButton = document.createElement('button');
+    removeButton.class = 'remove';
+    removeButton.innerHTML = 'Remove';
+    removeButton.onclick = function() {
+        $(this).parent().remove();
+    };
+    // export contents
+    iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
+    iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
+    iDiv.appendChild(removeButton);
 
-/**
- * Allows user to enable/disable questions
- * @param {boolean} toEnable whether to allow questions
- */
-function updateQuestions(toDelete) {
-    console.log('in updateQuestions');
-    // #TODO Update usersettings file
-}
+    // next, update site flags
+    var flagSites = {};
+    $('.messageBlock').each(function(index,element) { // fill the message bank
+        var messageName = element.value[0];
+        flagSites[messageName] = element.value[1];
+    });
+    chrome.storage.sync.set({'flagged_sites': flagSites});
+});

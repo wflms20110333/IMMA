@@ -1,15 +1,7 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    /* available options (codes are just placeholders) (needs manual server restart)
-    temp_code_dict = {
-        'snapsnapsnap': '001_ironman',
-        'horanghae': '002_hoshi',
-        'lazybear': '003_rilakkuma',
-        'justDOit': '004_shia',
-        'waterwater': '005_moana'
-    }
-     */
     chrome.storage.sync.set({'alarm_spacing': 12}); // needs to be valid value in bDict in options.js
+    chrome.storage.sync.set({'silence': 'false'});
     chrome.storage.sync.set({'persist_notifs': 'false'});
     chrome.storage.sync.set({'flagged_sites': {"www.youtube.com":[1.0,0.0,0.0,1.0,0.0],"www.facebook.com":[0.0,0.0,1.0,0.0,0.0]}});
 
@@ -18,7 +10,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'mood': [3.0, 3.0, 3.0, 3.0, 3.0]}); // initialize neutral mood
     chrome.storage.sync.set({'question_ratio': 0.2}); // ratio of questions
 
-    loadCharacterCode("horanghae"); // load first imma character from code
+    loadCharacterCode("default"); // load first imma character from code
     lastTabsUpdater();
     setQuickAlarm(); // set first alarm for 0.8 second
 });

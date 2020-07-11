@@ -97,7 +97,7 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
         });
@@ -110,7 +110,7 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs'], function (result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function (result) {
         serverPOST('getQuestion', result, function(data) {
             sendNotifQuestion(data['question'], result['imma_name'], result['image_link'], result['persist_notifs']);
             chrome.storage.sync.set({'last_q_weight': data['questionWeight']});
@@ -214,7 +214,7 @@ function setNextAlarm() {
  * @param {string} msg the message to display
  * https://developer.chrome.com/apps/notifications for more information
  */
-function sendNotification(msg, immaName, immaFilename, persistNotifs) {
+function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
@@ -223,7 +223,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs) {
         title: immaName,
         message: msg,
         priority: 2,
-        requireInteraction: (persistNotifs == 'true')
+        requireInteraction: (persistNotifs == 'true'),
+        silent: silencing
     });
 }
 
@@ -231,7 +232,7 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs) {
  * Sends a notification to the user, & has answer buttons
  * @param {string} msg the question to display
  */
-function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs) {
+function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
@@ -241,7 +242,8 @@ function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs) {
         message: msg,
         buttons: [{'title': 'Yes'}, {'title': 'No'}],
         priority: 2,
-        requireInteraction: (persistNotifs == 'true')
+        requireInteraction: (persistNotifs == 'true'),
+        silent: silencing
     });
 }
 

@@ -59,11 +59,7 @@ def retrieve_imma():
 
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
     temp_code_dict = {
-        'snapsnapsnap': '001_ironman',
-        'horanghae': '002_hoshi',
-        'lazybear': '003_rilakkuma',
-        'justDOit': '004_shia',
-        'waterwater': '005_moana'
+        'default': '001_default'
     }
     if inputParams['keycode'] in temp_code_dict.keys():
         codeAuth = temp_code_dict[inputParams['keycode']]
@@ -73,7 +69,7 @@ def retrieve_imma():
     # If have a valid code
     if codeAuth != False:
         # retrieve imma file
-        with open("server/model/character files/" + codeAuth + ".imma") as immaFile: #TODO where to store these files?
+        with open("server/model/character files/" + codeAuth + ".bbug") as immaFile: #TODO where to store these files?
             immaData = json.load(immaFile)
         immaData['success'] = True
         return jsonify(immaData)
