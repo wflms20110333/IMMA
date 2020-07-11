@@ -40,6 +40,7 @@ fadeswitch.addEventListener('click', function() {
 });
 
 // Manage site flagging
+// #TODO on initialization: fill list of flagged sites with the ones already flagged
 var addFlag = document.getElementById('add');
 addFlag.addEventListener('click', function() { // process for <flagging sites>, almost same as adding custom messages
     // where to place next message

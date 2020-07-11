@@ -131,15 +131,11 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 
 ### Input files
 
-There are four types of input files; current examples: `MessageBank.txt`, `QuestionBank.txt`, `002_hoshi.imma`, and `001.usersetting`.
-
-`MessageBank.txt` is currently a tab-separated file that contains default, general messages alongside a score that denotes that message's mood impact on a 5.0 scale [being *happy* (social interaction), being *relaxed* (not stressed), being *determined* (not boredom), being properly *focused* (not distracted), wellbeing (not discomfort)] as well as compatibility with character personality on a 0 to 1 scale [cheerful, energetic, positivity]. User-created messagebanks only have the mood impact.
+`MessageBank.txt` is a shared database of default messages for any Browserbug. Currently a tab-separated file. Messages should be grammatically capitalized & punctuated, with emojis within brackets. The code may later on edit the writing style of these messages, remove emojis, etc. Each message has a score that denotes that message's impact on each mood variable [being *happy* (social interaction), being *relaxed* (not stressed), being *determined* (not boredom), being properly *focused* (not distracted), wellbeing (not discomfort)] as well as compatibility with character personality on a -1 to 1 scale [cheerful, energetic, positivity]. (User-created message scores only have the mood impact score, not personality.)
 
 `QuestionBank.txt` is likewise a tab-separated file containing general questions alongside their scores.
 
-`002_hoshi.imma` and similar are character files that augment the MessageBank/QuestionBank, and contain general information about the character, as well as personality type and any custom messages/questions. (other imma files are not yet updated, just hoshi for now!)
-
-`001.usersetting` and similar are user setting files that contain user preferences and any information about "good" or "bad" browsing sites that the user has provided.
+`001_default.bbug` and similar are json character files that augment the MessageBank/QuestionBank. They contain general information about the character, as well as personality type and any custom messages/questions.
 
 ### Items kept in chrome extension memory
 
