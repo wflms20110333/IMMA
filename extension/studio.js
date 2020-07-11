@@ -45,7 +45,7 @@ $(document).ready(function() {
     });
 
     // process for importing imma files
-    var fileSelected = document.getElementById('open');
+    var fileSelected = document.getElementById('openBbug');
     fileSelected.addEventListener('change', function (e) { 
         var fileTobeRead = fileSelected.files[0];
         var fileReader = new FileReader(); 

@@ -142,6 +142,7 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 ```
 General variables:
 #TODO add weird codes to the variable names in chrome memory
+'user_bbug_id': (string) unique, static id for each user
 'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
 'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
