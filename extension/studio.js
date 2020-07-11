@@ -55,8 +55,20 @@ $(document).ready(function() {
         fileReader.readAsText(fileTobeRead);
     }, false);
 
-    // process for exporting imma files
-    $("#save").click(function() {
+    /*<!-- Old URL picker for images -->
+    <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
+    <label for="open" class="custom-file-upload">Pick image</label>
+    <input name="uploaded-img" type="file" id="openImg" accept="image/*"></input>*/
+
+    // process for importing images
+    var imgSelected = document.getElementById('openImg');
+    imgSelected.addEventListener('change', function (e) { // an image is uploaded!!
+        var imgx = document.getElementById('im0-img');
+        imgx.src = URL.createObjectURL(this.files[0]);
+    }, false);
+
+    // process for activating imma files
+    $("#activate").click(function() {
         //allowExternalURLs();
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == ""){
@@ -70,13 +82,11 @@ $(document).ready(function() {
         }
     });
 
-    // process for exporting imma files
+    // process for exporting imma files (local download)
     $("#export").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == ""){
             alert("Don't forget to select a name for your Browserbug!")
-        } else if (document.getElementById('im0-url').value == "") {
-            alert("Don't forget to select an avatar for your Browserbug!")
         } else {
             var jsonDict = absorbToDict();
             var file = new Blob([jsonDict], {
@@ -86,6 +96,24 @@ $(document).ready(function() {
             var a = document.getElementById('export');
             a.href = url;
             a.download = document.getElementById('imma-name').value + ".brbug";
+        }
+    });
+
+    // process for exporting imma files (to server)
+    $("#uploadBbug").click(function() {
+        // need to have these fields filled before save
+        if (document.getElementById('imma-name').value == ""){
+            alert("Don't forget to select a name for your Browserbug!")
+        } else {
+            var jsonDict = absorbToDict(); // collect the customized browserbug
+            chrome.storage.sync.get(['user_bbug_id'], function (result) { // get user id and pass to server
+                result['bbug_data'] = jsonDict;
+                //alert(result);
+                serverPOST('uploadBbug', result, function(data) {
+                    //alert(data);
+                    console.log("debug ok");
+                });
+            });
         }
     });
 });
@@ -108,7 +136,6 @@ function allowExternalURLs() {
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
-    document.getElementById('im0-url').value = jDat.information.imageLink;
     document.getElementById('im0-img').src = jDat.information.imageLink;
     document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
     document.getElementById('personality1').value = jDat.personality[0];
@@ -147,7 +174,7 @@ function absorbToDict() {
     dict.information = {
         name: document.getElementById('imma-name').value,
         premade: false,
-        imageLink: document.getElementById('im0-url').value,
+        imageLink: document.getElementById('im0-img').src,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 

@@ -11,6 +11,19 @@
         <div>
             <img id="imma-logo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
             <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="Browserbug"> Studio
+            
+            <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
+
+            <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
+            <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
+            
+            <label for="openBbug" class="custom-file-upload" title="Load a saved Browserbug file from your computer">Load local</label> <!-- note #TODO encrypt JSONs -->
+            <input type="file" id="openBbug" accept=".bbug">
+            <a class="filing" id="export" title="Download this Browserbug">Download local</a>
+            
+            <p class="filing" id="uploadBbug" title="Upload your Browserbug">Save to server</p>
+            <p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>
+
             <p style="float: right;">X close window</p>
         </div>
     </header>
@@ -43,29 +56,26 @@
             <div class="name-box">
                 <h3 title="Pick a name for your bug!">Name [?]</h3>
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
+
+                <!-- Image previewer -->
                 <img id="im0-img" src="images/character images/null_image.png" width="70px" height="70px" alt="Icon">
+
                 <h3 title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">
                     Avatar [?]</h3>
-                <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button>
-            </div>
-            <div class="open-box">
-                <input type="button" value="New" class="filing" id="new" />
 
-                <!-- TODO: change to real endpoint -->
-                <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data">
-                    <input name="uploaded-img" type="file" id="open" accept="image/*">
-                    <button type="submit">Upload</button></a>
-                </form>
-            
-                <input type="file" id="openBbug" accept=".bbug">
+                <!-- Old URL picker for images -->
+                <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
+                
+                <!-- New image uploader -->
+                <label for="openImg" class="custom-file-upload">Pick image</label>
+                <input name="uploaded-img" type="file" id="openImg" accept="image/*">
 
-                <input type="button" value="Save" class="filing" id="save">
-                <a class="filing" id="export">Export</a>
             </div>
         </div>
 
         <div class="column-shrinkable" id="instructions">
             <p>Hello! Instructions yada yada yada, hover over any [?] to view tips</p>
+            <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
         </div>
 
         <div class="column-shrinkable" id="messagemaking">

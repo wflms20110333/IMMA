@@ -11,13 +11,17 @@ cors = CORS(app)
 def hello_world():
     return "Whale, hello there!"
 
-@app.route('/uploadImg', methods=['POST'])
+@app.route('/uploadBbug', methods=['POST'])
 def upload_image():
     try:
-        img_file = request.files['uploaded-img']
+        inputParams = request.get_json()
+        print(inputParams)
+        user_id = inputParams['user_bbug_id']
+        imma_data = inputParams['bbug_data']
+        print(user_id)
         conn = boto3.client('s3')
         bucket_name = "imma-bucket"
-        conn.upload_fileobj(img_file, bucket_name, 'uploaded_file.png')
+        conn.upload_fileobj(user_id, imma_data, bucket_name, 'uploaded_file.bbug')
         return "upload success!"
     except Exception as e:
         return str(e)
@@ -26,7 +30,6 @@ def upload_image():
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
     an example POST: {'current_tabs': ["github", "fb"]} """
-    global model # force to look in module scope not definition scope
     inputParams = request.get_json()
 
     # predict mood
