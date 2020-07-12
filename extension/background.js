@@ -1,6 +1,7 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
+    chrome.storage.sync.set({'immaActive':true}); // set a unique user ID
 
     chrome.storage.sync.set({'alarm_spacing': 12}); // needs to be valid value in bDict in options.js
     chrome.storage.sync.set({'silence': 'false'});

@@ -148,6 +148,8 @@ General variables:
 'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
 
+'immaActive': (bool) whether bug is currently active
+
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)
 "persist_notifs": (bool) whether to have persistent notifications
