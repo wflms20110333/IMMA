@@ -69,8 +69,6 @@ $(document).ready(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == ""){
             alert("Don't forget to select a name for your Browserbug!")
-        } else if (document.getElementById('im0-url').value == "") {
-            alert("Don't forget to select an avatar for your Browserbug!")
         } else {
             var jsonDict = absorbToDict();
             loadCharacterFromJson(jsonDict);
@@ -91,7 +89,7 @@ $(document).ready(function() {
             url = URL.createObjectURL(file);
             var a = document.getElementById('export');
             a.href = url;
-            a.download = document.getElementById('imma-name').value + ".brbug";
+            a.download = document.getElementById('imma-name').value + ".bbug";
         }
     });
 
