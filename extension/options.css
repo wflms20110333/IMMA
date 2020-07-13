@@ -2,6 +2,12 @@ body {
     margin: 0px;
     background-image: linear-gradient(#f1a465, #c55b87);
 }
+body {
+    font-family: 'Assistant';
+    font-size: 15px;
+    background: linear-gradient(180deg, #DB8475 0%, rgba(197, 91, 100, 0.86) 100%);
+    
+}
 
 div {
     background-color: bisque;

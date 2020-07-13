@@ -3,15 +3,20 @@
 
 <head>
     <title>Browserbug Options</title>
+    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="options.css">
 </head>
 
 <body>
-    <header>
-        <p>Options</p>
-    </header>
+    <div class="topbar">
+        <div>
+            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA">
+            <img id="rightlogo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
+            <p>X close window</p>
+        </div>
+    </div>
 
-    <main>
+    <div>
         <div class="sidebar">
             <div>Browserbug Settings</div>
             <div>FAQ</div>
@@ -34,7 +39,9 @@
                 <div title="Experimental! If enabled, messages won't automatically close themselves out.">Persistent Messages
                     <label class="switch"><input type="checkbox" id="autofade-switch">
                 </div>
-                <div title="Let your Browserbug know which sites you want to (or don't want to) be on.">
+                <div id = "flagoption" title="Let your Browserbug know which sites you want to (or don't want to) be on.">
+                    
+                    
                     <fieldset id="pullfrom">
                         <legend>Flag a site</legend>
                         <textarea id="messagecontent" maxlength="90" style="resize: none;">google.com</textarea>
@@ -56,27 +63,12 @@
                     <br><br>
                     <fieldset id="yourform"><legend>Your flagged sites</legend></fieldset>
                 </div>
-                <p>How does site tracking affect my privacy?</p>
-                <div id="privacycontent">
-                <p><b>The short answer: </b>Although we do track which sites you visit, we can't see that information.</p>
-                <p>To preserve your privacy, we keep information locally on your own computer whenever possible.</p>
-                <p><b>The long answer: </b>Processing of your visited sites is done locally on your device.</p>
-                <p>And even locally, we don't store a record of which sites you've visited in the past.</p>
-                <p>We only measure which sites you currently have open.</p>
-                <p>Your predicted mood, along with your Browserbug's settings, is anonymously sent to our server so we can choose the best message for you.</p>
-                <p>We don't record, analyze, or otherwise use any server interactions.</p>
-                <p>(Partly because we're too lazy, but also because we believe that it would be an invasion of your privacy.)</p>
-                <p>We profit through users' purchases of premium features, and through donations. (Servers are expensive, please help us offset costs!)</p>
-                <p>If we ever include advertisements, we won't ever try to share or sell your information to those third parties.</p>
-                <p>And in general, we don't share or sell your data. (It's not like we have much data anyway...)</p>
-                <p><b>The even longer answer: </b>Want more details? Check out our <a href="privacypolicy.html">Privacy Policy!</a></p>
-                <p>Feel free to read it to learn more about how we interact with data!</p>
-                </div>
+            
                 <div>Send Feedback</div>
                 <div>Contact Us</div>
             </div>
         </div>
-    </main>
+    </div>
 
     <footer>
         <p>Copyright &copy; IMMA Studio, LLC, 2020 | 
