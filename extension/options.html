@@ -4,69 +4,63 @@
 <head>
     <title>Browserbug Options</title>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="master.css">
     <link rel="stylesheet" type="text/css" href="options.css">
 </head>
 
 <body>
-    <div class="topbar">
-        <div>
-            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="IMMA">
-            <img id="rightlogo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
-            <p>X close window</p>
-        </div>
+    <div class="bubble" id="sidebar">
+        <p>Browserbug</p>
+        <div><b>Settings</b></div>
+        <div><a href="welcome.html">Welcome</a></div>
+        <div><a href="studio.html">Studio</a></div>
+        <div><a href="privacypolicy.html">FAQ</a></div>
     </div>
-
-    <div>
-        <div class="sidebar">
-            <div>Browserbug Settings</div>
-            <div>FAQ</div>
-        </div>
-        <div class="settingscontent">
-            <h1>Settings</h1>
-            <p>Hover over any setting for more information! It may take a moment for changes to take effect.</p>
-            <div>
-                <div title="#TODO not implemented yet!!">
-                    <p>Language #TODO</p>
-                </div>
-                <div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
-                    <label class="switch"><input type="checkbox" id="silent-switch">
-                </div>
-                <div title="How often should your Browserbug send you messages?">Message Frequency
-                    <input type="range" min="1" max="20" value="5" class="slider" id="frequency-slider">
-                    <p id="slider-text"></p>
-                    <!-- js implemented! -->
-                </div>
-                <div title="Experimental! If enabled, messages won't automatically close themselves out.">Persistent Messages
-                    <label class="switch"><input type="checkbox" id="autofade-switch">
-                </div>
-                <div id = "flagoption" title="Let your Browserbug know which sites you want to (or don't want to) be on.">
-                    
-                    
-                    <fieldset id="pullfrom">
-                        <legend>Flag a site</legend>
-                        <textarea id="messagecontent" maxlength="90" style="resize: none;">google.com</textarea>
-                        <p>Rate how this site usually affects you (-1=negative effect, 1=positive effect)</p>
-                        <label>Happiness</label>
-                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat1"><br>
-                        <label>Relaxation</label>
-                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat2"><br>
-                        <label>Determination</label>
-                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat3"><br>
-                        <label>Focus</label>
-                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat4"><br>
-                        <label>Wellbeing</label>
-                        <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat5">
-                        
-                    </fieldset>
-                    <br>
-                    <input type="button" value="Add flag to site" class="add" id="add">
-                    <br><br>
-                    <fieldset id="yourform"><legend>Your flagged sites</legend></fieldset>
-                </div>
-            
-                <div>Send Feedback</div>
-                <div>Contact Us</div>
+    <div class="bubble" id="settingscontent">
+        <h1>Settings</h1>
+        <p>Hover over any setting for more information! It may take a moment for changes to take effect.</p>
+        <div>
+            <div title="#TODO not implemented yet!!">
+                <p>Language #TODO</p>
             </div>
+            <div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
+                <label class="switch"><input type="checkbox" id="silent-switch">
+            </div>
+            <div title="How often should your Browserbug send you messages?">Message Frequency
+                <input type="range" min="1" max="20" value="5" class="slider" id="frequency-slider">
+                <p id="slider-text"></p>
+                <!-- js implemented! -->
+            </div>
+            <div title="Experimental! If enabled, messages won't automatically close themselves out.">Persistent Messages
+                <label class="switch"><input type="checkbox" id="autofade-switch">
+            </div>
+            <div title="Let your Browserbug know which sites you want to (or don't want to) be on.">
+                
+                
+                <fieldset id="pullfrom">
+                    <legend>Flag a site</legend>
+                    <textarea id="messagecontent" maxlength="90" style="resize: none;">google.com</textarea>
+                    <p>Rate how this site usually affects you (-1=negative effect, 1=positive effect)</p>
+                    <label>Happiness</label>
+                    <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat1"><br>
+                    <label>Relaxation</label>
+                    <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat2"><br>
+                    <label>Determination</label>
+                    <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat3"><br>
+                    <label>Focus</label>
+                    <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat4"><br>
+                    <label>Wellbeing</label>
+                    <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat5">
+                    
+                </fieldset>
+                <br>
+                <input type="button" value="Add flag to site" class="filing" id="add">
+                <br><br>
+                <fieldset id="yourform"><legend>Your flagged sites</legend></fieldset>
+            </div>
+            <br>
+            <div>Send Feedback</div>
+            <div>Contact Us</div>
         </div>
     </div>
 

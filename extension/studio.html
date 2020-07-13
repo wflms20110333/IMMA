@@ -3,14 +3,15 @@
 
 <head>
     <title>Browserbug Studio</title>
+    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="master.css">
     <link rel="stylesheet" type="text/css" href="studio.css">
 </head>
 
 <body>
     <header>
         <div>
-            <img id="imma-logo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
-            Studio
+            <h2>Studio</h3>
             
             <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
 
@@ -23,16 +24,14 @@
             
             <p class="filing" id="uploadBbug" title="Upload your Browserbug">Save to server</p>
             <p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>
-
-            <p style="float: right;">X close window</p>
         </div>
     </header>
 
     <div class="studio">
         <div class="column" id="leftCol">
-            <div class="blobby">
-                <h3 title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">
-                    Personality [?]</h3>
+            <div class="bubble">
+                <h3>
+                    Personality <a title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">[?]</a></h3>
                 <p>Serious ... Cheerful</p>
                 <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality1">
                 <p>Laidback ... Energetic</p>
@@ -40,7 +39,7 @@
                 <p>Productivity ... Positivity</p>
                 <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality3">
             <br>
-                <h3 title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">Texting style [?]</h3>
+                <h3>Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
                 <p>None ... Emojis</p>
                 <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style1">
                 <p>None ... Capitalization</p>
@@ -51,21 +50,20 @@
         </div>
 
         <div class="column" id="centerCol">
-            <div class="blobby">
+            <div class="bubble">
                 <p>Hello! Instructions</p>
-                <p>hover over any [?] to view tips</p>
+                <p>Hover over any <a title="Hover like this to view tips!">[?]</a> to view tips.</p>
                 <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
             </div>
 
-            <div class="blobby">
-                <h3 title="Pick a name for your bug!">Name [?]</h3>
+            <div class="bubble">
+                <h3>Name <a title="Pick a name for your bug!">[?]</a></h3>
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
                 <img id="im0-img" src="images/character images/null_image.png" width="70px" height="70px" alt="Icon">
 
-                <h3 title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">
-                    Avatar [?]</h3>
+                <h3>Avatar <a title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">[?]</a></h3>
 
                 <!-- Old URL picker for images -->
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
@@ -77,25 +75,25 @@
         </div>
 
         <div class="column" id="rightCol">
-            <div class="blobby">
-                <h3 title="Create your own messages for your bug!">Custom messages [?]</h3>
-                <p title="How often to use custom content (versus built-in content)">Ratio of custom content [?]</p>
+            <div class="bubble">
+                <h3>Custom messages <a title="Create your own messages for your bug!">[?]</a></h3>
+                <p>Ratio of custom content <a title="How often to use custom content (versus built-in content)">[?]</a></p>
                 <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
                 <fieldset id="pullfrom">
                     <legend>Create message</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p title="Rate how this message would affect you (0=no effect, 1=high effect)">Stats [?]</p>
-                    <label title="Reducing your stress and frustration">Happiness [?]</label>
+                    <p>Stats <a title="Rate how this message would affect you (0=no effect, 1=high effect)">[?]</a></p>
+                    <label>Happiness <a title="Reducing your stress and frustration">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                     <br>
-                    <label title="Preventing boredom and distraction">Focus [?]</label>
+                    <label>Focus <a title="Preventing boredom and distraction">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
                     <br>
-                    <label title="Helping you maintain healthy habits">Wellbeing [?]</label>
+                    <label>Wellbeing <a title="Helping you maintain healthy habits">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
                 </fieldset>
                 <br>
-                <input type="button" value="Add message" class="add" id="add">
+                <input type="button" value="Add message" class="filing" id="add">
                 <br><br>
                 <fieldset id="yourform">
                     <legend>Custom messages</legend>
