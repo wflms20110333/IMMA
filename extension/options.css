@@ -1,18 +1,36 @@
-div {
-    background-color: bisque;
-    margin: 20px;
+body {
+    margin: 0px;
+    background-image: linear-gradient(#f1a465, #c55b87);
 }
 
-.sidebar, .settingscontent {
+div {
+    background-color: bisque;
+}
+
+header {
+    background-color: rgb(187, 139, 81);
+    position: absolute;
+    top: 0px;
+    height: 50px;
+}
+
+.sidebar {
+    width: 20%;
     float: left;
     text-align: center;
     background-color: silver;
 }
 
-.sidebar {
-    width: 20%;
-}
-
 .settingscontent {
     width: 70%;
+    float: left;
+    text-align: center;
+    background-color: silver;
+}
+
+footer {
+    background: red;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }

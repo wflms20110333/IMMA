@@ -1,9 +1,15 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
+    // open startup page
+    chrome.tabs.create({url: "/welcome.html"}, function (tab) {
+        console.log("extension installed, welcome :)");
+    }); // #TODO avoid popup opening link clicks in new tab if a local extension page is already open (just switch page, no new tab)
+
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
     chrome.storage.sync.set({'immaActive':true}); // set a unique user ID
+    chrome.storage.sync.set({'lastMail':'000'}); // the last mail message viewed
 
-    chrome.storage.sync.set({'alarm_spacing': 12}); // needs to be valid value in bDict in options.js
+    chrome.storage.sync.set({'alarm_spacing': 22}); // needs to be valid value in bDict in options.js
     chrome.storage.sync.set({'silence': 'false'});
     chrome.storage.sync.set({'persist_notifs': 'false'});
     chrome.storage.sync.set({'flagged_sites': {"www.youtube.com":[1.0,0.0,0.0,1.0,0.0],"www.facebook.com":[0.0,0.0,1.0,0.0,0.0]}});

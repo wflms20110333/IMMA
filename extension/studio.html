@@ -10,7 +10,7 @@
     <header>
         <div>
             <img id="imma-logo" src="images/new_imma_fullsize.png" width="50px" height="50px" alt="Icon">
-            <img id="middletext" src="images/TextCloseCut.png" width="70px" height="30px" alt="Browserbug"> Studio
+            Studio
             
             <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
 
@@ -29,8 +29,8 @@
     </header>
 
     <div class="studio">
-        <div class="column" id="leftmenu">
-            <div class="menu-box">
+        <div class="column" id="leftCol">
+            <div class="blobby">
                 <h3 title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">
                     Personality [?]</h3>
                 <p>Serious ... Cheerful</p>
@@ -39,9 +39,7 @@
                 <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality2">
                 <p>Productivity ... Positivity</p>
                 <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality3">
-            </div>
             <br>
-            <div class="menu-box">
                 <h3 title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">Texting style [?]</h3>
                 <p>None ... Emojis</p>
                 <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style1">
@@ -52,8 +50,14 @@
             </div>
         </div>
 
-        <div class="column" id="central">
-            <div class="name-box">
+        <div class="column" id="centerCol">
+            <div class="blobby">
+                <p>Hello! Instructions</p>
+                <p>hover over any [?] to view tips</p>
+                <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
+            </div>
+
+            <div class="blobby">
                 <h3 title="Pick a name for your bug!">Name [?]</h3>
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
 
@@ -69,17 +73,11 @@
                 <!-- New image uploader -->
                 <label for="openImg" class="custom-file-upload">Pick image</label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
-
             </div>
         </div>
 
-        <div class="column-shrinkable" id="instructions">
-            <p>Hello! Instructions yada yada yada, hover over any [?] to view tips</p>
-            <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
-        </div>
-
-        <div class="column-shrinkable" id="messagemaking">
-            <div class="menu-box">
+        <div class="column" id="rightCol">
+            <div class="blobby">
                 <h3 title="Create your own messages for your bug!">Custom messages [?]</h3>
                 <p title="How often to use custom content (versus built-in content)">Ratio of custom content [?]</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
@@ -111,41 +109,13 @@
             </div>
         </div>
 
-        <div class="column-shrinkable" id="imagechoosing">
-            <div class="column-equal">
-                <p>Fine <button id="im1" class="urlButton">+</button></p>
-                <input type="text" id="im1-url" class="imgUrlBox" autocomplete="off">
-                <img id="im1-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-
-                <p>Bored <button id="im2" class="urlButton">+</button></p>
-                <input type="text" id="im2-url" class="imgUrlBox" autocomplete="off">
-                <img id="im2-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-            </div>
-            <div class="column-equal">
-                <p>Happy <button id="im3" class="urlButton">+</button></p>
-                <input type="text" id="im3-url" class="imgUrlBox" autocomplete="off">
-                <img id="im3-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-
-                <p>Stressed <button id="im4" class="urlButton">+</button></p>
-                <input type="text" id="im4-url" class="imgUrlBox" autocomplete="off">
-                <img id="im4-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-            </div>
-            <div class="column-equal">
-                <p>Excited <button id="im5" class="urlButton">+</button></p>
-                <input type="text" id="im5-url" class="imgUrlBox" autocomplete="off">
-                <img id="im5-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-
-                <p>Distracted <button id="im6" class="urlButton">+</button></p>
-                <input type="text" id="im6-url" class="imgUrlBox" autocomplete="off">
-                <img id="im6-img" src="images/character images/004_shia.png" width="50px" height="50px" alt="Icon">
-            </div>
-            <br>
-        </div>
     </div>
 
     <footer>
-        <a href="privacypolicy.html">Privacy Policy</a>
+        <p>Copyright &copy; IMMA Studio, LLC, 2020 | 
+        <a href="privacypolicy.html">Privacy Policy</a> | 
         <a href="termsofuse.html">Terms of Use</a>
+        </p>
     </footer>
 
 </body>

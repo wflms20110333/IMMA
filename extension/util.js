@@ -22,6 +22,17 @@ function getRandomToken() {
 }
 
 /**
+ * Get whether there's mail from server that haven't read yet
+ */
+function getMail(callback) {
+    chrome.storage.sync.get(['lastMail'], function (result) {
+        serverPOST('getMail', result, function(data) {
+            callback(data['mail']);
+        });
+    });
+}
+
+/**
  * Cleans up any expired alarms
  */
 function cleanExpiredAlarms() {

@@ -149,6 +149,7 @@ General variables:
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
 
 'immaActive': (bool) whether bug is currently active
+'lastMail': (string) last server-mail the user read (i.e. message from developers)
 
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)
