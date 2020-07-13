@@ -22,15 +22,11 @@ $(document).ready(function() {
         var fstat1 = document.getElementById('msgstat1').value;
         var fstat2 = document.getElementById('msgstat2').value;
         var fstat3 = document.getElementById('msgstat3').value;
-        var fstat4 = document.getElementById('msgstat4').value;
-        var fstat5 = document.getElementById('msgstat5').value;
         // clear contents
         document.getElementById('messagecontent').value = "";
         document.getElementById('msgstat1').value = 0;
         document.getElementById('msgstat2').value = 0;
         document.getElementById('msgstat3').value = 0;
-        document.getElementById('msgstat4').value = 0;
-        document.getElementById('msgstat5').value = 0;
         // create remove button
         var removeButton = document.createElement('button');
         removeButton.class = 'remove';
@@ -39,8 +35,8 @@ $(document).ready(function() {
             $(this).parent().remove();
         };
         // export contents
-        iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
-        iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
+        iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
+        iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+") ");
         iDiv.appendChild(removeButton);
     });
 
@@ -164,7 +160,7 @@ function openJsonDat(jDat) {
 
         // export contents
         iDiv.value = [flabel, fstats];
-        iDiv.innerHTML = (flabel + " (stats = "+fstats[0]+", "+fstats[1]+", "+fstats[2]+", "+fstats[3]+", "+fstats[4]+") ");
+        iDiv.innerHTML = (flabel + " (stats = "+fstats[0]+", "+fstats[1]+", "+fstats[2]+") ");
         iDiv.appendChild(removeButton);
     }
 }

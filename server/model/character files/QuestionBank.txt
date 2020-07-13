@@ -1,12 +1,12 @@
-Are you happy?	0.9	0.3 0.5	1	1	1
-Do you need some advice?	0.8	0.6 0	1	1	1
-Are you feeling motivated?	0.3	0.7 0	1	1	1
+Are you happy?	0.9	0.3	0.5	1	1	1
+Do you need some advice?	0.8	0.6	0	1	1	1
+Are you feeling motivated?	0.3	0.7	0	1	1	1
 Have you drunk water recently?	0.1	0	1.	1	1	1
-Are you feeling stressed?	1.0	0.2 0.1	1	1	1
+Are you feeling stressed?	1.0	0.2	0.1	1	1	1
 Do you have good posture right now?	0.1	0.1	1.0	1	1	1
 Have you stretched in a while?	0.1	0.1	1.0	0.2	1	1	1
-Are you focused?	0   0.9	0	1	1	1
-Have you walked around recently?	0.3	0.2 1.0	1	1	1
+Are you focused?	0	0.9	0	1	1	1
+Have you walked around recently?	0.3	0.2	1.0	1	1	1
 Are you sitting up straight?	0	0.1	1.0	1	1	1
 Posture check! Are your wrists okay?	0	0.1	1.0	1	1	1
 Are your shoulders tense?	0.5	0.1	0.9	1	1	1

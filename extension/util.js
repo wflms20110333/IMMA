@@ -126,6 +126,7 @@ function sendMessage() {
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function (result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
+            chrome.storage.sync.set({'mood': data['predictedState']}); // update with any clipping that was done
         });
     });
 }
@@ -242,6 +243,7 @@ function setNextAlarm() {
  */
 function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
+    chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
@@ -259,6 +261,7 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
  * @param {string} msg the question to display
  */
 function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
+    chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Question', { // <= notification ID

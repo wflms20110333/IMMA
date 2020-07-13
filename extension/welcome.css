@@ -61,3 +61,14 @@ footer p {
     font-weight: 400;
     font-size: 14px;
 }
+
+a:active, a:link, a:visited {
+    color: #9c1c27;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c55b64;
+    text-decoration: none;
+}
+  

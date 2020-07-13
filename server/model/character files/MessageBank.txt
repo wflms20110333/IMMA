@@ -4,34 +4,34 @@ Good job![ :3]	0.8	0.2	0	1	1	1
 Great work![ :3]	0.8	0.2	0	1	1	1
 Keep it up!	0.6	0.4	0.1	1	1	1
 You've been doing well![ :)]	1.0	0.1	0	1	1	1
-You've got this![ :)]	0.8	0.1 0.0	1	1	1
-You've worked hard![ :)]	0.5	0 0.1	1	1	1
+You've got this![ :)]	0.8	0.1	0.0	1	1	1
+You've worked hard![ :)]	0.5	0	0.1	1	1	1
 You've been doing a good job![ :>]	1.0	0.1	0	1	1	1
 You've been doing a great job![ :3]	1.0	0.1	0	1	1	1
-Hope things are going well![ :>]	0.5	0.3 0.3	1	1	1
-Hope you're doing okay![ :)]	0.6	0.3 0.3	1	1	1
+Hope things are going well![ :>]	0.5	0.3	0.3	1	1	1
+Hope you're doing okay![ :)]	0.6	0.3	0.3	1	1	1
 [:) ]You're getting better!	0.7	0.2	0.1	1	1	1
 You're amazing![ XD]	0.7	0.3	0.1	1	1	1
-How are you feeling?	0.6	0.2 0.5	1	1	1
-You've leveled up a lot today![ ;)]	0.5	0.2 0.1	1	1	1
-Remember to smile![ :)]	0.6	0.4 0.3	1	1	1
-Thinking of you![ :)]	0.6	0.2 0.0	1	1	1
-You're not alone![ :3]	0.6	0.2 0.1	1	1	1
-It's okay to ask for help![ :)]	0.5	0.3 0.1	1	1	1
-[:D ]I'm cheering you on!	0.7	0.4 0.0	1	1	1
+How are you feeling?	0.6	0.2	0.5	1	1	1
+You've leveled up a lot today![ ;)]	0.5	0.2	0.1	1	1	1
+Remember to smile![ :)]	0.6	0.4	0.3	1	1	1
+Thinking of you![ :)]	0.6	0.2	0.0	1	1	1
+You're not alone![ :3]	0.6	0.2	0.1	1	1	1
+It's okay to ask for help![ :)]	0.5	0.3	0.1	1	1	1
+[:D ]I'm cheering you on!	0.7	0.4	0.0	1	1	1
 Don't give up![ :>]	0.3	6	0	1	1	1
 Focus![ :>]	0	0.9	0	1	1	1
 Concentrate!	0	0.8	0	1	1	1
 Keep going![ :)]	0.3	0.7	0	1	1	1
 Your work is important, keep at it![ :>]	0.3	0.7	0	1	1	1
-Is that productivity I see?[ :O]	0.2	0.8	0.1 1	1	1
-Don't get distracted![ :>]	0.2 0.9 0.0	1	1	1
+Is that productivity I see?[ :O]	0.2	0.8	0.1	1	1	1
+Don't get distracted![ :>]	0.2	0.9	0.0	1	1	1
 Stay hydrated!	0.3	0.1	0.8	1	1	1
 Be sure to rest your eyes![ :3]	0.4	0	1.0	1	1	1
-Take a break?[ :)]	0.4	0.2 0.9	1	1	1
-Let's take a quick break?[ :)]	0.4	0.2 0.9	1	1	1
-Take a deep breath and recenter![ :)]	0.7	0.4 0.8	1	1	1
+Take a break?[ :)]	0.4	0.2	0.9	1	1	1
+Let's take a quick break?[ :)]	0.4	0.2	0.9	1	1	1
+Take a deep breath and recenter![ :)]	0.7	0.4	0.8	1	1	1
 Rest your eyes, look at a distant object![ :)]	0.3	0.1	1.0	1	1	1
 Don't forget to blink and rest your eyes![ ;)]	0.2	0.1	0.9	1	1	1
-How long have you been sitting in this position?	0.2	0.1 0.9	1	1	1
-A quick reminder to sit up straight![ :3]	0.2	0.0 1.0	1	1	1
+How long have you been sitting in this position?	0.2	0.1	0.9	1	1	1
+A quick reminder to sit up straight![ :3]	0.2	0.0	1.0	1	1	1

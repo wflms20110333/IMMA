@@ -34,15 +34,25 @@ def evaluate_state():
 
     # predict mood
     predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
-    currentState = inputParams['mood']
-    # clip state to between 0 and 5
-    state = [min(max(i,0),5) for i in predictedMood+currentState]
+    currentState = ph.numerize(inputParams['mood'])
 
-    print("Current mood:", state, "from site bonus", predictedMood, "and prior", currentState)
+    clipMood = currentState # just for output, clips mood without adding any bonuses
+    if sum(clipMood) > 14.7 or sum(clipMood) < 0.3:
+        clipMood = [3.0, 3.0, 3.0]
+
+    # for calculation, clip state to between 0 and 5
+    calcState = [min(max(i,0),5) for i in predictedMood+currentState]
+
+    print("Current mood:", calcState, "from site bonus", predictedMood, "and prior", currentState)
+
+    # reset state if too happy or too sad
+    if sum(calcState) > 14.7 or sum(calcState) < 0.3:
+        calcState = [3.0, 3.0, 3.0]
+        print("state reset")
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
-    message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
+    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    message = {'predictedState': str(clipMood), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
