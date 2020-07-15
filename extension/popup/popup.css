@@ -6,7 +6,7 @@ body {
   
   font-size: 12px;
   font-weight: 500;
-  font-family:  "Segoe UI", sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 /* Style a bar */
@@ -17,7 +17,7 @@ body {
 /* Style the central character picker */
 .picker {
   height: 165px;
-  background-image: radial-gradient(circle, #db8475 50%, #c55b64 100%);
+  background-image: radial-gradient(circle, #9b9ce2 20%, #7057C9 120%);
 }
 
 /* Icon scaling */
@@ -53,7 +53,7 @@ body {
 
 .menu-button {
   border-radius: 17px;
-  background: #db8475;
+  background: #7057c962;
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
@@ -117,6 +117,8 @@ body {
   font-size: 18px;
   color: #000000;
   margin-bottom: 4px;
+  font-weight: 800;
+  font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
 
 #questionmark {

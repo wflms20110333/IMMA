@@ -11,7 +11,7 @@
 <body>
     <header>
         <div>
-            <h2>Studio</h3>
+            <h2>Browserbug Studio</h3>
             
             <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
 
@@ -20,8 +20,7 @@
             
             <label for="openBbug" class="custom-file-upload" title="Load a saved Browserbug file from your computer">Load local</label> <!-- note #TODO encrypt JSONs -->
             <input type="file" id="openBbug" accept=".bbug">
-            <a class="filing" id="export" title="Download this Browserbug">Download local</a>
-            
+            <a class="filing" id="export" title="Download this Browserbug">Export</a>
             <p class="filing" id="uploadBbug" title="Upload your Browserbug">Save to server</p>
             <p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>
         </div>
@@ -31,28 +30,46 @@
         <div class="column" id="leftCol">
             <div class="bubble">
                 <h3>
-                    Personality <a title="Modify your bug's personality: this adjusts the likelihood of receiving certain messages!">[?]</a></h3>
-                <p>Serious ... Cheerful</p>
-                <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality1">
-                <p>Laidback ... Energetic</p>
-                <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality2">
-                <p>Productivity ... Positivity</p>
-                <input type="range" min="0" max="5" value="2.5" step="0.25" class="slider" id="personality3">
+                Personality <a title="Which types of messages should be sent?">[?]</a></h3>
+                
+                <div>
+                    <div class="personLabels" style="text-align: right;">Serious</div>
+                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality1">
+                    <div class="personLabels" style="text-align: left;">Cheerful</div>
+                </div>
+                
+                <div>
+                    <div class="personLabels" style="text-align: right;">Laidback</div>
+                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality2">
+                    <div class="personLabels" style="text-align: left;">Energetic</div>
+                </div>
+                
+                <div>
+                    <div class="personLabels" style="text-align: right;">Productivity</div>
+                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality3">
+                    <div class="personLabels" style="text-align: left;">Positivity</div>
+                </div>
+
             <br>
                 <h3>Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
-                <p>None ... Emojis</p>
-                <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style1">
-                <p>None ... Capitalization</p>
-                <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style2">
-                <p>None ... Punctuation</p>
-                <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="style3">
+                <span class="scaler-text"><b>Emojis</b></span>
+                <p id="tsLabel1" class="scaler-text">error</p>
+                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1"><br><br>
+                
+                <span class="scaler-text"><b>Capitalization</b></span>
+                <p id="tsLabel2" class="scaler-text">error</p>
+                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider2"><br><br>
+
+                <span class="scaler-text"><b>Punctuation</b></span>
+                <p id="tsLabel3" class="scaler-text">error</p>
+                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider3">
             </div>
         </div>
 
         <div class="column" id="centerCol">
             <div class="bubble">
-                <p>Hello! Instructions</p>
-                <p>Hover over any <a title="Hover like this to view tips!">[?]</a> to view tips.</p>
+                <p>Hello! Welcome to the Studio.</p>
+                <p>Hover over any <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a> to view tips.</p>
                 <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
             </div>
 
@@ -75,14 +92,15 @@
         </div>
 
         <div class="column" id="rightCol">
-            <div class="bubble">
+            <div class="bubble" style="margin-bottom: 50px;">
                 <h3>Custom messages <a title="Create your own messages for your bug!">[?]</a></h3>
                 <p>Ratio of custom content <a title="How often to use custom content (versus built-in content)">[?]</a></p>
                 <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
+                <br><br>
                 <fieldset id="pullfrom">
                     <legend>Create message</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p>Stats <a title="Rate how this message would affect you (0=no effect, 1=high effect)">[?]</a></p>
+                    <p>Stats <a title="How would this message help you? (0=no effect, 1=high effect)">[?]</a></p>
                     <label>Happiness <a title="Reducing your stress and frustration">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                     <br>

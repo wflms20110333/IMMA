@@ -185,18 +185,16 @@ def stylize_string(msg, textstyle):
         emoji = re.match(r"[^[]*\[([^]]*)\]", msg2).groups()[0]
         msg2 = re.sub("[\[].*?[\]]", "", msg2)
     
-    offset = random.uniform(-0.1, 0.1)
-    if textstyle['capitalization'] < 0.4+offset: # don't capitalize
+    if textstyle['capitalization'] < 0.3: # don't capitalize
         msg2 = msg2.lower()
-    elif textstyle['capitalization'] > 0.9+offset: # extra capitalizing
+    elif textstyle['capitalization'] > 0.8: # extra capitalizing
         msg2 = msg2.upper()
 
-    offset = random.uniform(-0.1, 0.1)
-    if textstyle['punctuation'] < 0.2+offset: # don't have punctuation
+    if textstyle['punctuation'] < 0.3: # don't have punctuation
         msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '')
-    elif textstyle['punctuation'] > 0.9+offset: # extra extra punctuation
+    elif textstyle['punctuation'] > 0.9: # extra extra punctuation
         msg2 = msg2.replace('!', '!!!!').replace('?', '????')
-    elif textstyle['punctuation'] > 0.7+offset: # extra punctuation
+    elif textstyle['punctuation'] > 0.5: # extra punctuation
         msg2 = msg2.replace('!', '!!').replace('?', '??')
     
     if random.uniform(0, 1) < textstyle['emojis']: # do have emojis

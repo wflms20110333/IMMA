@@ -1,11 +1,11 @@
 #sidebar {
-    height: 80%; float: left;
+    height: 70%; float: left;
     text-align: center;
     width: 15%; margin-left: 5%;
 }
 
 #settingscontent {
-    height: 80%; float: left;
+    height: 70%; float: left;
     text-align: center;
     width: 70%; margin-left: 5%;
     overflow-y: scroll;

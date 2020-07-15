@@ -26,11 +26,16 @@ $(document).ready(function() {
         document.getElementById('messagecontent').value = "";
         document.getElementById('msgstat1').value = 0;
         document.getElementById('msgstat2').value = 0;
-        document.getElementById('msgstat3').value = 0;
-        // create remove button
         var removeButton = document.createElement('button');
-        removeButton.class = 'remove';
+        removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
+        removeButton.style.background = "#c18ced38";
+        removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
+        removeButton.style.fontSize = '13px';
+        removeButton.style.borderRadius = '5px';
+        removeButton.style.boxShadow = '1px 1px 1px rgba(0, 0, 0, 0.10)';
+        removeButton.style.border = 'none';
+
         removeButton.onclick = function() {
             $(this).parent().remove();
         };
@@ -38,6 +43,7 @@ $(document).ready(function() {
         iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
         iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+") ");
         iDiv.appendChild(removeButton);
+        
     });
 
     // process for importing imma files
@@ -188,4 +194,45 @@ function absorbToDict() {
     // next, actually export the file
     var jsonDict = JSON.stringify(dict);
     return jsonDict;
+}
+
+// Texting style slider stuff!
+chrome.storage.sync.get(['textingstyle'], function (result) { // on initialization
+    document.getElementById('tsSlider1').value = result['textingstyle']['emojis'];
+    document.getElementById('tsSlider2').value = result['textingstyle']['capitalization'];
+    document.getElementById('tsSlider3').value = result['textingstyle']['punctuation'];
+});
+
+// Update on initialization
+emojiUpdate();
+capsUpdate();
+punctUpdate();
+
+// Update on change
+document.getElementById('tsSlider1').oninput = function() {emojiUpdate();}
+document.getElementById('tsSlider2').oninput = function() {capsUpdate();}
+document.getElementById('tsSlider3').oninput = function() {punctUpdate();}
+
+function emojiUpdate() {
+    var scaleValue = document.getElementById('tsSlider1').value;
+    if (scaleValue < 0.05) {document.getElementById('tsLabel1').textContent = "No emojis";}
+    else if (scaleValue < 0.33) {document.getElementById('tsLabel1').textContent = "Low likelihood of emojis";}
+    else if (scaleValue < 0.67) {document.getElementById('tsLabel1').textContent = "Medium likelihood of emojis";}
+    else if (scaleValue < 0.95) {document.getElementById('tsLabel1').textContent = "High likelihood of emojis :)";}
+    else {document.getElementById('tsLabel1').textContent = "So many emojis! XD";}
+}
+
+function capsUpdate() {
+    var scaleValue = document.getElementById('tsSlider2').value;
+    if (scaleValue < 0.3) {document.getElementById('tsLabel2').textContent = "no capitalization";}
+    else if (scaleValue < 0.8) {document.getElementById('tsLabel2').textContent = "Normal capitalization";}
+    else {document.getElementById('tsLabel2').textContent = "ALWAYS CAPITALIZATION";}
+}
+
+function punctUpdate() {
+    var scaleValue = document.getElementById('tsSlider3').value;
+    if (scaleValue < 0.3) {document.getElementById('tsLabel3').textContent = "No punctuation";}
+    else if (scaleValue <= 0.5) {document.getElementById('tsLabel3').textContent = "Normal punctuation!";}
+    else if (scaleValue <= 0.9) {document.getElementById('tsLabel3').textContent = "More punctuation!!";}
+    else {document.getElementById('tsLabel3').textContent = "Unnecessary punctuation!!!!";}
 }
