@@ -52,11 +52,13 @@
                 <input type="button" value="New" class="filing" id="new" />
 
                 <!-- TODO: change to real endpoint -->
-                <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data">
-                    <input name="uploaded-img" type="file" id="open" accept="image/*">
+                <form action="http://0.0.0.0:5000/uploadImg" target="_blank" method="post" enctype="multipart/form-data">
+                    <input type="text" name="character-name" required>
+                    <input type="file" id="open" name="uploaded-img" accept="image/*" required>
+                    <input type="hidden" id="uid" name="uid" value="" required>
                     <button type="submit">Upload</button></a>
                 </form>
-            
+
                 <input type="file" id="open" accept=".brbug">
 
                 <input type="button" value="Save" class="filing" id="save">

@@ -13,11 +13,15 @@ def hello_world():
 
 @app.route('/uploadImg', methods=['POST'])
 def upload_image():
+    """ Uploads a browserbug image given the image file, name of character, and UID. """
     try:
         img_file = request.files['uploaded-img']
+        img_file_extension = img_file.filename.rsplit('.', 1)[1].lower()
+        character_name = request.form['character-name']
+        uid = request.form['uid']
         conn = boto3.client('s3')
         bucket_name = "imma-bucket"
-        conn.upload_fileobj(img_file, bucket_name, 'uploaded_file.png')
+        conn.upload_fileobj(img_file, bucket_name, 'browserbug_images/' + uid + '/' + character_name + '.' + img_file_extension)
         return "upload success!"
     except Exception as e:
         return str(e)
