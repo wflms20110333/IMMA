@@ -108,6 +108,9 @@ input:focus, textarea:focus, select:focus{outline: none;}
     font-size: 16px;
     color: black;
 }
+a:active, a:link, a:visited {
+    color: black;
+}
 .filing:hover, .custom-file-upload:hover {
     background: rgba(156, 28, 39, 0.116);
     color: rgb(255, 255, 255);

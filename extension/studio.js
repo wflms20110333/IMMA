@@ -181,9 +181,9 @@ function absorbToDict() {
     dict.personality = [document.getElementById('personality1').value, document.getElementById('personality2').value, document.getElementById('personality3').value];
 
     dict.textstyle = {
-        emojis: document.getElementById('style1').value,
-        capitalization: document.getElementById('style2').value,
-        punctuation: document.getElementById('style3').value
+        emojis: document.getElementById('tsSlider1').value,
+        capitalization: document.getElementById('tsSlider2').value,
+        punctuation: document.getElementById('tsSlider3').value
     };
     dict.messageBank = {};
     $('.messageBlock').each(function(index,element) { // fill the message bank
