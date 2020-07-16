@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+<meta charset="UTF-8">
 
 <head>
     <title>Browserbug Options</title>
@@ -15,24 +16,24 @@
         <div><a href="welcome.html">Welcome</a></div>
         <div><a href="studio.html">Studio</a></div>
         <div><a href="faq.html">FAQ</a></div>
+        <div><a href="https://forms.gle/zHE8e4GiZrCb1uMe8" target="_blank">Bug Report</a></div>
+        <div><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a></div>
     </div>
     <div class="bubble" id="settingscontent">
         <h1>Settings</h1>
         <p>Hover over any setting for more information! It may take a moment for changes to take effect.</p>
         <div>
-            <div title="#TODO not implemented yet!!">
-                <p>Language #TODO</p>
-            </div>
-            <div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
+            <!--<div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
                 <label class="switch"><input type="checkbox" id="silent-switch">
+            </div> this doesn't really do anything, silence apparently != mute -->
+            <div title="How often should your Browserbug send you messages?">
+                <p>Message frequency: <span id="slider-text"></span></p>
+                <input type="range" min="1" max="10" value="5" class="slider" id="frequency-slider">
+                
             </div>
-            <div title="How often should your Browserbug send you messages?">Message Frequency
-                <input type="range" min="1" max="20" value="5" class="slider" id="frequency-slider">
-                <p id="slider-text"></p>
-                <!-- js implemented! -->
-            </div>
-            <div title="Experimental! If enabled, messages won't automatically close themselves out.">Persistent Messages
-                <label class="switch"><input type="checkbox" id="autofade-switch">
+            <div title="Experimental! If enabled, messages won't automatically close themselves out.">
+                <p>Persistent messages
+                <label class="switch"><input type="checkbox" id="autofade-switch"></p>
             </div>
             <div title="Let your Browserbug know which sites you want to (or don't want to) be on.">
                 
@@ -40,6 +41,8 @@
                 <fieldset id="pullfrom">
                     <legend>Flag a site</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;">google.com</textarea>
+                    <p style="font-size: 12px;">We only match the stuff after the "http://" or "https://" and before the first "/".</p>
+                    <p style="font-size: 12px;">Examples: "facebook.com", "app.slack.com"</p>
                     <p>Rate how this site usually affects you (-1=negative effect, 1=positive effect)</p>
                     <label>Happiness</label>
                     <input type="range" class="slider" min="-1" max="1" value="0" step="0.5" id="msgstat1"><br>
@@ -59,7 +62,7 @@
                 <fieldset id="yourform"><legend>Your flagged sites</legend></fieldset>
             </div>
             <br>
-            <div>Send Feedback</div>
+            <div><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Send Feedback</a></div>
             <div>Contact Us</div>
         </div>
     </div>
