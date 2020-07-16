@@ -14,7 +14,7 @@
 * `venv_windows_train\Scripts\activate.bat` for Windows
 * `source venv/bin/activate` for Mac and Linux
 
-2) Update your virtual environment by running `pip install -f server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
+2) Update your virtual environment by running `pip install -r server/requirements.txt` or equivalent within the active environment. Alternatively, run `pip3 install --no-cache-dir -r server/requirements.txt`.
 
 ## Running the website
 
@@ -131,7 +131,7 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 
 ### Input files
 
-`MessageBank.txt` is a shared database of default messages for any Browserbug. Currently a tab-separated file. Messages should be grammatically capitalized & punctuated, with emojis within brackets. The code may later on edit the writing style of these messages, remove emojis, etc. Each message has a score that denotes that message's impact on each mood variable [being *happy* (social interaction), being *relaxed* (not stressed), being *determined* (not boredom), being properly *focused* (not distracted), wellbeing (not discomfort)] as well as compatibility with character personality on a -1 to 1 scale [cheerful, energetic, positivity]. (User-created message scores only have the mood impact score, not personality.)
+`MessageBank.txt` is a shared database of default messages for any Browserbug. Currently a tab-separated file. Messages should be grammatically capitalized & punctuated, with emojis within brackets. The code may later on edit the writing style of these messages, remove emojis, etc. Each message has a score that denotes that message's impact on each mood variable [being *happy* and *relaxed* (not stressed or frustrated), being properly *focused* (not distracted or bored), wellbeing (not discomfort)] as well as compatibility with character personality on a -1 to 1 scale [cheerful, energetic, positivity]. (User-created message scores only have the mood impact score, not personality.)
 
 `QuestionBank.txt` is likewise a tab-separated file containing general questions alongside their scores.
 
@@ -142,10 +142,14 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 ```
 General variables:
 #TODO add weird codes to the variable names in chrome memory
+'user_bbug_id': (string) unique, static id for each user
 'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
 'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
 'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
+
+'immaActive': (bool) whether bug is currently active
+'lastMail': (string) last server-mail the user read (i.e. message from developers)
 
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)

@@ -1,18 +1,12 @@
-div {
-    background-color: bisque;
-    margin: 20px;
-}
-
-.sidebar, .settingscontent {
-    float: left;
+#sidebar {
+    height: 70%; float: left;
     text-align: center;
-    background-color: silver;
+    width: 15%; margin-left: 5%;
 }
 
-.sidebar {
-    width: 20%;
-}
-
-.settingscontent {
-    width: 70%;
+#settingscontent {
+    height: 70%; float: left;
+    text-align: center;
+    width: 70%; margin-left: 5%;
+    overflow-y: scroll;
 }

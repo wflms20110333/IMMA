@@ -22,30 +22,32 @@ $(document).ready(function() {
         var fstat1 = document.getElementById('msgstat1').value;
         var fstat2 = document.getElementById('msgstat2').value;
         var fstat3 = document.getElementById('msgstat3').value;
-        var fstat4 = document.getElementById('msgstat4').value;
-        var fstat5 = document.getElementById('msgstat5').value;
         // clear contents
         document.getElementById('messagecontent').value = "";
         document.getElementById('msgstat1').value = 0;
         document.getElementById('msgstat2').value = 0;
-        document.getElementById('msgstat3').value = 0;
-        document.getElementById('msgstat4').value = 0;
-        document.getElementById('msgstat5').value = 0;
-        // create remove button
         var removeButton = document.createElement('button');
-        removeButton.class = 'remove';
+        removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
+        removeButton.style.background = "#c18ced38";
+        removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
+        removeButton.style.fontSize = '13px';
+        removeButton.style.borderRadius = '5px';
+        removeButton.style.boxShadow = '1px 1px 1px rgba(0, 0, 0, 0.10)';
+        removeButton.style.border = 'none';
+
         removeButton.onclick = function() {
             $(this).parent().remove();
         };
         // export contents
-        iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
-        iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
+        iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
+        iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+") ");
         iDiv.appendChild(removeButton);
+        
     });
 
     // process for importing imma files
-    var fileSelected = document.getElementById('open');
+    var fileSelected = document.getElementById('openBbug');
     fileSelected.addEventListener('change', function (e) { 
         var fileTobeRead = fileSelected.files[0];
         var fileReader = new FileReader(); 
@@ -55,14 +57,24 @@ $(document).ready(function() {
         fileReader.readAsText(fileTobeRead);
     }, false);
 
-    // process for exporting imma files
-    $("#save").click(function() {
+    /*<!-- Old URL picker for images -->
+    <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
+    <label for="open" class="custom-file-upload">Pick image</label>
+    <input name="uploaded-img" type="file" id="openImg" accept="image/*"></input>*/
+
+    // process for importing images
+    var imgSelected = document.getElementById('openImg');
+    imgSelected.addEventListener('change', function (e) { // an image is uploaded!!
+        var imgx = document.getElementById('im0-img');
+        imgx.src = URL.createObjectURL(this.files[0]);
+    }, false);
+
+    // process for activating imma files
+    $("#activate").click(function() {
         //allowExternalURLs();
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == ""){
             alert("Don't forget to select a name for your Browserbug!")
-        } else if (document.getElementById('im0-url').value == "") {
-            alert("Don't forget to select an avatar for your Browserbug!")
         } else {
             var jsonDict = absorbToDict();
             loadCharacterFromJson(jsonDict);
@@ -70,13 +82,11 @@ $(document).ready(function() {
         }
     });
 
-    // process for exporting imma files
+    // process for exporting imma files (local download)
     $("#export").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == ""){
             alert("Don't forget to select a name for your Browserbug!")
-        } else if (document.getElementById('im0-url').value == "") {
-            alert("Don't forget to select an avatar for your Browserbug!")
         } else {
             var jsonDict = absorbToDict();
             var file = new Blob([jsonDict], {
@@ -85,7 +95,25 @@ $(document).ready(function() {
             url = URL.createObjectURL(file);
             var a = document.getElementById('export');
             a.href = url;
-            a.download = document.getElementById('imma-name').value + ".brbug";
+            a.download = document.getElementById('imma-name').value + ".bbug";
+        }
+    });
+
+    // process for exporting imma files (to server)
+    $("#uploadBbug").click(function() {
+        // need to have these fields filled before save
+        if (document.getElementById('imma-name').value == ""){
+            alert("Don't forget to select a name for your Browserbug!")
+        } else {
+            var jsonDict = absorbToDict(); // collect the customized browserbug
+            chrome.storage.sync.get(['user_bbug_id'], function (result) { // get user id and pass to server
+                result['bbug_data'] = jsonDict;
+                //alert(result);
+                serverPOST('uploadBbug', result, function(data) {
+                    //alert(data);
+                    console.log("debug ok");
+                });
+            });
         }
     });
 });
@@ -108,7 +136,6 @@ function allowExternalURLs() {
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
-    document.getElementById('im0-url').value = jDat.information.imageLink;
     document.getElementById('im0-img').src = jDat.information.imageLink;
     document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
     document.getElementById('personality1').value = jDat.personality[0];
@@ -137,7 +164,7 @@ function openJsonDat(jDat) {
 
         // export contents
         iDiv.value = [flabel, fstats];
-        iDiv.innerHTML = (flabel + " (stats = "+fstats[0]+", "+fstats[1]+", "+fstats[2]+", "+fstats[3]+", "+fstats[4]+") ");
+        iDiv.innerHTML = (flabel + " (stats = "+fstats[0]+", "+fstats[1]+", "+fstats[2]+") ");
         iDiv.appendChild(removeButton);
     }
 }
@@ -147,16 +174,16 @@ function absorbToDict() {
     dict.information = {
         name: document.getElementById('imma-name').value,
         premade: false,
-        imageLink: document.getElementById('im0-url').value,
+        imageLink: document.getElementById('im0-img').src,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 
     dict.personality = [document.getElementById('personality1').value, document.getElementById('personality2').value, document.getElementById('personality3').value];
 
     dict.textstyle = {
-        emojis: document.getElementById('style1').value,
-        capitalization: document.getElementById('style2').value,
-        punctuation: document.getElementById('style3').value
+        emojis: document.getElementById('tsSlider1').value,
+        capitalization: document.getElementById('tsSlider2').value,
+        punctuation: document.getElementById('tsSlider3').value
     };
     dict.messageBank = {};
     $('.messageBlock').each(function(index,element) { // fill the message bank
@@ -167,4 +194,45 @@ function absorbToDict() {
     // next, actually export the file
     var jsonDict = JSON.stringify(dict);
     return jsonDict;
+}
+
+// Texting style slider stuff!
+chrome.storage.sync.get(['textingstyle'], function (result) { // on initialization
+    document.getElementById('tsSlider1').value = result['textingstyle']['emojis'];
+    document.getElementById('tsSlider2').value = result['textingstyle']['capitalization'];
+    document.getElementById('tsSlider3').value = result['textingstyle']['punctuation'];
+});
+
+// Update on initialization
+emojiUpdate();
+capsUpdate();
+punctUpdate();
+
+// Update on change
+document.getElementById('tsSlider1').oninput = function() {emojiUpdate();}
+document.getElementById('tsSlider2').oninput = function() {capsUpdate();}
+document.getElementById('tsSlider3').oninput = function() {punctUpdate();}
+
+function emojiUpdate() {
+    var scaleValue = document.getElementById('tsSlider1').value;
+    if (scaleValue < 0.05) {document.getElementById('tsLabel1').textContent = "No emojis";}
+    else if (scaleValue < 0.33) {document.getElementById('tsLabel1').textContent = "Low likelihood of emojis";}
+    else if (scaleValue < 0.67) {document.getElementById('tsLabel1').textContent = "Medium likelihood of emojis";}
+    else if (scaleValue < 0.95) {document.getElementById('tsLabel1').textContent = "High likelihood of emojis :)";}
+    else {document.getElementById('tsLabel1').textContent = "So many emojis! XD";}
+}
+
+function capsUpdate() {
+    var scaleValue = document.getElementById('tsSlider2').value;
+    if (scaleValue < 0.3) {document.getElementById('tsLabel2').textContent = "no capitalization";}
+    else if (scaleValue < 0.8) {document.getElementById('tsLabel2').textContent = "Normal capitalization";}
+    else {document.getElementById('tsLabel2').textContent = "ALWAYS CAPITALIZATION";}
+}
+
+function punctUpdate() {
+    var scaleValue = document.getElementById('tsSlider3').value;
+    if (scaleValue < 0.3) {document.getElementById('tsLabel3').textContent = "No punctuation";}
+    else if (scaleValue <= 0.5) {document.getElementById('tsLabel3').textContent = "Normal punctuation!";}
+    else if (scaleValue <= 0.9) {document.getElementById('tsLabel3').textContent = "More punctuation!!";}
+    else {document.getElementById('tsLabel3').textContent = "Unnecessary punctuation!!!!";}
 }

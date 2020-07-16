@@ -1,3 +1,42 @@
+// Code for enabling hyperlinks in popup, do this first
+var links = document.getElementsByTagName("a");
+for (var i = 0; i < links.length; i++) {
+    (function () {
+        var ln = links[i];
+        var location = ln.href;
+        ln.onclick = function () {
+            chrome.tabs.create({active: true, url: location});
+        };
+    })();
+}
+
+// Determine whether the mailbox flag should be up
+chrome.extension.getBackgroundPage().getMail(mailAuthenticate);
+
+function mailAuthenticate(mailResponse){
+    var mailbox = document.getElementById('mailFlag');
+    if (mailResponse != "none") {
+        mailbox.src="/images/icons/openmail.png";
+    }
+}
+
+// Mailbox functionality
+var mailbox = document.getElementById('mailFlag');
+mailbox.addEventListener('click', function() {
+    chrome.extension.getBackgroundPage().getMail(mailCallback);
+});
+
+function mailCallback(mailResponse){
+    if (mailResponse == "none") {
+        alert("No unread messages!"); // #TODO make this look less sketchy
+    } else {
+        alert(mailResponse[1]);
+        chrome.storage.sync.set({'lastMail': mailResponse[0]});
+        mailbox.src="/images/icons/openmail.png"; // #TODO adding coloring to the open mailbox when there's a new message?
+        location.reload();
+    }
+}
+
 // Update colors of the popup menu
 chrome.storage.sync.get(['color1', 'color2'], function(data) {
     //document.getElementById('clearbox').style.backgroundColor = data['color2'];
@@ -53,15 +92,3 @@ activeswitch.addEventListener('click', function() {
 
 console.log("Popup: running alarm clean");
 chrome.extension.getBackgroundPage().cleaner();
-
-// Code for enabling hyperlinks in popup
-var links = document.getElementsByTagName("a");
-for (var i = 0; i < links.length; i++) {
-    (function () {
-        var ln = links[i];
-        var location = ln.href;
-        ln.onclick = function () {
-            chrome.tabs.create({active: true, url: location});
-        };
-    })();
-}

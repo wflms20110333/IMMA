@@ -11,13 +11,17 @@ cors = CORS(app)
 def hello_world():
     return "Whale, hello there!"
 
-@app.route('/uploadImg', methods=['POST'])
+@app.route('/uploadBbug', methods=['POST'])
 def upload_image():
     try:
-        img_file = request.files['uploaded-img']
+        inputParams = request.get_json()
+        print(inputParams)
+        user_id = inputParams['user_bbug_id']
+        imma_data = inputParams['bbug_data']
+        print(user_id)
         conn = boto3.client('s3')
         bucket_name = "imma-bucket"
-        conn.upload_fileobj(img_file, bucket_name, 'uploaded_file.png')
+        conn.upload_fileobj(user_id, imma_data, bucket_name, 'uploaded_file.bbug')
         return "upload success!"
     except Exception as e:
         return str(e)
@@ -26,20 +30,29 @@ def upload_image():
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
     an example POST: {'current_tabs': ["github", "fb"]} """
-    global model # force to look in module scope not definition scope
     inputParams = request.get_json()
 
     # predict mood
     predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
-    currentState = inputParams['mood']
-    # clip state to between 0 and 5
-    state = [min(max(i,0),5) for i in predictedMood+currentState]
+    currentState = ph.numerize(inputParams['mood'])
 
-    print("Current mood:", state, "from site bonus", predictedMood, "and prior", currentState)
+    clipMood = currentState # just for output, clips mood without adding any bonuses
+    if sum(clipMood) > 14.7 or sum(clipMood) < 0.3:
+        clipMood = [3.0, 3.0, 3.0]
+
+    # for calculation, clip state to between 0 and 5
+    calcState = [min(max(i,0),5) for i in predictedMood+currentState]
+
+    print("Current mood:", calcState, "from site bonus", predictedMood, "and prior", currentState)
+
+    # reset state if too happy or too sad
+    if sum(calcState) > 14.7 or sum(calcState) < 0.3:
+        calcState = [3.0, 3.0, 3.0]
+        print("state reset")
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(state, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
-    message = {'predictedMood': str(predictedMood), 'predictedState': str(currentState), 'message': pickedMessage}
+    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    message = {'predictedState': str(clipMood), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
@@ -62,6 +75,17 @@ def get_alarm():
     mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['alarm_spacing'])
 
     return jsonify({'mDuration': mDuration, 'mType': mType})
+
+@app.route('/getMail', methods=['POST'])
+def get_mail():
+    """ Return duration til next alarm (in seconds) & type of alarm """
+    inputParams = request.get_json()
+    # #TODO have able to check for multiple update messages, not just one
+    update = ["001", "Hi there! No new mail for now."]
+    if inputParams['lastMail'] == update[0]:
+        return jsonify({'mail': "none"}) # already read that update
+    else:
+        return jsonify({'mail': update})
 
 @app.route('/retrieveIMMA', methods=['POST'])
 def retrieve_imma():

@@ -31,22 +31,16 @@ def getNextAlarmStats(questionRatio, messageCt, alarmGap):
     
     return nextAlarm, nextQuestion
 
-def initializeNetwork():
-    """ Returns an instance of RNN model """
-
-    myRNN = nnRNN(input_dim=30, output_dim=4) # Network layer of the 30 most used sites (RNN with 3-step memory), maps to 4-vector of [attention, focus, energy, positivity]
-    return myRNN
-
 def vectorizeInput(openedSites, flaggedSites):
     """ Predicts offset in mood based on the current open sites
 
     openedSites -- a set of the last opened tabs e.g. {'calendar.google.com': 10000, 'translate.google.com': 10000}
 
-    flaggedSites -- json of site-scoring, containing effect for flagged sites
+    flaggedSites -- json of site-scoring, containing effect for flagged sites, can be positive or negative
     """
     # TODO where to host user setting files?
 
-    mood_delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0]) # predicted offset in mood
+    mood_delta = np.array([0.0, 0.0, 0.0]) # predicted offset in mood
 
     # For each opened site, set its entry in vectInput to the relevant score vector
     for i, possibleSite in enumerate(flaggedSites.keys()):
@@ -117,7 +111,7 @@ def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None
 
     if np.all(state == None): # not dependent on mood (i.e. picking a question), so can just pick a random message!
         print("picking a random question! =-=-=-=-=-=-=-=-=-=-=", randomMessage)
-        return stylize_string(randomMessage, textstyle), ','.join([str(p) for p in messageBank[randomMessage][:5]])
+        return stylize_string(randomMessage, textstyle), ','.join([str(p) for p in messageBank[randomMessage][:3]])
     
     # if using preexisting message, cut down message space based on personality
     if not useCustomContent:
@@ -130,15 +124,18 @@ def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None
     
     # Next, going to iterate through each possible message (at most 20 messages)
     # Add the message impact to the current state (happiness, relaxation, determination, focus, wellbeing) (0.0-5.0 scale)
-    # Want to maximize scores that are all-around high
+    # Cap at 5. Want to maximize scores that are all-around high
     # Each part of the score is transformed by (-1/x) to penalize scores close to zero
     
     for message in random.sample(messageBank.keys(), min(20, len(messageBank.keys()))): # Check at most 20 messages
-        numericVec = np.array(messageBank[message])[:5].astype(np.float)
+        numericVec = np.array(messageBank[message])[:3].astype(np.float)
         if np.any(np.array(state) + numericVec <= 0): # don't calculate -1/x since will become very positive
             pass # assume that result with a negative component is not a good result
         else:
-            score = sum([  (-1)/(state[i] + numericVec[i])  for i in range(4)]) # estimated -1/x future score
+            score = [state[i] + numericVec[i] for i in range(3)] # add predicted amount to state
+            score = [min(max(i,0),5) for i in score] # cap at 5
+            score = [(-1)/i for i in score] # estimated -1/x future score
+            score = sum(score)
             score = np.around(score, decimals=4)
             #print("---------score compare", score, "to", bestScores)
             k = np.argmin(bestScores)
@@ -148,7 +145,7 @@ def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None
                 break
 
     ans = random.choice(bestFive)
-    ans_stats = ','.join([str(p) for p in messageBank[ans][:5]])
+    ans_stats = ','.join([str(p) for p in messageBank[ans][:3]])
     if not useCustomContent:
         ans = stylize_string(ans, textstyle)
     return ans, ans_stats # return one from the top five messages
@@ -188,18 +185,16 @@ def stylize_string(msg, textstyle):
         emoji = re.match(r"[^[]*\[([^]]*)\]", msg2).groups()[0]
         msg2 = re.sub("[\[].*?[\]]", "", msg2)
     
-    offset = random.uniform(-0.1, 0.1)
-    if textstyle['capitalization'] < 0.4+offset: # don't capitalize
+    if textstyle['capitalization'] < 0.3: # don't capitalize
         msg2 = msg2.lower()
-    elif textstyle['capitalization'] > 0.9+offset: # extra capitalizing
+    elif textstyle['capitalization'] > 0.8: # extra capitalizing
         msg2 = msg2.upper()
 
-    offset = random.uniform(-0.1, 0.1)
-    if textstyle['punctuation'] < 0.2+offset: # don't have punctuation
+    if textstyle['punctuation'] < 0.3: # don't have punctuation
         msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '')
-    elif textstyle['punctuation'] > 0.9+offset: # extra extra punctuation
+    elif textstyle['punctuation'] > 0.9: # extra extra punctuation
         msg2 = msg2.replace('!', '!!!!').replace('?', '????')
-    elif textstyle['punctuation'] > 0.7+offset: # extra punctuation
+    elif textstyle['punctuation'] > 0.5: # extra punctuation
         msg2 = msg2.replace('!', '!!').replace('?', '??')
     
     if random.uniform(0, 1) < textstyle['emojis']: # do have emojis
@@ -242,6 +237,19 @@ def pickQuestion(questionBank, customRatio, textstyle, personality):
     
     ans = queryTabbedFile("server/model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
     return ans
+
+def numerize(numStr, expectedLength = 3):
+    """ Changes a non-numpy thing to numpy array of floats"""
+    if type(numStr) == list:
+        return np.array(numStr).astype(float)
+    else: # probably a string
+        ans = np.fromstring(numStr[1:-1],sep=', ').astype(float)
+        if len(ans) == expectedLength:
+            return ans
+        ans = np.fromstring(numStr[1:-1],sep=' ').astype(float)
+        if len(ans) == expectedLength:
+            return ans
+    raise ValueError
 
 if __name__ == '__main__': # testing functions, may need to change .nn1_code import to nn1_code
     print("done")

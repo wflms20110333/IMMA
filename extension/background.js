@@ -1,13 +1,22 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.sync.set({'alarm_spacing': 12}); // needs to be valid value in bDict in options.js
+    // open startup page
+    chrome.tabs.create({url: "/welcome.html"}, function (tab) {
+        console.log("extension installed, welcome :)");
+    }); // #TODO avoid popup opening link clicks in new tab if a local extension page is already open (just switch page, no new tab)
+
+    chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
+    chrome.storage.sync.set({'immaActive':true}); // set a unique user ID
+    chrome.storage.sync.set({'lastMail':'000'}); // the last mail message viewed
+
+    chrome.storage.sync.set({'alarm_spacing': 22}); // needs to be valid value in bDict in options.js
     chrome.storage.sync.set({'silence': 'false'});
     chrome.storage.sync.set({'persist_notifs': 'false'});
-    chrome.storage.sync.set({'flagged_sites': {"www.youtube.com":[1.0,0.0,0.0,1.0,0.0],"www.facebook.com":[0.0,0.0,1.0,0.0,0.0]}});
+    chrome.storage.sync.set({'flagged_sites': {"www.youtube.com":[0.2,1.0,0.1],"www.facebook.com":[0.3,0.9,0.0]}});
 
     chrome.storage.sync.set({'recent_message_ct': '0'}); // count of messages given since last question given
     chrome.storage.sync.set({'last_tabs': {}}); // initialize as no tabs currently open
-    chrome.storage.sync.set({'mood': [3.0, 3.0, 3.0, 3.0, 3.0]}); // initialize neutral mood
+    chrome.storage.sync.set({'mood': [3.0, 3.0, 3.0]}); // initialize neutral mood
     chrome.storage.sync.set({'question_ratio': 0.2}); // ratio of questions
 
     loadCharacterCode("default"); // load first imma character from code
