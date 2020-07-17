@@ -1,0 +1,16 @@
+#content {
+    margin-left: 10%;
+    width: 80%;
+}
+
+.bubble p {
+    text-align: left;
+}
+
+#studio-image {
+    width:18%;
+    border-radius:15px;
+    display:inline-block;
+    float:left;
+    margin: 10px 30px 0px 30px;
+}

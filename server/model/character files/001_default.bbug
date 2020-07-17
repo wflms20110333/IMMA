@@ -15,11 +15,13 @@
     },
 
     "messageBank": {
-		"Go go go!": [2, -1, 0, 0, 0],
-        "Spectacular!": [1, 0, -2, 0, 0]
+		"Welcome to Browserbug!": [0.1, 0.1, 0.1],
+        "Click on the Browserbug icon in the extension bar to customize your own character!": [0.1, 0.1, 0.1],
+        "If you need help, click on the Browserbug icon in your extension bar!": [0.1, 0.1, 0.1],
+        "Don't forget to customize your own character!": [0.1, 0.1, 0.1]
     },
 
     "questionBank": {
-		"How are things going?": [2, 0, -1, 0, 0]
+		"Hello hello! Browserbugs sometimes ask questions, and you can pick answers, like this!": [0.2, 0.2, 0.2]
     }
 }

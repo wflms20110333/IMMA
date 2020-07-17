@@ -1,0 +1,117 @@
+html, body {
+	margin: 0px;
+    height: 100%;
+	overflow: hidden;
+	background-image: linear-gradient(#9b9ce2, #7057C9);
+	
+	font-family: 'Assistant', 'Segoe UI', sans-serif;
+    font-size: 16px;
+}
+
+/* Styling text */
+h1 {
+    color: #7252e6; font-size: 24px; margin-left: 25px;
+}
+h2 {
+    display: inline-block;
+	margin: 5px;
+	margin-left: 1%;
+    padding: 6px 12px;
+}
+h3 {
+    color: #7252e6; font-weight: 500; font-size: 22px; text-align: center;
+}
+p {
+    margin-left: 25px;
+    margin-right: 25px;
+    color: #000000;
+    font-weight: 400;
+    font-size: inherit;
+    text-align: center;
+}
+.question {color: #7057C9; font-weight: 500; font-size: 20px; text-align: left;}
+.answer {color: #000000; font-size: 15px; text-align: left;}
+a:active, a:link, a:visited {color: #9c2add; text-decoration: none;}
+a:hover {color: #7057C9; text-decoration: none;}
+
+/* Styling menu bubbles */
+.bubble {
+    margin-top: 5%;
+	border-radius: 15px;
+	background: rgba(255, 255, 255, 0.5);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
+
+/* Styling fieldsets */
+fieldset {
+	margin: auto;
+	width: 80%;
+	border-color: #af99c798;
+	border-width: 3px;
+	border-style: outset;
+    border-radius: 15px;
+    overflow-x: hidden;
+}
+
+/* Styling scrollbar */
+::-webkit-scrollbar {width: 20px;}
+::-webkit-scrollbar-track {background: #563b7575; border-top-right-radius: 15px; border-bottom-right-radius: 15px;}
+::-webkit-scrollbar-thumb {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 2px;
+    background: #b4acdf98;
+}
+
+/* Styling footer */
+footer {
+    position: fixed;
+    left: 0; bottom: 0;
+    height: 5%; width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+}
+footer p {
+    position: relative;
+    bottom: 17%;
+	text-align: center;
+	color: #000000;
+    font-weight: 400; font-size: 14px;
+}
+
+/* Styling options icon */
+#options-icon:hover {opacity: 100%;}
+#options-icon {
+    margin: 5px;
+    position: absolute;
+    right: 5px; top: 5px;
+    width: 30px; height: 30px;
+    opacity: 70%;
+}
+
+/* Styling file selectors */
+input {text-align: center;}
+input[type="file"] {display: none;}
+input:focus, textarea:focus, select:focus{outline: none;}
+#hidden-img {display: none;}
+.filing, .custom-file-upload {
+    border-radius: 5px;
+    background: #f7f3ff38;
+    display: inline-block;
+    margin: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+	font-family: 'Assistant', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    color: black;
+}
+a:active, a:link, a:visited {
+    color: black;
+}
+.filing:hover, .custom-file-upload:hover {
+    background: rgba(156, 28, 39, 0.116);
+    color: rgb(255, 255, 255);
+}

@@ -1,11 +1,12 @@
 body {
-  overflow: hidden;
+  width: 280px;
+  height: 195px;
   margin: 0px;
   white-space: nowrap;
+  
   font-size: 12px;
   font-weight: 500;
-  font-family:  "Segoe UI", sans-serif;
-  width: 280px;
+  font-family: "Segoe UI", sans-serif;
 }
 
 /* Style a bar */
@@ -15,25 +16,51 @@ body {
 
 /* Style the central character picker */
 .picker {
-  height: 155px;
-  background-image: radial-gradient(circle, #acacac 50%, #8a8a8a 100%);
+  height: 165px;
+  background-image: radial-gradient(circle, #9b9ce2 20%, #7057C9 120%);
 }
 
 /* Icon scaling */
-.scaled-left img, .scaled-right img {
+.bar img{
   margin-top: 5px;
   width: 20px;
   height: 20px;
-  opacity: 0.5;
+}
+
+.logo-icon {
+  opacity: 0.3;
+}
+
+.logo-icon:hover {
+  opacity: 0.7;
 }
 
 #clearbox {
-  background: rgba(0, 0, 0, 0.15);
-  width: 135px;
-  height: 155px;
+  border-radius: 4px;
+  margin: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  width: 125px;
+  height: 145px;
   position: absolute;
   top: 30px;
-  left: 145px;
+  left: 135px;
+}
+
+#clearbox div {
+  margin-top: 8px;
+  margin-left: 8px;
+}
+
+.menu-button {
+  border-radius: 17px;
+  background: #7057c962;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Directing icons */
@@ -45,16 +72,6 @@ body {
 .scaled-right {
   position: absolute;
   right: 5px;
-}
-
-.scaled-right div {
-  margin-right: 10px;
-  height: 24px;
-}
-
-.s-menu img {
-  transform: translate(0, 20%);
-  opacity: 1.0;
 }
 
 /* Styling specific elements */
@@ -77,16 +94,50 @@ body {
   margin-left: 10px;
 }
 
+#popup-title {
+  font-size: 17px;
+  opacity: 50%;
+}
+
+#popup-title:hover {
+  opacity: 80%;
+}
+
+#help-text {
+  font-size: 13px;
+  opacity: 50%;
+}
+
+#help-text:hover {
+  opacity: 80%;
+}
+
 #charactername {
   margin-top: 10px;
   font-size: 18px;
-  color: white;
+  color: #000000;
   margin-bottom: 4px;
+  font-weight: 800;
+  font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
 
 #questionmark {
   width: 16px;
 }
+
+/* Style file selectors */
+
+input[type="file"] {
+  display: none;
+}
+
+/* Disable link underlining */
+
+a:hover, a:active, a:link, a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
 
 /* Below is CSS for the toggle switch */
 

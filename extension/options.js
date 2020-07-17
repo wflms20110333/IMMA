@@ -1,7 +1,7 @@
 // Manage the silence checkbox
 var silentswitch = document.getElementById('silent-switch');
 chrome.storage.sync.get(['silence'], function (result) { // on initialization
-    silentswitch.checked = result['silence'];
+    silentswitch.checked = (result['silence'] == 'true');
 });
 silentswitch.addEventListener('click', function() {
     chrome.storage.sync.set({'silence': silentswitch.checked});
@@ -28,12 +28,14 @@ freqslider.oninput = function() { // display text change
 };
 freqslider.onchange = function() { // update actual options
     chrome.storage.sync.set({'alarm_spacing': fDict[freqslider.value][0]});
+    chrome.alarms.clearAll();
+    chrome.extension.getBackgroundPage().setNextAlarm();
 };
 
 // Manage the fade checkbox
 var fadeswitch = document.getElementById('autofade-switch');
 chrome.storage.sync.get(['persist_notifs'], function (result) { // on initialization
-    fadeswitch.checked = result['persist_notifs'];
+    fadeswitch.checked = (result['persist_notifs'] == 'true');
 });
 fadeswitch.addEventListener('click', function() {
     chrome.storage.sync.set({'persist_notifs': fadeswitch.checked});

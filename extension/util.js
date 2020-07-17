@@ -7,11 +7,29 @@ function getCurrentTime() {
 }
 
 /**
- * Returns the current user's UID
+ * Generates a random UID
  */
-function getUID() {
-    // TODO: returns the UID
-    return "UID123";
+function getRandomToken() {
+    // E.g. 8 * 32 = 256 bits token
+    var randomPool = new Uint8Array(16);
+    crypto.getRandomValues(randomPool);
+    var hex = '';
+    for (var i = 0; i < randomPool.length; ++i) {
+        hex += randomPool[i].toString(16);
+    }
+    // E.g. db18458e2782b2b77e36769c569e263a53885a9944dd0a861e5064eac16f1a
+    return hex;
+}
+
+/**
+ * Get whether there's mail from server that haven't read yet
+ */
+function getMail(callback) {
+    chrome.storage.sync.get(['lastMail'], function(result) {
+        serverPOST('getMail', result, function(data) {
+            callback(data['mail']);
+        });
+    });
 }
 
 /**
@@ -108,6 +126,7 @@ function sendMessage() {
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
+            chrome.storage.sync.set({ 'mood': data['predictedState'] }); // update with any clipping that was done
         });
     });
 }
@@ -224,6 +243,7 @@ function setNextAlarm() {
  */
 function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
+    chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
@@ -241,6 +261,7 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
  * @param {string} msg the question to display
  */
 function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
+    chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
@@ -294,5 +315,7 @@ function serverPOST(endpoint, inputObject, f) {
         // the reading of the stream will happen asynchronously
         // thus, response.json() can only be called once!
         response.json().then(f);
-    }).then(data => {});
+    }).then(data => {}).catch(error => {
+        console.error(error);
+    });;
 }
