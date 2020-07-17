@@ -1,11 +1,11 @@
 // Manage the silence checkbox
-var silentswitch = document.getElementById('silent-switch');
+/*var silentswitch = document.getElementById('silent-switch');
 chrome.storage.sync.get(['silence'], function (result) { // on initialization
     silentswitch.checked = (result['silence'] == 'true');
 });
 silentswitch.addEventListener('click', function() {
     chrome.storage.sync.set({'silence': silentswitch.checked});
-});
+});*/
 
 // Manage the message frequency slider
 var fDict = {1: [12, "every 10-15 seconds"], 2: [22, "every 15-30 seconds"], 3: [37, "every 30-45 seconds"],

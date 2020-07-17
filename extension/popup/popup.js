@@ -17,6 +17,7 @@ function mailAuthenticate(mailResponse){
     var mailbox = document.getElementById('mailFlag');
     if (mailResponse != "none") {
         mailbox.src="/images/icons/openmail.png";
+        mailbox.style.opacity = "inherit";
     }
 }
 
@@ -33,17 +34,10 @@ function mailCallback(mailResponse){
         alert(mailResponse[1]);
         chrome.storage.sync.set({'lastMail': mailResponse[0]});
         mailbox.src="/images/icons/openmail.png"; // #TODO adding coloring to the open mailbox when there's a new message?
+        mailbox.style.opacity = "1";
         location.reload();
     }
 }
-
-// Update colors of the popup menu
-chrome.storage.sync.get(['color1', 'color2'], function(data) {
-    //document.getElementById('clearbox').style.backgroundColor = data['color2'];
-    //document.getElementById('clearbox').style.opacity = 0.75;
-    //document.getElementById('characterpicker').style.backgroundColor = data['color2'];
-    //document.getElementById('footerbar').style.backgroundColor = data['color1'];
-  });
 
 // Update displayed IMMA information in the popup menu
 chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
@@ -56,6 +50,8 @@ console.log("updating toggle switch-");
 var activeswitch = document.getElementById('activeswitch');
 chrome.storage.sync.get(['immaActive'], function(data) {
     activeswitch.checked = data['immaActive'];
+    if (data['immaActive'] == 'true' || data['immaActive'] == true){document.getElementById('bbug-active').textContent = "active";}
+    else{document.getElementById('bbug-active').textContent = "inactive";}
 });
 
 // Manage character loading (similar to "open" code in studio.js)
@@ -70,13 +66,13 @@ fileSelected.addEventListener('change', function (e) {
 }, false);
 
 // Manage the activation switch
-var activeswitch = document.getElementById('activeswitch');
-activeswitch.checked = true; // active by default
 activeswitch.addEventListener('click', function() {
     if(activeswitch.checked == true){ // activate imma
-        chrome.storage.sync.set({'immaActive': true});
+        document.getElementById('bbug-active').textContent = "active"; // update text in popup
+        chrome.storage.sync.set({'immaActive': true});        
         chrome.extension.getBackgroundPage().setQuickAlarm();
     }else{ // deactivate imma
+        document.getElementById('bbug-active').textContent = "inactive"; // update text in popup
         chrome.storage.sync.set({'immaActive': false});
         chrome.alarms.clearAll();
         // clear all existing notifications

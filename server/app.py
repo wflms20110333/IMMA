@@ -96,7 +96,7 @@ def get_mail():
     """ Return duration til next alarm (in seconds) & type of alarm """
     inputParams = request.get_json()
     # #TODO have able to check for multiple update messages, not just one
-    update = ["001", "Hi there! No new mail for now."]
+    update = ["001", "Welcome to Browserbug! :)"]
     if inputParams['lastMail'] == update[0]:
         return jsonify({'mail': "none"}) # already read that update
     else:
