@@ -42,7 +42,32 @@ fadeswitch.addEventListener('click', function() {
 });
 
 // Manage site flagging
-// #TODO on initialization: fill list of flagged sites with the ones already flagged
+// on initialization: fill list of flagged sites with the ones already flagged
+$(".messageBlock").remove(); // clear messages
+chrome.storage.sync.get(['flagged_sites'], function (result) { // on initialization
+    for (var key in result['flagged_sites']) { // import messages
+        // where to place next message
+        var iDiv = document.createElement('div');
+        iDiv.className = 'messageBlock';
+        document.getElementById('yourform').appendChild(iDiv);
+        // create remove button
+        var removeButton = document.createElement('button');
+        removeButton.class = 'remove';
+        removeButton.innerHTML = 'Remove';
+        removeButton.onclick = function() {
+            $(this).parent().remove();
+            updateSiteFlags();
+        };
+        var flabel = key;
+        var fstats = result['flagged_sites'][key];
+        // export contents
+        iDiv.value = [flabel, fstats];
+        iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
+        iDiv.appendChild(removeButton);
+    }
+});
+
+// site flagging functionality
 var addFlag = document.getElementById('add');
 addFlag.addEventListener('click', function() { // process for <flagging sites>, almost same as adding custom messages
     // where to place next message
@@ -54,27 +79,28 @@ addFlag.addEventListener('click', function() { // process for <flagging sites>, 
     var fstat1 = document.getElementById('msgstat1').value;
     var fstat2 = document.getElementById('msgstat2').value;
     var fstat3 = document.getElementById('msgstat3').value;
-    var fstat4 = document.getElementById('msgstat4').value;
-    var fstat5 = document.getElementById('msgstat5').value;
     // clear contents
     document.getElementById('messagecontent').value = "";
     document.getElementById('msgstat1').value = 0;
     document.getElementById('msgstat2').value = 0;
     document.getElementById('msgstat3').value = 0;
-    document.getElementById('msgstat4').value = 0;
-    document.getElementById('msgstat5').value = 0;
     // create remove button
     var removeButton = document.createElement('button');
     removeButton.class = 'remove';
     removeButton.innerHTML = 'Remove';
     removeButton.onclick = function() {
         $(this).parent().remove();
+        updateSiteFlags();
     };
     // export contents
-    iDiv.value = [flabel, [fstat1, fstat2, fstat3, fstat4, fstat5]];
-    iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+", "+fstat4+", "+fstat5+") ");
+    iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
+    iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+") ");
     iDiv.appendChild(removeButton);
 
+    updateSiteFlags();
+});
+
+function updateSiteFlags() {
     // next, update site flags
     var flagSites = {};
     $('.messageBlock').each(function(index,element) { // fill the message bank
@@ -82,4 +108,4 @@ addFlag.addEventListener('click', function() { // process for <flagging sites>, 
         flagSites[messageName] = element.value[1];
     });
     chrome.storage.sync.set({'flagged_sites': flagSites});
-});
+}
