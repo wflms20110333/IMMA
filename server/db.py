@@ -12,7 +12,7 @@ db = create_engine(db_string)
 meta = MetaData(db)
 
 user_settings_table = Table('user_settings', meta,
-                            Column('email', String),
+                            Column('uid', String),
                             Column('notif_frequency', Integer),
                             Column('notif_fade', Boolean))
 
@@ -29,29 +29,29 @@ def read_table(table):
     for r in result_set:
         print(r)
 
-def insert_user(email, notif_frequency, notif_fade):
+def insert_user(uid, notif_frequency, notif_fade):
     """ Inserts a user into the user_settings table. """
-    insert_statement = user_settings_table.insert().values(email=email, 
+    insert_statement = user_settings_table.insert().values(uid=uid, 
                                                            notif_frequency=notif_frequency, 
                                                            notif_fade=notif_fade)
     execute_statement(insert_statement)
 
-def select_user(email):
+def select_user(uid):
     """ Returns the row proxy from selecting a row corresponding to a user. """
-    select_statement = user_settings_table.select().where(user_settings_table.c.email == email)
+    select_statement = user_settings_table.select().where(user_settings_table.c.uid == uid)
     return execute_statement(select_statement).first()
 
-def update_notif_frequency(email, new_notif_frequency):
+def update_notif_frequency(uid, new_notif_frequency):
     """ Updates the notification frequency in seconds for a user. """
-    update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(notif_frequency=new_notif_frequency)
+    update_statement = user_settings_table.update().where(user_settings_table.c.uid == uid).values(notif_frequency=new_notif_frequency)
     execute_statement(update_statement)
 
-def update_notif_fade(email, new_notif_fade):
+def update_notif_fade(uid, new_notif_fade):
     """ Updates whether or not a user wants notifications to fade. """
-    update_statement = user_settings_table.update().where(user_settings_table.c.email == email).values(notif_fade=new_notif_fade)
+    update_statement = user_settings_table.update().where(user_settings_table.c.uid == uid).values(notif_fade=new_notif_fade)
     execute_statement(update_statement)
 
-def delete_user(email):
+def delete_user(uid):
     """ Deletes a user from the database. """
-    delete_statement = user_settings_table.delete().where(user_settings_table.c.email == email)
+    delete_statement = user_settings_table.delete().where(user_settings_table.c.uid == uid)
     execute_statement(delete_statement)

@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import model.placeholder as ph # for the nnetwork models
+import requests
+import threading
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -11,19 +13,32 @@ cors = CORS(app)
 def hello_world():
     return "Whale, hello there!"
 
-@app.route('/uploadBbug', methods=['POST'])
-def upload_image():
+@app.route('/uploadFile', methods=['POST'])
+def upload_file():
+    """ Uploads a file to S3, given the file and the storage path. """
+    print('in upload_file!')
+    fileobj = True
     try:
-        inputParams = request.get_json()
-        print(inputParams)
-        user_id = inputParams['user_bbug_id']
-        imma_data = inputParams['bbug_data']
-        print(user_id)
+        file_to_upload = request.files['file']
+    except Exception as e:
+        fileobj = False
+        file_data = request.form['file']
+        with open('character.bbug', 'w') as f:
+            json.dump(file_data, f)
+    try:
+        print('hi')
+        path = request.form['path']
         conn = boto3.client('s3')
         bucket_name = "imma-bucket"
-        conn.upload_fileobj(user_id, imma_data, bucket_name, 'uploaded_file.bbug')
+        if fileobj:
+            conn.upload_fileobj(file_to_upload, bucket_name, path) # TODO: check not overwriting existing file?
+        else:
+            with open('character.bbug', 'rb') as f:
+                conn.upload_fileobj(f, bucket_name, path)
+        print('success:', path)
         return "upload success!"
     except Exception as e:
+        print('exception:', e)
         return str(e)
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
