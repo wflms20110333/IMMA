@@ -71,14 +71,15 @@ $(document).ready(function() {
 
     // process for activating imma files
     $("#activate").click(function() {
-        //allowExternalURLs();
+        // allowExternalURLs();
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!")
         } else {
-            var jsonDict = absorbToDict();
-            loadCharacterFromJson(jsonDict);
-            alert(document.getElementById('imma-name').value + " has been activated!")
+            exportBbug(function(jsonDict) {
+                loadCharacterFromJson(jsonDict);
+                alert(document.getElementById('imma-name').value + " has been activated!");
+            });
         }
     });
 
@@ -88,7 +89,7 @@ $(document).ready(function() {
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!")
         } else {
-            var jsonDict = absorbToDict();
+            var jsonDict = JSON.stringify(absorbToDict());
             var file = new Blob([jsonDict], {
                 type: "application/json"
             });
@@ -100,36 +101,7 @@ $(document).ready(function() {
     });
 
     // process for exporting imma files (to server)
-    $("#uploadBbug").click(function() {
-        // need to have these fields filled before save
-        if (document.getElementById('imma-name').value == "") {
-            alert("Don't forget to select a name for your Browserbug!")
-        } else {
-            chrome.storage.sync.get(['user_bbug_id'], function(result) { // get user id and pass to server
-                result = JSON.parse(JSON.stringify(result)); // weird workaround since result is naturally "Object", not dictionary
-                var character_name = document.getElementById('imma-name').value;
-                // upload image
-                var image_file = document.getElementById('openImg').files[0];
-                var image_path = "default";
-                if (image_file != null) {
-                    var image_file_extension = image_file.name.split('.').pop();
-                    image_path = 'browserbug_images/' + result['user_bbug_id'] + '/' + character_name + '.' + image_file_extension;
-                    uploadFile(image_file, image_path); // TODO: catch errors?
-                }
-                // upload bbug
-                var bbug_path = 'browserbugs/' + result['user_bbug_id'] + '/' + character_name + '.bbug';
-                var jsonDict = absorbToDict(character_name, image_path); // collect the customized browserbug
-                uploadFile(jsonDict, bbug_path);
-                //
-                // result['bbug_data'] = jsonDict;
-                // //alert(result);
-                // serverPOST('uploadBbug', result, function(data) {
-                //     //alert(data);
-                //     console.log("debug ok");
-                // });
-            });
-        }
-    });
+    $("#uploadBbug").click(exportBbug);
 });
 
 $(window).bind('beforeunload', function() { // warns users of an unsaved model
@@ -183,14 +155,13 @@ function openJsonDat(jDat) {
     }
 }
 
-function absorbToDict(character_name, image_path) {
+function absorbToDict() {
     var dict = {}; // empty object to fill then export
 
     dict.information = {
-        name: character_name,
+        name: document.getElementById('imma-name').value,
         premade: false,
         imageLink: document.getElementById('im0-img').src,
-        imageS3Path: image_path,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 
@@ -207,9 +178,7 @@ function absorbToDict(character_name, image_path) {
         dict.messageBank[messageName] = element.value[1];
     });
 
-    // next, actually export the file
-    var jsonDict = JSON.stringify(dict);
-    return jsonDict;
+    return dict;
 }
 
 function uploadFile(file, path) {
@@ -224,6 +193,35 @@ function uploadFile(file, path) {
         response.json();
     }).then(data => {}).catch(error => {
         console.error(error);
+    });
+}
+
+function exportBbug(f = function(jsonDict) {}) {
+    console.log('in exportBbug');
+    // need to have these fields filled before save
+    if (document.getElementById('imma-name').value == "") {
+        alert("Don't forget to select a name for your Browserbug!");
+        return;
+    }
+    chrome.storage.sync.get(['user_bbug_id'], function(result) { // get user id and pass to server
+        var uid = JSON.parse(JSON.stringify(result))['user_bbug_id']; // weird workaround since result is naturally "Object", not dictionary
+        var jsonDict = absorbToDict(); // collect the customized browserbug
+        var character_name = jsonDict['information']['name'];
+
+        // upload image
+        var image_file = document.getElementById('openImg').files[0];
+        var image_path = "default";
+        if (image_file != null) {
+            var image_file_extension = image_file.name.split('.').pop();
+            image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
+            uploadFile(image_file, image_path); // TODO: catch errors?
+        }
+        // update values
+        jsonDict['information']['imageS3Path'] = image_path;
+        // upload bbug
+        var bbug_path = 'browserbugs/' + uid + '/' + character_name + '.bbug';
+        uploadFile(JSON.stringify(jsonDict), bbug_path);
+        f(jsonDict);
     });
 }
 

@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+<meta charset="UTF-8">
 
 <head>
     <title>Browserbug Menu</title>
@@ -16,7 +17,7 @@
             <p id="popup-title">Browserbug</p>
         </div>
         <div class="scaled-right">
-            <a href="/options.html">
+            <a href="/options.html" target="_blank">
                 <img src="/images/icons/newsettings.png" alt="Settings" class="logo-icon"></a>
         </div>
     </header>
@@ -28,29 +29,29 @@
         <div id="clearbox">
             <div id="charactername">DEFAULT</div>
             <div>
-                active
                 <label class="switch"><input type="checkbox" id="activeswitch">
                 <span class="slider round"></span></label>
+                <span id="bbug-active">active</span>
             </div>
             <div>
                 <label for="loader" class="menu-button" title="Load a saved Browserbug file from your computer">Load saved...</label>
                 <input type="file" id="loader" accept=".bbug">
             </div>
             <div class="menu-button">
-                <a href="/studio.html">Customize bug</a>
+                <a href="/studio.html" target="_blank">Customize bug</a>
             </div>
         </div>
     </main>
 
     <footer id="footerbar" class="bar">
         <div style="position: absolute; left: 7px;">
-            <a href="https://www.facebook.com/">
+            <a href="https://www.facebook.com/" target="_blank">
                 <img src="/images/icons/facebook.png" alt="Facebook" class="logo-icon"></a>
-            <a href="https://www.twitter.com/">
+            <a href="https://twitter.com/browser_bug" target="_blank">
                 <img src="/images/icons/twitter.png" alt="Twitter" class="logo-icon"></a>
         </div>
         <div style="position: absolute; right: 7px; bottom: -5px;">
-            <a href="/faq.html"><p id="help-text">need help?</p>
+            <a href="/faq.html" target="_blank"><p id="help-text">need help?</p>
         </div>
     </footer>
 </body>

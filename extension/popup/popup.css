@@ -174,7 +174,7 @@ a:hover, a:active, a:link, a:visited {
 }
 
 input:checked + .slider {
-  background-color: #007a10;
+  background-color: #5c7ce4;
 }
 
 /* Moves the slide circle */
@@ -185,11 +185,12 @@ input:checked + .slider:before {
 }
 
 /* Rounded slider outside */
-.slider.round {
-  border-radius: 17px;
-}
+.slider.round {border-radius: 17px;}
 
 /* Rounded slider inside */
-.slider.round:before {
-  border-radius: 50%;
+.slider.round:before {border-radius: 50%;}
+
+/* Align slider with side text */
+div label, div input{
+  vertical-align: middle;
 }
