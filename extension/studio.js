@@ -26,6 +26,7 @@ $(document).ready(function() {
         document.getElementById('messagecontent').value = "";
         document.getElementById('msgstat1').value = 0;
         document.getElementById('msgstat2').value = 0;
+        document.getElementById('msgstat3').value = 0;
         var removeButton = document.createElement('button');
         removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
