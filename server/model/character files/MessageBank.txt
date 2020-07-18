@@ -10,7 +10,7 @@ You've been doing a good job![ :>]	1.0	0.1	0	1	1	1
 You've been doing a great job![ :3]	1.0	0.1	0	1	1	1
 Hope things are going well![ :>]	0.5	0.3	0.3	1	1	1
 Hope you're doing okay![ :)]	0.6	0.3	0.3	1	1	1
-[:) ]You're getting better!	0.7	0.2	0.1	1	1	1
+You're getting better![ :)]	0.7	0.2	0.1	1	1	1
 You're amazing![ XD]	0.7	0.3	0.1	1	1	1
 How are you feeling?	0.6	0.2	0.5	1	1	1
 You've leveled up a lot today![ ;)]	0.5	0.2	0.1	1	1	1
@@ -18,7 +18,7 @@ Remember to smile![ :)]	0.6	0.4	0.3	1	1	1
 Thinking of you![ :)]	0.6	0.2	0.0	1	1	1
 You're not alone![ :3]	0.6	0.2	0.1	1	1	1
 It's okay to ask for help![ :)]	0.5	0.3	0.1	1	1	1
-[:D ]I'm cheering you on!	0.7	0.4	0.0	1	1	1
+I'm cheering you on![ :D]	0.7	0.4	0.0	1	1	1
 Don't give up![ :>]	0.3	6	0	1	1	1
 Focus![ :>]	0	0.9	0	1	1	1
 Concentrate!	0	0.8	0	1	1	1

@@ -108,6 +108,7 @@ input:focus, textarea:focus, select:focus{outline: none;}
 	font-family: 'Assistant', 'Segoe UI', sans-serif;
     font-size: 16px;
     color: rgb(99, 39, 240);
+    vertical-align: middle;
 }
 a:active, a:link, a:visited {
     color: rgb(99, 39, 240);

@@ -193,6 +193,8 @@ function loadCharacterFromJson(jsonData) {
     var image_path = data['information']['imageS3Path'];
     if (image_path != undefined && image_path.startsWith('browserbug_images/')) {
         image_path = S3_URL + image_path;
+    } else if (image_path != undefined && image_path.startsWith(S3_URL)) {
+        image_path = image_path;
     } else {
         image_path = NULL_IMAGE_URL;
     }
@@ -202,7 +204,7 @@ function loadCharacterFromJson(jsonData) {
     chrome.storage.sync.set({ 'color2': data['information']['color2'] });
     chrome.storage.sync.set({ 'custom_ratio': data['information']['percentCustomQuotes'] });
     chrome.storage.sync.set({ 'message_bank': data['messageBank'] });
-    chrome.storage.sync.set({ 'question_bank': data['questionBank'] });
+    chrome.storage.sync.set({ 'question_bank': {"Are you feeling stressed?": [0.2, 0.4, 0.2]} }); // #TODO update this when allow customizable messages
     for (var key in data['textstyle']) {
         data['textstyle'][key] = parseFloat(data['textstyle'][key]);
     }

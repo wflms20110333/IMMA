@@ -1,3 +1,5 @@
+var imageSource = "userInput"; // either userInput or localLoaded
+
 $(document).ready(function() {
     $('.urlButton').each(function(index, element) { // link image-updating buttons
         $(this).click(function() {
@@ -53,6 +55,7 @@ $(document).ready(function() {
         var fileTobeRead = fileSelected.files[0];
         var fileReader = new FileReader();
         fileReader.onload = function(e) {
+            imageSource = "localLoaded";
             openJsonDat(JSON.parse(fileReader.result));
         }
         fileReader.readAsText(fileTobeRead);
@@ -66,6 +69,7 @@ $(document).ready(function() {
     // process for importing images
     var imgSelected = document.getElementById('openImg');
     imgSelected.addEventListener('change', function(e) { // an image is uploaded!!
+        imageSource = "userInput";
         var imgx = document.getElementById('im0-img');
         imgx.src = URL.createObjectURL(this.files[0]);
     }, false);
@@ -90,14 +94,16 @@ $(document).ready(function() {
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!")
         } else {
-            var jsonDict = JSON.stringify(absorbToDict());
-            var file = new Blob([jsonDict], {
-                type: "application/json"
+            exportBbug(function(jsonDict) {
+                var strJson = JSON.stringify(jsonDict);
+                var file = new Blob([strJson], {
+                    type: "application/json"
+                });
+                url = URL.createObjectURL(file);
+                var a = document.getElementById('export');
+                a.href = url;
+                a.download = document.getElementById('imma-name').value + ".bbug";
             });
-            url = URL.createObjectURL(file);
-            var a = document.getElementById('export');
-            a.href = url;
-            a.download = document.getElementById('imma-name').value + ".bbug";
         }
     });
 
@@ -123,14 +129,14 @@ function allowExternalURLs() {
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
-    document.getElementById('im0-img').src = jDat.information.imageLink;
+    document.getElementById('im0-img').src = jDat.information.imageS3Path;
     document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
-    document.getElementById('personality1').value = jDat.personality[0];
+    document.getElementById('personality1').value = jDat.personality[0]; // big #TODO, need to actually use personality
     document.getElementById('personality2').value = jDat.personality[1];
     document.getElementById('personality3').value = jDat.personality[2];
-    document.getElementById('style1').value = jDat.personality.emojis;
-    document.getElementById('style2').value = jDat.personality.capitalization;
-    document.getElementById('style3').value = jDat.personality.punctuation;
+    document.getElementById('tsSlider1').value = jDat.personality.emojis;
+    document.getElementById('tsSlider2').value = jDat.personality.capitalization;
+    document.getElementById('tsSlider3').value = jDat.personality.punctuation;
     $(".messageBlock").remove(); // clear messages
     for (var key in jDat.messageBank) { // import messages
         // where to place next message
@@ -212,11 +218,20 @@ function exportBbug(f = function(jsonDict) {}) {
         // upload image
         var image_file = document.getElementById('openImg').files[0];
         var image_path = "default";
-        if (image_file != null) {
-            var image_file_extension = image_file.name.split('.').pop();
-            image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
-            uploadFile(image_file, image_path); // TODO: catch errors?
+        if (imageSource == "userInput") {
+            if (image_file != null) {
+                var image_file_extension = image_file.name.split('.').pop();
+                image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
+                uploadFile(image_file, image_path); // TODO: catch errors?
+                image_path = S3_URL + image_path;
+            } else {
+                alert("Don't forget to select an image for your Browserbug!");
+                return;
+            }
+        } else { // localLoaded
+            image_path = document.getElementById('im0-img').src;
         }
+        
         // update values
         jsonDict['information']['imageS3Path'] = image_path;
         // upload bbug
