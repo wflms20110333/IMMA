@@ -90,14 +90,16 @@ $(document).ready(function() {
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!")
         } else {
-            var jsonDict = JSON.stringify(absorbToDict());
-            var file = new Blob([jsonDict], {
-                type: "application/json"
+            exportBbug(function(jsonDict) {
+                var strJson = JSON.stringify(jsonDict);
+                var file = new Blob([strJson], {
+                    type: "application/json"
+                });
+                url = URL.createObjectURL(file);
+                var a = document.getElementById('export');
+                a.href = url;
+                a.download = document.getElementById('imma-name').value + ".bbug";
             });
-            url = URL.createObjectURL(file);
-            var a = document.getElementById('export');
-            a.href = url;
-            a.download = document.getElementById('imma-name').value + ".bbug";
         }
     });
 
@@ -123,9 +125,9 @@ function allowExternalURLs() {
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
-    document.getElementById('im0-img').src = jDat.information.imageLink;
+    document.getElementById('im0-img').src = S3_URL + jDat.information.imageS3Path;
     document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
-    document.getElementById('personality1').value = jDat.personality[0];
+    document.getElementById('personality1').value = jDat.personality[0]; // big #TODO, need to actually use personality
     document.getElementById('personality2').value = jDat.personality[1];
     document.getElementById('personality3').value = jDat.personality[2];
     document.getElementById('style1').value = jDat.personality.emojis;
