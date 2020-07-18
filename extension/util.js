@@ -191,7 +191,7 @@ function loadCharacterFromJson(jsonData) {
 
     chrome.storage.sync.set({ 'imma_name': data['information']['name'] });
     var image_path = data['information']['imageS3Path'];
-    if (image_path.startsWith('browserbug_images/')) {
+    if (image_path != undefined && image_path.startsWith('browserbug_images/')) {
         image_path = S3_URL + image_path;
     } else {
         image_path = NULL_IMAGE_URL;
