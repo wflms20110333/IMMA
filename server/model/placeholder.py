@@ -217,7 +217,7 @@ def pickMessage(state, messageBank, customRatio, textstyle, personality):
 
     Returns the message (string), and the full character name (string)"""
 
-    ans = queryTabbedFile("server/model/character files/MessageBank.txt", textstyle, messageBank, customRatio, state, personality)
+    ans = queryTabbedFile("model/character files/MessageBank.txt", textstyle, messageBank, customRatio, state, personality)
     return ans
 
 def pickQuestion(questionBank, customRatio, textstyle, personality):
@@ -235,7 +235,7 @@ def pickQuestion(questionBank, customRatio, textstyle, personality):
     
     randomQuestion = random.choice(list(questionBank.keys()))
     
-    ans = queryTabbedFile("server/model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
+    ans = queryTabbedFile("model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
     return ans
 
 def numerize(numStr, expectedLength = 3):
