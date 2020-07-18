@@ -190,7 +190,13 @@ function loadCharacterFromJson(jsonData) {
     }
 
     chrome.storage.sync.set({ 'imma_name': data['information']['name'] });
-    chrome.storage.sync.set({ 'image_link': data['information']['imageLink'] });
+    var image_path = data['information']['imageS3Path'];
+    if (image_path == "default") {
+        image_path = "images/character images/null_image.png";
+    } else {
+        image_path = S3_URL + image_path;
+    }
+    chrome.storage.sync.set({ 'image_link': image_path });
     chrome.storage.sync.set({ 'personality': data['personality'] });
     chrome.storage.sync.set({ 'color1': data['information']['color1'] });
     chrome.storage.sync.set({ 'color2': data['information']['color2'] });
