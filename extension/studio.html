@@ -32,7 +32,7 @@
         <div class="column" id="leftCol">
             <div class="bubble">
                 <h3>
-                    Personality <a title="Which types of messages should be sent?">[?]</a></h3>
+                    Personality <a title="Describe the typical attitude of your bug!">[?]</a></h3>
 
                 <div>
                     <div class="personLabels" style="text-align: right;">Serious</div>
@@ -76,13 +76,13 @@
             </div>
 
             <div class="bubble">
-                <h3>Name <a title="Pick a name for your bug!">[?]</a></h3>
+                <h3>Name <a title="Pick a name!">[?]</a></h3>
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
                 <img id="im0-img" src="images/character images/null_image.png" width="70px" height="70px" alt="Icon">
 
-                <h3>Avatar <a title="Pick an image by specifying a URL to the image, and press + when done [beta feature, still in progress]">[?]</a></h3>
+                <h3>Avatar <a title="Pick an image!">[?]</a></h3>
 
                 <!-- Old URL picker for images -->
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
@@ -103,14 +103,14 @@
 
         <div class="column" id="rightCol">
             <div class="bubble" style="margin-bottom: 50px;">
-                <h3>Custom messages <a title="Create your own messages for your bug!">[?]</a></h3>
+                <h3>Custom messages <a title="Create your own messages!">[?]</a></h3>
                 <p>Ratio of custom content <a title="How often to use custom content (versus built-in content)">[?]</a></p>
                 <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
                 <br><br>
                 <fieldset id="pullfrom">
                     <legend>Create message</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p>Stats <a title="How would this message help you? (0=no effect, 1=high effect)">[?]</a></p>
+                    <p>Stats <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
                     <label>Happiness <a title="Reducing your stress and frustration">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                     <br>
