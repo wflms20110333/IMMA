@@ -120,7 +120,7 @@ def retrieve_imma():
     # If have a valid code
     if codeAuth != False:
         # retrieve imma file
-        with open("server/model/character files/" + codeAuth + ".bbug") as immaFile: #TODO where to store these files?
+        with open("model/character files/" + codeAuth + ".bbug") as immaFile: #TODO where to store these files?
             immaData = json.load(immaFile)
         immaData['success'] = True
         return jsonify(immaData)
