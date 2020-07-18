@@ -235,7 +235,7 @@ def pickQuestion(questionBank, customRatio, textstyle, personality):
     
     randomQuestion = random.choice(list(questionBank.keys()))
     
-    ans = queryTabbedFile("server/model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
+    ans = queryTabbedFile("model/character files/QuestionBank.txt", textstyle, questionBank, customRatio, personality=personality)
     return ans
 
 def numerize(numStr, expectedLength = 3):
