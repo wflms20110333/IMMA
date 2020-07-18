@@ -130,9 +130,9 @@ function openJsonDat(jDat) {
     document.getElementById('personality1').value = jDat.personality[0]; // big #TODO, need to actually use personality
     document.getElementById('personality2').value = jDat.personality[1];
     document.getElementById('personality3').value = jDat.personality[2];
-    document.getElementById('style1').value = jDat.personality.emojis;
-    document.getElementById('style2').value = jDat.personality.capitalization;
-    document.getElementById('style3').value = jDat.personality.punctuation;
+    document.getElementById('tsSlider1').value = jDat.personality.emojis;
+    document.getElementById('tsSlider2').value = jDat.personality.capitalization;
+    document.getElementById('tsSlider3').value = jDat.personality.punctuation;
     $(".messageBlock").remove(); // clear messages
     for (var key in jDat.messageBank) { // import messages
         // where to place next message
