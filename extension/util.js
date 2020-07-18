@@ -193,6 +193,8 @@ function loadCharacterFromJson(jsonData) {
     var image_path = data['information']['imageS3Path'];
     if (image_path != undefined && image_path.startsWith('browserbug_images/')) {
         image_path = S3_URL + image_path;
+    } else if (image_path != undefined && image_path.startsWith(S3_URL)) {
+        image_path = image_path;
     } else {
         image_path = NULL_IMAGE_URL;
     }
