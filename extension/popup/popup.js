@@ -42,8 +42,10 @@ function mailCallback(mailResponse) {
 // Update displayed IMMA information in the popup menu
 chrome.storage.sync.get(['image_link', 'imma_name'], function(data) {
     var image_link = data['image_link'];
+    console.log('image_link: ' + image_link);
     if (image_link == undefined)
         image_link = NULL_IMAGE_URL;
+    console.log('new image_link: ' + image_link);
     document.getElementById('immaicon').src = image_link;
     document.getElementById('charactername').textContent = data['imma_name'];
 });
