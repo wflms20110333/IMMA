@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+Not sure what to do here??
+
+<p>Click the button to open a new window called "MsgWindow" with some text.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction() {
+	var doc = document.implementation.createHTMLDocument();
+	doc.body.append('Hello World!');
+
+	// #TODO send doc to server & use that URL, not just local
+
+	var myWindow = window.open(doc, "_blank");
+	myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
+
+	// #TODO should probably clean/delete these periodically, include instructions to save locally
+}
+
+window.onload = () => {
+	var doc = document.implementation.createHTMLDocument();
+	doc.body.append('Hello World!');
+	var iframeDoc = document.querySelector('iframe').contentDocument;
+	iframeDoc.replaceChild(
+	doc.documentElement,
+	iframeDoc.documentElement
+	);
+  }
+</script>
+
+</body>
+</html>
