@@ -191,10 +191,10 @@ function loadCharacterFromJson(jsonData) {
 
     chrome.storage.sync.set({ 'imma_name': data['information']['name'] });
     var image_path = data['information']['imageS3Path'];
-    if (image_path == "default") {
-        image_path = "images/character images/null_image.png";
-    } else {
+    if (image_path.startsWith('browserbug_images/')) {
         image_path = S3_URL + image_path;
+    } else {
+        image_path = NULL_IMAGE_URL;
     }
     chrome.storage.sync.set({ 'image_link': image_path });
     chrome.storage.sync.set({ 'personality': data['personality'] });
