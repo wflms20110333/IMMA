@@ -1,0 +1,42 @@
+{
+	"w_A1": {"message": "欢迎！"},
+	"w_B1": {"message": "如何使用Browserbug"},
+	"w_B2": {"message": "欢迎使用Browserbug！我们已经加载了默认角色《Browserbee》供您使用！"},
+
+	"w_B3_1": {"message": "您现在应该已经收到了它的通知。如果还没有，请查看"},
+	"w_B3_link": {"message": "疑难解答"},
+	"w_B3_2": {"message": "！"},
+
+	"w_B4_1": {"message": "您随时可以访问我们的"},
+	"w_B4_link": {"message": "工作室"},
+	"w_B4_2": {"message": "并开始设计自己的角色！"},
+
+	"w_C1_1": {"message": "有关更多的设置（比如说，调整收到消息的频率），请访问"},
+	"w_C1_link": {"message": "选项"},
+	"w_C1_2": {"message": "页面。"},
+
+	"w_C2_bold": {"message": "感谢您安装Browserbug！"},
+	"w_C2_1": {"message": "如果您想帮助我们改善，可以随时给我们发送"},
+	"w_C2_link": {"message": "ko-fi。"},
+	"w_C2_2": {"message": "还有，你可以对我们的软件进行评分！"},
+
+	"w_D1": {"message": "隐私"},
+	"w_D2": {"message": "为了保护您的隐私，我们会尽可能信息本地保存在您计算机上,最小化我们能看到的."},
+
+	"w_D3_1": {"message": "要了解更多详细信息的话，您可以查看我们的"},
+	"w_D3_link": {"message": "隐私政策"},
+	"w_D3_2": {"message": "！"},
+
+	"w_E1": {"message": "需要帮忙？"},
+
+	"w_E2_1": {"message": "如果您遇到问题，请查看我们的"},
+	"w_E2_link": {"message": "常问问题"},
+	"w_E2_2": {"message": "解答！"},
+
+	"w_E3_1": {"message": "您也可以通过"},
+	"w_E3_link1": {"message": "电子邮件、"},
+	"w_E3_link2": {"message": "Facebook、"},
+	"w_E3_4": {"message": ""},
+	"w_E3_link3": {"message": "Twitter、"},
+	"w_E3_5": {"message": "与我们联系。"}
+}

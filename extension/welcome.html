@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 
 <head>
-    <title>Welcome</title>
+    <title class="i18n-txt" id="w_A1"></title>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="master.css">
     <link rel="stylesheet" type="text/css" href="welcome.css">
@@ -16,27 +16,56 @@
         <img src="/images/wings3welcome.png" alt="Welcome" id="welcome-image">
         <div style="text-align: left;">
             <img src="/images/menu.png" alt="Studio location" id="studio-image">
-            <h1>How to Use Browserbug</h1>
-            <p>Welcome to Browserbug! We've already loaded a default character, "Browserbee," for you to use :)</p>
-            <p>By now, you should have already received a notification from it. (If not, check out our <a href="/faq.html">Troubleshooting</a> section!)</p>
-            <p>When you're ready, feel free to visit the <a href="/studio.html">Studio</a> and start designing your own character!</p>
+            <h1 class="i18n-txt" id="w_B1"></h1>
+            <p class="i18n-txt" id="w_B2"></p>
+            <p>
+                <span class="i18n-txt" id="w_B3_1"></span>
+                <a href="/faq.html"><span class="i18n-txt" id="w_B3_link"></span></a>
+                <span class="i18n-txt" id="w_B3_2"></span>
+            </p>
+            <p>
+                <span class="i18n-txt" id="w_B4_1"></span>
+                <a href="/studio.html"><span class="i18n-txt" id="w_B4_link"></span></a>
+                <span class="i18n-txt" id="w_B4_2"></span>
+            </p>
+            <p>
+                <span class="i18n-txt" id="w_C1_1"></span>
+                <a href="/options.html"><span class="i18n-txt" id="w_C1_link"></span></a>
+                <span class="i18n-txt" id="w_C1_2"></span>
+            </p>
+            <p>
+                <b><span class="i18n-txt" id="w_C2_bold"></span></b>
+                <span class="i18n-txt" id="w_C2_1"></span>
+                <a href="https://ko-fi.com/" target="_blank"><span class="i18n-txt" id="w_C2_link"></span></a>
+                <span class="i18n-txt" id="w_C2_2"></span>
+            </p>
         </div>
 
         <div>
-            <p>For more advanced settings (want to adjust how often you get messages?) visit the <a href="/options.html">Options</a> page.</p>
-            <p><b>Thanks for installing Browserbug!</b> :) Feel free to send us a [[ko-fi]] or [[rate]] our extension if you like it!</p>
+            <h1 span class="i18n-txt" id="w_D1"></h1>
+            <p span class="i18n-txt" id="w_D2"></p>
+            <p>
+                <span class="i18n-txt" id="w_D3_1"></span>
+                <a href="/privacypolicy.html"><span class="i18n-txt" id="w_D3_link"></span></a>
+                <span class="i18n-txt" id="w_D3_2"></span>
+            </p>
         </div>
 
         <div>
-            <h1>Privacy</h1>
-            <p>To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us.</p>
-            <p>Feel free to check out our <a href="/privacypolicy.html">Privacy Policy</a> for more details!</p>
-        </div>
-
-        <div>
-            <h1>Need help?</h1>
-            <p>If you ever need help, please take a look at our <a href="/faq.html">FAQ</a>!</p>
-            <p>We're also available to contact through <a href="mailto:imma.studio.dev@gmail.com">email</a> or <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a>.</p>
+            <h1 class="i18n-txt" id="w_E1"></h1>
+            <p>
+                <span class="i18n-txt" id="w_E2_1"></span>
+                <a href="/faq.html"><span class="i18n-txt" id="w_E2_link"></span></a>
+                <span class="i18n-txt" id="w_E2_2"></span>
+            </p>
+            <p>
+                <span class="i18n-txt" id="w_E3_1"></span>
+                <a href="mailto:imma.studio.dev@gmail.com"><span class="i18n-txt" id="w_E3_link1"></span></a>
+                <a href="https://www.facebook.com/Browserbug-107331981062490/"><span class="i18n-txt" id="w_E3_link2"></span></a>
+                <span class="i18n-txt" id="w_E3_4"></span>
+                <a href="https://twitter.com/browser_bug"><span class="i18n-txt" id="w_E3_link3"></span></a>
+                <span class="i18n-txt" id="w_E3_5"></span>
+            </p>
         </div>
 
     </div>
@@ -48,5 +77,8 @@
         </p>
     </footer>
 </body>
+
+<script src="jquery-3.5.1.min.js"></script>
+<script src="welcome.js"></script>
 
 </html>

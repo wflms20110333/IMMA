@@ -19,5 +19,6 @@
         "default_title": "Browserbug",
         "default_icon": "images/new_imma_48.png",
         "default_popup": "popup/popup.html"
-    }
+    },
+    "default_locale": "en"
 }
