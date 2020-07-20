@@ -1,5 +1,14 @@
 var imageSource = "userInput"; // either userInput or localLoaded
 
+ 
+var blankBbug = {'personality': [0.0, 0.0, 0.0], 'messageBank': {}}; // empty object for "New" button
+blankBbug.information = {
+    name: "",
+    imageS3Path: NULL_IMAGE_URL,
+    percentCustomQuotes: 0.5
+};
+blankBbug.textstyle = {'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5};
+
 $(document).ready(function() {
     // Initialize studio with the current bug
     absorbMemoryToDict(openJsonDat);
@@ -14,7 +23,9 @@ $(document).ready(function() {
     });
 
     $("#new").click(function() { // reload page
-        location.reload();
+        if (confirm("Start from scratch?")) {
+            openJsonDat(blankBbug);
+        }        
     });
 
     $("#add").click(function() { // process for creating custom messages
