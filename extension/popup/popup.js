@@ -74,10 +74,14 @@ activeswitch.addEventListener('click', function() {
     if (activeswitch.checked == true) { // activate imma
         document.getElementById('bbug-active').textContent = "active"; // update text in popup
         chrome.storage.sync.set({ 'immaActive': true });
+        chrome.browserAction.setBadgeText({"text":"ON"});
+        chrome.browserAction.setBadgeBackgroundColor({"color": "#764fff"});
         chrome.extension.getBackgroundPage().setQuickAlarm();
     } else { // deactivate imma
         document.getElementById('bbug-active').textContent = "inactive"; // update text in popup
         chrome.storage.sync.set({ 'immaActive': false });
+        chrome.browserAction.setBadgeText({"text":"OFF"});
+        chrome.browserAction.setBadgeBackgroundColor({"color": "#636363"});
         chrome.alarms.clearAll();
         // clear all existing notifications
         chrome.notifications.getAll((items) => {
