@@ -1,6 +1,9 @@
 var imageSource = "userInput"; // either userInput or localLoaded
 
 $(document).ready(function() {
+    // Initialize studio with the current bug
+    absorbMemoryToDict(openJsonDat);
+
     $('.urlButton').each(function(index, element) { // link image-updating buttons
         $(this).click(function() {
             var urlBoxId = this.id + "-url";
@@ -134,9 +137,9 @@ function openJsonDat(jDat) {
     document.getElementById('personality1').value = jDat.personality[0]; // big #TODO, need to actually use personality
     document.getElementById('personality2').value = jDat.personality[1];
     document.getElementById('personality3').value = jDat.personality[2];
-    document.getElementById('tsSlider1').value = jDat.personality.emojis;
-    document.getElementById('tsSlider2').value = jDat.personality.capitalization;
-    document.getElementById('tsSlider3').value = jDat.personality.punctuation;
+    document.getElementById('tsSlider1').value = jDat.textstyle.emojis;
+    document.getElementById('tsSlider2').value = jDat.textstyle.capitalization;
+    document.getElementById('tsSlider3').value = jDat.textstyle.punctuation;
     $(".messageBlock").remove(); // clear messages
     for (var key in jDat.messageBank) { // import messages
         // where to place next message
@@ -186,6 +189,25 @@ function absorbToDict() {
     });
 
     return dict;
+}
+
+function absorbMemoryToDict(callback) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'textingstyle', 'personality'], function(result) {
+        var dict = {}; // empty object to fill then export
+    
+        dict.information = {
+            name: result['imma_name'],
+            imageS3Path: result['image_link'],
+            percentCustomQuotes: result['custom_ratio']
+        };
+    
+        dict.personality = result['personality'];
+    
+        dict.textstyle = result['textingstyle'];
+        dict.messageBank = result['message_bank'];
+
+        callback(dict);
+    });
 }
 
 function uploadFile(file, path) {
