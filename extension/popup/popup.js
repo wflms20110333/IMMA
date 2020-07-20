@@ -94,5 +94,29 @@ activeswitch.addEventListener('click', function() {
     }
 });
 
+// Initialization: update frequency quantity to that in memory
+console.log("updating frequency text-");
+var freqText = document.getElementById('msg-freq');
+chrome.storage.sync.get(['alarm_spacing'], function(data) {
+    freqText.textContent = shortDict[data['alarm_spacing']][1];
+});
+
+// Manage the frequency buttons
+document.getElementById('freq-LEFT').addEventListener('click', function() {changeFreq(-1);});
+document.getElementById('freq-RIGHT').addEventListener('click', function() {changeFreq(1);});
+
+// Modifies message frequency with input +1 or -1
+function changeFreq(direction){
+    chrome.storage.sync.get(['alarm_spacing'], function(data) {
+        var freqIndex = shortDict[data['alarm_spacing']][0]; // frequency on 1-10 scale
+        freqIndex = parseInt(freqIndex);
+        freqIndex += direction;
+        if (freqIndex <= 0) {freqIndex = 1;} // bounds
+        if (freqIndex >= 11) {freqIndex = 10;}
+        freqText.textContent = shortDict2[freqIndex][1];
+        chrome.storage.sync.set({'alarm_spacing': shortDict2[freqIndex][0]});
+    });
+}
+
 console.log("Popup: running alarm clean");
 chrome.extension.getBackgroundPage().cleaner();

@@ -35,6 +35,10 @@ body {
   opacity: 0.7;
 }
 
+#msg-freq {
+  opacity: 0.5;
+}
+
 #clearbox {
   border-radius: 4px;
   margin: 10px;
