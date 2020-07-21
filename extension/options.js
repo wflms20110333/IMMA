@@ -8,15 +8,6 @@ silentswitch.addEventListener('click', function() {
 });*/
 
 // Manage the message frequency slider
-var fDict = {1: [12, "every 10-15 seconds"], 2: [22, "every 15-30 seconds"], 3: [37, "every 30-45 seconds"],
-            4: [52, "every 45-60 seconds"], 5: [120, "every ~2 minutes"], 6: [300, "every ~5 minutes"],
-            7: [600, "every ~10 minutes"], 8: [900, "every ~15 minutes"], 9: [1800, "every ~30 minutes"],
-            10: [3600, "every ~1 hour"]}
-var bDict = {'12': [1, "every 10-15 seconds"], '22': [2, "every 15-30 seconds"], '37': [3, "every 30-45 seconds"],
-            '52': [4, "every 45-60 seconds"], '120': [5, "every ~2 minutes"], '300': [6, "every ~5 minutes"],
-            '600': [7, "every ~10 minutes"], '900': [8, "every ~15 minutes"], '1800': [9, "every ~30 minutes"],
-            '3600': [10, "every ~1 hour"]}
-// Manage the message frequency slider
 var freqslider = document.getElementById('frequency-slider');
 var slidertext = document.getElementById('slider-text');
 chrome.storage.sync.get(['alarm_spacing'], function (result) { // on initialization

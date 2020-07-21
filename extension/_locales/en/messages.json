@@ -1,0 +1,42 @@
+{
+	"w_A1": {"message": "Welcome"},
+	"w_B1": {"message": "How to Use Browserbug"},
+	"w_B2": {"message": "Welcome to Browserbug! We've already loaded a default character, \"Browserbee,\" for you to use :)"},
+
+	"w_B3_1": {"message": "By now, you should have already received a notification from it. (If not, check out our"},
+	"w_B3_link": {"message": "Troubleshooting"},
+	"w_B3_2": {"message": "section!)"},
+
+	"w_B4_1": {"message": "When you're ready, feel free to visit the"},
+	"w_B4_link": {"message": "Studio"},
+	"w_B4_2": {"message": "and start designing your own character!"},
+
+	"w_C1_1": {"message": "For more advanced settings (want to adjust how often you get messages?) visit the"},
+	"w_C1_link": {"message": "Options"},
+	"w_C1_2": {"message": "page."},
+
+	"w_C2_bold": {"message": "Thanks for installing Browserbug!"},
+	"w_C2_1": {"message": ":) Feel free to send us a"},
+	"w_C2_link": {"message": "ko-fi"},
+	"w_C2_2": {"message": "or rate our extension if you like it!"},
+
+	"w_D1": {"message": "Privacy"},
+	"w_D2": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us."},
+
+	"w_D3_1": {"message": "Feel free to check out our"},
+	"w_D3_link": {"message": "Privacy Policy"},
+	"w_D3_2": {"message": "for more details!"},
+
+	"w_E1": {"message": "Need help?"},
+
+	"w_E2_1": {"message": "If you ever need help, please take a look at our"},
+	"w_E2_link": {"message": "FAQ"},
+	"w_E2_2": {"message": "!"},
+
+	"w_E3_1": {"message": "We're also available to contact through"},
+	"w_E3_link1": {"message": "email,"},
+	"w_E3_link2": {"message": "Facebook,"},
+	"w_E3_4": {"message": "or"},
+	"w_E3_link3": {"message": "Twitter"},
+	"w_E3_5": {"message": "."}
+}

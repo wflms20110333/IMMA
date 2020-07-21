@@ -12,12 +12,13 @@
     "optional_permissions": [],
     "background": {
         "scripts": ["util.js", "constants.js", "background.js", "jquery-3.5.1.min.js"],
-        "persistent": false
+        "persistent": true
     },
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Browserbug",
         "default_icon": "images/new_imma_48.png",
         "default_popup": "popup/popup.html"
-    }
+    },
+    "default_locale": "en"
 }

@@ -210,6 +210,8 @@ function loadCharacterFromJson(jsonData) {
     }
     chrome.storage.sync.set({ 'textingstyle': data['textstyle'] });
     chrome.storage.sync.set({ 'immaActive': true });
+    chrome.browserAction.setBadgeText({"text":"ON"});
+    chrome.browserAction.setBadgeBackgroundColor({"color": "#7057C9"});
 };
 
 /**
