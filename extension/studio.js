@@ -160,8 +160,14 @@ function openJsonDat(jDat) {
 
         // create remove button
         var removeButton = document.createElement('button');
-        removeButton.class = 'remove';
+        removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
+        removeButton.style.background = "#c18ced38";
+        removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
+        removeButton.style.fontSize = '13px';
+        removeButton.style.borderRadius = '5px';
+        removeButton.style.boxShadow = '1px 1px 1px rgba(0, 0, 0, 0.10)';
+        removeButton.style.border = 'none';
         removeButton.onclick = function() {
             $(this).parent().remove();
         };
@@ -174,6 +180,21 @@ function openJsonDat(jDat) {
         iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
         iDiv.appendChild(removeButton);
     }
+
+    // Text for sliders! Update on initialization
+    emojiUpdate();
+    capsUpdate();
+    punctUpdate();
+    ccRatioUpdate();
+    //p1Update();
+    //p2Update();
+    //p3Update();
+    e1Update();
+    e2Update();
+    e3Update();
+    m1Update();
+    m2Update();
+    m3Update();
 }
 
 function absorbToDict() {
@@ -182,7 +203,6 @@ function absorbToDict() {
     dict.information = {
         name: document.getElementById('imma-name').value,
         premade: false,
-        imageLink: document.getElementById('im0-img').src,
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 
@@ -251,16 +271,11 @@ function exportBbug(f = function(jsonDict) {}) {
         // upload image
         var image_file = document.getElementById('openImg').files[0];
         var image_path = "default";
-        if (imageSource == "userInput") {
-            if (image_file != null) {
-                var image_file_extension = image_file.name.split('.').pop();
-                image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
-                uploadFile(image_file, image_path); // TODO: catch errors?
-                image_path = S3_URL + image_path;
-            } else {
-                alert("Don't forget to select an image for your Browserbug!");
-                return;
-            }
+        if (imageSource == "userInput" && image_file != null) {
+            var image_file_extension = image_file.name.split('.').pop();
+            image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
+            uploadFile(image_file, image_path); // TODO: catch errors?
+            image_path = S3_URL + image_path;
         } else { // localLoaded
             image_path = document.getElementById('im0-img').src;
         }
@@ -274,22 +289,17 @@ function exportBbug(f = function(jsonDict) {}) {
     });
 }
 
-// Texting style slider stuff!
-chrome.storage.sync.get(['textingstyle'], function(result) { // on initialization
-    document.getElementById('tsSlider1').value = result['textingstyle']['emojis'];
-    document.getElementById('tsSlider2').value = result['textingstyle']['capitalization'];
-    document.getElementById('tsSlider3').value = result['textingstyle']['punctuation'];
-});
-
-// Update on initialization
-emojiUpdate();
-capsUpdate();
-punctUpdate();
-
 // Update on change
-document.getElementById('tsSlider1').oninput = function() { emojiUpdate(); }
-document.getElementById('tsSlider2').oninput = function() { capsUpdate(); }
-document.getElementById('tsSlider3').oninput = function() { punctUpdate(); }
+document.getElementById('tsSlider1').oninput = function() { emojiUpdate(); e1Update(); }
+document.getElementById('tsSlider2').oninput = function() { capsUpdate(); e2Update(); }
+document.getElementById('tsSlider3').oninput = function() { punctUpdate(); e3Update(); }
+document.getElementById('percentCustom').oninput = function() { ccRatioUpdate(); }
+//document.getElementById('personality1').oninput = function() { p1Update(); }
+//document.getElementById('personality2').oninput = function() { p2Update(); }
+//document.getElementById('personality3').oninput = function() { p3Update(); }
+document.getElementById('msgstat1').oninput = function() { m1Update(); }
+document.getElementById('msgstat2').oninput = function() { m2Update(); }
+document.getElementById('msgstat3').oninput = function() { m3Update(); }
 
 function emojiUpdate() {
     var scaleValue = document.getElementById('tsSlider1').value;
@@ -304,4 +314,20 @@ function capsUpdate() {
 function punctUpdate() {
     var scaleValue = document.getElementById('tsSlider3').value;
     if (scaleValue < 0.3) { document.getElementById('tsLabel3').textContent = "No punctuation"; } else if (scaleValue <= 0.5) { document.getElementById('tsLabel3').textContent = "Normal punctuation!"; } else if (scaleValue <= 0.9) { document.getElementById('tsLabel3').textContent = "More punctuation!!"; } else { document.getElementById('tsLabel3').textContent = "Unnecessary punctuation!!!!"; }
+}
+
+function p1Update() { document.getElementById('plabel1').textContent = document.getElementById('personality1').value; }
+function p2Update() { document.getElementById('plabel2').textContent = document.getElementById('personality2').value; }
+function p3Update() { document.getElementById('plabel3').textContent = document.getElementById('personality3').value; }
+function e1Update() { document.getElementById('etext1').textContent = document.getElementById('tsSlider1').value; }
+function e2Update() { document.getElementById('etext2').textContent = document.getElementById('tsSlider2').value; }
+function e3Update() { document.getElementById('etext3').textContent = document.getElementById('tsSlider3').value; }
+function m1Update() { document.getElementById('mtext1').textContent = document.getElementById('msgstat1').value; }
+function m2Update() { document.getElementById('mtext2').textContent = document.getElementById('msgstat2').value; }
+function m3Update() { document.getElementById('mtext3').textContent = document.getElementById('msgstat3').value; }
+
+function ccRatioUpdate() {
+    var scaleValue = Math.round(100 * document.getElementById('percentCustom').value);
+    document.getElementById('cc-left-text').textContent = scaleValue;
+    document.getElementById('cc-right-text').textContent = 100 - scaleValue;
 }

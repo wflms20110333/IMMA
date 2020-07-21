@@ -15,6 +15,25 @@ textarea {
     height: 50px;
 }
 
+#main-bubble {
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+#activate {
+    background-color: #7057C9;
+    color: rgb(255, 255, 255);
+}
+
+#activate:hover {
+    background-color: #7057c98e;
+}
+
+.bubble {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
 .personLabels {
     display: inline-block;
     width: 90px;
@@ -32,8 +51,12 @@ div label, div input{
     line-height: 0px;
 }
 
-/* Scrollbar shows up on side so don't round the radius */
+/* Scrollbar shows up on side so round the radius equally */
 ::-webkit-scrollbar-track {border-radius: 0px;}
 ::-webkit-scrollbar-thumb {
-    border-radius: 0px;
+    border-radius: 15px;
+    width: 4px;
+    background: #110a3ba2;
+    border: 5px solid transparent;
+    background-clip: content-box;
 }

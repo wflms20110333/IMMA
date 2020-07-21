@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.browserAction.setBadgeBackgroundColor({"color": "#7057C9"});
     chrome.storage.sync.set({'lastMail':'000'}); // the last mail message viewed
 
-    chrome.storage.sync.set({'alarm_spacing': 20}); // needs to be valid value in bDict in options.js
+    chrome.storage.sync.set({'alarm_spacing': 40}); // needs to be valid value in constants.js
     chrome.storage.sync.set({'silence': 'false'});
     chrome.storage.sync.set({'persist_notifs': 'false'});
     chrome.storage.sync.set({'flagged_sites': {}});
