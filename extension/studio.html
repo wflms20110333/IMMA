@@ -13,18 +13,18 @@
 <body>
     <header>
         <div>
-            <h2>Browserbug Studio</h3>
+            <h2>Browserbug Studio</h2>
 
-                <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
+                <p class="filing2" id="new" title="Clear current bug and start from scratch">New</p>
 
                 <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
                 <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
 
-                <label for="openBbug" class="custom-file-upload" title="Load a saved Browserbug file from your computer">Load local</label>
+                <label for="openBbug" class="custom-file-upload2" title="Load a saved Browserbug file from your computer">Open</label>
                 <!-- note #TODO encrypt JSONs -->
                 <input type="file" id="openBbug" accept=".bbug">
-                <a class="filing" id="export" title="Download this Browserbug">Export</a>
-                <p class="filing" id="uploadBbug" title="Upload your Browserbug">Save to server</p>
+                <a class="filing2" id="export" title="Download this Browserbug">Download</a>
+                <p class="filing2" id="uploadBbug" title="Upload your Browserbug">Share</p>
                 <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
         </div>
     </header>
@@ -97,7 +97,7 @@
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
 
                 <!-- New image uploader -->
-                <label for="openImg" class="custom-file-upload">Pick image</label>
+                <label for="openImg" class="custom-file-upload2">Pick image</label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
 
                 <!-- TODO: change to real endpoint -->
@@ -113,7 +113,7 @@
         <div class="column" id="rightCol">
             <div class="bubble" style="margin-bottom: 50px;">
                 <h3>Custom messages <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
-                <span>Proportion of custom messages<a title="How often to use custom messages rather than default messages">[?]</a></span>
+                <span>Proportion of custom messages <a title="How often to use custom messages rather than default messages">[?]</a></span>
                 <br><br>
                 <div>
                     <div style="display: inline-block;vertical-align: middle;text-align: right;">
@@ -140,7 +140,7 @@
                     <span id="mtext3">test</span>
                 </fieldset>
                 <br>
-                <input type="button" value="Add message" class="filing" id="add">
+                <input type="button" value="Add message" class="filing2" id="add">
                 <br><br>
                 <fieldset id="yourform">
                     <legend>Custom messages</legend>
