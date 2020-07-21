@@ -13,6 +13,15 @@ html, body {
 textarea {
     width: inherit;
     height: 50px;
+    font-family: 'Assistant', 'Segoe UI', sans-serif;
+    font-size: 15px;
+    border: 2px rgb(197, 197, 197) solid;
+}
+
+input {
+    border: 2px rgb(197, 197, 197) solid;
+    font-family: 'Gaegu', 'Segoe UI', sans-serif;
+    font-size: 19px;
 }
 
 #main-bubble {
