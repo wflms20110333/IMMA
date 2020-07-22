@@ -1,4 +1,5 @@
 // Code for enabling hyperlinks in popup, do this first
+/*
 var links = document.getElementsByTagName("a");
 for (var i = 0; i < links.length; i++) {
     (function() {
@@ -9,6 +10,7 @@ for (var i = 0; i < links.length; i++) {
         };
     })();
 }
+*/
 
 // Determine whether the mailbox flag should be up
 chrome.extension.getBackgroundPage().getMail(mailAuthenticate);
