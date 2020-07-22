@@ -46,12 +46,13 @@ $(document).ready(function() {
         var removeButton = document.createElement('button');
         removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
-        removeButton.style.background = "#c18ced38";
+        removeButton.style.background = "white";
         removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
         removeButton.style.fontSize = '13px';
+        removeButton.style.color = 'black';
         removeButton.style.borderRadius = '5px';
-        removeButton.style.boxShadow = '1px 1px 1px rgba(0, 0, 0, 0.10)';
         removeButton.style.border = 'none';
+        removeButton.style.marginBottom = '5px';
 
         removeButton.onclick = function() {
             $(this).parent().remove();
@@ -162,12 +163,13 @@ function openJsonDat(jDat) {
         var removeButton = document.createElement('button');
         removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
-        removeButton.style.background = "#c18ced38";
+        removeButton.style.background = "white";
         removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
         removeButton.style.fontSize = '13px';
+        removeButton.style.color = 'black';
         removeButton.style.borderRadius = '5px';
-        removeButton.style.boxShadow = '1px 1px 1px rgba(0, 0, 0, 0.10)';
         removeButton.style.border = 'none';
+        removeButton.style.marginBottom = '5px';
         removeButton.onclick = function() {
             $(this).parent().remove();
         };
