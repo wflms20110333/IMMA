@@ -1,9 +1,8 @@
 // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
     // open startup page
-    chrome.tabs.create({url: "/welcome.html"}, function (tab) {
-        console.log("extension installed, welcome :)");
-    }); // #TODO avoid popup opening link clicks in new tab if a local extension page is already open (just switch page, no new tab)
+    window.open("/welcome.html");
+    console.log("extension installed, welcome :)");
 
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
     chrome.storage.sync.set({'immaActive':true}); // set to be active
@@ -22,7 +21,10 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'question_ratio': 0.2}); // ratio of questions
 
     loadCharacterCode("default"); // load first imma character from code
-    lastTabsUpdater();
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) { // update tab list, but not too often
+        if (result) { lastTabsUpdater(); }
+        else { console.log("no tab permission!"); }
+    });
     setQuickAlarm(); // set first alarm for 0.8 second
 });
 
@@ -58,19 +60,13 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
     console.log("Startup: running update, clean");
-    lastTabsUpdater(); // update tabs, but not too often
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) { // update tab list, but not too often
+        if (result) { lastTabsUpdater(); }
+        else { console.log("no tab permission!"); }
+    });
     chrome.alarms.clearAll();
     setNextAlarm(); // set timer for one & only one alarm
     cleaner();
 });
 
 var tabsLastUpdated = getCurrentTime();
-
-// Whenever tabs are updated, update last_tabs tracker
-chrome.tabs.onUpdated.addListener(function () {
-    if (getCurrentTime() - tabsLastUpdated > 2000) {
-        console.log("Tab: running update");
-        tabsLastUpdated = getCurrentTime();
-        lastTabsUpdater(); // update tabs, but not too often
-    }
-});
