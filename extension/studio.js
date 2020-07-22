@@ -43,6 +43,9 @@ $(document).ready(function() {
         document.getElementById('msgstat1').value = 0;
         document.getElementById('msgstat2').value = 0;
         document.getElementById('msgstat3').value = 0;
+        m1Update();
+        m2Update();
+        m3Update();
         var removeButton = document.createElement('button');
         removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
@@ -128,6 +131,17 @@ $(document).ready(function() {
 
 $(window).bind('beforeunload', function() { // warns users of an unsaved model
     return 'Are you sure you want to leave?';
+});
+
+// When adding a message, pressing enter key clicks the #add button
+document.getElementById("messagecontent").addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("add").click();
+    }
 });
 
 function allowExternalURLs() {
