@@ -3,8 +3,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import model.placeholder as ph # for the nnetwork models
+from PIL import Image
 import requests
 import threading
+import util
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -26,19 +28,21 @@ def upload_file():
         with open('character.bbug', 'w') as f:
             json.dump(file_data, f)
     try:
-        print('hi')
         path = request.form['path']
         conn = boto3.client('s3')
         bucket_name = "imma-bucket"
-        if fileobj:
-            conn.upload_fileobj(file_to_upload, bucket_name, path) # TODO: check not overwriting existing file?
-        else:
+        if fileobj: # is an image
+            image = Image.open(file_to_upload)
+            x, y = util.getNewImageDimensions(image.size)
+            new_image = image.resize((x, y))
+            new_image.save('character.png') # TODO: not necessarily png?
+            with open('character.png', 'rb') as f:
+                conn.upload_fileobj(f, bucket_name, path)
+        else: # is not an image --> is a .bbug file
             with open('character.bbug', 'rb') as f:
                 conn.upload_fileobj(f, bucket_name, path)
-        print('success:', path)
         return "upload success!"
     except Exception as e:
-        print('exception:', e)
         return str(e)
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
