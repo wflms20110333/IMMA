@@ -41,6 +41,7 @@ def upload_file():
         else: # is not an image --> is a .bbug file
             with open('character.bbug', 'rb') as f:
                 conn.upload_fileobj(f, bucket_name, path)
+        print('upload file success')
         return "upload success!"
     except Exception as e:
         return str(e)
