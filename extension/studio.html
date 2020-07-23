@@ -5,6 +5,7 @@
 <head>
     <title>Browserbug Studio</title>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="master.css">
     <link rel="stylesheet" type="text/css" href="studio.css">
 </head>
@@ -12,19 +13,28 @@
 <body>
     <header>
         <div>
-            <h2>Browserbug Studio</h3>
+            <h2>Browserbug Studio</h2>
 
-                <p class="filing" id="new" title="Clear current bug and start from scratch">New</p>
+                <p class="filing2" id="new" title="Clear current bug and start from scratch">New</p>
 
                 <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
                 <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
 
-                <label for="openBbug" class="custom-file-upload" title="Load a saved Browserbug file from your computer">Load local</label>
+                <label for="openBbug" class="custom-file-upload2" title="Load a saved Browserbug file from your computer">Open</label>
                 <!-- note #TODO encrypt JSONs -->
                 <input type="file" id="openBbug" accept=".bbug">
-                <a class="filing" id="export" title="Download this Browserbug">Export</a>
-                <p class="filing" id="uploadBbug" title="Upload your Browserbug">Save to server</p>
+                <a class="filing2" id="export" title="Download this Browserbug">Download</a>
+                <p class="filing2" id="uploadBbug" title="Upload your Browserbug">Share</p>
                 <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
+        </div>
+
+        <div style="position:absolute;top:10px;right:50px;">
+            <a href="faq.html">Help</a> |
+            <a href="options.html">Settings</a> |
+            <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a> |
+            <a href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank">FB</a> |
+            <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a> |
+            <a href="https://ko-fi.com/" target="_blank">Ko-Fi</a>
         </div>
     </header>
 
@@ -32,21 +42,24 @@
         <div class="column" id="leftCol">
             <div class="bubble">
                 <h3>
-                    Personality <a title="Describe the typical attitude of your bug!">[?]</a></h3>
+                    Personality <a title="Experimental! Describe the typical attitude of your character.">[?]</a></h3>
 
                 <div>
+                    <!--<span id="plabel1">test</span><br>-->
                     <div class="personLabels" style="text-align: right;">Serious</div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality1">
                     <div class="personLabels" style="text-align: left;">Cheerful</div>
                 </div>
 
                 <div>
+                    <!--<span id="plabel2">test</span><br>-->
                     <div class="personLabels" style="text-align: right;">Laidback</div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality2">
                     <div class="personLabels" style="text-align: left;">Energetic</div>
                 </div>
 
                 <div>
+                    <!--<span id="plabel3">test</span><br>-->
                     <div class="personLabels" style="text-align: right;">Productivity</div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality3">
                     <div class="personLabels" style="text-align: left;">Positivity</div>
@@ -56,20 +69,25 @@
                 <h3>Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
                 <span class="scaler-text"><b>Emojis</b></span>
                 <p id="tsLabel1" class="scaler-text">error</p>
-                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1"><br><br>
+                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1">
+                <span id="etext1">test</span>
+                <br><br>
 
                 <span class="scaler-text"><b>Capitalization</b></span>
                 <p id="tsLabel2" class="scaler-text">error</p>
-                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider2"><br><br>
+                <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider2">
+                <span id="etext2">test</span>
+                <br><br>
 
                 <span class="scaler-text"><b>Punctuation</b></span>
                 <p id="tsLabel3" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider3">
+                <span id="etext3">test</span>
             </div>
         </div>
 
         <div class="column" id="centerCol">
-            <div class="bubble">
+            <div class="bubble" id="main-bubble">
                 <p>Hello! Welcome to the Studio.</p>
                 <p>Hover over any <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a> to view tips.</p>
                 <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
@@ -88,7 +106,7 @@
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
 
                 <!-- New image uploader -->
-                <label for="openImg" class="custom-file-upload">Pick image</label>
+                <label for="openImg" class="custom-file-upload2">Pick image</label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
 
                 <!-- TODO: change to real endpoint -->
@@ -104,24 +122,34 @@
         <div class="column" id="rightCol">
             <div class="bubble" style="margin-bottom: 50px;">
                 <h3>Custom messages <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
-                <p>Ratio of custom content <a title="How often to use custom content (versus built-in content)">[?]</a></p>
-                <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom">
+                <span>Proportion of custom messages <a title="How often to use custom messages rather than default messages">[?]</a></span>
                 <br><br>
+                <div>
+                    <div style="display: inline-block;vertical-align: middle;text-align: right;">
+                        <span id="cc-left-text">X</span><span>% custom<br>messages</span></div>
+                    <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom" style="margin:5px;">
+                    <div style="display: inline-block;vertical-align: middle;text-align: left;"">
+                        <span id="cc-right-text">Y</span><span>% default<br>messages</span></div>
+                </div>
+                <br>
                 <fieldset id="pullfrom">
                     <legend>Create message</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
                     <p>Stats <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
                     <label>Happiness <a title="Reducing your stress and frustration">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
+                    <span id="mtext1">test</span>
                     <br>
                     <label>Focus <a title="Preventing boredom and distraction">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
+                    <span id="mtext2">test</span>
                     <br>
                     <label>Wellbeing <a title="Helping you maintain healthy habits">[?]</a></label>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
+                    <span id="mtext3">test</span>
                 </fieldset>
                 <br>
-                <input type="button" value="Add message" class="filing" id="add">
+                <input type="button" value="Add message" class="filing2" id="add">
                 <br><br>
                 <fieldset id="yourform">
                     <legend>Custom messages</legend>

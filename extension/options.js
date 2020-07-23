@@ -100,3 +100,44 @@ function updateSiteFlags() {
     });
     chrome.storage.sync.set({'flagged_sites': flagSites});
 }
+
+// Manage tabs permission for site flagging
+var flagStatusText = document.getElementById('flagging-on');
+var flagButton = document.getElementById('flagging-button');
+
+// check if tab permission is enabled
+chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
+    if (result) { console.log("has tab permission!"); flagStatusText.textContent = "ON"; flagButton.textContent = "Disable site flagging"; }
+    else { console.log("no tab permission!"); flagStatusText.textContent = "OFF"; flagButton.textContent = "Enable site flagging"; }
+});
+
+flagButton.addEventListener('click', function() { // change permissions for site flagging
+    if (flagStatusText.textContent == "OFF") {
+        // If turning permission from OFF to ON
+        // add permission
+        chrome.permissions.request({ permissions: ['tabs'], }, function(granted) {
+            // The callback argument will be true if the user granted the permissions.
+            if (granted) {
+                // add listener for site flagging
+                chrome.tabs.onUpdated.addListener(function () {
+                    if (chrome.extension.getBackgroundPage().getCurrentTime() - chrome.extension.getBackgroundPage().tabsLastUpdated > 2000) {
+                        console.log("Tab: running update");
+                        chrome.extension.getBackgroundPage().tabsLastUpdated = chrome.extension.getBackgroundPage().getCurrentTime();
+                        chrome.extension.getBackgroundPage().lastTabsUpdater(); // update tabs, but not too often
+                    }
+                });
+                flagStatusText.textContent = "ON"; flagButton.textContent = "Disable site flagging";
+            }
+        });
+    } else {
+        // If turning permission from ON to OFF
+        // clear last tabs variable
+        chrome.storage.sync.set({'last_tabs': {}});
+        // remove permission
+        chrome.permissions.remove({ permissions: ['tabs'] }, function(removed) {
+            if (removed) { console.log("tabs successfully turned off"); }
+            else { console.log("error! unable to remove permissions. please contact us!"); }
+        });
+        flagStatusText.textContent = "OFF"; flagButton.textContent = "Enable site flagging";
+    }
+});

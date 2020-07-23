@@ -1,4 +1,5 @@
 // Code for enabling hyperlinks in popup, do this first
+/*
 var links = document.getElementsByTagName("a");
 for (var i = 0; i < links.length; i++) {
     (function() {
@@ -9,6 +10,7 @@ for (var i = 0; i < links.length; i++) {
         };
     })();
 }
+*/
 
 // Determine whether the mailbox flag should be up
 chrome.extension.getBackgroundPage().getMail(mailAuthenticate);
@@ -29,9 +31,9 @@ mailbox.addEventListener('click', function() {
 
 function mailCallback(mailResponse) {
     if (mailResponse == "none") {
-        alert("No unread messages!"); // #TODO make this look less sketchy
+        chrome.extension.getBackgroundPage().alert("No unread messages!"); // #TODO make this look less sketchy
     } else {
-        alert(mailResponse[1]);
+        chrome.extension.getBackgroundPage().alert(mailResponse[1]);
         chrome.storage.sync.set({ 'lastMail': mailResponse[0] });
         mailbox.src = "/images/icons/openmail.png"; // #TODO adding coloring to the open mailbox when there's a new message?
         mailbox.style.opacity = "1";
@@ -115,6 +117,9 @@ function changeFreq(direction){
         if (freqIndex >= 11) {freqIndex = 10;}
         freqText.textContent = shortDict2[freqIndex][1];
         chrome.storage.sync.set({'alarm_spacing': shortDict2[freqIndex][0]});
+        // clear alarms
+        chrome.alarms.clearAll();
+        chrome.extension.getBackgroundPage().setNextAlarm();
     });
 }
 

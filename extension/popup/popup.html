@@ -4,6 +4,8 @@
 
 <head>
     <title>Browserbug Menu</title>
+    <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
@@ -28,17 +30,17 @@
         </div>
         <div id="clearbox">
             <div id="charactername">DEFAULT</div>
-            <div>
+            <div style="padding-bottom: 5px;">
                 <label class="switch"><input type="checkbox" id="activeswitch">
                 <span class="slider round"></span></label>
                 <span id="bbug-active">active</span>
             </div>
             <div>
-                <label for="loader" class="menu-button" title="Load a saved Browserbug file from your computer">Load saved...</label>
+                <label for="loader" class="menu-button" title="Load a saved Browserbug file from your computer">LOAD .BBUG</label>
                 <input type="file" id="loader" accept=".bbug">
             </div>
-            <div class="menu-button">
-                <a href="/studio.html" target="_blank">Customize bug</a>
+            <div>
+                <a href="/studio.html" target="_blank" class="menu-button">OPEN STUDIO</a>
             </div>
         </div>
     </main>
