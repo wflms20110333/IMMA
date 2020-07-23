@@ -167,3 +167,12 @@ Imma-specific character variables, updated with loadCharacterCode:
 'question_bank': (json) storage of custom/extra questions for the active character
 'question_ratio': (array) ratio of 1 question per X messages
 ```
+
+## Other information
+
+### .bbug export pages
+
+If the server is deployed locally, an example of an export page link is
+<http://localhost:5000/getBbugFile?uid=12345abcde&character_name=browserbee>,
+where `12345abcde` is the UID of the creator, and browserbee is the name of
+the browserbug. These files can similarly be retrieved with HTTP GET requests.

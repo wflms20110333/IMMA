@@ -1,7 +1,6 @@
 {
     "information": {
         "name": "Browserbee",
-        "imageLink": "../images/character images/null_image.png",
         "imageS3Path": "default",
 		"description": "Hello there! Browserbee is your default Browserbug.",
         "percentCustomQuotes": 0.2
