@@ -46,6 +46,19 @@ def upload_file():
     except Exception as e:
         return str(e)
 
+@app.route('/getBbugFile', methods=['GET'])
+def get_bbug_file():
+    uid = request.args.get('uid')
+    character_name = request.args.get('character_name')
+    if uid == None or character_name == None:
+        return "Invalid request"
+    # TODO: check if uid/character_name combination does not exist in S3
+    return '''
+        <p>UID: ''' + uid + '''</p>
+        <p>Character Name: ''' + character_name + '''</p>
+        <p><a href="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/''' + uid + '''/''' + character_name + '''.bbug">Link to .bbug file</a>
+    '''
+
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
