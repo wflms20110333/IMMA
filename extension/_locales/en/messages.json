@@ -38,5 +38,45 @@
 	"w_E3_link2": {"message": "Facebook,"},
 	"w_E3_4": {"message": "or"},
 	"w_E3_link3": {"message": "Twitter."},
-	"w_E3_5": {"message": ""}
+	"w_E3_5": {"message": ""},
+
+	"q1": {"message": "I'm concerned about my privacy!"},
+	"a1_1": {"message": "We wouldn't want our information to be shared or sold without our permission, and we promise to treat you with that same respect."},
+	"a1_2": {"message": "Your extension can only see which sites you're visiting if you enable that permission in"},
+	"a1_3": {"message": "Options"},
+	"a1_4": {"message": "- but that information is processed locally on your computer. From our side, we won't be able to which sites you've visited."},
+	"a1_5": {"message": "We've written up the details in our"},
+	"a1_6": {"message": "Privacy Policy"},
+	"a1_7": {"message": "if you'd like to read more!"},
+
+	"q2": {"message": "Can I change how long messages stay on my screen?"},
+	"a2_1": {"message": "Sure! Notification duration is controlled by your operating system. For example, on Windows 10, you can control this in Ease of Access >"},
+	"a2_2": {"message": "Display"},
+	"a2_3": {"message": "> Show notifications for."},
+
+	"q3": {"message": "Can I customize my message layout?"},
+	"a3_1": {"message": "Not yet! But if you'd be interested in setting a custom background color for your notifications, including GIFs or video, or doing other cool stuff, please help support us"},
+	"a3_2": {"message": "here"},
+	"a3_3": {"message": "so we can develop a desktop version of Browserbug!"},
+
+	"q4": {"message": "Can I mute/change the sound of my notifications?"},
+	"a4_1": {"message": "We're working on this! It's not much, but if you need to, you can mute all Chrome notifications in System >"},
+	"a4_2": {"message": "Notifications & Actions"},
+	"a4_3": {"message": "> Google Chrome."},
+
+	"q5": {"message": "How does Browserbug make money?"},
+	"a5_1": {"message": "At the moment, we're relying primarily on"},
+	"a5_2": {"message": "Ko-Fi"},
+	"a5_3": {"message": "donations and advertisements. We're working on adding in-app purchases with extra cool features that you can buy to support us, but in the meantime, we'd really appreciate any donations! :)"},
+
+	"q6": {"message": "Who are you?"},
+	"a6_1": {"message": "We're Michelle and Elizabeth, two college students! IMMA Studio, LLC is our side project, a way to make the Internet a happier place and a way to help pay for our tuition ;) Feel free to visit our"},
+	"a6_2": {"message": "About"},
+	"a6_3": {"message": "page to learn more about us!"},
+
+	"q7": {"message": "Other questions?"},
+	"a7_1": {"message": "Shoot us an"},
+	"a7_2": {"message": "email"},
+	"a7_3": {"message": "or"},
+	"a7_4": {"message": "feedback form!"}
 }

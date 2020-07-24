@@ -18,29 +18,61 @@
         <div class="bubble" id="left">
             <h3>FREQUENTLY ASKED QUESTIONS</h3>
             
-            <p class="question">I'm concerned about my privacy!</p>
-            <p class="answer">We wouldn't want our browsing histories to be viewed or shared or sold, and we promise to treat you with that same respect.</p>
-            <p class="answer">Your extension can see which sites you're visiting, but all that information is processed locally on your computer. From our side, we can't see which sites you've visited.</p>
-            <p class="answer">We minimize the information visible to us whenever possible. But no need to just take our word for it: we've written up the details in our <a href="privacypolicy.html">Privacy Policy</a> if you'd like to read more!</p>
+            <p class="question i18n-txt" id="q1"></p>
+            <p class="answer i18n-txt" id="a1_1"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a1_2"></span>
+                <a href="options.html"><span class="i18n-txt" id="a1_3"></span></a>
+                <span class="i18n-txt" id="a1_4"></span>
+            </p>
+            <p class="answer">
+                <span class="i18n-txt" id="a1_5"></span>
+                <a href="privacypolicy.html"><span class="i18n-txt" id="a1_6"></span></a>
+                <span class="i18n-txt" id="a1_7"></span>
+            </p>
             
-            <p class="question">Can I change how long messages stay on my screen?</p>
-            <p class="answer">Sure! Notification duration is controlled by your operating system. For example, on Windows 10, you can control this in <i>Ease of Access > <a href="ms-settings:easeofaccess-display">Display</a> > Show notifications for</i>.</p>
+            <p class="question i18n-txt" id="q2"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a2_1"></span>
+                <a href="ms-settings:easeofaccess-display"><span class="i18n-txt" id="a2_2"></span></a>
+                <span class="i18n-txt" id="a2_3"></span>
+            </p>
 
-            <p class="question">Can I customize my message layout?</p>
-            <p class="answer">Not yet! But if you'd be interested in setting a custom background color for your notifications, including GIFs or video, or doing other cool stuff, please help support us <a href="https://ko-fi.com/browserbug" target="_blank">here</a> so we can develop a desktop version of Browserbug!</p>
+            <p class="question i18n-txt" id="q3"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a3_1"></span>
+                <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a3_2"></span></a>
+                <span class="i18n-txt" id="a3_3"></span>
+            </p>
 
-            <p class="question">Can I mute/change the sound of my notifications?</p>
-            <p class="answer">We're working on this! It's not much, but if you need to, you can mute all Chrome notifications in <i>System > <a href="ms-settings:notifications">Notifications & Actions</a> > Google Chrome</i>.</p>
+            <p class="question i18n-txt" id="q4"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a4_1"></span>
+                <a href="ms-settings:notifications"><span class="i18n-txt" id="a4_2"></span></a>
+                <span class="i18n-txt" id="a4_3"></span>
+            </p>
 
-            <p class="question">How does Browserbug make money?</p>
-            <p class="answer">At the moment, we're relying primarily on <a href="https://ko-fi.com/browserbug" target="_blank">Ko-Fi</a> donations and advertisements to pay for our server costs. We're working on adding in-app purchases with extra cool features that you can buy to support us, but in the meantime, we'd really appreciate any donations! :)</p>
+            <p class="question i18n-txt" id="q5"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a5_1"></span>
+                <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a5_2"></span></a>
+                <span class="i18n-txt" id="a5_3"></span>
+            </p>
 
-            <p class="question">Who are you?</p>
-            <p class="answer">We're Michelle and Elizabeth, two college students! IMMA Studio, LLC is our side project, a way to make the Internet a happier place and a way to help pay for our tuition ;) Feel free to visit our <a href="https://imma.studio/browserbug/about" target="_blank">About</a> page to learn more about us!</p>
+            <p class="question i18n-txt" id="q6"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a6_1"></span>
+                <a href="https://imma.studio/browserbug/about" target="_blank"><span class="i18n-txt" id="a6_2"></span></a>
+                <span class="i18n-txt" id="a6_3"></span>
+            </p>
 
-            <p class="question">Other questions?</p>
-            <p class="answer">Shoot us an <a href="mailto:browserbug@imma.studio">email</a> or <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">feedback form</a>!</p>
-
+            <p class="question i18n-txt" id="q7"></p>
+            <p class="answer">
+                <span class="i18n-txt" id="a7_1"></span>
+                <a href="mailto:browserbug@imma.studio"><span class="i18n-txt" id="a7_2"></span></a>
+                <span class="i18n-txt" id="a7_3"></span>
+                <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank"><span class="i18n-txt" id="a7_4"></span></a>
+            </p>
         </div>
 
         <div class="bubble" id="right">
@@ -104,6 +136,7 @@
 </body>
 
 <!-- JavaScript and HTML must be in separate files -->
+<script src="jquery-3.5.1.min.js"></script>
 <script src="faq.js"></script>
 
 </html>
