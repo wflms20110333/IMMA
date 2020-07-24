@@ -1,0 +1,127 @@
+html, body {
+	margin: 0px;
+    height: 100%;
+	overflow: hidden;
+	
+	font-family: 'Assistant', 'Segoe UI', sans-serif;
+    font-size: 16px;
+}
+
+html {
+    background-size: 25px 25px;
+    background-color: rgb(220, 223, 235);
+    background-image:
+    linear-gradient(to right, rgb(187, 187, 187) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(187, 187, 187) 1px, transparent 1px);
+}
+
+/* Styling text */
+h1 {
+    color: #000000; font-size: 26px; margin-left: 25px;
+    font-weight: 600;
+    font-family: 'Gaegu', 'Segoe UI', sans-serif;
+}
+h2 {
+    display: inline-block;
+	margin: 5px;
+	margin-left: 1%;
+    padding: 6px 12px;
+    font-family: 'Gaegu', 'Segoe UI', sans-serif;
+}
+h3 {
+    color: #000000; font-weight: 00; font-size: 22px; text-align: center;
+    font-family: 'Gaegu', 'Segoe UI', sans-serif;
+}
+p {
+    margin-left: 25px;
+    margin-right: 25px;
+    color: #000000;
+    font-weight: 400;
+    font-size: inherit;
+    text-align: center;
+}
+
+.bubble {
+    margin: 10%;
+    margin-top: 4%;
+	text-align: center;
+	border-radius: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px rgb(197, 197, 197) solid;
+    padding-bottom: 20px;
+    padding-top: 5px;
+}
+
+a:active, a:link, a:visited {color: #016fff; text-decoration: none;}
+a:hover {color: #0130ff; text-decoration: none;}
+
+/* Styling individual elements */
+#logo-icon {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 40px;
+}
+
+#logo-text {
+	position: absolute;
+	left: 35px;
+	top: 0px;
+}
+
+#char-icon {
+	margin-top: 30px;
+	width: 10%;
+}
+
+.mainbutton {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
+
+    border-radius: 5px;
+    background: #f7f3ff38;
+    display: inline-block;
+    margin: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+	font-family: 'Assistant', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    color: rgb(39, 103, 240);
+    vertical-align: middle;
+}
+
+.mainbutton:hover {
+    background: rgba(79, 139, 230, 0.7);
+    color: rgb(255, 255, 255);
+}
+
+/* Styling scrollbar */
+::-webkit-scrollbar {width: 20px;}
+::-webkit-scrollbar-track {background: #563b7500; border-top-right-radius: 15px; border-bottom-right-radius: 15px;}
+::-webkit-scrollbar-thumb {
+    border-radius: 35px;
+    width: 4px;
+    background: rgb(172, 172, 172);
+    border: 5px solid transparent;
+    background-clip: content-box;
+}
+
+/* Styling footer */
+footer {
+    position: fixed;
+    left: 0; bottom: 0;
+    height: 5%; width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+}
+footer p {
+    position: relative;
+    bottom: 17%;
+	text-align: center;
+	color: #000000;
+    font-weight: 400; font-size: 14px;
+}

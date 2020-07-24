@@ -1,5 +1,5 @@
 import boto3
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import json
 import model.placeholder as ph # for the nnetwork models
@@ -7,6 +7,7 @@ from PIL import Image
 import requests
 import threading
 import util
+import urllib.parse
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -50,14 +51,13 @@ def upload_file():
 def get_bbug_file():
     uid = request.args.get('uid')
     character_name = request.args.get('character_name')
-    if uid == None or character_name == None:
+    #bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
+    #img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
+    img_link = urllib.parse.unquote(request.args.get('imgurl'))
+    if uid == None or character_name == None or img_link == None:
         return "Invalid request"
     # TODO: check if uid/character_name combination does not exist in S3
-    return '''
-        <p>UID: ''' + uid + '''</p>
-        <p>Character Name: ''' + character_name + '''</p>
-        <p><a href="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/''' + uid + '''/''' + character_name + '''.bbug">Link to .bbug file</a>
-    '''
+    return render_template("index.html", bbugName=character_name, uid=uid, imgLink=img_link)
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
