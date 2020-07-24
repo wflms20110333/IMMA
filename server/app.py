@@ -93,9 +93,13 @@ def get_question():
     """ Picks a question randomly """
     inputParams = request.get_json()
 
+    qBank = inputParams['question_bank']
+    if len(qBank) == 0: # question bank empty
+        return jsonify({"success": "qbank_empty"})
+
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(inputParams['question_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
-    message = {'question': pickedQuestion, 'questionWeight': questionWeight} # questionWeight is already stringified
+    pickedQuestion, questionWeight = ph.pickQuestion(qBank, inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    message = {'question': pickedQuestion, 'questionWeight': questionWeight, "success": "ok"} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)
 
