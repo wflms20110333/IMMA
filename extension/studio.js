@@ -97,9 +97,9 @@ $(document).ready(function() {
         // allowExternalURLs();
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
-            alert("Don't forget to select a name for your Browserbug!")
+            alert("Don't forget to select a name for your Browserbug!");
         } else {
-            exportBbug(function(jsonDict) {
+            exportBbug(false, function(jsonDict) {
                 loadCharacterFromJson(jsonDict);
                 alert(document.getElementById('imma-name').value + " has been activated!");
             });
@@ -110,9 +110,9 @@ $(document).ready(function() {
     $("#export").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
-            alert("Don't forget to select a name for your Browserbug!")
+            alert("Don't forget to select a name for your Browserbug!");
         } else {
-            exportBbug(function(jsonDict) {
+            exportBbug(false, function(jsonDict) {
                 var strJson = JSON.stringify(jsonDict);
                 var file = new Blob([strJson], {
                     type: "application/json"
@@ -125,8 +125,21 @@ $(document).ready(function() {
         }
     });
 
-    // process for exporting imma files (to server)
-    $("#uploadBbug").click(exportBbug);
+    // process for uploading imma files (to server)
+    $("#uploadBbug").click(function(){
+        // need to have these fields filled before save
+        if (document.getElementById('imma-name').value == "") {
+            alert("Don't forget to select a name for your Browserbug!");
+        } else {
+            exportBbug(true, function(jsonDict) {
+                var j_uid = jsonDict['information']['uid'];
+                var j_name = jsonDict['information']['name'];
+                var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
+                var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
+                window.open(bbugPath);
+            });
+        }
+    });
 });
 
 $(window).bind('beforeunload', function() { // warns users of an unsaved model
@@ -272,7 +285,7 @@ function uploadFile(file, path) {
     });
 }
 
-function exportBbug(f = function(jsonDict) {}) {
+function exportBbug(saveToServer, f = function(jsonDict) {}) {
     console.log('in exportBbug');
     // need to have these fields filled before save
     if (document.getElementById('imma-name').value == "") {
@@ -298,9 +311,12 @@ function exportBbug(f = function(jsonDict) {}) {
         
         // update values
         jsonDict['information']['imageS3Path'] = image_path;
+        jsonDict['information']['uid'] = uid;
         // upload bbug
         var bbug_path = 'browserbugs/' + uid + '/' + character_name + '.bbug';
-        uploadFile(JSON.stringify(jsonDict), bbug_path);
+        if (saveToServer == true) {
+            uploadFile(JSON.stringify(jsonDict), bbug_path);
+        }
         f(jsonDict);
     });
 }

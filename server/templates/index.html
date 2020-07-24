@@ -3,26 +3,25 @@
 <meta charset="UTF-8">
 
 <head>
-    <title>Browserbug: DEFAULT</title>
-    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
-	<link rel="stylesheet" type="text/css" href="template_export_screen.css">
+    <title>Browserbug</title>
+	<link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/export.css') }}">
 </head>
 
 <body>
-
-
 	<img id="logo-icon" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" alt="Browserbug">
 	<h1 id="logo-text">Browserbug</h1>
 
     <div class="bubble" id="content">
-		<img id="char-icon" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" alt="Character image">
-		<h2 id="char-name">Browserbee</h2>
-		<h3><span id="creator-pseud">by Imma Studio</span></h3>
-		<p>created 07/18/2020</p>
+		<img id="char-icon" src="{{ imgLink }}" alt="Character image">
+		<br>
+		<h2 id="char-name" style="margin-bottom:0px;">{{ bbugName }}</h2>
+		<p style="margin-top:0px;">by {{ uid }}</p>
 		<button class="mainbutton" id="hearts-up" title="Heart this Browserbug!">&hearts; 0</button>
 		<button class="mainbutton" id="char-load">Load <span id="char-name-2">Browserbee</span></button>
 		
-		<h3>Share this with others:</h3>
+		<h3>Share {{ bbugName }} with others:</h3>
 			<!-- AddToAny BEGIN -->
 			<div>
 			<a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:royalblue"></a>
@@ -31,7 +30,7 @@
 			<a href="https://www.addtoany.com/add_to/pinterest?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/pinterest.svg" width="32" height="32" style="background-color:royalblue"></a>
 			<a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" width="32" height="32" style="background-color:royalblue"></a>
 			<a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/tumblr.svg" width="32" height="32" style="background-color:royalblue"></a>
-			<br>
+			
 			<a href="https://www.addtoany.com/add_to/wechat?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/wechat.svg" width="32" height="32" style="background-color:royalblue"></a>
 			<a href="https://www.addtoany.com/add_to/line?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/line.svg" width="32" height="32" style="background-color:royalblue"></a>
 			<a href="https://www.addtoany.com/add_to/kakao?linkurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpledisartist%2Fvideos&amp;linkname=BBUG" target="_blank"><img src="https://static.addtoany.com/buttons/kakao.svg" width="32" height="32" style="background-color:royalblue"></a>
@@ -41,16 +40,14 @@
 			</div>
 			<!-- AddToAny END -->
 		<br>
+		<p><span>Copy link:</span>
+			<textarea spellcheck="false" style="resize:none;width:300px;height:35px;font-size:15px;vertical-align:middle;">qwertyuiopasdfghjklzxcvbnm,qwertyuioasdfghjzxcvb</textarea>
+		</p>
 		<button class="mainbutton" id="bbug-link">Get the Browserbug extension</button>
-		<button class="mainbutton" id="report">Report this Browserbug</button>
+		<a class="mainbutton" id="report" href="mailto:support@imma.studio?&subject=Reporting%20Browserbug&body=Reporting%20Browserbug%20[{{bbugName}}]%20by%20[{{uid}}]%0d%0dReason:%0d%0d">Report this Browserbug</a>
         <div>
-			<p>Enjoying Browserbug? Send us [[ko-fi]] to help us keep our project up and running! :)</p>
+			<p>Enjoying Browserbug? Send us <a href="https://ko-fi.com/browserbug" target="_blank">Ko-Fi</a> to help us keep our project up and running! :)</p>
 		</div>
-		
-		<div>
-            <p>#TODO advertisement goes here, make sure it's labeled as non-intrusive</p><br><br>
-		</div>
-		
     </div>
     
     <footer>
