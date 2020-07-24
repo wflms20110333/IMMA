@@ -1,13 +1,13 @@
 var imageSource = "userInput"; // either userInput or localLoaded
 
- 
-var blankBbug = {'personality': [0.0, 0.0, 0.0], 'messageBank': {}}; // empty object for "New" button
+
+var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
 blankBbug.information = {
     name: "",
     imageS3Path: NULL_IMAGE_URL,
     percentCustomQuotes: 0.5
 };
-blankBbug.textstyle = {'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5};
+blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 };
 
 $(document).ready(function() {
     // Initialize studio with the current bug
@@ -25,7 +25,7 @@ $(document).ready(function() {
     $("#new").click(function() { // reload page
         if (confirm("Start from scratch?")) {
             openJsonDat(blankBbug);
-        }        
+        }
     });
 
     $("#add").click(function() { // process for creating custom messages
@@ -126,7 +126,7 @@ $(document).ready(function() {
     });
 
     // process for uploading imma files (to server)
-    $("#uploadBbug").click(function(){
+    $("#uploadBbug").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!");
@@ -150,10 +150,10 @@ $(window).bind('beforeunload', function() { // warns users of an unsaved model
 document.getElementById("messagecontent").addEventListener("keyup", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
-      // Cancel the default action, if needed
-      event.preventDefault();
-      // Trigger the button element with a click
-      document.getElementById("add").click();
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("add").click();
     }
 });
 
@@ -254,15 +254,15 @@ function absorbToDict() {
 function absorbMemoryToDict(callback) {
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'textingstyle', 'personality'], function(result) {
         var dict = {}; // empty object to fill then export
-    
+
         dict.information = {
             name: result['imma_name'],
             imageS3Path: result['image_link'],
             percentCustomQuotes: result['custom_ratio']
         };
-    
+
         dict.personality = result['personality'];
-    
+
         dict.textstyle = result['textingstyle'];
         dict.messageBank = result['message_bank'];
 
@@ -301,14 +301,13 @@ function exportBbug(saveToServer, f = function(jsonDict) {}) {
         var image_file = document.getElementById('openImg').files[0];
         var image_path = "default";
         if (imageSource == "userInput" && image_file != null) {
-            var image_file_extension = image_file.name.split('.').pop();
-            image_path = 'browserbug_images/' + uid + '/' + character_name + '.' + image_file_extension;
+            image_path = 'browserbug_images/' + uid + '/' + character_name + '.png';
             uploadFile(image_file, image_path); // TODO: catch errors?
             image_path = S3_URL + image_path;
         } else { // localLoaded
             image_path = document.getElementById('im0-img').src;
         }
-        
+
         // update values
         jsonDict['information']['imageS3Path'] = image_path;
         jsonDict['information']['uid'] = uid;
@@ -322,13 +321,16 @@ function exportBbug(saveToServer, f = function(jsonDict) {}) {
 }
 
 // Update on change
-document.getElementById('tsSlider1').oninput = function() { emojiUpdate(); e1Update(); }
-document.getElementById('tsSlider2').oninput = function() { capsUpdate(); e2Update(); }
-document.getElementById('tsSlider3').oninput = function() { punctUpdate(); e3Update(); }
+document.getElementById('tsSlider1').oninput = function() { emojiUpdate();
+    e1Update(); }
+document.getElementById('tsSlider2').oninput = function() { capsUpdate();
+    e2Update(); }
+document.getElementById('tsSlider3').oninput = function() { punctUpdate();
+    e3Update(); }
 document.getElementById('percentCustom').oninput = function() { ccRatioUpdate(); }
-//document.getElementById('personality1').oninput = function() { p1Update(); }
-//document.getElementById('personality2').oninput = function() { p2Update(); }
-//document.getElementById('personality3').oninput = function() { p3Update(); }
+    //document.getElementById('personality1').oninput = function() { p1Update(); }
+    //document.getElementById('personality2').oninput = function() { p2Update(); }
+    //document.getElementById('personality3').oninput = function() { p3Update(); }
 document.getElementById('msgstat1').oninput = function() { m1Update(); }
 document.getElementById('msgstat2').oninput = function() { m2Update(); }
 document.getElementById('msgstat3').oninput = function() { m3Update(); }
@@ -349,13 +351,21 @@ function punctUpdate() {
 }
 
 function p1Update() { document.getElementById('plabel1').textContent = document.getElementById('personality1').value; }
+
 function p2Update() { document.getElementById('plabel2').textContent = document.getElementById('personality2').value; }
+
 function p3Update() { document.getElementById('plabel3').textContent = document.getElementById('personality3').value; }
+
 function e1Update() { document.getElementById('etext1').textContent = document.getElementById('tsSlider1').value; }
+
 function e2Update() { document.getElementById('etext2').textContent = document.getElementById('tsSlider2').value; }
+
 function e3Update() { document.getElementById('etext3').textContent = document.getElementById('tsSlider3').value; }
+
 function m1Update() { document.getElementById('mtext1').textContent = document.getElementById('msgstat1').value; }
+
 function m2Update() { document.getElementById('mtext2').textContent = document.getElementById('msgstat2').value; }
+
 function m3Update() { document.getElementById('mtext3').textContent = document.getElementById('msgstat3').value; }
 
 function ccRatioUpdate() {
