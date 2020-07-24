@@ -23,20 +23,20 @@
 	"w_D1": {"message": "PRIVACY"},
 	"w_D2": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us."},
 
-	"w_D3_1": {"message": "Feel free to check out our"},
+	"w_D3_1": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible. Check out our"},
 	"w_D3_link": {"message": "Privacy Policy"},
 	"w_D3_2": {"message": "for more details!"},
 
 	"w_E1": {"message": "NEED HELP?"},
 
-	"w_E2_1": {"message": "Please take a look at our"},
-	"w_E2_link": {"message": "FAQ"},
-	"w_E2_2": {"message": "!"},
+	"w_E2_1": {"message": "For answers to these and more, take a look at our"},
+	"w_E2_link": {"message": "FAQ!"},
+	"w_E2_2": {"message": ""},
 
 	"w_E3_1": {"message": "We're also available to contact through"},
 	"w_E3_link1": {"message": "email,"},
 	"w_E3_link2": {"message": "Facebook,"},
 	"w_E3_4": {"message": "or"},
-	"w_E3_link3": {"message": "Twitter"},
-	"w_E3_5": {"message": "."}
+	"w_E3_link3": {"message": "Twitter."},
+	"w_E3_5": {"message": ""}
 }
