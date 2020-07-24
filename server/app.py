@@ -36,7 +36,7 @@ def upload_file():
             image = Image.open(file_to_upload)
             x, y = util.getNewImageDimensions(image.size)
             new_image = image.resize((x, y))
-            new_image.save('character.png') # TODO: not necessarily png?
+            new_image.save('character.png', format='PNG') # TODO: not necessarily png?
             with open('character.png', 'rb') as f:
                 conn.upload_fileobj(f, bucket_name, path)
         else: # is not an image --> is a .bbug file
