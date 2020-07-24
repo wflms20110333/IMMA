@@ -51,11 +51,10 @@ def upload_file():
 def get_bbug_file():
     uid = request.args.get('uid')
     character_name = request.args.get('character_name')
-    #bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
-    #img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
-    img_link = urllib.parse.unquote(request.args.get('imgurl'))
-    if uid == None or character_name == None or img_link == None:
+    if uid == None or character_name == None:
         return "Invalid request"
+    bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
+    img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + character_name + ".png"
     # TODO: check if uid/character_name combination does not exist in S3
     return render_template("index.html", bbugName=character_name, uid=uid, imgLink=img_link)
 
