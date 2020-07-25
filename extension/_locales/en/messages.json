@@ -40,11 +40,13 @@
 	"w_E3_link3": {"message": "Twitter."},
 	"w_E3_5": {"message": ""},
 
+	"q0": {"message": "FREQUENTLY ASKED QUESTIONS"},
+
 	"q1": {"message": "I'm concerned about my privacy!"},
 	"a1_1": {"message": "We wouldn't want our information to be shared or sold without our permission, and we promise to treat you with that same respect."},
 	"a1_2": {"message": "Your extension can only see which sites you're visiting if you enable that permission in"},
 	"a1_3": {"message": "Options"},
-	"a1_4": {"message": "- but that information is processed locally on your computer. From our side, we won't be able to which sites you've visited."},
+	"a1_4": {"message": "- but that information is processed locally on your computer. From our side, we won't be able to see which sites you've visited."},
 	"a1_5": {"message": "We've written up the details in our"},
 	"a1_6": {"message": "Privacy Policy"},
 	"a1_7": {"message": "if you'd like to read more!"},
@@ -74,9 +76,47 @@
 	"a6_2": {"message": "About"},
 	"a6_3": {"message": "page to learn more about us!"},
 
-	"q7": {"message": "Other questions?"},
-	"a7_1": {"message": "Shoot us an"},
-	"a7_2": {"message": "email"},
-	"a7_3": {"message": "or"},
-	"a7_4": {"message": "feedback form!"}
+	"t0": {"message": "TROUBLESHOOTING"},
+
+	"t1": {"message": "I don't see the Browserbug icon in my extensions bar?"},
+	"r1": {"message": "Click the puzzle piece icon or see if Browserbug might be hidden or minimized!"},
+
+	"t2": {"message": "I'm not receiving my messages!"},
+	"r2_1": {"message": "This is the most common issue users have! You can fix this in just a few seconds."},
+	"r2_2": {"message": "For Windows 10 users:"},
+	"r2_3": {"message": "Is Focus Assist turned on?"},
+	"r2_4": {"message": "Open the Action Center to check! (Windows logo key + A)"},
+	"r2_5": {"message": "Focus Assist will sometimes block notifications: if you want to use Browserbug during Focus Assist, you should add Google Chrome to your"},
+	"r2_6": {"message": "priority list."},
+
+	"r3_0": {"message": "Are your messages being kept in the Action Center?"},
+	"r3_1": {"message": "Open the Action Center to check! (Windows logo key + A)"},
+	"r3_2": {"message": "If your notifications are being saved to the Action Center instead of being shown on screen, you can disable this. Open System >"},
+	"r3_3": {"message": "Notifications & Actions"},
+	"r3_4": {"message": "> Google Chrome and uncheck 'Show notification in action center.'"},
+	
+	"r4_0": {"message": "Are notifications turned on?"},
+	"r4_1": {"message": "Open System >"},
+	"r4_2": {"message": "Notifications & Actions"},
+	"r4_3": {"message": "To receive messages, notifications should be allowed, and Google Chrome notifications should be allowed."},
+
+	"r5_0": {"message": "Is Chrome 'quieter messaging' turned on?"},
+	"r5_1": {"message": "Open Notifications at"},
+	"r5_2": {"message": "chrome://settings/content/notifications"},
+	"r5_3": {"message": "Try turning off quieter messaging."},
+	"r5_4": {"message": "To test if messages are now working, you can increase message frequency in"},
+	"r5_5": {"message": "Options."},
+	"r5_6": {"message": "If you haven't received a message in a while, opening the popup menu (click icon in extensions bar) will check for and replace any missed message timers."},
+	"r5_7": {"message": "If you're using a different operating system or are still having problems receiving messages, feel free to reach out to us!"},
+
+	"t6": {"message": "I have a problem that wasn't mentioned above, or I was unable to fix my problem :("},
+	"r6_1": {"message": "Feel free to"},
+	"r6_2": {"message": "email"},
+	"r6_3": {"message": "or message us on"},
+	"r6_4": {"message": "Facebook"},
+	"r6_5": {"message": "or"},
+	"r6_6": {"message": "Twitter,"},
+	"r6_7": {"message": "or fill out a"},
+	"r6_8": {"message": "Bug Report."},
+	"r6_9": {"message": "We'll try to take a look!"}
 }
