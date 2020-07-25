@@ -14,7 +14,7 @@ cors = CORS(app)
 
 @app.route('/')
 def hello_world():
-    return "Whale, hello there!"
+    return jsonify({"success": "Whale, hello there!"})
 
 @app.route('/uploadFile', methods=['POST'])
 def upload_file():
@@ -43,16 +43,16 @@ def upload_file():
             with open('character.bbug', 'rb') as f:
                 conn.upload_fileobj(f, bucket_name, path)
         print('upload file success')
-        return "upload success!"
+        return jsonify({"success": "upload success!"})
     except Exception as e:
-        return str(e)
+        return jsonify({"success": str(e)})
 
 @app.route('/getBbugFile', methods=['GET'])
 def get_bbug_file():
     uid = request.args.get('uid')
     character_name = request.args.get('character_name')
     if uid == None or character_name == None:
-        return "Invalid request"
+        return jsonify({"success": "Invalid request"})
     bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
     img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + character_name + ".png"
     # TODO: check if uid/character_name combination does not exist in S3
