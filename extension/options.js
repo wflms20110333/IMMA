@@ -23,6 +23,7 @@ freqslider.onchange = function() { // update actual options
     chrome.extension.getBackgroundPage().setNextAlarm();
 };
 
+/*
 // Manage the fade checkbox
 var fadeswitch = document.getElementById('autofade-switch');
 chrome.storage.sync.get(['persist_notifs'], function (result) { // on initialization
@@ -31,6 +32,7 @@ chrome.storage.sync.get(['persist_notifs'], function (result) { // on initializa
 fadeswitch.addEventListener('click', function() {
     chrome.storage.sync.set({'persist_notifs': fadeswitch.checked});
 });
+*/
 
 // Manage site flagging
 // on initialization: fill list of flagged sites with the ones already flagged
