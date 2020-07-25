@@ -314,6 +314,9 @@ function exportBbug(saveToServer, f = function(jsonDict) {}) {
         // upload bbug
         var bbug_path = 'browserbugs/' + uid + '/' + character_name + '.bbug';
         if (saveToServer == true) {
+            jsonDict["dateMade"] = new Date().toLocaleDateString();
+            jsonDict["timeStamp"] = new Date().toUTCString();
+            jsonDict["hearts"] = 0;
             uploadFile(JSON.stringify(jsonDict), bbug_path);
         }
         f(jsonDict);

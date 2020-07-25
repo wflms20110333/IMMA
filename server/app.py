@@ -16,6 +16,18 @@ cors = CORS(app)
 def hello_world():
     return jsonify({"success": "Whale, hello there!"})
 
+@app.route('/getHearts', methods=['POST'])
+def get_hearts():
+    """ Gets current number of hearts. """
+    # TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return jsonify({"success": 0})
+
+@app.route('/addHeart', methods=['POST'])
+def add_heart():
+    """ Adds hearts to a character. """
+    # TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    return jsonify({"success": 0})
+
 @app.route('/uploadFile', methods=['POST'])
 def upload_file():
     """ Uploads a file to S3, given the file and the storage path. """
