@@ -72,7 +72,6 @@ chrome.runtime.onStartup.addListener(function () {
 // On window changes
 chrome.windows.onFocusChanged.addListener(function () {
     console.log("Changed window: running light clean");
-    setNextAlarm();
     cleaner();
 });
 
