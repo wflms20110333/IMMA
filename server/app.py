@@ -8,6 +8,7 @@ import requests
 import threading
 import util
 import urllib.parse
+import requests
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -131,7 +132,7 @@ def retrieve_imma():
 
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
     temp_code_dict = {
-        'default': '001_default'
+        'default': 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/43762ec8a8815b68d93141c31098284d/Browserbee.bbug'
     }
     if inputParams['keycode'] in temp_code_dict.keys():
         codeAuth = temp_code_dict[inputParams['keycode']]
@@ -141,8 +142,10 @@ def retrieve_imma():
     # If have a valid code
     if codeAuth != False:
         # retrieve imma file
-        with open("model/character files/" + codeAuth + ".bbug") as immaFile: #TODO where to store these files?
-            immaData = json.load(immaFile)
+        r = requests.get(codeAuth, allow_redirects=True)
+        immaString = r.content.decode('utf-8')
+        immaData = json.loads(immaString) # convert to string 2
+        immaData = json.loads(immaData) # convert to dict
         immaData['success'] = True
         return jsonify(immaData)
     else:
