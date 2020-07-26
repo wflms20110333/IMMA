@@ -70,17 +70,6 @@ chrome.runtime.onStartup.addListener(function () {
 });
 
 // On window changes
-chrome.windows.onCreated.addListener(function () {
-    console.log("New window: running update, light clean");
-    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
-        if (result) { lastTabsUpdater(); }
-        else { console.log("no tab permission!"); }
-    });
-    setNextAlarm();
-    cleaner();
-});
-
-// On window changes
 chrome.windows.onFocusChanged.addListener(function () {
     console.log("Changed window: running light clean");
     setNextAlarm();
