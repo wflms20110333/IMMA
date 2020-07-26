@@ -15,19 +15,19 @@ cors = CORS(app)
 
 @app.route('/')
 def hello_world():
-    return jsonify({"success": "Whale, hello there!"})
+    return jsonify({"result": "Whale, hello there!"})
 
 @app.route('/getHearts', methods=['POST'])
 def get_hearts():
     """ Gets current number of hearts. """
     # TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    return jsonify({"success": 0})
+    return jsonify({"result": 0})
 
 @app.route('/addHeart', methods=['POST'])
 def add_heart():
     """ Adds hearts to a character. """
     # TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    return jsonify({"success": 0})
+    return jsonify({"result": 0})
 
 @app.route('/uploadFile', methods=['POST'])
 def upload_file():
@@ -56,16 +56,16 @@ def upload_file():
             with open('character.bbug', 'rb') as f:
                 conn.upload_fileobj(f, bucket_name, path)
         print('upload file success')
-        return jsonify({"success": "upload success!"})
+        return jsonify({"result": "upload success!"})
     except Exception as e:
-        return jsonify({"success": str(e)})
+        return jsonify({"result": str(e)})
 
 @app.route('/getBbugFile', methods=['GET'])
 def get_bbug_file():
     uid = request.args.get('uid')
     character_name = request.args.get('character_name')
     if uid == None or character_name == None:
-        return jsonify({"success": "Invalid request"})
+        return jsonify({"result": "Invalid request"})
     bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
     img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + character_name + ".png"
     # TODO: check if uid/character_name combination does not exist in S3
@@ -107,11 +107,11 @@ def get_question():
 
     qBank = inputParams['question_bank']
     if len(qBank) == 0: # question bank empty
-        return jsonify({"success": "qbank_empty"})
+        return jsonify({"result": "qbank_empty"})
 
     # Pick a question
     pickedQuestion, questionWeight = ph.pickQuestion(qBank, inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
-    message = {'question': pickedQuestion, 'questionWeight': questionWeight, "success": "ok"} # questionWeight is already stringified
+    message = {'question': pickedQuestion, 'questionWeight': questionWeight, "result": "ok"} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)
 
@@ -158,10 +158,10 @@ def retrieve_imma():
         immaString = r.content.decode('utf-8')
         immaData = json.loads(immaString) # convert to string 2
         immaData = json.loads(immaData) # convert to dict
-        immaData['success'] = True
+        immaData['result'] = True
         return jsonify(immaData)
     else:
-        return jsonify({'success': False})
+        return jsonify({'result': False})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
