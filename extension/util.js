@@ -139,7 +139,7 @@ function sendNewQuestion() {
 
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
         serverPOST('getQuestion', result, function(data) {
-            if (result['success'] == "qbank_empty") { // no questions to send
+            if (data['success'] == "qbank_empty") { // no questions to send
                 sendMessage();
             } else {
                 sendNotifQuestion(data['question'], result['imma_name'], result['image_link'], result['persist_notifs']);

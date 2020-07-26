@@ -59,13 +59,31 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
-    console.log("Startup: running update, clean");
-    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) { // update tab list, but not too often
+    console.log("Startup: running update, total clean");
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
         if (result) { lastTabsUpdater(); }
         else { console.log("no tab permission!"); }
     });
     chrome.alarms.clearAll();
-    setNextAlarm(); // set timer for one & only one alarm
+    setNextAlarm();
+    cleaner();
+});
+
+// On window changes
+chrome.windows.onCreated.addListener(function () {
+    console.log("New window: running update, light clean");
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
+        if (result) { lastTabsUpdater(); }
+        else { console.log("no tab permission!"); }
+    });
+    setNextAlarm();
+    cleaner();
+});
+
+// On window changes
+chrome.windows.onFocusChanged.addListener(function () {
+    console.log("Changed window: running light clean");
+    setNextAlarm();
     cleaner();
 });
 

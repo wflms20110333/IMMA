@@ -12,7 +12,7 @@
     "optional_permissions": ["tabs"],
     "background": {
         "scripts": ["util.js", "constants.js", "background.js", "jquery-3.5.1.min.js"],
-        "persistent": true
+        "persistent": false
     },
     "manifest_version": 2,
     "browser_action": {

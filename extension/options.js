@@ -20,7 +20,7 @@ freqslider.oninput = function() { // display text change
 freqslider.onchange = function() { // update actual options
     chrome.storage.sync.set({'alarm_spacing': fDict[freqslider.value][0]});
     chrome.alarms.clearAll();
-    chrome.extension.getBackgroundPage().setNextAlarm();
+    setNextAlarm();
 };
 
 /*
@@ -122,10 +122,10 @@ flagButton.addEventListener('click', function() { // change permissions for site
             if (granted) {
                 // add listener for site flagging
                 chrome.tabs.onUpdated.addListener(function () {
-                    if (chrome.extension.getBackgroundPage().getCurrentTime() - chrome.extension.getBackgroundPage().tabsLastUpdated > 2000) {
+                    if (getCurrentTime() - tabsLastUpdated > 2000) {
                         console.log("Tab: running update");
-                        chrome.extension.getBackgroundPage().tabsLastUpdated = chrome.extension.getBackgroundPage().getCurrentTime();
-                        chrome.extension.getBackgroundPage().lastTabsUpdater(); // update tabs, but not too often
+                        tabsLastUpdated = getCurrentTime();
+                        lastTabsUpdater(); // update tabs, but not too often
                     }
                 });
                 flagStatusText.textContent = "ON"; flagButton.textContent = "Disable site flagging";
