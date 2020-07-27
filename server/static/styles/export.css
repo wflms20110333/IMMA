@@ -43,7 +43,7 @@ p {
 
 .bubble {
     margin: 10%;
-    margin-top: 4%;
+    margin-top: 60px;
 	text-align: center;
 	border-radius: 15px;
     background: rgba(255, 255, 255, 0.7);
