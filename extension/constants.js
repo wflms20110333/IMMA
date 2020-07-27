@@ -54,3 +54,31 @@ var shortDict2 = {
     9: [1800, "30 min"],
     10: [3600, "1 hr"]
 };
+
+var DEFAULT_BBUG_DATA = {
+    "information": {
+        "name": "Browserbee",
+        "imageS3Path": "default",
+		"description": "Hello there! Browserbee is your default Browserbug.",
+        "percentCustomQuotes": 0.2
+    },
+
+    "personality": [0.6, 0.9, 0.9],
+
+    "textstyle": {
+		"emojis": 0.5,
+        "capitalization": 0.5,
+        "punctuation": 0.5
+    },
+
+    "messageBank": {
+		"Welcome to Browserbug!": [0.1, 0.1, 0.1],
+        "Click on the Browserbug icon in the extension bar to customize your own character!": [0.1, 0.1, 0.1],
+        "If you need help, click on the Browserbug icon in your extension bar!": [0.1, 0.1, 0.1],
+        "Don't forget to customize your own character!": [0.1, 0.1, 0.1]
+    },
+
+    "questionBank": {
+		"Hello hello! Browserbugs sometimes ask questions, and you can pick answers, like this!": [0.2, 0.2, 0.2]
+    }
+};

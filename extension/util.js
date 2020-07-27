@@ -119,25 +119,42 @@ function lastTabsUpdater() {
 }
 
 /**
- * Calls serverPOST to pick a good notification, then sends that notification
+ * Picks & sends a notification
  */
 function sendMessage() {
-    console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
-        serverPOST('evaluateState', result, function(data) {
-            sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
-            chrome.storage.sync.set({ 'mood': data['predictedState'] }); // update with any clipping that was done
-        });
+    console.log('in sendMessage');
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'textingstyle'], function(result) {
+        var messageBank = {};
+
+        // Use custom content
+        if (Math.random() < parseFloat(result['custom_ratio']) && Object.keys(result['message_bank']).length > 0) {
+            console.log("picking cc");
+            // useCustomContent = true;
+            pickFromMsgBank(true, result['imma_name'], result['image_link'], result['message_bank'], result['textingstyle']);
+        } else { // Server request
+            // TODO: write a successful server request for the general (non-cc) message bank
+            var serverSuccess = false;
+            if (serverSuccess == false) { // server failed, use custom content instead
+                if (Object.keys(result['message_bank']).length == 0) {
+                    // Problem: server failed and no custom content
+                    alert("Error 440");
+                    return;
+                } else {
+                    pickFromMsgBank(true, result['imma_name'], result['image_link'], result['message_bank'], result['textingstyle']);
+                }
+            }
+        }
     });
 }
 
 /**
- * Calls serverPOST to pick a question, then sends that question & updates memory of last question stats
+ * Picks a message (fix bugs!!)
  */
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
-
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
+    // TODO: send questions
+    sendMessage();
+    /*chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle'], function(result) {
         serverPOST('getQuestion', result, function(data) {
             if (data['result'] == "qbank_empty") { // no questions to send
                 sendMessage();
@@ -146,7 +163,49 @@ function sendNewQuestion() {
                 chrome.storage.sync.set({ 'last_q_weight': data['questionWeight'] });
             }
         });
-    });
+    });*/
+}
+
+function pickFromMsgBank(usingCC, bbName, bbImgLink, bbBank, bbStyle){
+    // TODO: add fancy smart personality mood code from server into this
+    var keys = Object.keys(bbBank);
+    var chosenMsgKey = keys[ keys.length * Math.random() << 0];
+    var styledMsg = chosenMsgKey;
+    if (usingCC == false) {
+        styledMsg = stylize_string(chosenMsgKey, bbStyle); // stylize as long as not using cc
+    }
+    sendNotification(styledMsg, bbName, bbImgLink);
+}
+
+function stylize_string(msg, textstyle){
+    var msg2 = msg;
+
+    // First, extract any emojis
+    var emoji = "";
+    if (msg.includes('[') && msg.includes(']')) {
+        emoji = re.match(/ *\[[^\]]*]/);
+        msg2 = re.replace(/ *\[[^\]]*]/, '');
+    }
+
+    // Capitalization
+    if (textstyle['capitalization'] < 0.3) { msg2 = msg2.toLowerCase(); }
+    else if (textstyle['capitalization'] > 0.8) { msg2 = msg2.toUpperCase(); }
+
+    // Punctuation
+    if (textstyle['punctuation'] < 0.3) { // don't have punctuation
+        msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '');
+    } else if (textstyle['punctuation'] > 0.9) { // extra extra punctuation
+        msg2 = msg2.replace('!', '!!!!').replace('?', '????');
+    } else if (textstyle['punctuation'] > 0.5) { // extra punctuation
+        msg2 = msg2.replace('!', '!!').replace('?', '??');
+    } 
+    
+    // Re-add any emojis
+    if (Math.random() < parseFloat(textstyle['emojis'])) {
+        msg2 = msg2.concat(emoji);
+    }
+
+    return msg2;
 }
 
 /**
@@ -176,13 +235,14 @@ function updateWithAnswer(buttonIndex) {
 function loadCharacterCode(redeemCode) {
     console.log('in loadCharacterCode');
     var jsonObj = { 'keycode': redeemCode }
-    serverPOST('retrieveIMMA', jsonObj, function(data) {
+    /*serverPOST('retrieveIMMA', jsonObj, function(data) {
         if (data['result'] == false) { // code invalid
             sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
         } else { // code valid
             loadCharacterFromJson(data);
         }
-    });
+    });*/
+    loadCharacterFromJson(DEFAULT_BBUG_DATA);
 }
 
 function loadCharacterFromJson(jsonData) {
@@ -236,17 +296,21 @@ function setNextAlarm() {
     console.log('in setNextAlarm');
 
     chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function(result) {
-        serverPOST('getAlarm', result, function(data) {
-            if (data['mType'] == "question") {
-                chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
+            var nextNotifType = "none";
+            var lastMsgCt = parseInt(result['recent_message_ct']);
+            var alarmSpc = parseFloat(result['alarm_spacing']);
+            var qRatio = parseFloat(result['question_ratio']);
+            
+            if (qRatio >= lastMsgCt) {
+                nextNotifType = "message";
+                chrome.storage.sync.set({ 'recent_message_ct': lastMsgCt + 1 }); // will give message, increment counter
             } else {
-                lastMessageCt = parseInt(result['recent_message_ct'])
-                chrome.storage.sync.set({ 'recent_message_ct': lastMessageCt + 1 }); // will give a message, increment counter
+                nextNotifType = "question";
+                chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
             }
-
-            var nextDelay = Date.now() + (data['mDuration'] * 1000); // seconds to milliseconds past epoch
-            chrome.alarms.create(data['mType'], { when: nextDelay });
-        });
+            
+            var nextDelay = Date.now() + (alarmSpc * 1000); // seconds to milliseconds past epoch
+            chrome.alarms.create(nextNotifType, { when: nextDelay });
     });
 }
 
@@ -255,7 +319,7 @@ function setNextAlarm() {
  * @param {string} msg the message to display
  * https://developer.chrome.com/apps/notifications for more information
  */
-function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing) {
+function sendNotification(msg, immaName, immaFilename) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
@@ -264,9 +328,7 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
         iconUrl: immaFilename,
         title: immaName,
         message: msg,
-        priority: 2,
-        requireInteraction: (persistNotifs == 'true'),
-        silent: silencing
+        priority: 2
     });
 }
 
@@ -274,7 +336,7 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
  * Sends a notification to the user, & has answer buttons
  * @param {string} msg the question to display
  */
-function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
+function sendNotifQuestion(msg, immaName, immaFilename) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
@@ -284,9 +346,7 @@ function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing
         title: immaName,
         message: msg,
         buttons: [{ 'title': 'Yes' }, { 'title': 'No' }],
-        priority: 2,
-        requireInteraction: (persistNotifs == 'true'),
-        silent: silencing
+        priority: 2
     });
 }
 
