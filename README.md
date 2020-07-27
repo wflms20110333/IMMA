@@ -43,7 +43,7 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-35-161-78-68.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-35-164-24-43.us-west-2.compute.amazonaws.com/>.
 
 #### Starting a new EC2 instance (Ubuntu)
 
@@ -68,7 +68,7 @@ sudo apt-get install postgresql-client
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ubuntu@ec2-35-161-78-68.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-35-164-24-43.us-west-2.compute.amazonaws.com
 ```
 
 The server has been containerized with docker. After changing directories to `server/`,
@@ -167,12 +167,3 @@ Imma-specific character variables, updated with loadCharacterCode:
 'question_bank': (json) storage of custom/extra questions for the active character
 'question_ratio': (array) ratio of 1 question per X messages
 ```
-
-## Other information
-
-### .bbug export pages
-
-If the server is deployed locally, an example of an export page link is
-<http://localhost:5000/getBbugFile?uid=12345abcde&character_name=browserbee>,
-where `12345abcde` is the UID of the creator, and browserbee is the name of
-the browserbug. These files can similarly be retrieved with HTTP GET requests.
