@@ -96,15 +96,19 @@ def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None
         messageBank = customMessages
     else: # use a general message
         print("default content! =-=-=-=-=-=-=-=-=-=-=")
-        with open(filename, "r") as f:
-            for line in f:
-                # Add valid lines to question bank
-                stripped_line = line.strip()
-                messageName = stripped_line.split('\t')[0] # get string part of score vector
-                messageStats = stripped_line.split('\t')[1:]
-                debugx = stripped_line.split('\t')
-                messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
-                messageBank[messageName] = messageStats
+        try:
+            with open(filename, "r") as f:
+                for line in f:
+                    # Add valid lines to question bank
+                    stripped_line = line.strip()
+                    messageName = stripped_line.split('\t')[0] # get string part of score vector
+                    messageStats = stripped_line.split('\t')[1:]
+                    debugx = stripped_line.split('\t')
+                    messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
+                    messageBank[messageName] = messageStats
+        except:
+            print("Error retrieving from filename")
+            return "Server error 330", "0.2,0.2,0.2"
 
     # First, pick a random message/question
     randomMessage = random.choice(list(messageBank.keys()))

@@ -45,7 +45,9 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     chrome.storage.sync.get(['immaActive', 'imma_name', 'image_link'], function (result) {
         if (result['immaActive'] == true){ // Active IMMA!!
             if (alarmInfo['name'] == "question") { // send a question to user
-                sendNewQuestion(); // contacts server for question, then sends notification
+                sendMessage();
+                // #TODO questions broken, fix
+                //sendNewQuestion(); // contacts server for question, then sends notification
             } else if (alarmInfo['name'] == "quickmessage") { // send a message that imma is now activated
                 sendNotification(result['imma_name'] + " has been loaded!", "Browserbug", result['image_link']);
             } else { // send a message to user
@@ -59,13 +61,19 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
-    console.log("Startup: running update, clean");
-    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) { // update tab list, but not too often
+    console.log("Startup: running update, total clean");
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
         if (result) { lastTabsUpdater(); }
         else { console.log("no tab permission!"); }
     });
     chrome.alarms.clearAll();
-    setNextAlarm(); // set timer for one & only one alarm
+    setNextAlarm();
+    cleaner();
+});
+
+// On window changes
+chrome.windows.onFocusChanged.addListener(function () {
+    console.log("Changed window: running light clean");
     cleaner();
 });
 

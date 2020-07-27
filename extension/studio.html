@@ -24,26 +24,28 @@
                 <!-- note #TODO encrypt JSONs -->
                 <input type="file" id="openBbug" accept=".bbug">
                 <a class="filing2" id="export" title="Download this Browserbug">Download</a>
+                <a id="exporter" style="display:none;"></a>
                 <p class="filing2" id="uploadBbug" title="Upload your Browserbug">Share</p>
                 <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
+        
+            <div id="topright-toolbar">
+                <a href="faq.html">Help</a> |
+                <a href="options.html">Settings</a> |
+                <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a> |
+                <a href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank">FB</a> |
+                <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a> |
+                <a href="https://ko-fi.com/browserbug" target="_blank">Buy us Ko-Fi!</a>
+            </div>
         </div>
 
-        <div style="position:absolute;top:10px;right:50px;">
-            <a href="faq.html">Help</a> |
-            <a href="options.html">Settings</a> |
-            <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a> |
-            <a href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank">FB</a> |
-            <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a> |
-            <a href="https://ko-fi.com/browserbug" target="_blank">Buy us Ko-Fi!</a>
-        </div>
     </header>
 
     <div class="studio">
         <div class="column" id="leftCol">
             <div class="bubble">
-                <h3>
+                <h3 class="toggler" id="persToggle">
                     Personality <a title="Experimental! Describe the typical attitude of your character.">[?]</a></h3>
-
+                <p class="toggling" id="persToggle_T">Experimental! Describe the typical attitude of your character.</p><br>
                 <div>
                     <!--<span id="plabel1">test</span><br>-->
                     <div class="personLabels" style="text-align: right;">Serious</div>
@@ -66,7 +68,9 @@
                 </div>
 
                 <br>
-                <h3>Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
+                <h3 class="toggler" id="textToggle">Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
+                <p class="toggling" id="textToggle_T">Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!</p><br>
+
                 <span class="scaler-text"><b>Emojis</b></span>
                 <p id="tsLabel1" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1">
@@ -89,18 +93,22 @@
         <div class="column" id="centerCol">
             <div class="bubble" id="main-bubble">
                 <p>Hello! Welcome to the Studio.</p>
-                <p>Hover over any <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a> to view tips.</p>
+                <p class="toggler" id="tipToggle">Hover over any <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a> to view tips.</p>
+                <p class="toggling" id="tipToggle_T">Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!</p><br>
                 <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
             </div>
 
             <div class="bubble">
-                <h3>Name <a title="Pick a name!">[?]</a></h3>
+                <h3 class="toggler" id="nameToggle">Name <a title="Pick a name!">[?]</a></h3>
+                <p class="toggling" id="nameToggle_T">Pick a name!</p><br>
+
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
                 <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" width="70px" height="70px" alt="Icon">
 
-                <h3>Avatar <a title="Pick an image!">[?]</a></h3>
+                <h3 class="toggler" id="imgToggle">Avatar <a title="Pick an image!">[?]</a></h3>
+                <p class="toggling" id="imgToggle_T">Pick an image!</p><br>
 
                 <!-- Old URL picker for images -->
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
@@ -121,8 +129,11 @@
 
         <div class="column" id="rightCol">
             <div class="bubble" style="margin-bottom: 50px;">
-                <h3>Custom messages <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
-                <span>Proportion of custom messages <a title="How often to use custom messages rather than default messages">[?]</a></span>
+                <h3 class="toggler" id="ccToggle">Custom messages <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
+                <p class="toggling" id="ccToggle_T">Create your own messages! (Texting style is not applied to these.)</p><br>
+
+                <span class="toggler" id="ratioToggle">Proportion of custom messages <a title="How often to use custom messages rather than default messages">[?]</a></span>
+                <p class="toggling" id="ratioToggle_T">How often to use custom messages rather than default messages</p>
                 <br><br>
                 <div>
                     <div style="display: inline-block;vertical-align: middle;text-align: right;">
@@ -135,16 +146,21 @@
                 <fieldset id="pullfrom">
                     <legend>Create message</legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p>Stats <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
-                    <label>Happiness <a title="Reducing your stress and frustration">[?]</a></label>
+                    <p class="toggler" id="statToggle">Stats <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
+                    <p class="toggling" id="statToggle_T">Grade this message! (0=no effect, 1=high effect)</p><br>
+
+                    <label class="toggler" id="m1Toggle">Happiness <a title="Reducing your stress and frustration">[?]</a></label>
+                    <p class="toggling" id="m1Toggle_T">Reducing your stress and frustration</p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                     <span id="mtext1">test</span>
                     <br>
-                    <label>Focus <a title="Preventing boredom and distraction">[?]</a></label>
+                    <label class="toggler" id="m2Toggle">Focus <a title="Preventing boredom and distraction">[?]</a></label>
+                    <p class="toggling" id="m2Toggle_T">Preventing boredom and distraction</p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
                     <span id="mtext2">test</span>
                     <br>
-                    <label>Wellbeing <a title="Helping you maintain healthy habits">[?]</a></label>
+                    <label class="toggler" id="m3Toggle">Wellbeing <a title="Helping you maintain healthy habits">[?]</a></label>
+                    <p class="toggling" id="m3Toggle_T">Helping you maintain healthy habits</p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
                     <span id="mtext3">test</span>
                 </fieldset>
@@ -162,7 +178,8 @@
     <footer>
         <p>Copyright &copy; IMMA Studio, LLC, 2020 |
             <a href="privacypolicy.html">Privacy Policy</a> |
-            <a href="termsofuse.html">Terms of Use</a>
+            <a href="termsofuse.html">Terms of Use</a> |
+            <a class="mainbutton" href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>
         </p>
     </footer>
 

@@ -1,13 +1,13 @@
 html, body {
 	margin: 0px;
     height: 100%;
-	overflow: hidden;
-	
 	font-family: 'Assistant', 'Segoe UI', sans-serif;
     font-size: 16px;
 }
 
 html {
+	overflow-x: hidden;
+	overflow-y: scroll;
     background-size: 25px 25px;
     background-color: rgb(220, 223, 235);
     background-image:

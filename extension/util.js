@@ -139,7 +139,7 @@ function sendNewQuestion() {
 
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
         serverPOST('getQuestion', result, function(data) {
-            if (result['success'] == "qbank_empty") { // no questions to send
+            if (data['result'] == "qbank_empty") { // no questions to send
                 sendMessage();
             } else {
                 sendNotifQuestion(data['question'], result['imma_name'], result['image_link'], result['persist_notifs']);
@@ -177,7 +177,7 @@ function loadCharacterCode(redeemCode) {
     console.log('in loadCharacterCode');
     var jsonObj = { 'keycode': redeemCode }
     serverPOST('retrieveIMMA', jsonObj, function(data) {
-        if (data['success'] == false) { // code invalid
+        if (data['result'] == false) { // code invalid
             sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
         } else { // code valid
             loadCharacterFromJson(data);
@@ -214,8 +214,8 @@ function loadCharacterFromJson(jsonData) {
     }
     chrome.storage.sync.set({ 'textingstyle': data['textstyle'] });
     chrome.storage.sync.set({ 'immaActive': true });
-    chrome.browserAction.setBadgeText({"text":"ON"});
-    chrome.browserAction.setBadgeBackgroundColor({"color": "#7057C9"});
+    chrome.browserAction.setBadgeText({ "text": "ON" });
+    chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
 };
 
 /**
@@ -259,6 +259,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
+
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
         iconUrl: immaFilename,
@@ -277,6 +279,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
 function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
+
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
