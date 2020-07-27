@@ -4,8 +4,18 @@
  * You may not distribute, reproduce, or modify this code without written permission.
  */
 
+if($(window).width() < 960) {
+    alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
+}
+
 var imageSource = "userInput"; // either userInput or localLoaded
 
+$(document).ready(function() {
+    $('.i18n-txt').each(function(index, element) { // translate text
+		this.textContent = chrome.i18n.getMessage(this.id);
+		this.value = chrome.i18n.getMessage(this.id);
+	});
+});
 
 var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
 blankBbug.information = {

@@ -118,5 +118,68 @@
 	"r6_6": {"message": "Twitter,"},
 	"r6_7": {"message": "or fill out a"},
 	"r6_8": {"message": "Bug Report."},
-	"r6_9": {"message": "We'll try to take a look!"}
+	"r6_9": {"message": "We'll try to take a look!"},
+
+	"new": {"message": "New"},
+	"fOpen": {"message": "Open"},
+	"export": {"message": "Download"},
+	"uploadBbug": {"message": "Share"},
+
+	"tHelp": {"message": "Help"},
+	"tSett": {"message": "Settings"},
+	"tFForm": {"message": "Feedback Form"},
+	"tFB": {"message": "FB"},
+	"tTwitter": {"message": "Twitter"},
+	"tKofi": {"message": "Buy us Ko-Fi!"},
+
+	"personality": {"message": "Personality"},
+	"persToggle_T": {"message": "Experimental! Describe the typical attitude of your character."},
+
+	"p11": {"message": "Serious"},
+	"p12": {"message": "Cheerful"},
+	"p21": {"message": "Laidback"},
+	"p22": {"message": "Energetic"},
+	"p31": {"message": "Productivity"},
+	"p32": {"message": "Positivity"},
+
+	"textingstyle": {"message": "Texting style"},
+	"textToggle_T": {"message": "Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!"},
+
+	"txt1": {"message": "Emojis"},
+	"txt2": {"message": "Capitalization"},
+	"txt3": {"message": "Punctuation"},
+
+	"studWelcome": {"message": "Hello! Welcome to the Studio."},
+	"stud1": {"message": "Hover over any"},
+	"studWelcome": {"message": "Hello! Welcome to the Studio."},
+	"stud2": {"message": "to view tips."},
+	"tipToggle_T": {"message": "Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!"},
+
+	"activate": {"message": "Finished! Activate this Browserbug."},
+
+	"pName": {"message": "Name"},
+	"nameToggle_T": {"message": "Pick a name!"},
+	"pAvatar": {"message": "Avatar"},
+	"imgToggle_T": {"message": "Pick an image!"},
+	"imgLabelr": {"message": "Pick image"},
+
+	"custMsgs": {"message": "Custom messages"},
+	"ccToggle_T": {"message": "Create your own messages! (Texting style is not applied to these.)"},
+	"proportion": {"message": "Proportion of custom messages"},
+	"ratioToggle_T": {"message": "How often to use custom messages rather than default messages"},
+
+	"ptCC": {"message": "% custom"},
+	"ptDef": {"message": "% default"},
+
+	"cm1": {"message": "Create message"},
+	"cm2": {"message": "Stats"},
+	"statToggle_T": {"message": "Grade this message! (0=no effect, 1=high effect)"},
+	"cm3": {"message": "Happiness"},
+	"m1Toggle_T": {"message": "Reducing your stress and frustration"},
+	"cm4": {"message": "Focus"},
+	"m2Toggle_T": {"message": "Preventing boredom and distraction"},
+	"cm5": {"message": "Wellbeing"},
+	"m3Toggle_T": {"message": "Helping you maintain healthy habits"},
+	"cm6": {"message": "Custom messages"}
+
 }
