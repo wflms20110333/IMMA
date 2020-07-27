@@ -118,9 +118,10 @@ $(document).ready(function() {
                     type: "application/json"
                 });
                 url = URL.createObjectURL(file);
-                var a = document.getElementById('export');
+                var a = document.getElementById('exporter');
                 a.href = url;
                 a.download = document.getElementById('imma-name').value + ".bbug";
+                a.click();
             });
         }
     });
