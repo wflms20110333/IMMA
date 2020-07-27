@@ -45,7 +45,9 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     chrome.storage.sync.get(['immaActive', 'imma_name', 'image_link'], function (result) {
         if (result['immaActive'] == true){ // Active IMMA!!
             if (alarmInfo['name'] == "question") { // send a question to user
-                sendNewQuestion(); // contacts server for question, then sends notification
+                sendMessage();
+                // #TODO questions broken, fix
+                //sendNewQuestion(); // contacts server for question, then sends notification
             } else if (alarmInfo['name'] == "quickmessage") { // send a message that imma is now activated
                 sendNotification(result['imma_name'] + " has been loaded!", "Browserbug", result['image_link']);
             } else { // send a message to user

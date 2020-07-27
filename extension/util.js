@@ -259,6 +259,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
 
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
+
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
         iconUrl: immaFilename,
@@ -277,6 +279,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
 function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
+
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',
