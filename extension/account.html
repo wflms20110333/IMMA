@@ -19,57 +19,46 @@
         <div><b>My BBugs</b></div>
         <div><a href="faq.html">FAQ</a></div><br>
         <div><a href="https://forms.gle/zHE8e4GiZrCb1uMe8" target="_blank">Bug Report</a></div>
-        <div><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a></div><br>
-        <div><a href="mailto:imma.studio.dev@gmail.com">Email Us</a></div>
+		<div><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a></div><br>
+		<div><a href="https://imma.studio/browserbug/aboutus" target="_blank">About Us</a></div>
         <div><a href="https://imma.studio/browserbug" target="_blank">Website</a></div>
+        <div><a href="mailto:imma.studio.dev@gmail.com">Email</a></div>
         <div><a href="https://twitter.com/browser_bug" target="_blank">Our Twitter</a></div>
         <div><a href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank">Our Facebook</a></div><br>
         <div>Get us <a href="https://ko-fi.com/browserbug" target="_blank">Ko-Fi?</a></div><br>
     </div>
     <div class="bubble" id="settingscontent">
 		<h1 style="margin-bottom:2px;">Your Browserbugs</h1>
-		<p style="margin-top:2px;margin-bottom:2px;">A list of all the Browserbugs you've saved to our server. <span id="bbugs-used">1</span>/<span id="bbugs-avail">20</span> slots used.</p>
+		<p style="margin-top:2px;margin-bottom:2px;">A list of all the Browserbugs you've saved to our server. <span id="bbugs-used">1</span>/<span id="bbugs-avail">3</span> slots used.</p>
 		<p style="margin-top:2px;">Create more Browserbugs in the <a href="studio.html">Studio</a> and click "Save to server" to see them here!</p>
-		<div id="bbug-list">
-			<div class="bbug-entry">
-				<img src="https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg">
-				<span class="namer">Browserbug 1</span>
-				<span class="activator">Activate</span>
-				<span class="remover">Delete</span>
-				<span class="viewer">View</span>
-			</div>
-			<div class="bbug-entry">
-				<img src="https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg">
-				<span class="namer">Browserbug 2</span>
-				<span class="activator">Activate</span>
-				<span class="remover">Delete</span>
-				<span class="viewer">View</span>
-			</div>
-			<div class="bbug-entry">
-				<img src="https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg">
-				<span class="namer">Browserbug 2</span>
-				<span class="activator">Activate</span>
-				<span class="remover">Delete</span>
-				<span class="viewer">View</span>
-			</div>
+		<div id="bbug-list"></div>
+		<div>
+			<p style="margin-bottom:2px;">Your ID: <span id="uid-fill"></span></p>
+			<span>Have a premium code? </span>
+			<textarea spellcheck="false" style="resize:none;width:100px;height:20px;font-size:15px;vertical-align:middle;" id="activationcode"></textarea>
+			<button id="enteractivation">Enter</button>
+		</p>
 		</div>
 		<br>
 		<p id="buyslots"><b>Running out of slots?</b> Purchase more! (and help support our project!)</p>
 		<div class="purchaseThing">
 			<b><span>Just a few more slots! </span></b><span>$1.00</span><br>
 			<span>Buys 3 more server save spaces.</span><br>
-			<button id="purchaseBoost">Purchase</button>
+			<button id="purchaseBoost1">Purchase</button>
 		</div>
 		<div class="purchaseThing">
 			<b><span>Even more slots! </span></b><span>$2.00</span><br>
 			<span>Buys 10 more server save spaces.</span><br>
-			<button id="purchaseBoost">Purchase</button>
+			<button id="purchaseBoost2">Purchase</button>
 		</div>
 		<div class="purchaseThing">
 			<b><span>Premium! </span></b><span>$3.00/month</span><br>
-			<span>Gives you unlimited server save spaces and the ability to upload and download character files locally.</span><br>
-			<button id="purchaseBoost">Purchase</button>
+			<span>Gives you unlimited server save spaces, and the ability<br>to upload and download character files locally.</span><br>
+			<button id="purchaseBoost3">Purchase</button>
 		</div>
+		<br>
+		<div id="statusDiv">Purchase status: <b>error</b></div>
+		<div id="purchaseInfo">Hi there! We're still working on our in-app purchase interface,<br>so please be patient with us as we get this sorted out!<br>Feel free to check out our <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a> for updates or our <a href="https://ko-fi.com/browserbug" target="_blank">Ko-Fi</a> for custom codes :)</div>
     </div>
 
     <footer>
@@ -83,6 +72,7 @@
 </body>
 
 <script src="jquery-3.5.1.min.js"></script>
+<script src="buy.js"></script>
 <script src="constants.js"></script>
 <script src="util.js"></script>
 <script src="account.js"></script>

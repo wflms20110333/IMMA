@@ -3,38 +3,91 @@ $(document).ready(function() {
 		this.textContent = chrome.i18n.getMessage(this.id);
 		this.value = chrome.i18n.getMessage(this.id);
 	});
-	updateSlotCount();
+	countSlotsAvail();
+	populateBrowserbugs();
+
+	$("#purchaseBoost1").click(function() { // link purchases
+		statusDiv.text("Purchasing boost 1...");
+		google.payments.inapp.buy({parameters: {'env': "prod"},
+		'sku': "pBOOST1",'success': onPurchase, 'failure': onPurchaseFailed });
+	});
+	$("#purchaseBoost2").click(function() { // link purchases
+		statusDiv.text("Purchasing boost 2...");
+		google.payments.inapp.buy({parameters: {'env': "prod"},
+		'sku': "pBOOST2",'success': onPurchase, 'failure': onPurchaseFailed });
+	});
+	$("#purchaseBoost3").click(function() { // link purchases
+		statusDiv.text("Purchasing subscription...");
+		google.payments.inapp.buy({parameters: {'env': "prod"},
+		'sku': "pBOOST3",'success': onPurchase, 'failure': onPurchaseFailed });
+	});
+	$("#enteractivation").click(function() { // link purchases
+		checkCode();
+    });
 });
 
-// Update count of how many slots used
-function updateSlotCount() {
-	var numBbugs = document.getElementsByClassName("bbug-entry").length;
-	document.getElementById("bbugs-used").textContent = numBbugs;
+// Check premium code
+function checkCode() {
+	chrome.storage.sync.get(['user_bbug_id'], function(result) {
+		result['code'] = document.getElementById("activationcode").value;
+		serverPOST('checkCode', result, function(data) {
+			if (data['result'] == 'validCode') {
+				chrome.storage.sync.set({'user_level': 'premium'});
+				alert("code entry successful! refresh to apply changes.");
+			} else {
+				alert("invalid code :(");
+			}
+        });
+    });
 }
 
-// ----------- Initialize product list (purchases)
-
-
-function onSkuDetails(response) {
-  console.log("onSkuDetails", response);
-  var products = response.response.details.inAppProducts;
-  var count = products.length;
-  for (var i = 0; i < count; i++) {
-    var product = products[i];
-    addProductToUI(product);
-  }
-  statusDiv.text("");
-  getLicenses();
+// Show slots available
+function countSlotsAvail(){
+	chrome.storage.sync.get(['user_level'], function(result) {
+		if (result['user_level'] == 'premium') {
+			document.getElementById("bbugs-avail").textContent = "∞";
+		}
+    });
 }
 
-function onSkuDetailsFailed(response) {
-  console.log("onSkuDetailsFailed", response);
-  statusDiv.text("Error retreiving product list. (" + response.response.errorType + ")");
+// Update list of browserbugs
+function populateBrowserbugs() {
+	chrome.storage.sync.get(['user_bbug_id'], function(result) {
+		// update user id listed
+		document.getElementById("uid-fill").textContent = result['user_bbug_id'].substring(0, 10);
+
+        serverPOST('getListOfUserFiles', result, function(data) {
+			// Update number of slots used
+			var numBbugs = Object.keys(data['characters']).length;
+			document.getElementById("bbugs-used").textContent = numBbugs;
+			// Add browserbugs to divs
+			for (const [key, value] of Object.entries(data['characters'])) {
+				var div = document.createElement("div");
+				div.setAttribute('class', 'bbug-entry');
+
+				var imgSpan = document.createElement('img'); imgSpan.src=value;
+				div.appendChild(imgSpan);
+				var nameSpan = document.createElement('span'); nameSpan.textContent = key; nameSpan.setAttribute('class', 'namer');
+				div.appendChild(nameSpan);
+				var activeSpan = document.createElement('span'); activeSpan.textContent = "Activate"; activeSpan.setAttribute('class', 'activator');
+				div.appendChild(activeSpan);
+				var removeSpan = document.createElement('span'); removeSpan.textContent = "Delete"; removeSpan.setAttribute('class', 'remover');
+				div.appendChild(removeSpan);
+				var viewSpan = document.createElement('span'); viewSpan.textContent = "View"; viewSpan.setAttribute('class', 'viewer');
+				div.appendChild(viewSpan);
+
+				$('#bbug-list').append(div);
+				console.log(key, value);
+			}
+        });
+    });
 }
 
 /*****************************************************************************
 * Get the list of purchased products from the Chrome Web Store
 *****************************************************************************/
+var statusDiv = $("#statusDiv");
+var purchaseInfo = $("#purchaseInfo");
 
 function getLicenses() {
   console.log("google.payments.inapp.getPurchases");
@@ -50,10 +103,12 @@ function onLicenseUpdate(response) {
   console.log("onLicenseUpdate", response);
   var licenses = response.response.details;
   var count = licenses.length;
+  purchaseInfo.append("licenses");
   for (var i = 0; i < count; i++) {
     var license = licenses[i];
-    addLicenseDataToProduct(license);
+    purchaseInfo.append(license);
   }
+  purchaseInfo.append("done");
   statusDiv.text("");
 }
 
@@ -62,22 +117,9 @@ function onLicenseUpdateFailed(response) {
   statusDiv.text("Error retreiving list of purchased products.");
 }
 
-
 /*****************************************************************************
 * Purchase an item
 *****************************************************************************/
-
-function buyProduct(sku) {
-  console.log("google.payments.inapp.buy", sku);
-  statusDiv.text("Kicking off purchase flow for " + sku);
-  google.payments.inapp.buy({
-    parameters: {'env': "prod"},
-    'sku': sku,
-    'success': onPurchase,
-    'failure': onPurchaseFailed
-  });
-}
-
 function onPurchase(purchase) {
   console.log("onPurchase", purchase);
   var jwt = purchase.jwt;
@@ -96,29 +138,6 @@ function onPurchaseFailed(purchase) {
 /*****************************************************************************
 * Update/handle the user interface actions
 *****************************************************************************/
-
-function addProductToUI(product) {
-  var row = $("<tr></tr>");
-  var colName = $("<td></td>").text(product.localeData[0].title);
-  var colDesc = $("<td></td>").text(product.localeData[0].description);
-  var price = parseInt(product.prices[0].valueMicros, 10) / 1000000;
-  var colPrice = $("<td></td>").text("$" + price);
-  var butAct = $("<button type='button'></button>")
-    .data("sku", product.sku)
-    .attr("id", prodButPrefix + product.sku)
-    .addClass("btn btn-sm")
-    .click(onActionButton)
-    .text("Purchase")
-    .addClass("btn-success");
-  var colBut = $("<td></td>").append(butAct);
-  row
-    .append(colName)
-    .append(colDesc)
-    .append(colPrice)
-    .append(colBut);
-  $("#purchaseinfo").append(row);
-}
-
 function addLicenseDataToProduct(license) {
   var butAction = $("#" + prodButPrefix + license.sku);
   butAction
@@ -128,7 +147,6 @@ function addLicenseDataToProduct(license) {
     .addClass("btn-info")
     .data("license", license);
 }
-
 function onActionButton(evt) {
   console.log("onActionButton", evt);
   var actionButton = $(evt.currentTarget);
@@ -139,7 +157,6 @@ function onActionButton(evt) {
     buyProduct(sku);
   }
 }
-
 function showLicense(license) {
   console.log("showLicense", license);
   var modal = $("#modalLicense");

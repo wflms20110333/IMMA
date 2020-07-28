@@ -17,6 +17,18 @@ cors = CORS(app)
 def hello_world():
     return jsonify({"result": "Whale, hello there!"})
 
+@app.route('/checkCode', methods=['POST'])
+def check_code():
+    """ Checks if code is valid for the given user. """
+    validcodes = ["f3bd861e9c_peanut"] # TODO make this a database query
+    inputParams = request.get_json()
+    typedCode = inputParams['user_bbug_id'][:10] + '_' + inputParams['code']
+    print("Validating code", typedCode)
+    if typedCode in validcodes:
+        return jsonify({"result": "validCode"})
+    else:
+        return jsonify({"result": "invalidCode"})
+
 @app.route('/getHearts', methods=['POST'])
 def get_hearts():
     """ Gets current number of hearts. """
@@ -70,6 +82,18 @@ def get_bbug_file():
     img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + character_name + ".png"
     # TODO: check if uid/character_name combination does not exist in S3
     return render_template("index.html", bbugName=character_name, uid=uid, imgLink=img_link)
+
+@app.route('/getListOfUserFiles', methods=['POST'])
+def get_bbug_list():
+    uid = request.args.get('user_bbug_id')
+    # TODO!!!!!!!!!!!!!!!!!!!!!!!!! get user characters from the server
+    return jsonify({"result": "success", "characters":
+        {
+            "Bbug 1": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg",
+            "Bbug 2": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg",
+            "Bbug 3": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg"
+        }
+    })
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
