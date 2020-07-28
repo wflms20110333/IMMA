@@ -242,17 +242,21 @@ function setNextAlarm() {
     console.log('in setNextAlarm');
 
     chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function(result) {
-        serverPOST('getAlarm', result, function(data) {
-            if (data['mType'] == "question") {
-                chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
-            } else {
-                lastMessageCt = parseInt(result['recent_message_ct'])
-                chrome.storage.sync.set({ 'recent_message_ct': lastMessageCt + 1 }); // will give a message, increment counter
-            }
+        var nextNotifType = "none";
+        var lastMsgCt = parseInt(result['recent_message_ct']);
+        var alarmSpc = parseFloat(result['alarm_spacing']);
+        var qRatio = parseFloat(result['question_ratio']);
 
-            var nextDelay = Date.now() + (data['mDuration'] * 1000); // seconds to milliseconds past epoch
-            chrome.alarms.create(data['mType'], { when: nextDelay });
-        });
+        if (qRatio >= lastMsgCt) {
+            nextNotifType = "message";
+            chrome.storage.sync.set({ 'recent_message_ct': lastMsgCt + 1 }); // will give message, increment counter
+        } else {
+            nextNotifType = "question";
+            chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
+        }
+        
+        var nextDelay = Date.now() + (alarmSpc * 1000); // seconds to milliseconds past epoch
+        chrome.alarms.create(nextNotifType, { when: nextDelay });
     });
 }
 
