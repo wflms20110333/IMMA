@@ -220,8 +220,9 @@ function loadCharacterFromJson(jsonData) {
     }
     chrome.storage.sync.set({ 'textingstyle': data['textstyle'] });
     chrome.storage.sync.set({ 'immaActive': true });
-    chrome.browserAction.setBadgeText({ "text": "ON" });
-    chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
+    // #TODO fix, the below code fails sometimes (especially on export page), maybe because popup isn't active in the extensions bar?
+    //chrome.browserAction.setBadgeText({ "text": "ON" });
+    //chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
 };
 
 /**
