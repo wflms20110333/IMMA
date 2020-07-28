@@ -71,11 +71,13 @@ function populateBrowserbugs() {
 				div.appendChild(nameSpan);
 				var activeSpan = document.createElement('span'); activeSpan.textContent = "Activate"; activeSpan.setAttribute('class', 'activator');
 				activeSpan.onclick = function() {
-					var removeData = {'uid': result['user_bbug_id'], 'bbugname': key};
-					var bbug_path = S3_URL + 'browserbugs/' + uid + '/' + character_name + '.bbug';
-					alert("unimplemented!!!!");
-					// #TODO!!!!!!!!!!!!!!!!!!!!!!!!!!
-					//openJsonDat(JSON.parse(fileReader.result));
+					var bbug_path = S3_URL + 'browserbugs/' + result['user_bbug_id'] + '/' + key + '.bbug';
+					// placeholder
+					bbug_path = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/c86aceea30b05e2971bee42f5af4b43/Browserbee.bbug";
+					$.getJSON(bbug_path, "", function(data){
+						loadCharacterFromJson(data);
+						alert(key+"activated!");
+					})
 				}
 				div.appendChild(activeSpan);
 				var removeSpan = document.createElement('span'); removeSpan.textContent = "Delete"; removeSpan.setAttribute('class', 'remover');
