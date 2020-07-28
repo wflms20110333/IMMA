@@ -121,9 +121,10 @@
 	"r6_9": {"message": "We'll try to take a look!"},
 
 	"new": {"message": "New"},
-	"fOpen": {"message": "Open"},
-	"export": {"message": "Download"},
-	"uploadBbug": {"message": "Share"},
+	"fOpen": {"message": "Upload local"},
+	"fServer": {"message": "Open from server"},
+	"export": {"message": "Download local"},
+	"uploadBbug": {"message": "Save to server"},
 
 	"tHelp": {"message": "Help"},
 	"tSett": {"message": "Settings"},

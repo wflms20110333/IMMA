@@ -10,3 +10,63 @@
     width: 70%; margin-left: 5%;
     overflow-y: scroll;
 }
+
+.bbug-entry {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom:15px;
+    height: 60px;
+    border: gray 2px dashed;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bbug-entry:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.bbug-entry img {
+    float: left;
+    margin-left: 5%;
+    margin-top: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.bbug-entry span {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.namer {
+    float: left;
+    margin-left: 2%;
+}
+
+.activator {
+    float: right;
+    margin-right: 5%;
+    color:rgb(175, 116, 86);
+}
+
+.remover, .viewer {
+    float: right;
+    margin-right: 3%;
+}
+
+.activator:hover, .remover:hover, .viewer:hover {
+    color: rgb(0, 117, 255);
+}
+
+.purchaseThing {
+    margin-bottom: 10px;
+}
+
+.purchaseThing button{
+    border: none;
+    background-color: rgb(0, 117, 255);
+    border-radius: 3px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Assistant', 'Segoe UI', sans-serif;
+}
