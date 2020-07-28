@@ -148,12 +148,22 @@ $(document).ready(function() {
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!");
         } else {
-            exportBbug(true, function(jsonDict) {
-                var j_uid = jsonDict['information']['uid'];
-                var j_name = jsonDict['information']['name'];
-                var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
-                var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
-                window.open(bbugPath);
+            chrome.storage.sync.get(['user_bbug_id', 'user_level'], function(result) {
+                serverPOST('getListOfUserFiles', result, function(data) {
+                    // Get number of bbugs already made
+                    var numBbugs = Object.keys(data['characters']).length;
+                    if (numBbugs >= 3 && result['user_level'] != "premium") { // no slots left
+                        alert("Oh no... you don't have any server slots left! Visit Account to see your existing saved Browserbugs.");
+                    } else {
+                        exportBbug(true, function(jsonDict) {
+                            var j_uid = jsonDict['information']['uid'];
+                            var j_name = jsonDict['information']['name'];
+                            var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
+                            var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
+                            window.open(bbugPath);
+                        });
+                    }
+                });
             });
         }
     });

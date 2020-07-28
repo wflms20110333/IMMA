@@ -83,6 +83,13 @@ def get_bbug_file():
     # TODO: check if uid/character_name combination does not exist in S3
     return render_template("index.html", bbugName=character_name, uid=uid, imgLink=img_link)
 
+@app.route('/removeBug', methods=['POST'])
+def remove_bug():
+    uid = request.args.get('uid')
+    bugname = request.args.get('bbugname')
+    # TODO!!!!!!!!!!!!!!!!!!!!!!!!! 
+    return jsonify({"result": "fail"}) # should be "success" if success
+
 @app.route('/getListOfUserFiles', methods=['POST'])
 def get_bbug_list():
     uid = request.args.get('user_bbug_id')
@@ -90,8 +97,7 @@ def get_bbug_list():
     return jsonify({"result": "success", "characters":
         {
             "Bbug 1": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg",
-            "Bbug 2": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg",
-            "Bbug 3": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg"
+            "Bbug 2": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg"
         }
     })
 
