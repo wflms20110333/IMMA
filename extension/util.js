@@ -1,3 +1,9 @@
+/* Copyright (C) 2020- IMMA Studio, LLC - All Rights Reserved
+ * This file is subject to the terms and conditions defined in
+ * file 'license.txt', which is part of this source code package.
+ * You may not distribute, reproduce, or modify this code without written permission.
+ */
+
 /**
  * Returns the current time
  */
@@ -214,8 +220,9 @@ function loadCharacterFromJson(jsonData) {
     }
     chrome.storage.sync.set({ 'textingstyle': data['textstyle'] });
     chrome.storage.sync.set({ 'immaActive': true });
-    chrome.browserAction.setBadgeText({ "text": "ON" });
-    chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
+    // #TODO fix, the below code fails sometimes (especially on export page), maybe because popup isn't active in the extensions bar?
+    //chrome.browserAction.setBadgeText({ "text": "ON" });
+    //chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
 };
 
 /**
@@ -236,17 +243,21 @@ function setNextAlarm() {
     console.log('in setNextAlarm');
 
     chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function(result) {
-        serverPOST('getAlarm', result, function(data) {
-            if (data['mType'] == "question") {
-                chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
-            } else {
-                lastMessageCt = parseInt(result['recent_message_ct'])
-                chrome.storage.sync.set({ 'recent_message_ct': lastMessageCt + 1 }); // will give a message, increment counter
-            }
+        var nextNotifType = "none";
+        var lastMsgCt = parseInt(result['recent_message_ct']);
+        var alarmSpc = parseFloat(result['alarm_spacing']);
+        var qRatio = parseFloat(result['question_ratio']);
 
-            var nextDelay = Date.now() + (data['mDuration'] * 1000); // seconds to milliseconds past epoch
-            chrome.alarms.create(data['mType'], { when: nextDelay });
-        });
+        if (qRatio >= lastMsgCt) {
+            nextNotifType = "message";
+            chrome.storage.sync.set({ 'recent_message_ct': lastMsgCt + 1 }); // will give message, increment counter
+        } else {
+            nextNotifType = "question";
+            chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
+        }
+        
+        var nextDelay = Date.now() + (alarmSpc * 1000); // seconds to milliseconds past epoch
+        chrome.alarms.create(nextNotifType, { when: nextDelay });
     });
 }
 
@@ -258,6 +269,8 @@ function setNextAlarm() {
 function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
+
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
 
     chrome.notifications.create('Notif_Message', { // <= notification ID
         type: 'basic',
@@ -277,6 +290,8 @@ function sendNotification(msg, immaName, immaFilename, persistNotifs, silencing)
 function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing) {
     chrome.notifications.clear('Notif_Question'); // avoid overlap
     chrome.notifications.clear('Notif_Message'); // avoid overlap
+
+    console.log("DEBUG"+msg+"//"+immaName+"||"+immaFilename);
 
     chrome.notifications.create('Notif_Question', { // <= notification ID
         type: 'basic',

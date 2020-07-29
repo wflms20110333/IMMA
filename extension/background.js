@@ -1,10 +1,17 @@
-// Things to do at the beginning of code
+/* Copyright (C) 2020- IMMA Studio, LLC - All Rights Reserved
+ * This file is subject to the terms and conditions defined in
+ * file 'license.txt', which is part of this source code package.
+ * You may not distribute, reproduce, or modify this code without written permission.
+ */
+
+ // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
     // open startup page
     window.open("/welcome.html");
     console.log("extension installed, welcome :)");
 
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
+    chrome.storage.sync.set({'user_level': 'lite'});
     chrome.storage.sync.set({'immaActive':true}); // set to be active
     chrome.browserAction.setBadgeText({"text":"ON"});
     chrome.browserAction.setBadgeBackgroundColor({"color": "#7057C9"});
@@ -45,7 +52,9 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     chrome.storage.sync.get(['immaActive', 'imma_name', 'image_link'], function (result) {
         if (result['immaActive'] == true){ // Active IMMA!!
             if (alarmInfo['name'] == "question") { // send a question to user
-                sendNewQuestion(); // contacts server for question, then sends notification
+                sendMessage();
+                // #TODO questions broken, fix
+                //sendNewQuestion(); // contacts server for question, then sends notification
             } else if (alarmInfo['name'] == "quickmessage") { // send a message that imma is now activated
                 sendNotification(result['imma_name'] + " has been loaded!", "Browserbug", result['image_link']);
             } else { // send a message to user
