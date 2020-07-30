@@ -1,7 +1,7 @@
 {
 	"w_A1": {"message": "Bienvenido"},
-	"w_B1": {"message": "Cómo usar Browserbug"},
-	"w_B2": {"message": "¡Bienvenido a Browserbug! Ya hemos cargado un carácter predeterminado, \"Browserbee,\" para que lo uses :)"},
+	"w_B1": {"message": "Cómo se usa Browserbug"},
+	"w_B2": {"message": "¡Bienvenido a Browserbug! Ya hemos cargado un carácter predeterminado, \"Browserbee,\" para que lo use :)"},
 
 	"w_B3_1": {"message": "Por ahora, ya debería haber recibido una notificación de él. (Si no, consulte nuestro"},
 	"w_B3_link": {"message": "Solución de problemas"},
@@ -9,31 +9,31 @@
 
 	"w_B4_1": {"message": "Cuando esté listo, no dude en visitar el"},
 	"w_B4_link": {"message": "Studio"},
-	"w_B4_2": {"message": "y comienza a diseñar tu propio personaje!"},
+	"w_B4_2": {"message": "y comienza a diseñar su propio personaje!"},
 
-	"w_C1_1": {"message": "Para configuraciones más avanzadas (¿desea ajustar la frecuencia con la que recibe mensajes?) visite el"},
-	"w_C1_link": {"message": "Opciones"},
-	"w_C1_2": {"message": "página."},
+	"w_C1_1": {"message": "Para configuraciones más avanzadas (¿desea ajustar la frecuencia con la que recibe mensajes?) visite la pagina de "},
+	"w_C1_link": {"message": "Opciones."},
+	"w_C1_2": {"message": ""},
 
 	"w_C2_bold": {"message": "¡Gracias por instalar Browserbug!"},
 	"w_C2_1": {"message": ":) No dude en enviarnos un"},
 	"w_C2_link": {"message": "ko-fi"},
-	"w_C2_2": {"message": "o califica nuestra extensión si te gusta!"},
+	"w_C2_2": {"message": "o califica nuestra extensión si le gusta!"},
 
 	"w_D1": {"message": "Privacidad"},
 	"w_D2": {"message": "Para preservar su privacidad, guardamos información localmente en su propia computadora siempre que sea posible, minimizando lo que es visible para nosotros."},
 
-	"w_D3_1": {"message": "No dude en consultar nuestro"},
-	"w_D3_link": {"message": "Política de privacidad"},
+	"w_D3_1": {"message": "No dude en consultar nuestras "},
+	"w_D3_link": {"message": "Reglas de privacidad"},
 	"w_D3_2": {"message": "para más detalles!"},
 
 	"w_E1": {"message": "¿Necesita ayuda?"},
 
 	"w_E2_1": {"message": "Si alguna vez necesita ayuda, eche un vistazo a nuestro"},
-	"w_E2_link": {"message": "FAQ"},
+	"w_E2_link": {"message": "Pregunatas frecuentes"},
 	"w_E2_2": {"message": "!"},
 
-	"w_E3_1": {"message": "También estamos disponibles para contactarnos a través de"},
+	"w_E3_1": {"message": "También estamos disponibles a través de"},
 	"w_E3_link1": {"message": "correo electrónico,"},
 	"w_E3_link2": {"message": "Facebook,"},
 	"w_E3_4": {"message": "o"},

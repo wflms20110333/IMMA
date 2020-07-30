@@ -1,5 +1,21 @@
+/* Copyright (C) 2020- IMMA Studio, LLC - All Rights Reserved
+ * This file is subject to the terms and conditions defined in
+ * file 'license.txt', which is part of this source code package.
+ * You may not distribute, reproduce, or modify this code without written permission.
+ */
+
+if($(window).width() < 960) {
+    alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
+}
+
 var imageSource = "userInput"; // either userInput or localLoaded
 
+$(document).ready(function() {
+    $('.i18n-txt').each(function(index, element) { // translate text
+		this.textContent = chrome.i18n.getMessage(this.id);
+		this.value = chrome.i18n.getMessage(this.id);
+	});
+});
 
 var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
 blankBbug.information = {
@@ -132,12 +148,22 @@ $(document).ready(function() {
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!");
         } else {
-            exportBbug(true, function(jsonDict) {
-                var j_uid = jsonDict['information']['uid'];
-                var j_name = jsonDict['information']['name'];
-                var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
-                var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
-                window.open(bbugPath);
+            chrome.storage.sync.get(['user_bbug_id', 'user_level'], function(result) {
+                serverPOST('getListOfUserFiles', result, function(data) {
+                    // Get number of bbugs already made
+                    var numBbugs = Object.keys(data['characters']).length;
+                    if (numBbugs >= 3 && result['user_level'] != "premium") { // no slots left
+                        alert("Oh no... you don't have any server slots left! Visit Account to see your existing saved Browserbugs.");
+                    } else {
+                        exportBbug(true, function(jsonDict) {
+                            var j_uid = jsonDict['information']['uid'];
+                            var j_name = jsonDict['information']['name'];
+                            var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
+                            var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
+                            window.open(bbugPath);
+                        });
+                    }
+                });
             });
         }
     });

@@ -15,26 +15,28 @@
         <div>
             <h2>Browserbug Studio</h2>
 
-                <p class="filing2" id="new" title="Clear current bug and start from scratch">New</p>
+                <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
 
                 <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
                 <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
 
-                <label for="openBbug" class="custom-file-upload2" title="Load a saved Browserbug file from your computer">Open</label>
+                <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
                 <!-- note #TODO encrypt JSONs -->
                 <input type="file" id="openBbug" accept=".bbug">
-                <a class="filing2" id="export" title="Download this Browserbug">Download</a>
+                <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
                 <a id="exporter" style="display:none;"></a>
-                <p class="filing2" id="uploadBbug" title="Upload your Browserbug">Share</p>
+                <a class="filing2 i18n-txt" id="fServer" href="account.html" title="Open one of your saved models" style="color:black;"></a>
+                <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
                 <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
         
             <div id="topright-toolbar">
-                <a href="faq.html">Help</a> |
-                <a href="options.html">Settings</a> |
-                <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank">Feedback Form</a> |
-                <a href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank">FB</a> |
-                <a href="https://twitter.com/browser_bug" target="_blank">Twitter</a> |
-                <a href="https://ko-fi.com/browserbug" target="_blank">Buy us Ko-Fi!</a>
+                <a class="i18n-txt" id="tHelp" href="faq.html"></a> |
+                <a class="TODO" href="account.html">Account</a> |
+                <a class="i18n-txt" id="tSett" href="options.html"></a> |
+                <a class="i18n-txt" id="tFForm" href="https://forms.gle/M1YS2Ch1Ku2BFHWb8" target="_blank"></a> |
+                <a class="i18n-txt" id="tFB" href="https://www.facebook.com/Browserbug-107331981062490/" target="_blank"></a> |
+                <a class="i18n-txt" id="tTwitter" href="https://twitter.com/browser_bug" target="_blank"></a> |
+                <a class="i18n-txt" id="tKofi" href="https://ko-fi.com/browserbug" target="_blank"></a>
             </div>
         </div>
 
@@ -44,46 +46,49 @@
         <div class="column" id="leftCol">
             <div class="bubble">
                 <h3 class="toggler" id="persToggle">
-                    Personality <a title="Experimental! Describe the typical attitude of your character.">[?]</a></h3>
-                <p class="toggling" id="persToggle_T">Experimental! Describe the typical attitude of your character.</p><br>
+                    <span class="i18n-txt" id="personality"></span>
+                    <a title="Experimental! Describe the typical attitude of your character.">[?]</a></h3>
+                <p class="toggling i18n-txt" id="persToggle_T"></p><br>
                 <div>
                     <!--<span id="plabel1">test</span><br>-->
-                    <div class="personLabels" style="text-align: right;">Serious</div>
+                    <div class="personLabels i18n-txt" id="p11" style="text-align: right;"></div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality1">
-                    <div class="personLabels" style="text-align: left;">Cheerful</div>
+                    <div class="personLabels i18n-txt" id="p12" style="text-align: left;"></div>
                 </div>
 
                 <div>
                     <!--<span id="plabel2">test</span><br>-->
-                    <div class="personLabels" style="text-align: right;">Laidback</div>
+                    <div class="personLabels i18n-txt" id="p21" style="text-align: right;"></div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality2">
-                    <div class="personLabels" style="text-align: left;">Energetic</div>
+                    <div class="personLabels i18n-txt" id="p22" style="text-align: left;"></div>
                 </div>
 
                 <div>
                     <!--<span id="plabel3">test</span><br>-->
-                    <div class="personLabels" style="text-align: right;">Productivity</div>
+                    <div class="personLabels i18n-txt" id="p31" style="text-align: right;"></div>
                     <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality3">
-                    <div class="personLabels" style="text-align: left;">Positivity</div>
+                    <div class="personLabels i18n-txt" id="p32" style="text-align: left;"></div>
                 </div>
 
                 <br>
-                <h3 class="toggler" id="textToggle">Texting style <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
-                <p class="toggling" id="textToggle_T">Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!</p><br>
+                <h3 class="toggler" id="textToggle">
+                    <span class="i18n-txt" id="textingstyle"></span>
+                    <a title="Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!">[?]</a></h3>
+                <p class="toggling i18n-txt" id="textToggle_T"></p><br>
 
-                <span class="scaler-text"><b>Emojis</b></span>
+                <span class="scaler-text i18n-txt" id="txt1"><b></b></span>
                 <p id="tsLabel1" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1">
                 <span id="etext1">test</span>
                 <br><br>
 
-                <span class="scaler-text"><b>Capitalization</b></span>
+                <span class="scaler-text i18n-txt" id="txt2"><b></b></span>
                 <p id="tsLabel2" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider2">
                 <span id="etext2">test</span>
                 <br><br>
 
-                <span class="scaler-text"><b>Punctuation</b></span>
+                <span class="scaler-text i18n-txt" id="txt3"><b></b></span>
                 <p id="tsLabel3" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider3">
                 <span id="etext3">test</span>
@@ -92,29 +97,37 @@
 
         <div class="column" id="centerCol">
             <div class="bubble" id="main-bubble">
-                <p>Hello! Welcome to the Studio.</p>
-                <p class="toggler" id="tipToggle">Hover over any <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a> to view tips.</p>
-                <p class="toggling" id="tipToggle_T">Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!</p><br>
-                <p class="filing" id="activate">Finished! Activate this Browserbug.</p>
+                <p class="i18n-txt" id="studWelcome"></p>
+                <p class="toggler" id="tipToggle">
+                    <span class="i18n-txt" id="stud1"></span>
+                    <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a>
+                    <span class="i18n-txt" id="stud2"></span>
+                    </p>
+                <p class="toggling i18n-txt" id="tipToggle_T"></p><br>
+                <p class="filing i18n-txt" id="activate"></p>
             </div>
 
             <div class="bubble">
-                <h3 class="toggler" id="nameToggle">Name <a title="Pick a name!">[?]</a></h3>
-                <p class="toggling" id="nameToggle_T">Pick a name!</p><br>
+                <h3 class="toggler" id="nameToggle">
+                    <span class="i18n-txt" id="pName"></span>
+                    <a title="Pick a name!">[?]</a></h3>
+                <p class="toggling i18n-txt" id="nameToggle_T"></p><br>
 
                 <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
                 <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" width="70px" height="70px" alt="Icon">
 
-                <h3 class="toggler" id="imgToggle">Avatar <a title="Pick an image!">[?]</a></h3>
-                <p class="toggling" id="imgToggle_T">Pick an image!</p><br>
+                <h3 class="toggler" id="imgToggle">
+                    <span class="i18n-txt" id="pAvatar"></span>
+                    <a title="Pick an image!">[?]</a></h3>
+                <p class="toggling i18n-txt" id="imgToggle_T"></p><br>
 
                 <!-- Old URL picker for images -->
                 <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
 
                 <!-- New image uploader -->
-                <label for="openImg" class="custom-file-upload2">Pick image</label>
+                <label for="openImg" class="custom-file-upload2 i18n-txt" id="imgLabelr"></label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
 
                 <!-- TODO: change to real endpoint -->
@@ -129,38 +142,52 @@
 
         <div class="column" id="rightCol">
             <div class="bubble" style="margin-bottom: 50px;">
-                <h3 class="toggler" id="ccToggle">Custom messages <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
-                <p class="toggling" id="ccToggle_T">Create your own messages! (Texting style is not applied to these.)</p><br>
+                <h3 class="toggler" id="ccToggle">
+                    <span class="i18n-txt" id="custMsgs"></span>
+                    <a title="Create your own messages! (Texting style is not applied to these.)">[?]</a></h3>
+                <p class="toggling i18n-txt" id="ccToggle_T"></p><br>
 
-                <span class="toggler" id="ratioToggle">Proportion of custom messages <a title="How often to use custom messages rather than default messages">[?]</a></span>
-                <p class="toggling" id="ratioToggle_T">How often to use custom messages rather than default messages</p>
+                <span class="toggler" id="ratioToggle">
+                    <span class="i18n-txt" id="proportion"></span>
+                    <a title="How often to use custom messages rather than default messages">[?]</a></span>
+                <p class="toggling i18n-txt" id="ratioToggle_T"></p>
                 <br><br>
                 <div>
                     <div style="display: inline-block;vertical-align: middle;text-align: right;">
-                        <span id="cc-left-text">X</span><span>% custom<br>messages</span></div>
+                        <span id="cc-left-text">X</span>
+                        <span class="i18n-txt" id="ptCC"></span></div>
                     <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom" style="margin:5px;">
                     <div style="display: inline-block;vertical-align: middle;text-align: left;"">
-                        <span id="cc-right-text">Y</span><span>% default<br>messages</span></div>
+                        <span id="cc-right-text">Y</span>
+                        <span class="i18n-txt" id="ptDef"></span></div>
                 </div>
                 <br>
                 <fieldset id="pullfrom">
-                    <legend>Create message</legend>
+                    <legend class="i18n-txt" id="cm1"></legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p class="toggler" id="statToggle">Stats <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
-                    <p class="toggling" id="statToggle_T">Grade this message! (0=no effect, 1=high effect)</p><br>
+                    <p class="toggler" id="statToggle">
+                        <span class="i18n-txt" id="cm2"></span>
+                        <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
+                    <p class="toggling i18n-txt" id="statToggle_T"></p><br>
 
-                    <label class="toggler" id="m1Toggle">Happiness <a title="Reducing your stress and frustration">[?]</a></label>
-                    <p class="toggling" id="m1Toggle_T">Reducing your stress and frustration</p>
+                    <label class="toggler" id="m1Toggle">
+                        <span class="i18n-txt" id="cm3"></span>
+                        <a title="Reducing your stress and frustration">[?]</a></label>
+                    <p class="toggling i18n-txt" id="m1Toggle_T"></p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
                     <span id="mtext1">test</span>
                     <br>
-                    <label class="toggler" id="m2Toggle">Focus <a title="Preventing boredom and distraction">[?]</a></label>
-                    <p class="toggling" id="m2Toggle_T">Preventing boredom and distraction</p>
+                    <label class="toggler" id="m2Toggle">
+                        <span class="i18n-txt" id="cm4"></span>
+                        <a title="Preventing boredom and distraction">[?]</a></label>
+                    <p class="toggling i18n-txt" id="m2Toggle_T"></p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
                     <span id="mtext2">test</span>
                     <br>
-                    <label class="toggler" id="m3Toggle">Wellbeing <a title="Helping you maintain healthy habits">[?]</a></label>
-                    <p class="toggling" id="m3Toggle_T">Helping you maintain healthy habits</p>
+                    <label class="toggler" id="m3Toggle">
+                        <span class="i18n-txt" id="cm5"></span>
+                        <a title="Helping you maintain healthy habits">[?]</a></label>
+                    <p class="toggling i18n-txt" id="m3Toggle_T"></p>
                     <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
                     <span id="mtext3">test</span>
                 </fieldset>
@@ -168,7 +195,7 @@
                 <input type="button" value="Add message" class="filing2" id="add">
                 <br><br>
                 <fieldset id="yourform">
-                    <legend>Custom messages</legend>
+                    <legend  class="i18n-txt" id="cm6"></legend>
                 </fieldset>
             </div>
         </div>
