@@ -45,6 +45,8 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 The server is located at <http://ec2-35-164-24-43.us-west-2.compute.amazonaws.com/>.
 
+The system hostname of the server is `server.imma.studio` (<https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-hostname.html>).
+
 #### Starting a new EC2 instance (Ubuntu)
 
 Setting up Docker:
