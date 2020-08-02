@@ -4,7 +4,7 @@
  * You may not distribute, reproduce, or modify this code without written permission.
  */
 
-if($(window).width() < 960) {
+if ($(window).width() < 960) {
     alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
 }
 
@@ -12,9 +12,9 @@ var imageSource = "userInput"; // either userInput or localLoaded
 
 $(document).ready(function() {
     $('.i18n-txt').each(function(index, element) { // translate text
-		this.textContent = chrome.i18n.getMessage(this.id);
-		this.value = chrome.i18n.getMessage(this.id);
-	});
+        this.textContent = chrome.i18n.getMessage(this.id);
+        this.value = chrome.i18n.getMessage(this.id);
+    });
 });
 
 var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
@@ -149,7 +149,8 @@ $(document).ready(function() {
             alert("Don't forget to select a name for your Browserbug!");
         } else {
             chrome.storage.sync.get(['user_bbug_id', 'user_level'], function(result) {
-                serverPOST('getListOfUserFiles', result, function(data) {
+                var getData = { 'uid': result['user_bbug_id'] };
+                serverPOST('getListOfUserFiles', getData, function(data) {
                     // Get number of bbugs already made
                     var numBbugs = Object.keys(data['characters']).length;
                     if (numBbugs >= 8 && result['user_level'] != "premium") { // no slots left
@@ -351,12 +352,18 @@ function exportBbug(saveToServer, f = function(jsonDict) {}) {
 }
 
 // Update on change
-document.getElementById('tsSlider1').oninput = function() { emojiUpdate();
-    e1Update(); }
-document.getElementById('tsSlider2').oninput = function() { capsUpdate();
-    e2Update(); }
-document.getElementById('tsSlider3').oninput = function() { punctUpdate();
-    e3Update(); }
+document.getElementById('tsSlider1').oninput = function() {
+    emojiUpdate();
+    e1Update();
+}
+document.getElementById('tsSlider2').oninput = function() {
+    capsUpdate();
+    e2Update();
+}
+document.getElementById('tsSlider3').oninput = function() {
+    punctUpdate();
+    e3Update();
+}
 document.getElementById('percentCustom').oninput = function() { ccRatioUpdate(); }
     //document.getElementById('personality1').oninput = function() { p1Update(); }
     //document.getElementById('personality2').oninput = function() { p2Update(); }

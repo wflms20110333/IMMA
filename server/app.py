@@ -74,6 +74,7 @@ def upload_file():
 
 @app.route('/getBbugFile', methods=['GET'])
 def get_bbug_file():
+    """ Given a user's uid and the character name, returns the .bbug file. """
     uid = request.args.get('uid')
     character_name = request.args.get('character_name')
     if uid == None or character_name == None:
@@ -85,21 +86,28 @@ def get_bbug_file():
 
 @app.route('/removeBug', methods=['POST'])
 def remove_bug():
+    """ Removes the .bbug file and its corresponding image, if they exist. """
     uid = request.args.get('uid')
     bugname = request.args.get('bbugname')
-    # TODO!!!!!!!!!!!!!!!!!!!!!!!!! 
-    return jsonify({"result": "fail"}) # should be "success" if success
+    s3 = boto3.resource("s3")
+    bucket_name = "imma-bucket"
+    bbug_file = s3.Object(bucket_name, "browserbugs/" + uid + "/" + bugname + ".bbug")
+    bbug_file.delete()
+    bbug_image = s3.Object(bucket_name, "browserbug_images/" + uid + "/" + bugname + ".png")
+    bbug_image.delete()
+    return jsonify({"result": "success"})
 
 @app.route('/getListOfUserFiles', methods=['POST'])
 def get_bbug_list():
-    uid = request.args.get('user_bbug_id')
-    # TODO!!!!!!!!!!!!!!!!!!!!!!!!! get user characters from the server
-    return jsonify({"result": "success", "characters":
-        {
-            "Bbug 1": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg",
-            "Bbug 2": "https://i.pinimg.com/originals/65/de/4a/65de4aec2342069b21e5c1cb0a7d62a2.jpg"
-        }
-    })
+    """ Returns the links for all the .bbug files of a given user. """
+    uid = request.args.get('uid')
+    s3 = boto3.resource('s3')
+    bucket_name = "imma-bucket"
+    s3_url = 'https://imma-bucket.s3-us-west-2.amazonaws.com/'
+    bucket = s3.Bucket(bucket_name)
+    bbug_paths = [object_summary.key for object_summary in bucket.objects.filter(Prefix="browserbugs/" + uid + "/")]
+    bbug_path_dict = {"Bbug " + str(i + 1): s3_url + bbug_paths[i] for i in range(len(bbug_paths))}
+    return jsonify({"result": "success", "characters": bbug_path_dict})
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
 def evaluate_state():
