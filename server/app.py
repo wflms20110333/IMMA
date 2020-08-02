@@ -182,9 +182,12 @@ def retrieve_imma():
 
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
     temp_code_dict = {
-        'default': 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/43762ec8a8815b68d93141c31098284d/Browserbee.bbug'
+        'oldurl': 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/43762ec8a8815b68d93141c31098284d/Browserbee.bbug'
     }
-    if inputParams['keycode'] in temp_code_dict.keys():
+    if inputParams['keycode'] == 'default':
+        defaultChar = {"information":{"name":"Browserbee","premade":True,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"43762ec8a8815b68d93141c31098284d"},"personality":["0.5","1","1"],"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"messageBank":{}}
+        return jsonify(defaultChar)
+    elif inputParams['keycode'] in temp_code_dict.keys():
         codeAuth = temp_code_dict[inputParams['keycode']]
     else:
         codeAuth = False

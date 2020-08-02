@@ -153,7 +153,7 @@ $(document).ready(function() {
                 serverPOST('getListOfUserFiles', getData, function(data) {
                     // Get number of bbugs already made
                     var numBbugs = Object.keys(data['characters']).length;
-                    if (numBbugs >= 3 && result['user_level'] != "premium") { // no slots left
+                    if (numBbugs >= 8 && result['user_level'] != "premium") { // no slots left
                         alert("Oh no... you don't have any server slots left! Visit Account to see your existing saved Browserbugs.");
                     } else {
                         exportBbug(true, function(jsonDict) {
