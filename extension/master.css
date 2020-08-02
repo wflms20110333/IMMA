@@ -92,11 +92,18 @@ footer p {
 }
 
 /* Styling options icon */
-#options-icon:hover {opacity: 100%;}
+#help-icon:hover, #options-icon:hover {opacity: 100%;}
 #options-icon {
     margin: 5px;
     position: absolute;
     right: 5px; top: 5px;
+    width: 30px; height: 30px;
+    opacity: 70%;
+}
+#help-icon {
+    margin: 5px;
+    position: absolute;
+    right: 40px; top: 5px;
     width: 30px; height: 30px;
     opacity: 70%;
 }
