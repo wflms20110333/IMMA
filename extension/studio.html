@@ -15,22 +15,22 @@
         <div>
             <h2>Browserbug Studio</h2>
 
-                <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
+            <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
 
-                <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
-                <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
+            <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
+            <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
 
-                <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
-                <!-- note #TODO encrypt JSONs -->
-                <input type="file" id="openBbug" accept=".bbug">
-                <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
-                <a id="exporter" style="display:none;"></a>
-                <a class="filing2 i18n-txt" id="fServer" href="account.html" title="Open one of your saved models" style="color:black;"></a>
-                <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
-                <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
-        
+            <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
+            <!-- note #TODO encrypt JSONs -->
+            <input type="file" id="openBbug" accept=".bbug">
+            <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
+            <a id="exporter" style="display:none;"></a>
+            <a class="filing2 i18n-txt" id="fServer" href="account.html" title="Open one of your saved models" style="color:black;"></a>
+            <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
+            <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
+
             <div id="topright-toolbar">
-                <a class="i18n-txt" id="tHelp" href="faq.html"></a> |
+                <a class="i18n-txt" id="tHelp" href="https://imma.studio/browserbug/faq"></a> |
                 <a class="TODO" href="account.html">Account</a> |
                 <a class="i18n-txt" id="tSett" href="options.html"></a> |
                 <a class="i18n-txt" id="tKofi" href="https://ko-fi.com/browserbug" target="_blank"></a>
@@ -99,7 +99,7 @@
                     <span class="i18n-txt" id="stud1"></span>
                     <a title="Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!">[?]</a>
                     <span class="i18n-txt" id="stud2"></span>
-                    </p>
+                </p>
                 <p class="toggling i18n-txt" id="tipToggle_T"></p><br>
                 <p class="filing i18n-txt" id="activate"></p>
             </div>
@@ -146,7 +146,7 @@
 
                 <span class="toggler" id="ratioToggle">
                     <span class="i18n-txt" id="proportion"></span>
-                    <a title="How often to use custom messages rather than default messages">[?]</a></span>
+                <a title="How often to use custom messages rather than default messages">[?]</a></span>
                 <p class="toggling i18n-txt" id="ratioToggle_T"></p>
                 <br><br>
                 <div>
@@ -154,45 +154,45 @@
                         <span id="cc-left-text">X</span>
                         <span class="i18n-txt" id="ptCC"></span></div>
                     <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom" style="margin:5px;">
-                    <div style="display: inline-block;vertical-align: middle;text-align: left;"">
-                        <span id="cc-right-text">Y</span>
-                        <span class="i18n-txt" id="ptDef"></span></div>
+                    <div style="display: inline-block;vertical-align: middle;text-align: left;" ">
+                        <span id="cc-right-text ">Y</span>
+                        <span class="i18n-txt " id="ptDef "></span></div>
                 </div>
                 <br>
-                <fieldset id="pullfrom">
-                    <legend class="i18n-txt" id="cm1"></legend>
-                    <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    <p class="toggler" id="statToggle">
-                        <span class="i18n-txt" id="cm2"></span>
-                        <a title="Grade this message! (0=no effect, 1=high effect)">[?]</a></p>
-                    <p class="toggling i18n-txt" id="statToggle_T"></p><br>
+                <fieldset id="pullfrom ">
+                    <legend class="i18n-txt " id="cm1 "></legend>
+                    <textarea id="messagecontent " maxlength="90 " style="resize: none; "></textarea>
+                    <p class="toggler " id="statToggle ">
+                        <span class="i18n-txt " id="cm2 "></span>
+                        <a title="Grade this message! (0=no effect, 1=high effect) ">[?]</a></p>
+                    <p class="toggling i18n-txt " id="statToggle_T "></p><br>
 
-                    <label class="toggler" id="m1Toggle">
-                        <span class="i18n-txt" id="cm3"></span>
-                        <a title="Reducing your stress and frustration">[?]</a></label>
-                    <p class="toggling i18n-txt" id="m1Toggle_T"></p>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
-                    <span id="mtext1">test</span>
+                    <label class="toggler " id="m1Toggle ">
+                        <span class="i18n-txt " id="cm3 "></span>
+                        <a title="Reducing your stress and frustration ">[?]</a></label>
+                    <p class="toggling i18n-txt " id="m1Toggle_T "></p>
+                    <input type="range " class="slider " min="0 " max="1 " value="0 " step="0.1 " id="msgstat1 ">
+                    <span id="mtext1 ">test</span>
                     <br>
-                    <label class="toggler" id="m2Toggle">
-                        <span class="i18n-txt" id="cm4"></span>
-                        <a title="Preventing boredom and distraction">[?]</a></label>
-                    <p class="toggling i18n-txt" id="m2Toggle_T"></p>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
-                    <span id="mtext2">test</span>
+                    <label class="toggler " id="m2Toggle ">
+                        <span class="i18n-txt " id="cm4 "></span>
+                        <a title="Preventing boredom and distraction ">[?]</a></label>
+                    <p class="toggling i18n-txt " id="m2Toggle_T "></p>
+                    <input type="range " class="slider " min="0 " max="1 " value="0 " step="0.1 " id="msgstat2 ">
+                    <span id="mtext2 ">test</span>
                     <br>
-                    <label class="toggler" id="m3Toggle">
-                        <span class="i18n-txt" id="cm5"></span>
-                        <a title="Helping you maintain healthy habits">[?]</a></label>
-                    <p class="toggling i18n-txt" id="m3Toggle_T"></p>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
-                    <span id="mtext3">test</span>
+                    <label class="toggler " id="m3Toggle ">
+                        <span class="i18n-txt " id="cm5 "></span>
+                        <a title="Helping you maintain healthy habits ">[?]</a></label>
+                    <p class="toggling i18n-txt " id="m3Toggle_T "></p>
+                    <input type="range " class="slider " min="0 " max="1 " value="0 " step="0.1 " id="msgstat3 ">
+                    <span id="mtext3 ">test</span>
                 </fieldset>
                 <br>
-                <input type="button" value="Add message" class="filing2" id="add">
+                <input type="button " value="Add message " class="filing2 " id="add ">
                 <br><br>
-                <fieldset id="yourform">
-                    <legend  class="i18n-txt" id="cm6"></legend>
+                <fieldset id="yourform ">
+                    <legend  class="i18n-txt " id="cm6 "></legend>
                 </fieldset>
             </div>
         </div>
@@ -201,17 +201,17 @@
 
     <footer>
         <p>Copyright &copy; IMMA Studio, LLC, 2020 |
-            <a href="https://imma.studio/browserbug/privacy_policy" target="_blank">Privacy Policy</a> | 
-            <a href="https://imma.studio/browserbug/terms_of_use" target="_blank">Terms of Use</a> |
-            <a class="mainbutton" href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>
+            <a href="https://imma.studio/browserbug/privacy_policy " target="_blank ">Privacy Policy</a> | 
+            <a href="https://imma.studio/browserbug/terms_of_use " target="_blank ">Terms of Use</a> |
+            <a class="mainbutton " href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature: ">DMCA</a>
         </p>
     </footer>
 
 </body>
 
-<script src="jquery-3.5.1.min.js"></script>
-<script src="constants.js"></script>
-<script src="util.js"></script>
-<script src="studio.js"></script>
+<script src="jquery-3.5.1.min.js "></script>
+<script src="constants.js "></script>
+<script src="util.js "></script>
+<script src="studio.js "></script>
 
 </html>
