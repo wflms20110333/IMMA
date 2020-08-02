@@ -28,14 +28,15 @@ fetch(SERVER_URL + "getHearts", { // todo use SERVER_URL constant instead
 });
 */
 // Click to increase heart counts
+/*
 heartButton = document.getElementById("hearts-up");
 heartButton.addEventListener('click', function(e) {
-	alert("Hearts not implemented yet");
+	alert("Hearts not implemented yet)");
     /*fetch(SERVER_URL + "addHeart", { // todo use SERVER_URL constant instead
 		method: 'POST',
 		headers: {'Content-Type': 'application/json',},
 		body: JSON.stringify({"pass in information here": "to do"}),
 	}).then(data => {}).catch(error => {
 		console.error(error);
-	});*/
-}, false);
+	});
+}, false);*/

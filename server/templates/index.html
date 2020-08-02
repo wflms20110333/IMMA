@@ -3,16 +3,16 @@
 <meta charset="UTF-8">
 
 <head>
-    <title>{{bbugName}}</title>
+    <title>{{bbugName}} | Browserbug</title>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/export.css') }}">
 
     <!-- For Twitter cards! -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@browser_bug">
-    <meta name="twitter:title" content="This is {{bbugName}} - made by {{uid}}">
-    <meta name="twitter:description" content="{{bbugName}} - made by {{uid}}">
+    <meta name="twitter:title" content="This is: {{bbugName}}">
+    <meta name="twitter:description" content="Make your own browser companion with Browserbug!">
     <!-- <meta name="twitter:image" content="{{imgLink}}"> -->
     <meta name="twitter:image:alt" content="A picture of {{bbugName}}">
     <script data-ad-client="ca-pub-8341039910387687" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -24,12 +24,14 @@
     <h1 id="logo-text">Browserbug Beta</h1>
 
     <div class="bubble" id="content">
+        <a style="position:absolute; top:calc(10%+5px); right:11%;" href="http://imma.studio/browserbug">New to Browserbug?</a>
         <img id="char-icon" alt="Character image">
         <br>
         <h2 id="char-name" style="margin-bottom:0px;">{{bbugName}}</h2>
         <h2 id="char-id" style="display:none;">{{uid}}</h2>
         <p style="margin-top:0px;">Created with <b>Browserbug Beta!</b><br>Remember to locally download any important Browserbugs you create,<br>since we might reset our servers from time to time!</p>
-        <button class="mainbutton" id="hearts-up" title="Heart this Browserbug!">&hearts; 0</button>
+        
+        <button class="mainbutton" id="bbug-link">Get the extension</button>
         <button class="mainbutton" id="char-load">Load <span id="char-name-2">Browserbee</span></button>
 
         <h3>Share {{bbugName}} with others!</h3>
@@ -62,11 +64,9 @@
         <!-- AddToAny END -->
         
         <p><span>Or copy link:</span>
-            <textarea spellcheck="false" style="resize:none;width:300px;height:52px;font-size:15px;vertical-align:middle;" id="selfLink"></textarea>
+            <textarea readonly spellcheck="false" style="resize:none;width:300px;height:52px;font-size:15px;vertical-align:middle;font-size:12px;" id="selfLink"></textarea>
         </p>
-        <button class="mainbutton" id="bbug-link">Get the Browserbug extension</button>
-        <a class="mainbutton" id="reportBug" href="mailto:support@imma.studio&subject=Reporting%20Browserbug&body=Reporting%20Browserbug%20[{{bbugName}}]%20by%20[{{uid}}]%0d%0dReason:%0d%0d">Report this Browserbug</a>
-        <br><br><br>
+        <!-- <button class="mainbutton" id="hearts-up" title="Heart this Browserbug!">&hearts; 0</button> -->
         <br>
         <div id="sponsor-space">
             <p>Advertisement</p>
@@ -74,6 +74,7 @@
                 <p>testing!</p>
             </div>
         </div>
+        <br><a class="mainbutton" id="reportBug" href="mailto:support@imma.studio&subject=Reporting%20Browserbug&body=Reporting%20Browserbug%20[{{bbugName}}]%20by%20[{{uid}}]%0d%0dReason:%0d%0d">Report this Browserbug</a>
     </div>
 
     <footer>
