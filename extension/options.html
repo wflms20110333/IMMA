@@ -31,16 +31,24 @@
     </div>
     <div class="bubble" id="settingscontent">
         <h1>Settings</h1>
-        <p>Hover over any <a title="Hover like this to view tips!">[?]</a> for more information! It may take a moment for changes to take effect.</p>
+        <p>It may take a moment for changes to take effect!</p>
         <div>
             <!--<div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
                 <label class="switch"><input type="checkbox" id="silent-switch">
             </div> this doesn't really do anything, silence apparently != mute -->
             <div>
-                <p>Message frequency <a title="How often should your Browserbug send you messages?">[?]</a>: <span id="slider-text"></span></p>
-                <input type="range" min="1" max="10" value="5" class="slider" id="frequency-slider">
-
+                <label for="lang-chooser">Change language: </label>
+                <select name="lang-chooser" id="lang-chooser">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="zh">中文</option>
+                </select>
             </div>
+            <div>
+                <p>Message frequency: How often should your Browserbug send you messages? <span id="slider-text"></span></p>
+                <input type="range" min="1" max="10" value="5" class="slider" id="frequency-slider">
+            </div>
+            
             <!--
             <div>
                 <p>Persistent messages <a title="Experimental! If enabled, messages won't automatically close themselves out.">[?]</a>

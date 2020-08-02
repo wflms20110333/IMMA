@@ -38,5 +38,67 @@
 	"w_E3_link2": {"message": "Facebook,"},
 	"w_E3_4": {"message": "o"},
 	"w_E3_link3": {"message": "Twitter"},
-	"w_E3_5": {"message": "."}
+	"w_E3_5": {"message": "."},
+
+	"new": {"message": "Nuevo"},
+	"fOpen": {"message": "Upload local"},
+	"fServer": {"message": "Abrir desde el servidor"},
+	"export": {"message": "Download local"},
+	"uploadBbug": {"message": "Guardar en el servidor"},
+
+	"tHelp": {"message": "Ayuda"},
+	"tSett": {"message": "Configuración"},
+	"tFForm": {"message": "Formulario de comentarios"},
+	"tFB": {"message": "Facebook"},
+	"tTwitter": {"message": "Twitter"},
+	"tKofi": {"message": "¡Cómprenos Ko-Fi!"},
+
+	"personality": {"message": "Personalidad"},
+	"persToggle_T": {"message": "¡Experimental! Describe la actitud típica de tu personaje."},
+
+	"p11": {"message": "Grave"},
+	"p12": {"message": "Alegre"},
+	"p21": {"message": "Relajado"},
+	"p22": {"message": "Energético"},
+	"p31": {"message": "Productividad"},
+	"p32": {"message": "Positividad"},
+
+	"textingstyle": {"message": "Estilo de mensajes de texto"},
+	"textToggle_T": {"message": "¡Elija con qué frecuencia su error envía emojis :) o CAPITALIZA o usa puntuación!"},
+
+	"txt1": {"message": "Emojis"},
+	"txt2": {"message": "Capitalización"},
+	"txt3": {"message": "Puntuación"},
+
+	"studWelcome": {"message": "¡Hola! Bienvenido al estudio."},
+	"stud1": {"message": "Desplácese sobre cualquier"},
+	"stud2": {"message": "para ver consejos."},
+	"tipToggle_T": {"message": "¡Desplázate así para ver consejos! ¡Cuando hayas terminado de personalizar tu error, haz clic en el botón de abajo para activarlo!"},
+
+	"activate": {"message": "¡Terminado! Active este Browserbug."},
+
+	"pName": {"message": "Nombre"},
+	"nameToggle_T": {"message": "¡Elija un nombre!"},
+	"pAvatar": {"message": "Avatar"},
+	"imgToggle_T": {"message": "¡Elija una imagen!"},
+	"imgLabelr": {"message": "Seleccionar imagen"},
+
+	"custMsgs": {"message": "Mensajes personalizados"},
+	"ccToggle_T": {"message": "¡Crea tus propios mensajes! (El estilo de mensajes de texto no se aplica a estos.)"},
+	"proportion": {"message": "Proporción de mensajes personalizados"},
+	"ratioToggle_T": {"message": "Con qué frecuencia usar mensajes personalizados en lugar de mensajes predeterminados"},
+
+	"ptCC": {"message": "% personalizado"},
+	"ptDef": {"message": "% predeterminado"},
+
+	"cm1": {"message": "Crear mensaje"},
+	"cm2": {"message": "Estadísticas"},
+	"statToggle_T": {"message": "¡Califique este mensaje! (0 = sin efecto, 1 = efecto alto)"},
+	"cm3": {"message": "Felicidad"},
+	"m1Toggle_T": {"message": "Reduciendo el estrés y la frustración"},
+	"cm4": {"message": "Focus"},
+	"m2Toggle_T": {"message": "Prevención del aburrimiento y la distracción"},
+	"cm5": {"message": "Bienestar"},
+	"m3Toggle_T": {"message": "Ayudando a mantener hábitos saludables"},
+	"cm6": {"message": "Mensajes personalizados"}
 }

@@ -129,7 +129,8 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
+    // TODO: original: chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'user_lang'], function(result) {
         serverPOST('evaluateState', result, function(data) {
             sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
             chrome.storage.sync.set({ 'mood': data['predictedState'] }); // update with any clipping that was done
@@ -143,7 +144,7 @@ function sendMessage() {
 function sendNewQuestion() {
     console.log('in sendNewQuestion');
 
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality'], function(result) {
         serverPOST('getQuestion', result, function(data) {
             if (data['result'] == "qbank_empty") { // no questions to send
                 sendMessage();

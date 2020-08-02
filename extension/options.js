@@ -29,6 +29,21 @@ freqslider.onchange = function() { // update actual options
     setNextAlarm();
 };
 
+// Manage language chooser
+var languageChooser = document.getElementById('lang-chooser');
+chrome.storage.sync.get(['user_lang'], function (result) { // on initialization, select language
+    for (var i = 0; i < languageChooser.options.length; i++) {
+        if (languageChooser.options[i].value == result['user_lang']) {
+            languageChooser.options[i].selected = true;
+            return;
+        }
+    }
+});
+languageChooser.onchange = function() { // update language
+    chrome.storage.sync.set({'user_lang': languageChooser.value});
+    location.reload();
+};
+
 /*
 // Manage the fade checkbox
 var fadeswitch = document.getElementById('autofade-switch');
