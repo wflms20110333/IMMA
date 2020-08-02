@@ -79,7 +79,7 @@ function populateBrowserbugs() {
                 div.setAttribute('class', 'bbug-entry');
 
                 var imgSpan = document.createElement('img');
-                imgSpan.src = value;
+                imgSpan.src = S3_URL + "browserbug_images/" + result['user_bbug_id'] + '/' + key + '.png'; // path to image
                 div.appendChild(imgSpan);
                 var nameSpan = document.createElement('span');
                 nameSpan.textContent = key;
@@ -89,12 +89,9 @@ function populateBrowserbugs() {
                 activeSpan.textContent = "Activate";
                 activeSpan.setAttribute('class', 'activator');
                 activeSpan.onclick = function() {
-                    var bbug_path = S3_URL + 'browserbugs/' + result['user_bbug_id'] + '/' + key + '.bbug';
-                    // placeholder
-                    bbug_path = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/c86aceea30b05e2971bee42f5af4b43/Browserbee.bbug";
-                    $.getJSON(bbug_path, "", function(data) {
+                    $.getJSON(value, "", function(data) {
                         loadCharacterFromJson(data);
-                        alert(key + "activated!");
+                        alert(key + " activated!");
                     })
                 }
                 div.appendChild(activeSpan);

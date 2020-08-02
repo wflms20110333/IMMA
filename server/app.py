@@ -79,16 +79,17 @@ def get_bbug_file():
     character_name = request.args.get('character_name')
     if uid == None or character_name == None:
         return jsonify({"result": "Invalid request"})
-    bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
-    img_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + character_name + ".png"
+    ##bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
     # TODO: check if uid/character_name combination does not exist in S3
-    return render_template("index.html", bbugName=character_name, uid=uid, imgLink=img_link)
+    return render_template("index.html", bbugName=character_name, uid=uid)
 
 @app.route('/removeBug', methods=['POST'])
 def remove_bug():
     """ Removes the .bbug file and its corresponding image, if they exist. """
-    uid = request.args.get('uid')
-    bugname = request.args.get('bbugname')
+    inputParams = request.get_json()
+    uid = inputParams['uid']
+    bugname = inputParams['bbugname']
+
     s3 = boto3.resource("s3")
     bucket_name = "imma-bucket"
     bbug_file = s3.Object(bucket_name, "browserbugs/" + uid + "/" + bugname + ".bbug")
@@ -100,13 +101,17 @@ def remove_bug():
 @app.route('/getListOfUserFiles', methods=['POST'])
 def get_bbug_list():
     """ Returns the links for all the .bbug files of a given user. """
-    uid = request.args.get('uid')
+    inputParams = request.get_json()
+    uid = inputParams['uid']
+
     s3 = boto3.resource('s3')
     bucket_name = "imma-bucket"
     s3_url = 'https://imma-bucket.s3-us-west-2.amazonaws.com/'
     bucket = s3.Bucket(bucket_name)
+
+    # Key: name, Value: filepath
     bbug_paths = [object_summary.key for object_summary in bucket.objects.filter(Prefix="browserbugs/" + uid + "/")]
-    bbug_path_dict = {"Bbug " + str(i + 1): s3_url + bbug_paths[i] for i in range(len(bbug_paths))}
+    bbug_path_dict = {bbpath.split('/')[-1].split('.')[0] : s3_url + bbpath for bbpath in bbug_paths}
     return jsonify({"result": "success", "characters": bbug_path_dict})
 
 @app.route('/evaluateState', methods=['POST']) # not using address-bar params, so block GET requests
