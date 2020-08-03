@@ -159,8 +159,8 @@ $(document).ready(function() {
                         exportBbug(true, function(jsonDict) {
                             var j_uid = jsonDict['information']['uid'];
                             var j_name = jsonDict['information']['name'];
-                            var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
-                            var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name + "&imgurl=" + j_url;
+                            //var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
+                            var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name;
                             window.open(bbugPath);
                         });
                     }
