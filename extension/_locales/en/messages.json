@@ -1,5 +1,5 @@
 {
-	"translations-available": {"message": ""},
+	"translations_available": {"message": ""},
 
 	"w_A1": {"message": "Welcome"},
 	"w_B1": {"message": "HOW TO USE"},
@@ -30,6 +30,7 @@
 	"w_D3_2": {"message": "for more details!"},
 
 	"w_E1": {"message": "NEED HELP?"},
+	"w_E1_2": {"message": "Can I change how long messages stay on my screen? Why am I missing certain notifications?"},
 
 	"w_E2_1": {"message": "For answers to these and more, take a look at our"},
 	"w_E2_link": {"message": "FAQ!"},

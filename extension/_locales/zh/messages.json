@@ -1,5 +1,5 @@
 {
-    "translations-available": {"message": "我们还没有此页面的中文翻译！谢谢你的耐心。"},
+    "translations_available": {"message": "我们还没有此页面的中文翻译！谢谢你的耐心。"},
 
     "w_A1": { "message": "欢迎！" },
     "w_B1": { "message": "如何使用Browserbug" },
@@ -30,6 +30,7 @@
     "w_D3_2": { "message": "！" },
 
     "w_E1": { "message": "需要帮助吗？" },
+    "w_E1_2": {"message": "我可以改变消息在屏幕上保留多长时间吗？为什么我缺少某些通知？"},
 
     "w_E2_1": { "message": "如果您遇到任何问题，请查看我们的" },
     "w_E2_link": { "message": "常问问题" },

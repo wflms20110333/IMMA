@@ -21,5 +21,8 @@ $(document).ready(function() {
 			});
 		});
 
+		// specify which welcome diagram to use
+        document.getElementById("studio-image").src = "/images/welcomediagram/welcome_" + result['user_lang'] + "2clear.png";
+
 	});
 });
