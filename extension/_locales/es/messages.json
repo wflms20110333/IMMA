@@ -1,4 +1,6 @@
 {
+	"translations-available": {"message": "¡Las traducciones al español aún no están disponibles para esta página! Gracias por su paciencia."},
+
 	"w_A1": {"message": "Bienvenido"},
 	"w_B1": {"message": "Cómo se usa Browserbug"},
 	"w_B2": {"message": "¡Bienvenido a Browserbug! Ya hemos cargado un carácter predeterminado, \"Browserbee,\" para que lo use :)"},

@@ -1,4 +1,6 @@
 {
+	"translations-available": {"message": ""},
+
 	"w_A1": {"message": "Welcome"},
 	"w_B1": {"message": "HOW TO USE"},
 	"w_B2": {"message": "Welcome to Browserbug! We've already loaded a default character, \"Browserbee,\" for you to use :)"},

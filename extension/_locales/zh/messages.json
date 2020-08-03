@@ -1,4 +1,6 @@
 {
+    "translations-available": {"message": "我们还没有此页面的中文翻译！谢谢你的耐心。"},
+
     "w_A1": { "message": "欢迎！" },
     "w_B1": { "message": "如何使用Browserbug" },
     "w_B2": { "message": "欢迎使用Browserbug！我们已经加载了默认角色《Browserbee》供您使用！" },

@@ -92,20 +92,31 @@ footer p {
 }
 
 /* Styling options icon */
-#help-icon:hover, #options-icon:hover {opacity: 100%;}
-#options-icon {
+#help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
+#help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
     margin: 5px;
-    position: absolute;
-    right: 5px; top: 5px;
     width: 30px; height: 30px;
     opacity: 70%;
+    position: absolute;
+    top: 5px;
 }
 #help-icon {
-    margin: 5px;
-    position: absolute;
-    right: 40px; top: 5px;
-    width: 30px; height: 30px;
-    opacity: 70%;
+    right: 89px;
+    width: 32px; height: 32px; top:4px;
+}
+#options-icon {
+    right: 123px;
+}
+#acct-icon {
+    right: 156px;
+}
+#studio-icon {
+    right: 189px;
+}
+#kofi-icon {
+    width: inherit; height: 25px;
+    top: 8px;
+    right: 15px;
 }
 
 /* Styling file selectors */
