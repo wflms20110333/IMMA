@@ -173,7 +173,7 @@ var chinese_i18n_messages = {
 	"a1_5": {"message": "We've written up the details in our"},
 	"a1_6": {"message": "Privacy Policy"},
 	"a1_7": {"message": "if you'd like to read more!"},
-	
+
 	"q2": { "message": "Can I change how long messages stay on my screen?" },
     "a2_1": { "message": "Sure! Notification duration is controlled by your operating system. For example, on Windows 10, you can control this in Ease of Access >" },
     "a2_2": { "message": "Display" },
@@ -205,7 +205,7 @@ var chinese_i18n_messages = {
     "r1": { "message": "Click the puzzle piece icon or see if Browserbug might be hidden or minimized!" },
 
     "t2": { "message": "I'm not receiving my messages!" },
-    "r2_1": { "message": "This is the most common issue users have! You can fix this in just a few seconds." },
+    "r2_1": { "message": "This is the most common issue users have! You can usually fix this in just a few seconds." },
     "r2_2": { "message": "For Windows 10 users:" },
     "r2_3": { "message": "Is Focus Assist turned on?" },
     "r2_4": { "message": "Open the Action Center to check! (Windows logo key + A)" },

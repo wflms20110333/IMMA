@@ -58,7 +58,8 @@
 	"export": {"message": "下载本地"},
 	"uploadBbug": {"message": "上传到服务器"},
 
-	"tHelp": {"message": "得到帮助"},
+    "tHelp": {"message": "得到帮助"},
+    "acct": {"message": "我的帐户"},
 	"tSett": {"message": "设置"},
 	"tFForm": {"message": "反馈表"},
 	"tFB": {"message": "脸书"},
@@ -85,7 +86,7 @@
 	"studWelcome": {"message": "你好！欢迎来到Studio。"},
 	"stud1": {"message": "悬停在任何地方"},
 	"stud2": {"message": "以查看提示。"},
-	"tipToggle_T": {"message": "像这样悬停以查看提示！自定义人物后，请单击下面的按钮将其激活！"},
+	"tipToggle_T": {"message": "自定义人物后，请单击下面的按钮将其激活！"},
 
 	"activate": {"message": "完成！激活你的人物。"},
 
@@ -107,10 +108,11 @@
 	"cm2": {"message": "统计"},
 	"statToggle_T": {"message": "对该邮件评分！（0 =无效果，1 =高效果）"},
 	"cm3": {"message": "幸福"},
-	"m1Toggle_T": {"message": "减轻压力和沮丧"},
+	"m1Toggle_T": {"message": "幸福：减轻压力和沮丧"},
 	"cm4": {"message": "注意力"},
-	"m2Toggle_T": {"message": "防止无聊和分心"},
+	"m2Toggle_T": {"message": "注意力：防止无聊和分心"},
 	"cm5": {"message": "健康"},
-	"m3Toggle_T": {"message": "帮助您保持健康的习惯"},
-	"cm6": {"message": "你自定的短信"}
+	"m3Toggle_T": {"message": "健康：帮助您保持健康的习惯"},
+    "cm6": {"message": "你自定的短信"},
+    "addMessage": {"message": "添加"}
 }

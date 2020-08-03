@@ -47,6 +47,7 @@
 	"uploadBbug": {"message": "Guardar en el servidor"},
 
 	"tHelp": {"message": "Ayuda"},
+	"acct": {"message": "Mi cuenta"},
 	"tSett": {"message": "Configuración"},
 	"tFForm": {"message": "Formulario de comentarios"},
 	"tFB": {"message": "Facebook"},
@@ -73,7 +74,7 @@
 	"studWelcome": {"message": "¡Hola! Bienvenido al estudio."},
 	"stud1": {"message": "Desplácese sobre cualquier"},
 	"stud2": {"message": "para ver consejos."},
-	"tipToggle_T": {"message": "¡Desplázate así para ver consejos! ¡Cuando hayas terminado de personalizar tu error, haz clic en el botón de abajo para activarlo!"},
+	"tipToggle_T": {"message": "¡Cuando hayas terminado de personalizar, haz clic en el botón de abajo!"},
 
 	"activate": {"message": "¡Terminado! Active este Browserbug."},
 
@@ -95,10 +96,11 @@
 	"cm2": {"message": "Estadísticas"},
 	"statToggle_T": {"message": "¡Califique este mensaje! (0 = sin efecto, 1 = efecto alto)"},
 	"cm3": {"message": "Felicidad"},
-	"m1Toggle_T": {"message": "Reduciendo el estrés y la frustración"},
+	"m1Toggle_T": {"message": "Felicidad: Reduciendo el estrés y la frustración"},
 	"cm4": {"message": "Focus"},
-	"m2Toggle_T": {"message": "Prevención del aburrimiento y la distracción"},
+	"m2Toggle_T": {"message": "Focus: Prevención del aburrimiento y la distracción"},
 	"cm5": {"message": "Bienestar"},
-	"m3Toggle_T": {"message": "Ayudando a mantener hábitos saludables"},
-	"cm6": {"message": "Mensajes personalizados"}
+	"m3Toggle_T": {"message": "Bienestar: Ayudando a mantener hábitos saludables"},
+	"cm6": {"message": "Mensajes personalizados"},
+	"addMessage": {"message": "Agregar mensaje"}
 }

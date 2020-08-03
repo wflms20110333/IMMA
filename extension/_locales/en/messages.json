@@ -47,6 +47,7 @@
 	"uploadBbug": {"message": "Save to server"},
 
 	"tHelp": {"message": "Help"},
+	"acct": {"message": "Account"},
 	"tSett": {"message": "Settings"},
 	"tFForm": {"message": "Feedback Form"},
 	"tFB": {"message": "FB"},
@@ -73,7 +74,7 @@
 	"studWelcome": {"message": "Hello! Welcome to the Studio."},
 	"stud1": {"message": "Hover over any"},
 	"stud2": {"message": "to view tips."},
-	"tipToggle_T": {"message": "Hover like this to view tips! When you're done customizing your bug, click the button below to activate it!"},
+	"tipToggle_T": {"message": "Don't forget to activate when you're done customizing!"},
 
 	"activate": {"message": "Finished! Activate this Browserbug."},
 
@@ -95,11 +96,12 @@
 	"cm2": {"message": "Stats"},
 	"statToggle_T": {"message": "Grade this message! (0=no effect, 1=high effect)"},
 	"cm3": {"message": "Happiness"},
-	"m1Toggle_T": {"message": "Reducing your stress and frustration"},
+	"m1Toggle_T": {"message": "Happiness: Reducing your stress and frustration"},
 	"cm4": {"message": "Focus"},
-	"m2Toggle_T": {"message": "Preventing boredom and distraction"},
+	"m2Toggle_T": {"message": "Focus: Preventing boredom and distraction"},
 	"cm5": {"message": "Wellbeing"},
-	"m3Toggle_T": {"message": "Helping you maintain healthy habits"},
-	"cm6": {"message": "Custom messages"}
+	"m3Toggle_T": {"message": "Wellbeing: Helping you maintain healthy habits"},
+	"cm6": {"message": "Custom messages"},
+	"addMessage": {"message": "Add message"}
 
 }

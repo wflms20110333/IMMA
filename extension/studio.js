@@ -20,10 +20,12 @@ $(document).ready(function() {
                     el.style.fontWeight = 400;
                 });
             } else if (result['user_lang'] == 'zh') {
-                document.querySelectorAll("h1, h2, h3, p, .question, input").forEach(el => {
+                document.querySelectorAll(".i18n-txt").forEach(el => {
                     el.style.fontFamily = 'Noto Sans SC', 'Segoe UI', 'sans-serif'; // chinese: Noto Sans SC
                     el.style.fontWeight = 400;
                 });
+                document.querySelectorAll(".chn25px").forEach(el => { el.style.fontSize = 25; });
+                document.querySelectorAll(".chn20px").forEach(el => { el.style.fontSize = 20; });
             }
             
             $('.i18n-txt').each(function(index, element) { // translate text
