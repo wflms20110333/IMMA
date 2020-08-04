@@ -159,6 +159,7 @@ User preferences:
 "silence": (bool) whether to silence notifications
 "flagged_sites": (json) maps site names to their score impacts
 "user_lang": (string) locale code for the user's preferred language
+"user_level": (number) save slots the user has available (lite users start at 3, infinite is 999)
 
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'

@@ -174,8 +174,11 @@ $(document).ready(function() {
                 serverPOST('getListOfUserFiles', getData, function(data) {
                     // Get number of bbugs already made
                     var numBbugs = Object.keys(data['characters']).length;
-                    if (numBbugs >= 8 && result['user_level'] != "premium") { // no slots left
-                        alert("Oh no... you don't have any server slots left! Visit Account to see your existing saved Browserbugs.");
+                    
+                    var openAccount = false;
+
+                    if (numBbugs >= parseInt(result['user_level'])) {
+                        openAccount = confirm("You don't have enough save slots left! Check your account?");
                     } else {
                         exportBbug(true, function(jsonDict) {
                             var j_uid = jsonDict['information']['uid'];
@@ -184,6 +187,10 @@ $(document).ready(function() {
                             var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name;
                             window.open(bbugPath);
                         });
+                    }
+
+                    if (openAccount == true) { // open new tab to see browserbugs
+                        window.open("/account.html", "blank");
                     }
                 });
             });
