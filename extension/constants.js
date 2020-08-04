@@ -1,5 +1,5 @@
 //var SERVER_URL = 'http://127.0.0.1:5000/';
-var SERVER_URL = 'http://ec2-35-164-24-43.us-west-2.compute.amazonaws.com/';
+var SERVER_URL = 'http://ec2-54-189-174-31.us-west-2.compute.amazonaws.com/';
 var S3_URL = 'https://imma-bucket.s3-us-west-2.amazonaws.com/';
 var NULL_IMAGE_URL = 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png';
 
