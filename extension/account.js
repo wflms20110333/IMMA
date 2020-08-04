@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     countSlotsAvail();
     populateBrowserbugs();
-
+    /*
     $("#purchaseBoost1").click(function() { // link purchases
         statusDiv.text("Purchasing boost 1...");
         google.payments.inapp.buy({
@@ -40,6 +40,7 @@ $(document).ready(function() {
             'failure': onPurchaseFailed
         });
     });
+    */
     $("#enteractivation").click(function() { // link purchases
         checkCode();
     });
@@ -51,7 +52,7 @@ function checkCode() {
         result['code'] = document.getElementById("activationcode").value;
         serverPOST('checkCode', result, function(data) {
             if (data['result'] == 'validCode') {
-                chrome.storage.sync.set({ 'user_level': 'premium' });
+                chrome.storage.sync.set({ 'user_level': 999 });
                 alert("code entry successful! refresh to apply changes.");
             } else {
                 alert("invalid code :(");
@@ -63,9 +64,7 @@ function checkCode() {
 // Show slots available
 function countSlotsAvail() {
     chrome.storage.sync.get(['user_level'], function(result) {
-        if (result['user_level'] == 'premium') {
-            document.getElementById("bbugs-avail").textContent = "∞";
-        }
+        document.getElementById("bbugs-avail").textContent = result['user_level'];
     });
 }
 
