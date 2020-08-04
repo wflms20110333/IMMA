@@ -13,6 +13,19 @@ silentswitch.addEventListener('click', function() {
     chrome.storage.sync.set({'silence': silentswitch.checked});
 });*/
 
+$(document).ready(function() {
+    chrome.storage.sync.get(['user_lang'], function (result) {
+        $('.i18n-txt').each(function(index, element) { // translate text
+            var ownId = this.id;
+            $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
+                document.getElementById(ownId).textContent = msgObj[ownId]['message'];
+                document.getElementById(ownId).value = msgObj[ownId]['message'];
+            });
+        });
+
+    });
+});
+
 // Manage the message frequency slider
 var freqslider = document.getElementById('frequency-slider');
 var slidertext = document.getElementById('slider-text');
@@ -27,6 +40,21 @@ freqslider.onchange = function() { // update actual options
     chrome.storage.sync.set({'alarm_spacing': fDict[freqslider.value][0]});
     chrome.alarms.clearAll();
     setNextAlarm();
+};
+
+// Manage language chooser
+var languageChooser = document.getElementById('lang-chooser');
+chrome.storage.sync.get(['user_lang'], function (result) { // on initialization, select language
+    for (var i = 0; i < languageChooser.options.length; i++) {
+        if (languageChooser.options[i].value == result['user_lang']) {
+            languageChooser.options[i].selected = true;
+            return;
+        }
+    }
+});
+languageChooser.onchange = function() { // update language
+    chrome.storage.sync.set({'user_lang': languageChooser.value});
+    location.reload();
 };
 
 /*

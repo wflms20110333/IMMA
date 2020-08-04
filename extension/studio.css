@@ -1,5 +1,6 @@
 html, body {
-	overflow-y: visible;
+    overflow-y: visible;
+    height: 101%;
 }
 
 .column {

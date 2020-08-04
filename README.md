@@ -158,6 +158,7 @@ User preferences:
 "persist_notifs": (bool) whether to have persistent notifications
 "silence": (bool) whether to silence notifications
 "flagged_sites": (json) maps site names to their score impacts
+"user_lang": (string) locale code for the user's preferred language
 
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'

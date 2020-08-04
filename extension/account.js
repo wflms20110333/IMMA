@@ -1,8 +1,15 @@
 $(document).ready(function() {
-    $('.i18n-txt').each(function(index, element) { // translate text
-        this.textContent = chrome.i18n.getMessage(this.id);
-        this.value = chrome.i18n.getMessage(this.id);
+    chrome.storage.sync.get(['user_lang'], function (result) {
+        $('.i18n-txt').each(function(index, element) { // translate text
+            var ownId = this.id;
+            $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
+                document.getElementById(ownId).textContent = msgObj[ownId]['message'];
+                document.getElementById(ownId).value = msgObj[ownId]['message'];
+            });
+        });
+
     });
+
     countSlotsAvail();
     populateBrowserbugs();
 

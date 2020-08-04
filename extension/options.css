@@ -1,3 +1,7 @@
+html {
+    overflow-y: hidden;
+}
+
 #sidebar {
     height: 70%; float: left;
     text-align: center;

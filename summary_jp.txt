@@ -1,0 +1,23 @@
+仮想作業の孤独感を軽減するカスタムコンパニオン！
+
+お気に入りのミュージックアイドルに励ましのメッセージを送ったり、休憩を取ることを思い出させるビデオゲームのキャラクターにしたり、昔の友達に祝福の話をしたりしても、Browserbugsはオンラインでの時間をより生産的にします。前向きで、孤独感が少ない。
+
+A custom companion to make virtual work less lonely!
+
+Whether you'd like your favorite music idol to send you a message of encouragement, a video game character to remind you to take a break, or an old friend to give you a pep talk, Browserbugs make your time online a more productive, more positive, and less lonely experience.
+
+任意の画像から独自のBrowserbugを作成し、名前を付け、その性格を選択し、さらにカスタムメッセージの独自のリストを追加します。
+
+---これはBrowserbugのベータ版です！プロジェクトの改善と開発を続けているため、しばらくお待ちください:) ---
+
+Create your own Browserbug from any image, name them, choose their personality, and even add your own list of custom messages!
+
+--- This is the beta version of Browserbug! Please be patient with us as we continue improving and developing our project :) ---
+
+新機能：
+-Browserbugのテキストスタイルを選択してください！句読点（？！？！？！）の傾向、大文字、または絵文字の使用頻度を変更する：3 XD
+-Browserbugsを簡単にエクスポートして他のユーザーと共有するためのURLを生成します！この機能の開発を継続するため、作成したBrowserbugsのローカルコピーも必ず保存してください。
+
+NEW FEATURES:
+- Choose your Browserbug's texting style! Change their tendencies of punctuation (?!?!?!), CAPITALIZATION, or even how often they use emojis :3 XD
+- Generate URLs to easily export and share Browserbugs with others! Please remember to also save local copies of Browserbugs you make as we continue developing this feature!

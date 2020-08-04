@@ -206,7 +206,7 @@ def stylize_string(msg, textstyle):
 
     return msg2
 
-def pickMessage(state, messageBank, customRatio, textstyle, personality):
+def pickMessage(state, messageBank, customRatio, textstyle, languageCode):
     """ Picks which message will maximize predicted positive state change
 
     state -- a 5-vector of the predicted mood
@@ -217,11 +217,11 @@ def pickMessage(state, messageBank, customRatio, textstyle, personality):
 
     textstyle -- json of the current imma's texting style
 
-    personality -- json
+    languageCode -- code of the language to access
 
     Returns the message (string), and the full character name (string)"""
-
-    ans = queryTabbedFile("model/character files/MessageBank.txt", textstyle, messageBank, customRatio, state, personality)
+    
+    ans = queryTabbedFile("model/character files/MessageBank_" + languageCode + ".txt", textstyle, messageBank, customRatio, state)
     return ans
 
 def pickQuestion(questionBank, customRatio, textstyle, personality):
