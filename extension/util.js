@@ -30,11 +30,11 @@ function getRandomToken() {
 /**
  * Get whether there's mail from server that haven't read yet
  */
-function getMail(callback) {
+function getMail(callback, suppressServerWarning) {
     chrome.storage.sync.get(['lastMail'], function(result) {
         serverPOST('getMail', result, function(data) {
             callback(data['mail']);
-        });
+        }, suppressServerWarning);
     });
 }
 
@@ -131,11 +131,68 @@ function sendMessage() {
     console.log('in evaluateState');
     // TODO: original: chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
     chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'user_lang'], function(result) {
-        serverPOST('evaluateState', result, function(data) {
-            sendNotification(data['message'], result['imma_name'], result['image_link'], result['persist_notifs']);
-            chrome.storage.sync.set({ 'mood': data['predictedState'] }); // update with any clipping that was done
-        });
+        
+        // Use custom content
+        if (Math.random() < parseFloat(result['custom_ratio']) && Object.keys(result['message_bank']).length > 0) {
+            console.log("picking cc");
+            pickFromMsgBank(true, result['imma_name'], result['image_link'], result['message_bank'], result['textingstyle']);
+        } else { // Server request
+            var msg_Bank = {}
+            if (result['user_lang'] == 'zh'){ msg_Bank = msg_Bank_Zh; }
+            else if (result['user_lang'] == 'es'){ msg_Bank = msg_Bank_Es; }
+            else { msg_Bank = msg_Bank_En; }
+            pickFromMsgBank(false, result['imma_name'], result['image_link'], msg_Bank, result['textingstyle']);
+        }
+
     });
+}
+
+function pickFromMsgBank(usingCC, bbName, bbImgLink, bbBank, bbStyle){
+    // TODO: add fancy smart personality mood code from server into this
+    var keys = Object.keys(bbBank);
+    var chosenMsgKey = keys[ keys.length * Math.random() << 0];
+    var styledMsg = chosenMsgKey;
+    if (usingCC == false) {
+        styledMsg = stylize_string(chosenMsgKey, bbStyle); // stylize as long as not using cc
+    }
+    sendNotification(styledMsg, bbName, bbImgLink);
+}
+
+function stylize_string(msg, textstyle){
+    var msg2 = msg;
+
+    // First, extract any emojis
+    var emoji = "";
+    if (msg.includes('[') && msg.includes(']')) {
+        emoji = msg2.match(/ *\[[^\]]*]/)[0];
+        emoji = emoji.replace('[', '');
+        emoji = emoji.replace(']', '');
+        msg2 = msg2.replace(/ *\[[^\]]*]/, '');
+    }
+    console.log("EMOJITIME");
+    console.log(emoji);
+    console.log(msg2);
+
+    // Capitalization
+    if (textstyle['capitalization'] < 0.3) { msg2 = msg2.toLowerCase(); }
+    else if (textstyle['capitalization'] > 0.8) { msg2 = msg2.toUpperCase(); }
+
+    // Punctuation
+    if (textstyle['punctuation'] < 0.3) { // don't have punctuation
+        msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '');
+    } else if (textstyle['punctuation'] > 0.9) { // extra extra punctuation
+        msg2 = msg2.replace('!', '!!!!').replace('?', '????');
+    } else if (textstyle['punctuation'] > 0.5) { // extra punctuation
+        msg2 = msg2.replace('!', '!!').replace('?', '??');
+    } 
+    
+    // Re-add any emojis
+    if (Math.random() < parseFloat(textstyle['emojis'])) {
+        msg2 = msg2.concat(emoji);
+    }
+    console.log(msg2);
+
+    return msg2;
 }
 
 /**
@@ -183,13 +240,18 @@ function updateWithAnswer(buttonIndex) {
 function loadCharacterCode(redeemCode) {
     console.log('in loadCharacterCode');
     var jsonObj = { 'keycode': redeemCode }
-    serverPOST('retrieveIMMA', jsonObj, function(data) {
-        if (data['result'] == false) { // code invalid
-            sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
-        } else { // code valid
-            loadCharacterFromJson(data);
-        }
-    });
+    if (redeemCode == "default") {
+        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"12345678901234567890"},"personality":["0.5","1","1"],"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"messageBank":{}};
+        loadCharacterFromJson(defaultChar);
+    } else {
+        serverPOST('retrieveIMMA', jsonObj, function(data) {
+            if (data['result'] == false) { // code invalid
+                sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
+            } else { // code valid
+                loadCharacterFromJson(data);
+            }
+        });
+    }
 }
 
 function loadCharacterFromJson(jsonData) {
@@ -314,15 +376,20 @@ function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing
  * @param {string} endpoint the endpoint after url (as defined in constants.js)
  * @param {function} f the function to process the JSON response from fetch()
  */
-function serverQuery(endpoint, f) {
+function serverQuery(endpoint, f, suppressServerWarning=false) {
     console.log("Fetching from " + endpoint + "...");
-    fetch(SERVER_URL + endpoint).then(function(response) {
+    timeout(500, fetch(SERVER_URL + endpoint).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
         //  that when we call the json() method, a Promise is returned since
         //  the reading of the stream will happen asynchronously
         // thus, response.json() can only be called once!
         response.json().then(f);
-    }).then(data => {});
+    })).then(data => {}).catch(error => {
+        if (suppressServerWarning == false) {
+            alert("Server is currently down...");
+        }
+        console.log(error);
+    });
 }
 
 /**
@@ -331,21 +398,148 @@ function serverQuery(endpoint, f) {
  * @param {Object} inputObject the input JSON object
  * @param {function} f the function to process the JSON response from fetch()
  */
-function serverPOST(endpoint, inputObject, f) {
+function serverPOST(endpoint, inputObject, f, suppressServerWarning=false) {
     console.log("Fetching from " + endpoint + "...");
-    fetch(SERVER_URL + endpoint, {
+    timeout(500, fetch(SERVER_URL + endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(inputObject),
-    }).then(function(response) {
+    })).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
         // that when we call the json() method, a Promise is returned since
         // the reading of the stream will happen asynchronously
         // thus, response.json() can only be called once!
         response.json().then(f);
     }).then(data => {}).catch(error => {
-        console.error(error);
-    });;
+        if (suppressServerWarning == false) {
+            alert("Server is currently down...");
+        }
+        console.log(error);
+    });
+}
+function timeout(ms, promise) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+        reject(new Error("timeout"))
+        }, ms)
+        promise.then(resolve, reject)
+    })
+}
+
+
+var msg_Bank_En = {
+	"You can do this![ :D]": [0.8,0.3,0,1,1,1],
+	"You've done well![ :O]": [0.8,0.2,0,1,1,1],
+	"Good job![ :3]": [0.8,0.2,0,1,1,1],
+	"Great work![ :3]": [0.8,0.2,0,1,1,1],
+	"Keep it up!": [0.6,0.4,0.1,1,1,1],
+	"You've been doing well![ :)]": [1.0,0.1,0,1,1,1],
+	"You've got this![ :)]": [0.8,0.1,0.0,1,1,1],
+	"You've worked hard![ :)]": [0.5,0,0.1,1,1,1],
+	"You've been doing a good job![ :>]": [1.0,0.1,0,1,1,1],
+	"You've been doing a great job![ :3]": [1.0,0.1,0,1,1,1],
+	"Hope things are going well![ :>]": [0.5,0.3,0.3,1,1,1],
+	"Hope you're doing okay![ :)]": [0.6,0.3,0.3,1,1,1],
+	"You're getting better![ :)]": [0.7,0.2,0.1,1,1,1],
+	"You're amazing![ XD]": [0.7,0.3,0.1,1,1,1],
+	"How are you feeling?": [0.6,0.2,0.5,1,1,1],
+	"You've leveled up a lot today![ ;)]": [0.5,0.2,0.1,1,1,1],
+	"Remember to smile![ :)]": [0.6,0.4,0.3,1,1,1],
+	"Thinking of you![ :)]": [0.6,0.2,0.0,1,1,1],
+	"You're not alone![ :3]": [0.6,0.2,0.1,1,1,1],
+	"It's okay to ask for help![ :)]": [0.5,0.3,0.1,1,1,1],
+	"I'm cheering you on![ :D]": [0.7,0.4,0.0,1,1,1],
+	"Don't give up![ :>]": [0.3,6,0,1,1,1],
+	"Focus![ :>]": [0,0.9,0,1,1,1],
+	"Concentrate!": [0,0.8,0,1,1,1],
+	"Keep going![ :)]": [0.3,0.7,0,1,1,1],
+	"Your work is important, keep at it![ :>]": [0.3,0.7,0,1,1,1],
+	"Is that productivity I see?[ :O]": [0.2,0.8,0.1,1,1,1],
+	"Don't get distracted![ :>]": [0.2,0.9,0.0,1,1,1],
+	"Stay hydrated!": [0.3,0.1,0.8,1,1,1],
+	"Be sure to rest your eyes![ :3]": [0.4,0,1.0,1,1,1],
+	"Take a break?[ :)]": [0.4,0.2,0.9,1,1,1],
+	"Let's take a quick break?[ :)]": [0.4,0.2,0.9,1,1,1],
+	"Take a deep breath and recenter![ :)]": [0.7,0.4,0.8,1,1,1],
+	"Rest your eyes, look at a distant object![ :)]": [0.3,0.1,1.0,1,1,1],
+	"Don't forget to blink and rest your eyes![ ;)]": [0.2,0.1,0.9,1,1,1],
+	"How long have you been sitting in this position?": [0.2,0.1,0.9,1,1,1],
+	"A quick reminder to sit up straight![ :3]": [0.2,0.0,1.0,1,1,1]
+}
+
+var msg_Bank_Es = {
+	"¡Puedes hacer esto![ :D]": [0.8,0.3,0,1,1,1],
+	"¡Lo has hecho bien![ :O]": [0.8,0.2,0,1,1,1],
+	"¡Buen trabajo![ :3]": [0.8,0.2,0,1,1,1],
+	"¡Seguid así!": [0.6,0.4,0.1,1,1,1],
+	"¡Lo has estado haciendo bien![ :)]": [1.0,0.1,0,1,1,1],
+	"¡Tienes esto![ :)]": [0.8,0.1,0.0,1,1,1],
+	"¡Has trabajado duro![ :)]": [0.5,0,0.1,1,1,1],
+	"¡Has estado haciendo un buen trabajo![ :>]": [1.0,0.1,0,1,1,1],
+	"¡Espero que las cosas vayan bien![ :>]": [0.5,0.3,0.3,1,1,1],
+	"¡Espero que estés bien![ :)]": [0.6,0.3,0.3,1,1,1],
+	"¡Estás mejorando![ :)]": [0.7,0.2,0.1,1,1,1],
+	"¡Eres increíble![ XD]": [0.7,0.3,0.1,1,1,1],
+	"¿Como te sientes!": [0.6,0.2,0.5,1,1,1],
+	"¡Has subido mucho hoy![ ;)]": [0.5,0.2,0.1,1,1,1],
+	"¡Recuerda sonreír![ :)]": [0.6,0.4,0.3,1,1,1],
+	"¡Pensando en ti![ :)]": [0.6,0.2,0.0,1,1,1],
+	"¡No estás solo![ :3]": [0.6,0.2,0.1,1,1,1],
+	"¡Está bien pedir ayuda![ :)]": [0.5,0.3,0.1,1,1,1],
+	"¡Te estoy animando![ :D]": [0.7,0.4,0.0,1,1,1],
+	"¡No te rindas![ :>]": [0.3,0.6,0.0,1,1,1],
+	"¡Enfoque![ :>]": [0.0,0.9,0.0,1,1,1],
+	"¡Concentrado!": [0.0,0.8,0.0,1,1,1],
+	"¡Continúa![ :)]": [0.3,0.7,0.0,1,1,1],
+	"¡Su trabajo es importante, continúe![ :>]": [0.3,0.7,0.0,1,1,1],
+	"¿Es esa la productividad que veo?[ :O]": [0.2,0.8,0.1,1,1,1],
+	"¡No se distraiga![ :>]": [0.2,0.9,0.0,1,1,1],
+	"¡Mantente hidratado!": [0.3,0.1,0.8,1,1,1],
+	"¡Asegúrese de descansar los ojos![ :3]": [0.4,0.0,1.0,1,1,1],
+	"¿Tomar un descanso?​[ :)]": [0.4,0.2,0.9,1,1,1],
+	"¿Tomamos un descanso rápido?[ :)]": [0.4,0.2,0.9,1,1,1],
+	"¡Respire hondo y vuelva a centrarse![ :)]": [0.7,0.4,0.8,1,1,1],
+	"¡Descansa los ojos, mira un objeto distante![ :)]": [0.3,0.1,1.0,1,1,1],
+	"¡No olvides parpadear y descansar los ojos![ ;)]": [0.2,0.1,0.9,1,1,1],
+	"¿Cuánto tiempo has estado sentado en esta posición!": [0.2,0.1,0.9,1,1,1],
+	"¡Un recordatorio rápido para sentarse derecho![ :3]": [0.2,0.0,1.0,1,1,1]
+}
+
+var msg_Bank_Zh = {
+	"你可以做到[ :D]": [0.0,0.0,0.0,1,1,1],
+	"干得好！[ :0]": [0.0,0.0,0.0,1,1,1],
+	"太好了！[ :0]": [0.0,0.0,0.0,1,1,1],
+	"保持！": [0.0,0.0,0.0,1,1,1],
+	"你做得不错！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你辛苦了！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你做得很棒！[ :0]": [0.0,0.0,0.0,1,1,1],
+	"希望一切顺利！[ :>]": [0.0,0.0,0.0,1,1,1],
+	"希望你一切都好！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你越来越好！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你真了不起！": [0.0,0.0,0.0,1,1,1],
+	"你感觉怎么样？": [0.0,0.0,0.0,1,1,1],
+	"你今天已经提高了很多！[ ;）]": [0.0,0.0,0.0,1,1,1],
+	"记得微笑！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"想着你！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你并不孤单！[ :0]": [0.0,0.0,0.0,1,1,1],
+	"可以寻求帮助！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"我为你加油！[ :D]": [0.0,0.0,0.0,1,1,1],
+	"不要放弃！[ :>]": [0.0,0.0,0.0,1,1,1],
+	"专注！[ :>]": [0.0,0.0,0.0,1,1,1],
+	"集中！": [0.0,0.0,0.0,1,1,1],
+	"继续前进！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"你的工作很重要，请继续努力！[ :>]": [0.0,0.0,0.0,1,1,1],
+	"我看到的是生产率吗？[ :O]": [0.0,0.0,0.0,1,1,1],
+	"不要分心！[ :>]": [0.0,0.0,0.0,1,1,1],
+	"保持水分！": [0.0,0.0,0.0,1,1,1],
+	"请确保休息！[ :0]": [0.0,0.0,0.0,1,1,1],
+	"休息一下吗？[ :)]": [0.0,0.0,0.0,1,1,1],
+	"让我们休息一下吗？[ :)]": [0.0,0.0,0.0,1,1,1],
+	"深吸一口气，重新呼吸！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"休息一下眼睛，看着远处的物体！[ :)]": [0.0,0.0,0.0,1,1,1],
+	"别忘了眨眨眼睛，休息一下！[ ;)]": [0.0,0.0,0.0,1,1,1],
+	"你坐在这个位置多久了？": [0.0,0.0,0.0,1,1,1],
+	"快速提醒你坐直！[ :0]": [0.0,0.0,0.0,1,1,1]
 }
