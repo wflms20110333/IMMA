@@ -7,14 +7,18 @@
 // Put own URL in text area
 document.getElementById("selfLink").textContent = document.URL;
 
+// Link the image
+var uid = document.getElementById("maindiv").dataset.uid;
+var bbugName = document.getElementById("maindiv").dataset.name;
+document.getElementById('char-icon').src = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/" + uid + '/' + bbugName + ".png";
+
 // Display error if content script not injected (if browserbug is not installed)
 // & user is trying to load the browserbug
 var loadButton = document.getElementById('char-load');
-loadButton.addEventListener('click', alert("The Browserbug extension doesn't seem to be installed :( Try installing it first?"));
+//loadButton.addEventListener('click', alert("The Browserbug extension doesn't seem to be installed :( Try installing it first?"));
 
 /*
 // Update heart counts
-heartButton = document.getElementById("hearts-up");
 fetch(SERVER_URL + "getHearts", { // todo use SERVER_URL constant instead
 	method: 'POST',
 	headers: {'Content-Type': 'application/json',},
@@ -22,15 +26,17 @@ fetch(SERVER_URL + "getHearts", { // todo use SERVER_URL constant instead
 }).then(data => {}).catch(error => {
 	console.error(error);
 });
-
+*/
 // Click to increase heart counts
-heartButton.addEventListener('change', function(e) {
-    fetch(SERVER_URL + "addHeart", { // todo use SERVER_URL constant instead
+/*
+heartButton = document.getElementById("hearts-up");
+heartButton.addEventListener('click', function(e) {
+	alert("Hearts not implemented yet)");
+    /*fetch(SERVER_URL + "addHeart", { // todo use SERVER_URL constant instead
 		method: 'POST',
 		headers: {'Content-Type': 'application/json',},
 		body: JSON.stringify({"pass in information here": "to do"}),
 	}).then(data => {}).catch(error => {
 		console.error(error);
 	});
-}, false);
-*/
+}, false);*/
