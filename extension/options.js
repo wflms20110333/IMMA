@@ -57,16 +57,10 @@ languageChooser.onchange = function() { // update language
     location.reload();
 };
 
-/*
-// Manage the fade checkbox
-var fadeswitch = document.getElementById('autofade-switch');
-chrome.storage.sync.get(['persist_notifs'], function (result) { // on initialization
-    fadeswitch.checked = (result['persist_notifs'] == 'true');
+chrome.storage.sync.get(['user_bbug_id'], function(result) {
+    // update user id listed
+    document.getElementById("uid-fill").textContent = result['user_bbug_id'].substring(0, 10);
 });
-fadeswitch.addEventListener('click', function() {
-    chrome.storage.sync.set({'persist_notifs': fadeswitch.checked});
-});
-*/
 
 // Manage site flagging
 // on initialization: fill list of flagged sites with the ones already flagged

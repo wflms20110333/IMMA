@@ -12,35 +12,7 @@ $(document).ready(function() {
 
     countSlotsAvail();
     populateBrowserbugs();
-    /*
-    $("#purchaseBoost1").click(function() { // link purchases
-        statusDiv.text("Purchasing boost 1...");
-        google.payments.inapp.buy({
-            parameters: { 'env': "prod" },
-            'sku': "pBOOST1",
-            'success': onPurchase,
-            'failure': onPurchaseFailed
-        });
-    });
-    $("#purchaseBoost2").click(function() { // link purchases
-        statusDiv.text("Purchasing boost 2...");
-        google.payments.inapp.buy({
-            parameters: { 'env': "prod" },
-            'sku': "pBOOST2",
-            'success': onPurchase,
-            'failure': onPurchaseFailed
-        });
-    });
-    $("#purchaseBoost3").click(function() { // link purchases
-        statusDiv.text("Purchasing subscription...");
-        google.payments.inapp.buy({
-            parameters: { 'env': "prod" },
-            'sku': "pBOOST3",
-            'success': onPurchase,
-            'failure': onPurchaseFailed
-        });
-    });
-    */
+    
     $("#enteractivation").click(function() { // link purchases
         checkCode();
     });
@@ -52,7 +24,7 @@ function checkCode() {
         result['code'] = document.getElementById("activationcode").value;
         serverPOST('checkCode', result, function(data) {
             if (data['result'] == 'validCode') {
-                chrome.storage.sync.set({ 'user_level': 999 });
+                chrome.storage.sync.set({ 'user_level': parseInt(data['number']) });
                 alert("code entry successful! refresh to apply changes.");
             } else {
                 alert("invalid code :(");
@@ -130,89 +102,6 @@ function populateBrowserbugs() {
                 $('#bbug-list').append(div);
                 console.log(key, value);
             }
-        });
+        }, timeoutMs=2000);
     });
-}
-
-/*****************************************************************************
- * Get the list of purchased products from the Chrome Web Store
- *****************************************************************************/
-var statusDiv = $("#statusDiv");
-var purchaseInfo = $("#purchaseInfo");
-
-function getLicenses() {
-    console.log("google.payments.inapp.getPurchases");
-    statusDiv.text("Retreiving list of purchased products...");
-    google.payments.inapp.getPurchases({
-        'parameters': { env: "prod" },
-        'success': onLicenseUpdate,
-        'failure': onLicenseUpdateFailed
-    });
-}
-
-function onLicenseUpdate(response) {
-    console.log("onLicenseUpdate", response);
-    var licenses = response.response.details;
-    var count = licenses.length;
-    purchaseInfo.append("licenses");
-    for (var i = 0; i < count; i++) {
-        var license = licenses[i];
-        purchaseInfo.append(license);
-    }
-    purchaseInfo.append("done");
-    statusDiv.text("");
-}
-
-function onLicenseUpdateFailed(response) {
-    console.log("onLicenseUpdateFailed", response);
-    statusDiv.text("Error retreiving list of purchased products.");
-}
-
-/*****************************************************************************
- * Purchase an item
- *****************************************************************************/
-function onPurchase(purchase) {
-    console.log("onPurchase", purchase);
-    var jwt = purchase.jwt;
-    var cartId = purchase.request.cardId;
-    var orderId = purchase.response.orderId;
-    statusDiv.text("Purchase completed. Order ID: " + orderId);
-    getLicenses();
-}
-
-function onPurchaseFailed(purchase) {
-    console.log("onPurchaseFailed", purchase);
-    var reason = purchase.response.errorType;
-    statusDiv.text("Purchase failed. " + reason);
-}
-
-/*****************************************************************************
- * Update/handle the user interface actions
- *****************************************************************************/
-function addLicenseDataToProduct(license) {
-    var butAction = $("#" + prodButPrefix + license.sku);
-    butAction
-        .text("View license")
-        .removeClass("btn-success")
-        .removeClass("btn-default")
-        .addClass("btn-info")
-        .data("license", license);
-}
-
-function onActionButton(evt) {
-    console.log("onActionButton", evt);
-    var actionButton = $(evt.currentTarget);
-    if (actionButton.data("license")) {
-        showLicense(actionButton.data("license"));
-    } else {
-        var sku = actionButton.data("sku");
-        buyProduct(sku);
-    }
-}
-
-function showLicense(license) {
-    console.log("showLicense", license);
-    var modal = $("#modalLicense");
-    modal.find(".license").text(JSON.stringify(license, null, 2));
-    modal.modal('show');
 }
