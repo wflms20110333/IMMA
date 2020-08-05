@@ -36,6 +36,7 @@ def execute_statement(statement):
 
 def read_table(table):
     """ Helper method to print out all contents of a table. """
+    print("reading table")
     select_statement = table.select()
     result_set = execute_statement(select_statement)
     for r in result_set:
@@ -43,6 +44,8 @@ def read_table(table):
 
 def insert_code(uid, code):
     """ Inserts a redeem code into the redeem_codes table. """
+    if code_exists(uid, code):
+        return
     insert_statement = redeem_codes_table.insert().values(uid=uid, code=code)
     execute_statement(insert_statement)
 
@@ -50,7 +53,7 @@ def code_exists(uid, code):
     """ Returns whether or not a given code exists. """
     return session.query(exists().where(and_(redeem_codes_table.c.uid == uid,
                                              redeem_codes_table.c.code == code
-                                        ))).scalar() is not None
+                                        ))).scalar()
 
 def remove_code(uid, code):
     delete_statement = redeem_codes_table.delete().where(and_(redeem_codes_table.c.uid == uid,
@@ -87,12 +90,19 @@ def delete_user(uid):
 
 print(code_exists("uid", "1234"))
 read_table(redeem_codes_table)
+print('removing code...')
+remove_code("uid", "1234")
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+print('inserting code...')
 insert_code("uid", "1234")
 print(code_exists("uid", "1234"))
 read_table(redeem_codes_table)
+print('inserting code...')
 insert_code("uid", "1234")
 print(code_exists("uid", "1234"))
 read_table(redeem_codes_table)
+print('removing code...')
 remove_code("uid", "1234")
 print(code_exists("uid", "1234"))
 read_table(redeem_codes_table)
