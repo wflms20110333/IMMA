@@ -1,11 +1,18 @@
 $(document).ready(function() {
-    $('.i18n-txt').each(function(index, element) { // translate text
-        this.textContent = chrome.i18n.getMessage(this.id);
-        this.value = chrome.i18n.getMessage(this.id);
+    chrome.storage.sync.get(['user_lang'], function (result) {
+        $('.i18n-txt').each(function(index, element) { // translate text
+            var ownId = this.id;
+            $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
+                document.getElementById(ownId).textContent = msgObj[ownId]['message'];
+                document.getElementById(ownId).value = msgObj[ownId]['message'];
+            });
+        });
+
     });
+
     countSlotsAvail();
     populateBrowserbugs();
-
+    /*
     $("#purchaseBoost1").click(function() { // link purchases
         statusDiv.text("Purchasing boost 1...");
         google.payments.inapp.buy({
@@ -33,6 +40,7 @@ $(document).ready(function() {
             'failure': onPurchaseFailed
         });
     });
+    */
     $("#enteractivation").click(function() { // link purchases
         checkCode();
     });
@@ -44,7 +52,7 @@ function checkCode() {
         result['code'] = document.getElementById("activationcode").value;
         serverPOST('checkCode', result, function(data) {
             if (data['result'] == 'validCode') {
-                chrome.storage.sync.set({ 'user_level': 'premium' });
+                chrome.storage.sync.set({ 'user_level': 999 });
                 alert("code entry successful! refresh to apply changes.");
             } else {
                 alert("invalid code :(");
@@ -56,9 +64,7 @@ function checkCode() {
 // Show slots available
 function countSlotsAvail() {
     chrome.storage.sync.get(['user_level'], function(result) {
-        if (result['user_level'] == 'premium') {
-            document.getElementById("bbugs-avail").textContent = "∞";
-        }
+        document.getElementById("bbugs-avail").textContent = result['user_level'];
     });
 }
 

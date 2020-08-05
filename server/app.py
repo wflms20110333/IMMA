@@ -139,7 +139,7 @@ def evaluate_state():
         print("state reset")
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['user_lang'])
     message = {'predictedState': str(clipMood), 'message': pickedMessage}
     return jsonify(message)
 

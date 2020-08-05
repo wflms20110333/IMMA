@@ -11,9 +11,30 @@ if ($(window).width() < 960) {
 var imageSource = "userInput"; // either userInput or localLoaded
 
 $(document).ready(function() {
-    $('.i18n-txt').each(function(index, element) { // translate text
-        this.textContent = chrome.i18n.getMessage(this.id);
-        this.value = chrome.i18n.getMessage(this.id);
+    // customizing fonts to language
+    chrome.storage.sync.get(['user_lang'], function (result) {
+        if (result['user_lang'] == 'es') {
+            document.querySelectorAll("h1, h2, h3, .question, input").forEach(el => {
+                el.style.fontFamily = 'Gochi Hand', 'Segoe UI', 'sans-serif'; // spanish: Mansalva
+                el.style.fontWeight = 400;
+            });
+        } else if (result['user_lang'] == 'zh') {
+            document.querySelectorAll(".i18n-txt").forEach(el => {
+                el.style.fontFamily = 'Noto Sans SC', 'Segoe UI', 'sans-serif'; // chinese: Noto Sans SC
+                el.style.fontWeight = 400;
+            });
+            document.querySelectorAll(".chn25px").forEach(el => { el.style.fontSize = 25; });
+            document.querySelectorAll(".chn20px").forEach(el => { el.style.fontSize = 20; });
+        }
+        
+        $('.i18n-txt').each(function(index, element) { // translate text
+            var ownId = this.id;
+            $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
+                document.getElementById(ownId).textContent = msgObj[ownId]['message'];
+                document.getElementById(ownId).value = msgObj[ownId]['message'];
+            });
+        });
+
     });
 });
 
@@ -153,8 +174,11 @@ $(document).ready(function() {
                 serverPOST('getListOfUserFiles', getData, function(data) {
                     // Get number of bbugs already made
                     var numBbugs = Object.keys(data['characters']).length;
-                    if (numBbugs >= 8 && result['user_level'] != "premium") { // no slots left
-                        alert("Oh no... you don't have any server slots left! Visit Account to see your existing saved Browserbugs.");
+                    
+                    var openAccount = false;
+
+                    if (numBbugs >= parseInt(result['user_level'])) {
+                        openAccount = confirm("You don't have enough save slots left! Check your account?");
                     } else {
                         exportBbug(true, function(jsonDict) {
                             var j_uid = jsonDict['information']['uid'];
@@ -163,6 +187,10 @@ $(document).ready(function() {
                             var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name;
                             window.open(bbugPath);
                         });
+                    }
+
+                    if (openAccount == true) { // open new tab to see browserbugs
+                        window.open("/account.html", "blank");
                     }
                 });
             });

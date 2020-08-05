@@ -11,11 +11,12 @@ chrome.runtime.onInstalled.addListener(function () {
     console.log("extension installed, welcome :)");
 
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
-    chrome.storage.sync.set({'user_level': 'lite'});
+    chrome.storage.sync.set({'user_level': 3});
     chrome.storage.sync.set({'immaActive':true}); // set to be active
     chrome.browserAction.setBadgeText({"text":"ON"});
     chrome.browserAction.setBadgeBackgroundColor({"color": "#7057C9"});
     chrome.storage.sync.set({'lastMail':'000'}); // the last mail message viewed
+    chrome.storage.sync.set({'user_lang': chrome.i18n.getMessage('@@ui_locale').split("_")[0]}); // set language to i18n by default
 
     chrome.storage.sync.set({'alarm_spacing': 40}); // needs to be valid value in constants.js
     chrome.storage.sync.set({'silence': 'false'});
