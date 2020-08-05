@@ -43,7 +43,7 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-54-189-174-31.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/>.
 
 The system hostname of the server is `server.imma.studio` (<https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-hostname.html>).
 
@@ -70,7 +70,7 @@ sudo apt-get install postgresql-client
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ubuntu@ec2-54-189-174-31.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-54-201-225-18.us-west-2.compute.amazonaws.com
 ```
 
 The server has been containerized with docker. After changing directories to `server/`,
