@@ -83,7 +83,7 @@ chrome.storage.sync.get(['flagged_sites'], function (result) { // on initializat
         var fstats = result['flagged_sites'][key];
         // export contents
         iDiv.value = [flabel, fstats];
-        iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
+        iDiv.innerHTML = (flabel + " (" + fstats + ") ");
         iDiv.appendChild(removeButton);
     }
 });
@@ -96,15 +96,11 @@ addFlag.addEventListener('click', function() { // process for <flagging sites>, 
     iDiv.className = 'messageBlock';
     document.getElementById('yourform').appendChild(iDiv);
     // get contents
-    var flabel = document.getElementById('messagecontent').value;
-    var fstat1 = document.getElementById('msgstat1').value;
-    var fstat2 = document.getElementById('msgstat2').value;
-    var fstat3 = document.getElementById('msgstat3').value;
+    var flabel = document.getElementById('flagcontent').value;
+    var fstat1 = document.getElementById('flagname').value;
     // clear contents
-    document.getElementById('messagecontent').value = "";
-    document.getElementById('msgstat1').value = 0;
-    document.getElementById('msgstat2').value = 0;
-    document.getElementById('msgstat3').value = 0;
+    document.getElementById('flagname').value = "";
+    document.getElementById('flagcontent').value = "";
     // create remove button
     var removeButton = document.createElement('button');
     removeButton.class = 'remove';
@@ -114,8 +110,8 @@ addFlag.addEventListener('click', function() { // process for <flagging sites>, 
         updateSiteFlags();
     };
     // export contents
-    iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
-    iDiv.innerHTML = (flabel + " (stats = "+fstat1+", "+fstat2+", "+fstat3+") ");
+    iDiv.value = [flabel, fstat1];
+    iDiv.innerHTML = (flabel + " ("+fstat1+") ");
     iDiv.appendChild(removeButton);
 
     updateSiteFlags();
@@ -148,14 +144,6 @@ flagButton.addEventListener('click', function() { // change permissions for site
         chrome.permissions.request({ permissions: ['tabs'], }, function(granted) {
             // The callback argument will be true if the user granted the permissions.
             if (granted) {
-                // add listener for site flagging
-                chrome.tabs.onUpdated.addListener(function () {
-                    if (getCurrentTime() - tabsLastUpdated > 2000) {
-                        console.log("Tab: running update");
-                        tabsLastUpdated = getCurrentTime();
-                        lastTabsUpdater(); // update tabs, but not too often
-                    }
-                });
                 flagStatusText.textContent = "ON"; flagButton.textContent = "Disable site flagging";
             }
         });

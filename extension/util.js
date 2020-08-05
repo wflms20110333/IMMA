@@ -78,7 +78,7 @@ function cleaner() {
  */
 function findCurrentTabs(callback) {
     var tabInfo = { 'current_tabs': [] };
-    var queryInfo = { currentWindow: true }; // query parameters for finding tabs
+    var queryInfo = {}; // query parameters for finding tabs
 
     chrome.tabs.query(queryInfo, (tabs) => {
         for (var tabIndex in tabs) {
@@ -99,7 +99,7 @@ function findCurrentTabs(callback) {
 /**
  * Updates last_tabs tracker
  */
-function lastTabsUpdater() {
+function lastTabsUpdater(callback) {
     findCurrentTabs(function(openTabs) {
         chrome.storage.sync.get(['last_tabs'], function(result) {
             // First, get which tabs are open and get current time
@@ -120,6 +120,7 @@ function lastTabsUpdater() {
                 }
             }
             chrome.storage.sync.set({ 'last_tabs': newTabs });
+            callback();
         });
     });
 }
@@ -129,9 +130,30 @@ function lastTabsUpdater() {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    // TODO: original: chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'personality', 'persist_notifs', 'silence'], function(result) {
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'last_tabs', 'message_bank', 'flagged_sites', 'mood', 'textingstyle', 'user_lang'], function(result) {
-        
+    lastTabsUpdater(function(){
+        // check if tab permission is enabled
+        chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
+            if (result) {
+                // send site warning message
+                chrome.storage.sync.get(['last_tabs', 'flagged_sites'], function(data){
+                    var onFlagged = Object.keys(data['last_tabs']).filter(value => Object.keys(data['flagged_sites']).includes(value));
+                    //.some(item => .includes(item));
+                    if (onFlagged.length > 0) {
+                        chrome.storage.sync.get(['imma_name', 'image_link'], function(data2){
+                            sendNotification("Don't spend too much time on "+data['flagged_sites'][onFlagged]+"!", data2['imma_name'], data2['image_link']);
+                        });
+                    } else { sendNormalMessage(); }
+                });
+            } else {
+                sendNormalMessage();
+            }
+        });
+    });
+}
+
+function sendNormalMessage(){
+    // send normal message
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'mood', 'textingstyle', 'user_lang'], function(result) {
         // Use custom content
         if (Math.random() < parseFloat(result['custom_ratio']) && Object.keys(result['message_bank']).length > 0) {
             console.log("picking cc");
@@ -143,7 +165,6 @@ function sendMessage() {
             else { msg_Bank = msg_Bank_En; }
             pickFromMsgBank(false, result['imma_name'], result['image_link'], msg_Bank, result['textingstyle']);
         }
-
     });
 }
 
