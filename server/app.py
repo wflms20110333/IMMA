@@ -9,6 +9,10 @@ import threading
 import util
 import urllib.parse
 import requests
+from random import choice
+from string import ascii_uppercase, digits
+
+import db
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -20,14 +24,34 @@ def hello_world():
 @app.route('/checkCode', methods=['POST'])
 def check_code():
     """ Checks if code is valid for the given user. """
-    validcodes = ["f3bd861e9c_peanut"] # TODO make this a database query
     inputParams = request.get_json()
-    typedCode = inputParams['user_bbug_id'][:10] + '_' + inputParams['code']
-    print("Validating code", typedCode)
-    if typedCode in validcodes:
+    if db.session.code_exists(inputParams['user_bbug_id'], inputParams['code_to_check']):
         return jsonify({"result": "validCode"})
     else:
         return jsonify({"result": "invalidCode"})
+
+@app.route('/addCode', methods=['POST'])
+def add_code():
+    """ Adds redeemable code for the user. """
+    inputParams = request.get_json()
+    if inputParams['pw'] == "imma_Admin!": # code for debugging so include a password thing
+        newCode = ''.join(choice(ascii_uppercase + digits) for _ in range(6)) # generate a random code
+        db.session.insert_code(inputParams['user_bbug_id'], newCode)
+        db.session.commit()
+        return jsonify({"result": "success"})
+    else:
+        return jsonify({"result": "Invalid request :("})
+
+@app.route('/removeCode', methods=['POST'])
+def remove_code():
+    """ Removes code for the given user. """
+    inputParams = request.get_json()
+    if inputParams['pw'] == "imma_Admin!": # code for debugging so include a password thing
+        db.session.remove_code(inputParams['user_bbug_id'], inputParams['code_to_remove'])
+        db.session.commit()
+        return jsonify({"result": "success"})
+    else:
+        return jsonify({"result": "Invalid request :("})
 
 @app.route('/getHearts', methods=['POST'])
 def get_hearts():

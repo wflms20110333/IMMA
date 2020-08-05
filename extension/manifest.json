@@ -8,7 +8,7 @@
         "48": "images/new_imma_48.png",
         "128": "images/new_imma_128.png"
     },
-    "permissions": ["storage", "notifications", "alarms", "http://ec2-35-164-24-43.us-west-2.compute.amazonaws.com/", "https://imma-bucket.s3-us-west-2.amazonaws.com/*"],
+    "permissions": ["storage", "notifications", "alarms", "http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/", "https://imma-bucket.s3-us-west-2.amazonaws.com/*"],
     "optional_permissions": ["tabs"],
     "background": {
         "scripts": ["util.js", "constants.js", "background.js", "jquery-3.5.1.min.js"],
@@ -16,7 +16,7 @@
     },
     "content_scripts": [
         {
-          "matches": ["http://ec2-35-164-24-43.us-west-2.compute.amazonaws.com/getBbugFile*"],
+          "matches": ["http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/getBbugFile*"],
           "js": ["util.js", "constants.js", "jquery-3.5.1.min.js", "bbugImporter.js"]
         }
     ],
