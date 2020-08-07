@@ -29,10 +29,6 @@ chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.set({'question_ratio': 0.2}); // ratio of questions
 
     loadCharacterCode("default"); // load first imma character from code
-    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) { // update tab list, but not too often
-        if (result) { lastTabsUpdater(); }
-        else { console.log("no tab permission!"); }
-    });
     setQuickAlarm(); // set first alarm for 0.8 second
 });
 
@@ -70,10 +66,6 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
     console.log("Startup: running update, total clean");
-    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
-        if (result) { lastTabsUpdater(); }
-        else { console.log("no tab permission!"); }
-    });
     chrome.alarms.clearAll();
     setNextAlarm();
     cleaner();
@@ -84,5 +76,3 @@ chrome.windows.onFocusChanged.addListener(function () {
     console.log("Changed window: running light clean");
     cleaner();
 });
-
-var tabsLastUpdated = getCurrentTime();

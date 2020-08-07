@@ -19,7 +19,7 @@ for (var i = 0; i < links.length; i++) {
 */
 
 // Determine whether the mailbox flag should be up
-getMail(mailAuthenticate);
+getMail(mailAuthenticate, true);
 
 function mailAuthenticate(mailResponse) {
     var mailbox = document.getElementById('mailFlag');
@@ -32,7 +32,7 @@ function mailAuthenticate(mailResponse) {
 // Mailbox functionality
 var mailbox = document.getElementById('mailFlag');
 mailbox.addEventListener('click', function() {
-    getMail(mailCallback);
+    getMail(mailCallback, false);
 });
 
 function mailCallback(mailResponse) {
