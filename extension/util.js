@@ -420,7 +420,7 @@ function serverQuery(endpoint, f, suppressServerWarning=false) {
  * @param {Object} inputObject the input JSON object
  * @param {function} f the function to process the JSON response from fetch()
  */
-function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=700) {
+function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=1500) {
     console.log("Fetching from " + endpoint + "...");
     timeout(timeoutMs, fetch(SERVER_URL + endpoint, {
         method: 'POST',
