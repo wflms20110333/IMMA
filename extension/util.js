@@ -84,6 +84,7 @@ function findCurrentTabs(callback) {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
             // Remove "http", keep only up to 1st /, limit to 50 characters
+            console.log(tabUrl);
             tabUrl = tabUrl.split('//')
             if (tabUrl.length > 1) {
                 tabUrl = tabUrl[1].split('/')[0].substring(0, 50);
@@ -130,10 +131,10 @@ function lastTabsUpdater(callback) {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    lastTabsUpdater(function(){
-        // check if tab permission is enabled
-        chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
-            if (result) {
+    // check if tab permission is enabled
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
+        if (result) {
+            lastTabsUpdater(function(){
                 // send site warning message
                 chrome.storage.sync.get(['last_tabs', 'flagged_sites'], function(data){
                     var onFlagged = Object.keys(data['last_tabs']).filter(value => Object.keys(data['flagged_sites']).includes(value));
@@ -144,10 +145,10 @@ function sendMessage() {
                         });
                     } else { sendNormalMessage(); }
                 });
-            } else {
-                sendNormalMessage();
-            }
-        });
+            });
+        } else {
+            sendNormalMessage();
+        }
     });
 }
 
