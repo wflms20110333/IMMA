@@ -22,9 +22,9 @@ cors = CORS(app)
 def hello_world():
     return jsonify({"result": "Whale, hello there!"})
 
-@app.route('/checkCode', methods=['POST'])
+@app.route('/redeemCode', methods=['POST'])
 def check_code():
-    """ Checks if code is valid for the given user. """
+    """ Redeems a code, if it is valid for the given user. """
     uid = request.args.get('user_bbug_id')
     code = request.args.get('code')
     num_slots = db.redeem_code(uid, code)
@@ -36,23 +36,11 @@ def check_code():
 @app.route('/addCode', methods=['POST'])
 def add_code():
     """ Adds redeemable code for the user. """
-    inputParams = request.get_json()
-    if inputParams['pw'] == "imma_Admin!": # code for debugging so include a password thing
-        newCode = ''.join(choice(ascii_uppercase + digits) for _ in range(6)) # generate a random code
-        db.session.insert_code(inputParams['user_bbug_id'], newCode)
-        db.session.commit()
-        return jsonify({"result": "success"})
-    else:
-        return jsonify({"result": "Invalid request :("})
-
-@app.route('/removeCode', methods=['POST'])
-def remove_code():
-    """ Removes code for the given user. """
-    inputParams = request.get_json()
-    if inputParams['pw'] == "imma_Admin!": # code for debugging so include a password thing
-        db.session.remove_code(inputParams['user_bbug_id'], inputParams['code_to_remove'])
-        db.session.commit()
-        return jsonify({"result": "success"})
+    if request.args.get('pw') == "imma_Admin!": # code for debugging so include a password thing
+        new_code = ''.join(choice(ascii_uppercase + digits) for _ in range(6)) # generate a random code
+        num_slots = request.args.get('num_slots')
+        db.insert_code(request.args.get('user_bbug_id'), new_code, num_slots)
+        return jsonify({"result": "success", "code": new_code})
     else:
         return jsonify({"result": "Invalid request :("})
 
