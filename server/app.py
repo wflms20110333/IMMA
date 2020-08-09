@@ -27,10 +27,11 @@ def check_code():
     """ Checks if code is valid for the given user. """
     uid = request.args.get('user_bbug_id')
     code = request.args.get('code')
-    if db.code_exists(uid, code):
-        return jsonify({"result": "validCode", "number": "500"})
-    else:
+    num_slots = db.redeem_code(uid, code)
+    if num_slots == -1:
         return jsonify({"result": "invalidCode"})
+    else:
+        return jsonify({"result": "validCode", "number": num_slots})        
 
 @app.route('/addCode', methods=['POST'])
 def add_code():
