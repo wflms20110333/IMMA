@@ -1,4 +1,5 @@
 import boto3
+import db
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import json
@@ -20,11 +21,9 @@ def hello_world():
 @app.route('/checkCode', methods=['POST'])
 def check_code():
     """ Checks if code is valid for the given user. """
-    validcodes = ["f3bd861e9c_peanut"] # TODO make this a database query
-    inputParams = request.get_json()
-    typedCode = inputParams['user_bbug_id'][:10] + '_' + inputParams['code']
-    print("Validating code", typedCode)
-    if typedCode in validcodes:
+    uid = request.args.get('user_bbug_id')
+    code = request.args.get('code')
+    if db.code_exists(uid, code):
         return jsonify({"result": "validCode", "number": "500"})
     else:
         return jsonify({"result": "invalidCode"})
