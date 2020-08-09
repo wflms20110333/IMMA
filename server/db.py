@@ -26,7 +26,8 @@ user_settings_table = Table('user_settings', meta,
 
 redeem_codes_table = Table('redeem_codes', meta,
                            Column('uid', String),
-                           Column('code', String))
+                           Column('code', String),
+                           Column('num_slots', Integer))
 
 def execute_statement(statement):
     """ Executes an sqlalchemy statement on the database. """
@@ -42,12 +43,22 @@ def read_table(table):
     for r in result_set:
         print(r)
 
-def insert_code(uid, code):
+def insert_code(uid, code, num_slots):
     """ Inserts a redeem code into the redeem_codes table. """
     if code_exists(uid, code):
         return
-    insert_statement = redeem_codes_table.insert().values(uid=uid, code=code)
+    insert_statement = redeem_codes_table.insert().values(uid=uid, code=code, num_slots=num_slots)
     execute_statement(insert_statement)
+
+def redeem_code(uid, code):
+    """ Returns the number of slots associated with the code, or -1 if it doesn't exist. """
+    if not code_exists(uid, code):
+        return -1
+    select_statement = redeem_codes_table.select().where(and_(redeem_codes_table.c.uid == uid,
+                                                              redeem_codes_table.c.code == code))
+    num_slots = execute_statement(select_statement).first().num_slots
+    remove_code(uid, code)
+    return num_slots
 
 def code_exists(uid, code):
     """ Returns whether or not a given code exists. """
