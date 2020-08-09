@@ -22,12 +22,11 @@
             <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
             <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
 
+            <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
             <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
             <!-- note #TODO encrypt JSONs -->
             <input type="file" id="openBbug" accept=".bbug">
-            <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
             <a id="exporter" style="display:none;"></a>
-            <a class="filing2 i18n-txt" id="fServer" href="account.html" title="Open one of your saved models" style="color:black;"></a>
             <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
             <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
         </div>
@@ -152,12 +151,10 @@
                 <br>
                 <div>
                     <div style="display: inline-block;vertical-align: middle;text-align: right;">
-                        <span id="cc-left-text">X</span>
-                        <span class="i18n-txt" id="ptCC"></span></div>
+                        <span id="cc-left-text">X</span><span class="i18n-txt" id="ptCC"></span></div>
                     <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" id="percentCustom" style="margin:5px;">
                     <div style="display: inline-block;vertical-align: middle;text-align: left;"">
-                        <span id="cc-right-text">Y</span>
-                        <span class="i18n-txt" id="ptDef"></span></div>
+                        <span id="cc-right-text">Y</span><span class="i18n-txt" id="ptDef"></span></div>
                 </div>
                 <br>
                 <fieldset id="pullfrom">

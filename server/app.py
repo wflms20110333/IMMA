@@ -25,7 +25,7 @@ def check_code():
     typedCode = inputParams['user_bbug_id'][:10] + '_' + inputParams['code']
     print("Validating code", typedCode)
     if typedCode in validcodes:
-        return jsonify({"result": "validCode"})
+        return jsonify({"result": "validCode", "number": "500"})
     else:
         return jsonify({"result": "invalidCode"})
 

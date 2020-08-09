@@ -101,22 +101,22 @@ footer p {
     top: 5px;
 }
 #help-icon {
-    right: 89px;
+    right: 88px;
     width: 32px; height: 32px; top:4px;
 }
 #options-icon {
     right: 123px;
 }
 #acct-icon {
-    right: 156px;
+    right: 157px;
 }
 #studio-icon {
-    right: 189px;
+    right: 190px;
 }
 #kofi-icon {
     width: inherit; height: 25px;
     top: 8px;
-    right: 15px;
+    right: 12px;
 }
 
 /* Styling file selectors */
