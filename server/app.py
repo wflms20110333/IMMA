@@ -86,9 +86,8 @@ def get_bbug_file():
 @app.route('/removeBug', methods=['POST'])
 def remove_bug():
     """ Removes the .bbug file and its corresponding image, if they exist. """
-    inputParams = request.get_json()
-    uid = inputParams['uid']
-    bugname = inputParams['bbugname']
+    uid = request.args.get('uid')
+    bugname = request.args.get('bbugname')
 
     s3 = boto3.resource("s3")
     bucket_name = "imma-bucket"
@@ -101,8 +100,7 @@ def remove_bug():
 @app.route('/getListOfUserFiles', methods=['POST'])
 def get_bbug_list():
     """ Returns the links for all the .bbug files of a given user. """
-    inputParams = request.get_json()
-    uid = inputParams['uid']
+    uid = request.args.get('uid')
 
     s3 = boto3.resource('s3')
     bucket_name = "imma-bucket"
@@ -118,11 +116,9 @@ def get_bbug_list():
 def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
     an example POST: {'current_tabs': ["github", "fb"]} """
-    inputParams = request.get_json()
-
     # predict mood
-    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
-    currentState = ph.numerize(inputParams['mood'])
+    predictedMood = ph.vectorizeInput(request.args.get('last_tabs'), request.args.get('flagged_sites'))
+    currentState = ph.numerize(request.args.get('mood'))
 
     clipMood = currentState # just for output, clips mood without adding any bonuses
     if sum(clipMood) > 14.7 or sum(clipMood) < 0.3:
@@ -139,21 +135,19 @@ def evaluate_state():
         print("state reset")
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['user_lang'])
+    pickedMessage, _ = ph.pickMessage(calcState, request.args.get('message_bank'), request.args.get('custom_ratio'), request.args.get('textingstyle'), request.args.get('user_lang'))
     message = {'predictedState': str(clipMood), 'message': pickedMessage}
     return jsonify(message)
 
 @app.route('/getQuestion', methods=['POST'])
 def get_question():
     """ Picks a question randomly """
-    inputParams = request.get_json()
-
-    qBank = inputParams['question_bank']
+    qBank = request.args.get('question_bank')
     if len(qBank) == 0: # question bank empty
         return jsonify({"result": "qbank_empty"})
 
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(qBank, inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    pickedQuestion, questionWeight = ph.pickQuestion(qBank, request.args.get('custom_ratio'), request.args.get('textingstyle'), request.args.get('personality'))
     message = {'question': pickedQuestion, 'questionWeight': questionWeight, "result": "ok"} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)
@@ -161,20 +155,16 @@ def get_question():
 @app.route('/getAlarm', methods=['POST'])
 def get_alarm():
     """ Return duration til next alarm (in seconds) & type of alarm """
-    inputParams = request.get_json()
-
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['alarm_spacing'])
-
+    mDuration, mType = ph.getNextAlarmStats(request.args.get('question_ratio'), request.args.get('recent_message_ct'), request.args.get('alarm_spacing'))
     return jsonify({'mDuration': mDuration, 'mType': mType})
 
 @app.route('/getMail', methods=['POST'])
 def get_mail():
     """ Return duration til next alarm (in seconds) & type of alarm """
-    inputParams = request.get_json()
     # #TODO have able to check for multiple update messages, not just one
     update = ["001", "Welcome to Browserbug! :)"]
-    if inputParams['lastMail'] == update[0]:
+    if request.args.get('lastMail') == update[0]:
         return jsonify({'mail': "none"}) # already read that update
     else:
         return jsonify({'mail': update})
@@ -183,17 +173,15 @@ def get_mail():
 def retrieve_imma():
     """ Given an imma code, return an imma file
     An example POST: {'keycode': "aBcImMaCoDe"} """
-    inputParams = request.get_json()
-
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
     temp_code_dict = {
         'oldurl': 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/43762ec8a8815b68d93141c31098284d/Browserbee.bbug'
     }
-    if inputParams['keycode'] == 'default':
+    if request.args.get('keycode') == 'default':
         defaultChar = {"information":{"name":"Browserbee","premade":True,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"43762ec8a8815b68d93141c31098284d"},"personality":["0.5","1","1"],"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"messageBank":{}}
         return jsonify(defaultChar)
-    elif inputParams['keycode'] in temp_code_dict.keys():
-        codeAuth = temp_code_dict[inputParams['keycode']]
+    elif request.args.get('keycode') in temp_code_dict.keys():
+        codeAuth = temp_code_dict[request.args.get('keycode')]
     else:
         codeAuth = False
 
