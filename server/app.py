@@ -22,7 +22,7 @@ cors = CORS(app)
 def hello_world():
     return jsonify({"result": "Whale, hello there!"})
 
-@app.route('/redeemCode', methods=['POST'])
+@app.route('/checkCode', methods=['POST'])
 def check_code():
     """ Redeems a code, if it is valid for the given user. """
     uid = request.args.get('user_bbug_id')
