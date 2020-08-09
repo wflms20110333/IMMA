@@ -97,8 +97,3 @@ def delete_user(uid):
     """ Deletes a user from the database. """
     delete_statement = user_settings_table.delete().where(user_settings_table.c.uid == uid)
     execute_statement(delete_statement)
-
-print(redeem_code("ezou", "1234"))
-insert_code("ezou", "1234", 2)
-print(redeem_code("ezou", "1234"))
-print(redeem_code("ezou", "1234"))
