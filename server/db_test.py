@@ -8,3 +8,31 @@ remove_tracked_site("ezou@mit.edu", "taobao.com")
 read_table(user_settings_table)
 add_tracked_site("ezou@mit.edu", "github.com")
 read_table(user_settings_table)
+
+
+
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+print('removing code...')
+remove_code("uid", "1234")
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+print('inserting code...')
+insert_code("uid", "1234")
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+print('inserting code...')
+insert_code("uid", "1234")
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+print('removing code...')
+remove_code("uid", "1234")
+print(code_exists("uid", "1234"))
+read_table(redeem_codes_table)
+
+
+
+print(redeem_code("ezou", "1234"))
+insert_code("ezou", "1234", 2)
+print(redeem_code("ezou", "1234"))
+print(redeem_code("ezou", "1234"))

@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     countSlotsAvail();
     populateBrowserbugs();
-    
+
     $("#enteractivation").click(function() { // link purchases
         checkCode();
     });

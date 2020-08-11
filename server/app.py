@@ -1,4 +1,5 @@
 import boto3
+import db
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import json
@@ -9,6 +10,10 @@ import threading
 import util
 import urllib.parse
 import requests
+from random import choice
+from string import ascii_uppercase, digits
+
+import db
 
 app = Flask(__name__) # declare app
 cors = CORS(app)
@@ -19,15 +24,29 @@ def hello_world():
 
 @app.route('/checkCode', methods=['POST'])
 def check_code():
-    """ Checks if code is valid for the given user. """
-    validcodes = ["f3bd861e9c_peanut"] # TODO make this a database query
+    """ Redeems a code, if it is valid for the given user. """
     inputParams = request.get_json()
-    typedCode = inputParams['user_bbug_id'][:10] + '_' + inputParams['code']
-    print("Validating code", typedCode)
-    if typedCode in validcodes:
-        return jsonify({"result": "validCode", "number": "500"})
-    else:
+    uid = inputParams['user_bbug_id']
+    code = inputParams['code']
+    num_slots = db.redeem_code(uid, code)
+    if num_slots == -1:
         return jsonify({"result": "invalidCode"})
+    else:
+        return jsonify({"result": "validCode", "number": num_slots})        
+
+@app.route('/addCode', methods=['POST'])
+def add_code():
+    """ Adds redeemable code for the user. """
+    inputParams = request.get_json()
+    uid = inputParams['user_bbug_id']
+    num_slots = inputParams['num_slots']
+    pw = inputParams['pw']
+    if pw == "imma_Admin!": # code for debugging so include a password thing
+        new_code = ''.join(choice(ascii_uppercase + digits) for _ in range(6)) # generate a random code
+        db.insert_code(uid, new_code, num_slots)
+        return jsonify({"result": "success", "code": new_code})
+    else:
+        return jsonify({"result": "Invalid request :("})
 
 @app.route('/getHearts', methods=['POST'])
 def get_hearts():
@@ -119,10 +138,16 @@ def evaluate_state():
     """ Given a set of current tabs, predict which state [attention, focus, energy, happiness] a user is in
     an example POST: {'current_tabs': ["github", "fb"]} """
     inputParams = request.get_json()
-
+    mood = inputParams['mood']
+    lastTabs = inputParams['last_tabs']
+    flaggedSites = inputParams['flagged_sites']
+    custom_ratio = inputParams['custom_ratio']
+    textingstyle = inputParams['textingstyle']
+    user_lang = inputParams['user_lang']
+    message_bank = inputParams['message_bank']
     # predict mood
-    predictedMood = ph.vectorizeInput(inputParams['last_tabs'], inputParams['flagged_sites'])
-    currentState = ph.numerize(inputParams['mood'])
+    predictedMood = ph.vectorizeInput(lastTabs, flaggedSites)
+    currentState = ph.numerize(mood)
 
     clipMood = currentState # just for output, clips mood without adding any bonuses
     if sum(clipMood) > 14.7 or sum(clipMood) < 0.3:
@@ -131,15 +156,13 @@ def evaluate_state():
     # for calculation, clip state to between 0 and 5
     calcState = [min(max(i,0),5) for i in predictedMood+currentState]
 
-    print("Current mood:", calcState, "from site bonus", predictedMood, "and prior", currentState)
-
     # reset state if too happy or too sad
     if sum(calcState) > 14.7 or sum(calcState) < 0.3:
         calcState = [3.0, 3.0, 3.0]
         print("state reset")
 
     # pick a message
-    pickedMessage, _ = ph.pickMessage(calcState, inputParams['message_bank'], inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['user_lang'])
+    pickedMessage, _ = ph.pickMessage(calcState, message_bank, custom_ratio, textingstyle, user_lang)
     message = {'predictedState': str(clipMood), 'message': pickedMessage}
     return jsonify(message)
 
@@ -147,13 +170,16 @@ def evaluate_state():
 def get_question():
     """ Picks a question randomly """
     inputParams = request.get_json()
-
+    personality = inputParams['personality']
+    textingstyle = inputParams['textingstyle']
+    custom_ratio = inputParams['custom_ratio']
     qBank = inputParams['question_bank']
+
     if len(qBank) == 0: # question bank empty
         return jsonify({"result": "qbank_empty"})
 
     # Pick a question
-    pickedQuestion, questionWeight = ph.pickQuestion(qBank, inputParams['custom_ratio'], inputParams['textingstyle'], inputParams['personality'])
+    pickedQuestion, questionWeight = ph.pickQuestion(qBank, custom_ratio, textingstyle, personality)
     message = {'question': pickedQuestion, 'questionWeight': questionWeight, "result": "ok"} # questionWeight is already stringified
     print("Picked question with weight impact", questionWeight)
     return jsonify(message)
@@ -162,19 +188,23 @@ def get_question():
 def get_alarm():
     """ Return duration til next alarm (in seconds) & type of alarm """
     inputParams = request.get_json()
+    question_ratio = inputParams['question_ratio']
+    recent_message_ct = inputParams['recent_message_ct']
+    alarm_spacing = inputParams['alarm_spacing']
 
     # Update site file
-    mDuration, mType = ph.getNextAlarmStats(inputParams['question_ratio'], inputParams['recent_message_ct'], inputParams['alarm_spacing'])
-
+    mDuration, mType = ph.getNextAlarmStats(question_ratio, recent_message_ct, alarm_spacing)
     return jsonify({'mDuration': mDuration, 'mType': mType})
 
 @app.route('/getMail', methods=['POST'])
 def get_mail():
     """ Return duration til next alarm (in seconds) & type of alarm """
-    inputParams = request.get_json()
     # #TODO have able to check for multiple update messages, not just one
+    inputParams = request.get_json()
+    lastMail = inputParams['lastMail']
+
     update = ["001", "Welcome to Browserbug! :)"]
-    if inputParams['lastMail'] == update[0]:
+    if lastMail == update[0]:
         return jsonify({'mail': "none"}) # already read that update
     else:
         return jsonify({'mail': update})
@@ -183,17 +213,18 @@ def get_mail():
 def retrieve_imma():
     """ Given an imma code, return an imma file
     An example POST: {'keycode': "aBcImMaCoDe"} """
-    inputParams = request.get_json()
-
     # Authenticate the character code, either False or the name of the file #TODO generate unique codes
+    inputParams = request.get_json()
+    keycode = inputParams['keycode']
+
     temp_code_dict = {
         'oldurl': 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/43762ec8a8815b68d93141c31098284d/Browserbee.bbug'
     }
-    if inputParams['keycode'] == 'default':
+    if keycode == 'default':
         defaultChar = {"information":{"name":"Browserbee","premade":True,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"43762ec8a8815b68d93141c31098284d"},"personality":["0.5","1","1"],"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"messageBank":{}}
         return jsonify(defaultChar)
-    elif inputParams['keycode'] in temp_code_dict.keys():
-        codeAuth = temp_code_dict[inputParams['keycode']]
+    elif keycode in temp_code_dict.keys():
+        codeAuth = temp_code_dict[keycode]
     else:
         codeAuth = False
 
