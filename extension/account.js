@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    chrome.storage.sync.get(['user_lang'], function(result) {
+    chrome.storage.sync.get(['user_lang'], function (result) {
         $('.i18n-txt').each(function(index, element) { // translate text
             var ownId = this.id;
             $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
@@ -18,7 +18,11 @@ $(document).ready(function() {
     });
 });
 
+<<<<<<< HEAD
 // Redeem premium code
+=======
+// Check premium code
+>>>>>>> 50eb3788111a0b3b93dfac63f7fc4c69a3ae9f51
 function checkCode() {
     chrome.storage.sync.get(['user_bbug_id'], function(result) {
         result['code'] = document.getElementById("activationcode").value;
@@ -102,6 +106,6 @@ function populateBrowserbugs() {
                 $('#bbug-list').append(div);
                 console.log(key, value);
             }
-        }, timeoutMs = 2000);
+        }, timeoutMs=2000);
     });
 }
