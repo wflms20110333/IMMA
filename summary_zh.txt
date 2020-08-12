@@ -1,23 +1,11 @@
 一个自己定制的伙伴，可以减少网上工作者的孤独感！
 
-无论您希望让您喜欢的音乐偶像给您发鼓励信息，还是希望让您的电子游戏角色提醒您休息，还是希望您老朋友给您鼓舞的话语，Browserbugs能让您的上网时间更加高效，更积极，少孤独的经历。
+无论您希望让您喜欢的音乐偶像给您发鼓励信息，还是希望让您的电子游戏角色提醒您休息，还是希望您的老朋友给您鼓舞的话语，Browserbugs能让您的上网时间更高效、更积极并减少孤独的经历。
 
-A custom companion to make virtual work less lonely!
+您可以创建任何形象作为自己的Browserbug，为其命名，选择其个性，甚至添加您自己的特别短语列表！
 
-Whether you'd like your favorite music idol to send you a message of encouragement, a video game character to remind you to take a break, or an old friend to give you a pep talk, Browserbugs make your time online a more productive, more positive, and less lonely experience.
-
-您可以创建任何形象作为自己的Browserbug，为其命名，选择其个性，甚至添加您自己的特别短言列表！
-
----这是Browserbug的测试版！在我们继续改进和开发项目的过程中，请大家耐心等待:)---
-
-Create your own Browserbug from any image, name them, choose their personality, and even add your own list of custom messages!
-
---- This is the beta version of Browserbug! Please be patient with us as we continue improving and developing our project :) ---
+---这是Browserbug的测试版！我们在继续改进和开发项目的过程中，请大家耐心等待:)---
 
 新功能：
--选择Browserbug的字体样式！改变他们的标点符号（？！？！？！大小写转换，和用表情符的频率，
+-选择Browserbug的字体样式！改变他们的标点符号（？！？！？！)、大小写转换和用表情符的频率
 -制定URLs 以便轻松输出并与他人共享Browserbug！请记住，在我们继续开发此功能时，还要保存您制作的Browserbug的本地副本！
-
-NEW FEATURES:
-- Choose your Browserbug's texting style! Change their tendencies of punctuation (?!?!?!), CAPITALIZATION, or even how often they use emojis :3 XD
-- Generate URLs to easily export and share Browserbugs with others! Please remember to also save local copies of Browserbugs you make as we continue developing this feature!
