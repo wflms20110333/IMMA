@@ -14,15 +14,15 @@ $(document).ready(function() {
     populateBrowserbugs();
 
     $("#enteractivation").click(function() { // link purchases
-        redeemCode();
+        checkCode();
     });
 });
 
 // Redeem premium code
-function redeemCode() {
+function checkCode() {
     chrome.storage.sync.get(['user_bbug_id'], function(result) {
         result['code'] = document.getElementById("activationcode").value;
-        serverPOST('redeemCode', result, function(data) {
+        serverPOST('checkCode', result, function(data) {
             if (data['result'] == 'validCode') {
                 chrome.storage.sync.set({ 'user_level': parseInt(data['number']) });
                 alert("code entry successful! refresh to apply changes.");
