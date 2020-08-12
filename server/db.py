@@ -19,10 +19,9 @@ Session = sessionmaker(bind=db)
 # create a Session
 session = Session()
 
-user_settings_table = Table('user_settings', meta,
-                            Column('uid', String),
-                            Column('notif_frequency', Integer),
-                            Column('notif_fade', Boolean))
+users_table = Table('users', meta,
+                    Column('uid', String),
+                    Column('num_slots', Integer))
 
 redeem_codes_table = Table('redeem_codes', meta,
                            Column('uid', String),
@@ -71,29 +70,31 @@ def remove_code(uid, code):
                                                               redeem_codes_table.c.code == code))
     execute_statement(delete_statement)
 
-def insert_user(uid, notif_frequency, notif_fade):
-    """ Inserts a user into the user_settings table. """
-    insert_statement = user_settings_table.insert().values(uid=uid, 
-                                                           notif_frequency=notif_frequency, 
-                                                           notif_fade=notif_fade)
+def insert_user(uid, num_slots=3):
+    """ Inserts a user into the users_table table. """
+    insert_statement = users_table.insert().values(uid=uid, 
+                                                   num_slots=num_slots)
     execute_statement(insert_statement)
 
 def select_user(uid):
     """ Returns the row proxy from selecting a row corresponding to a user. """
-    select_statement = user_settings_table.select().where(user_settings_table.c.uid == uid)
+    select_statement = users_table.select().where(users_table.c.uid == uid)
     return execute_statement(select_statement).first()
 
-def update_notif_frequency(uid, new_notif_frequency):
-    """ Updates the notification frequency in seconds for a user. """
-    update_statement = user_settings_table.update().where(user_settings_table.c.uid == uid).values(notif_frequency=new_notif_frequency)
-    execute_statement(update_statement)
+def add_slots(uid, new_slots):
+    """ Adds new slots to a given user, and returns the new number of slots. """
+    select_statement = users_table.select().where(users_table.c.uid == uid)
+    old_num_slots = execute_statement(select_statement).first().num_slots
+    new_num_slots = old_num_slots + new_slots
+    update_num_slots(uid, new_num_slots)
+    return new_num_slots
 
-def update_notif_fade(uid, new_notif_fade):
-    """ Updates whether or not a user wants notifications to fade. """
-    update_statement = user_settings_table.update().where(user_settings_table.c.uid == uid).values(notif_fade=new_notif_fade)
+def update_num_slots(uid, new_num_slots):
+    """ Updates the notification frequency in seconds for a user. """
+    update_statement = users_table.update().where(users_table.c.uid == uid).values(num_slots=new_num_slots)
     execute_statement(update_statement)
 
 def delete_user(uid):
     """ Deletes a user from the database. """
-    delete_statement = user_settings_table.delete().where(user_settings_table.c.uid == uid)
+    delete_statement = users_table.delete().where(users_table.c.uid == uid)
     execute_statement(delete_statement)

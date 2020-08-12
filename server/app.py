@@ -24,14 +24,15 @@ def hello_world():
 
 @app.route('/checkCode', methods=['POST'])
 def check_code():
-    """ Redeems a code, if it is valid for the given user. """
+    """ Redeems a code, if it is valid for the given user, and returns the total number of slots the user now has. """
     uid = request.args.get('user_bbug_id')
     code = request.args.get('code')
-    num_slots = db.redeem_code(uid, code)
-    if num_slots == -1:
+    new_slots = db.redeem_code(uid, code)
+    if new_slots == -1:
         return jsonify({"result": "invalidCode"})
     else:
-        return jsonify({"result": "validCode", "number": num_slots})        
+        num_slots = db.add_slots(uid, new_slots)
+        return jsonify({"result": "validCode", "number": num_slots})
 
 @app.route('/addCode', methods=['POST'])
 def add_code():
