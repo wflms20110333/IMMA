@@ -19,10 +19,12 @@ Session = sessionmaker(bind=db)
 # create a Session
 session = Session()
 
+# uid is full-length
 users_table = Table('users', meta,
                     Column('uid', String),
                     Column('num_slots', Integer))
 
+# uid is cropped, 10-digit
 redeem_codes_table = Table('redeem_codes', meta,
                            Column('uid', String),
                            Column('code', String),

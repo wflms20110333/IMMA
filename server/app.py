@@ -24,11 +24,13 @@ def hello_world():
 
 @app.route('/checkCode', methods=['POST'])
 def check_code():
-    """ Redeems a code, if it is valid for the given user, and returns the total number of slots the user now has. """
+    """ Redeems a code, if it is valid for the given user, and returns the total number of slots the user now has.
+    user_bbug_id is the uncropped, full-length uid. """
     inputParams = request.get_json()
     uid = inputParams['user_bbug_id']
+    cropped_uid = uid[:10]
     code = inputParams['code']
-    new_slots = db.redeem_code(uid, code)
+    new_slots = db.redeem_code(cropped_uid, code)
     if new_slots == -1:
         return jsonify({"result": "invalidCode"})
     else:
@@ -37,11 +39,12 @@ def check_code():
 
 @app.route('/addCode', methods=['POST'])
 def add_code():
-    """ Adds redeemable code for the user. """
+    """ Adds redeemable code for the user.
+    user_bbug_id is the cropped, 10-digit uid. """
     inputParams = request.get_json()
     uid = inputParams['user_bbug_id']
     num_slots = inputParams['num_slots']
-    pw = inputParams['pw']
+    pw = inputParams['pw'] 
     if pw == "imma_Admin!": # code for debugging so include a password thing
         new_code = ''.join(choice(ascii_uppercase + digits) for _ in range(6)) # generate a random code
         db.insert_code(uid, new_code, num_slots)
