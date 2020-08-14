@@ -219,7 +219,7 @@ def get_mail():
     inputParams = request.get_json()
     lastMail = inputParams['lastMail']
 
-    update = ["001", "Welcome to Browserbug! :)"]
+    update = ["001", "Welcome to Browserbug! We hope you enjoy it. This is our beta version, so stay tuned for a new release in the near future! In the meantime, don't forget to rate our extension, and, if you'd like, to send us Ko-Fi :)"]
     if lastMail == update[0]:
         return jsonify({'mail': "none"}) # already read that update
     else:
