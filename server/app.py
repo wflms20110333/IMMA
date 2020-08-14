@@ -1,4 +1,5 @@
 import boto3
+import botocore
 import db
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
@@ -102,9 +103,20 @@ def get_bbug_file():
     character_name = request.args.get('character_name')
     if uid == None or character_name == None:
         return jsonify({"result": "Invalid request"})
-    ##bbug_link = "https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/" + uid + '/' + character_name + ".bbug"
-    # TODO: check if uid/character_name combination does not exist in S3
-    return render_template("index.html", bbugName=character_name, uid=uid)
+    # checks if uid/character_name combination exists in S3
+    s3 = boto3.resource('s3')
+    try:
+        s3.Object("imma-bucket", "browserbugs/" + uid + "/" + character_name + ".bbug").load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            # The bbug does not exist.
+            return render_template("404.html")
+        else:
+            print('when retrieving bbug file, something has gone wrong. uid:', uid, ', character name:', character_name)
+            # TODO: return internal server error page?
+    else:
+        # The bbug does exist.
+        return render_template("index.html", bbugName=character_name, uid=uid)
 
 @app.route('/removeBug', methods=['POST'])
 def remove_bug():

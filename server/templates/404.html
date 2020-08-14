@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Browserbug</title>
+    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/export.css') }}">
+
+    <!-- For Twitter cards! -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@browser_bug">
+    <meta name="twitter:description" content="Make your own browser companion with Browserbug!">
+    <script data-ad-client="ca-pub-8341039910387687" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+    <img id="logo-icon" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" alt="Browserbug">
+    <h1 id="logo-text">Browserbug Beta</h1>
+
+    <div class="bubble" id="content">
+        <a style="position:absolute; top:calc(10%+5px); right:11%;" href="http://imma.studio/browserbug">New to Browserbug?</a>
+        <h2 id="char-name" style="margin-bottom:0px;">404 Not Found</h2>
+        <p style="margin-top:0px;">The browserbug you are looking for does not exist :(</p>
+
+        <button class="mainbutton" id="bbug-link">Get the extension</button>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; IMMA Studio, LLC, 2020 |
+            <a href="https://imma.studio/browserbug/privacy_policy">Privacy Policy</a> |
+            <a href="https://imma.studio/browserbug/terms_of_use">Terms of Use</a> |
+            <a href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>            | Send us <a href="https://ko-fi.com/browserbug">Ko-Fi</a>?
+        </p>
+    </footer>
+</body>
+
+<!-- Add to any script -->
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<!-- Load Facebook SDK for JavaScript -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="Z6okW6ni"></script>
+<!-- For communicating with extension -->
+<script src="{{ url_for('static', filename='js/export.js') }}"></script>
+
+</html>
