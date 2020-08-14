@@ -84,6 +84,7 @@ function findCurrentTabs(callback) {
         for (var tabIndex in tabs) {
             var tabUrl = tabs[tabIndex]['url'];
             // Remove "http", keep only up to 1st /, limit to 50 characters
+            console.log(tabUrl);
             tabUrl = tabUrl.split('//')
             if (tabUrl.length > 1) {
                 tabUrl = tabUrl[1].split('/')[0].substring(0, 50);
@@ -130,10 +131,10 @@ function lastTabsUpdater(callback) {
  */
 function sendMessage() {
     console.log('in evaluateState');
-    lastTabsUpdater(function(){
-        // check if tab permission is enabled
-        chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
-            if (result) {
+    // check if tab permission is enabled
+    chrome.permissions.contains({ permissions: ['tabs'] }, function(result) {
+        if (result) {
+            lastTabsUpdater(function(){
                 // send site warning message
                 chrome.storage.sync.get(['last_tabs', 'flagged_sites'], function(data){
                     var onFlagged = Object.keys(data['last_tabs']).filter(value => Object.keys(data['flagged_sites']).includes(value));
@@ -144,10 +145,10 @@ function sendMessage() {
                         });
                     } else { sendNormalMessage(); }
                 });
-            } else {
-                sendNormalMessage();
-            }
-        });
+            });
+        } else {
+            sendNormalMessage();
+        }
     });
 }
 
@@ -202,9 +203,9 @@ function stylize_string(msg, textstyle){
     if (textstyle['punctuation'] < 0.3) { // don't have punctuation
         msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '');
     } else if (textstyle['punctuation'] > 0.9) { // extra extra punctuation
-        msg2 = msg2.replace('!', '!!!!').replace('?', '????');
+        msg2 = msg2.replace('!', '!!!!').replace('?', '????').replace('¡', '¡¡¡¡').replace('¿', '¿¿¿¿');
     } else if (textstyle['punctuation'] > 0.5) { // extra punctuation
-        msg2 = msg2.replace('!', '!!').replace('?', '??');
+        msg2 = msg2.replace('!', '!!').replace('?', '??').replace('¡', '¡¡').replace('¿', '¿¿');
     } 
     
     // Re-add any emojis
@@ -419,7 +420,7 @@ function serverQuery(endpoint, f, suppressServerWarning=false) {
  * @param {Object} inputObject the input JSON object
  * @param {function} f the function to process the JSON response from fetch()
  */
-function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=700) {
+function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=1500) {
     console.log("Fetching from " + endpoint + "...");
     timeout(timeoutMs, fetch(SERVER_URL + endpoint, {
         method: 'POST',
@@ -492,39 +493,39 @@ var msg_Bank_En = {
 
 var msg_Bank_Es = {
 	"¡Puedes hacerlo![ :D]": [0.8,0.3,0,1,1,1],
-	"¡Lo has hecho bien![ :O]": [0.8,0.2,0,1,1,1],
-	"¡Buen trabajo![ :3]": [0.8,0.2,0,1,1,1],
-	"¡Seguid así!": [0.6,0.4,0.1,1,1,1],
-	"¡Lo has estado haciendo bien![ :)]": [1.0,0.1,0,1,1,1],
-	"¡Has trabajado duro![ :)]": [0.5,0,0.1,1,1,1],
-	"¡Has estado haciendo un buen trabajo![ :>]": [1.0,0.1,0,1,1,1],
-	"¡Espero que las cosas vayan bien![ :>]": [0.5,0.3,0.3,1,1,1],
-	"¡Espero que estés bien![ :)]": [0.6,0.3,0.3,1,1,1],
-	"¡Estás mejorando![ :)]": [0.7,0.2,0.1,1,1,1],
-	"¡Eres increíble![ XD]": [0.7,0.3,0.1,1,1,1],
-	"¿Como te sientes!": [0.6,0.2,0.5,1,1,1],
-	"¡Has subido mucho hoy![ ;)]": [0.5,0.2,0.1,1,1,1],
-	"¡Recuerda sonreír![ :)]": [0.6,0.4,0.3,1,1,1],
+	"¡Bien hecho![ :O]": [0.8,0.2,0,1,1,1],
+    "¡Buen trabajo![ :3]": [0.8,0.2,0,1,1,1],
+    "¡Excelente trabajo![ :3]": [0.8,0.2,0,1,1,1],
+	"¡Sigue así!": [0.6,0.4,0.1,1,1,1],
+	"¡Lo conseguirás![ :)]": [0.5,0,0.1,1,1,1],
+	"¡Has trabajado duro![ :>]": [1.0,0.1,0,1,1,1],
+	"¡Has hecho un buen trabajo![ :>]": [0.5,0.3,0.3,1,1,1],
+	"¡Has hecho un excelente trabajo![ :)]": [0.6,0.3,0.3,1,1,1],
+	"¡Espero que estés bien![ :)]": [0.7,0.2,0.1,1,1,1],
+    "¡Estás mejorando![ XD]": [0.7,0.3,0.1,1,1,1],
+    "¡Eres espectacular![ XD]": [0.7,0.3,0.1,1,1,1],
+	"¿Cómo te sientes!": [0.6,0.2,0.5,1,1,1],
+	"¡Te has sobrepasado![ ;)]": [0.5,0.2,0.1,1,1,1],
+	"¡Acuérdate de sonreir![ :)]": [0.6,0.4,0.3,1,1,1],
 	"¡Pensando en ti![ :)]": [0.6,0.2,0.0,1,1,1],
-	"¡No estás solo![ :3]": [0.6,0.2,0.1,1,1,1],
 	"¡Está bien pedir ayuda![ :)]": [0.5,0.3,0.1,1,1,1],
-	"¡Te estoy animando![ :D]": [0.7,0.4,0.0,1,1,1],
+	"¡Te estoy alentando![ :D]": [0.7,0.4,0.0,1,1,1],
 	"¡No te rindas![ :>]": [0.3,0.6,0.0,1,1,1],
-	"¡Enfoque![ :>]": [0.0,0.9,0.0,1,1,1],
-	"¡Concentrado!": [0.0,0.8,0.0,1,1,1],
-	"¡Continúa![ :)]": [0.3,0.7,0.0,1,1,1],
-	"¡Su trabajo es importante, continúe![ :>]": [0.3,0.7,0.0,1,1,1],
-	"¿Es esa la productividad que veo?[ :O]": [0.2,0.8,0.1,1,1,1],
-	"¡No se distraiga![ :>]": [0.2,0.9,0.0,1,1,1],
-	"¡Mantente hidratado!": [0.3,0.1,0.8,1,1,1],
-	"¡Asegúrese de descansar los ojos![ :3]": [0.4,0.0,1.0,1,1,1],
-	"¿Tomar un descanso?​[ :)]": [0.4,0.2,0.9,1,1,1],
-	"¿Tomamos un descanso rápido?[ :)]": [0.4,0.2,0.9,1,1,1],
-	"¡Respire hondo y vuelva a centrarse![ :)]": [0.7,0.4,0.8,1,1,1],
-	"¡Descansa los ojos, mira un objeto distante![ :)]": [0.3,0.1,1.0,1,1,1],
-	"¡No olvides parpadear y descansar los ojos![ ;)]": [0.2,0.1,0.9,1,1,1],
-	"¿Cuánto tiempo has estado sentado en esta posición!": [0.2,0.1,0.9,1,1,1],
-	"¡Un recordatorio rápido para sentarse derecho![ :3]": [0.2,0.0,1.0,1,1,1]
+	"¡Enfócate![ :>]": [0.0,0.9,0.0,1,1,1],
+	"¡Concéntrate!": [0.0,0.8,0.0,1,1,1],
+	"¡Sigue adelante![ :)]": [0.3,0.7,0.0,1,1,1],
+	"¡Tu trabajo es importante, sigue adelante![ :>]": [0.3,0.7,0.0,1,1,1],
+	"¿Qué veo aquí? ¿Productividad?[ :O]": [0.2,0.8,0.1,1,1,1],
+	"¡No te distraigas![ :>]": [0.2,0.9,0.0,1,1,1],
+	"¡Toma agua!": [0.3,0.1,0.8,1,1,1],
+	"¡Asegúrate de descansar la vista![ :3]": [0.4,0.0,1.0,1,1,1],
+	"¿Hora de un descanso?​[ :)]": [0.4,0.2,0.9,1,1,1],
+	"¿Qué tal si nos tomamos un descano?[ :)]": [0.4,0.2,0.9,1,1,1],
+	"¡Respira hondo y reenfócate![ :)]": [0.7,0.4,0.8,1,1,1],
+	"¡Descansa la vista y mira a un objeto distante![ :)]": [0.3,0.1,1.0,1,1,1],
+	"¡No te olvides de parpadear y de descansar la vista![ ;)]": [0.2,0.1,0.9,1,1,1],
+	"¿Cuanto tiempo llevas en esta posición?": [0.2,0.1,0.9,1,1,1],
+	"¡Acuérdate de mantener una buena postura![ :3]": [0.2,0.0,1.0,1,1,1]
 }
 
 var msg_Bank_Zh = {

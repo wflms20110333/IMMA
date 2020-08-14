@@ -86,7 +86,8 @@ def select_user(uid):
 def add_slots(uid, new_slots):
     """ Adds new slots to a given user, and returns the new number of slots. """
     select_statement = users_table.select().where(users_table.c.uid == uid)
-    old_num_slots = execute_statement(select_statement).first().num_slots
+    user_row = execute_statement(select_statement).first()
+    old_num_slots = user_row.num_slots if user_row != None else 3
     new_num_slots = old_num_slots + new_slots
     update_num_slots(uid, new_num_slots)
     return new_num_slots

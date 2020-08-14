@@ -1,0 +1,20 @@
+¡Un compañero personalizado para hacer que el trabajo virtual sea menos solitario!
+¡las traducciones al español están en progreso!
+
+Whether you'd like your favorite music idol to send you a message of encouragement, a video game character to remind you to take a break, or an old friend to give you a pep talk, Browserbugs make your time online a more productive, more positive, and less lonely experience.
+
+Create your own Browserbug from any image, name them, choose their personality, and even add your own list of custom messages!
+
+--- This is the beta version of Browserbug! Please be patient with us as we continue improving and developing our project :) ---
+
+NEW FEATURES:
+- Choose your Browserbug's texting style! Change their tendencies of punctuation (?!?!?!), CAPITALIZATION, or even how often they use emojis :3 XD
+- Generate URLs to easily export and share Browserbugs with others! Please remember to also save local copies of Browserbugs you make as we continue developing this feature!
+
+
+Description: An interface for creating an avatar that periodically sends motivational notifications
+Storage: Store current avatar specifications, user settings, and mood variables
+Notifications: To periodically send motivational messages (can be disabled through popup menu)
+Alarms: To send messages at scheduled intervals (intervals can be adjusted in options)
+Tabs: To send messages based on which sites the user is currently accessing (optional permission)
+Host permission: To store & retrieve avatar images, to export & import avatar files, and to retrieve messages
