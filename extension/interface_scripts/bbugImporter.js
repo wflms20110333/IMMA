@@ -4,7 +4,6 @@
 // And then load that json data into the extension
 
 var loadButton = document.getElementById('char-load');
-loadButton.removeEventListener('click', alert); // Remove the default error message
 loadButton.addEventListener('click', function() {
 	// Get user id and bbug id (both strings)
 	var uid = document.getElementById('char-id').textContent;
