@@ -7,7 +7,7 @@
  // Things to do at the beginning of code
 chrome.runtime.onInstalled.addListener(function () {
     // open startup page
-    window.open("/welcome.html");
+    window.open("http://imma.studio/browserbug/welcome/");
     console.log("extension installed, welcome :)");
 
     chrome.storage.sync.set({'user_bbug_id': getRandomToken()}); // set a unique user ID
@@ -31,18 +31,6 @@ chrome.runtime.onInstalled.addListener(function () {
     loadCharacterCode("default"); // load first imma character from code
     setQuickAlarm(); // set first alarm for 0.8 second
 });
-
-// User responds to a question notification #TODO fix
-/*
-chrome.notifications.onButtonClicked.addListener(function (notificationID, buttonIndex) {
-    // Check if the notification type is that of a question
-    if (notificationID == 'Notif_Question') {
-        // If so, run the training procedure with feedback
-        updateWithAnswer(-2*buttonIndex+1); // pass on feedback from which button was clicked (0 or 1) => (1 or -1)
-        //chrome.notifications.clear('Notif_Question');
-    }
-    //sendMessage(); // instant message after question response
-});*/
 
 // Whenever alarm fires
 chrome.alarms.onAlarm.addListener(function (alarmInfo) {
