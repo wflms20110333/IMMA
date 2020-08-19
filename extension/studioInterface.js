@@ -4,13 +4,131 @@
  * You may not distribute, reproduce, or modify this code without written permission.
  */
 
-if ($(window).width() < 960) {
-    alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
+var en_text = {
+	"translations_available": {"message": ""},
+
+	"w_A1": {"message": "Welcome"},
+	"w_B1": {"message": "HOW TO USE"},
+	"w_B2": {"message": "Welcome to Browserbug! We've already loaded a default character, \"Browserbee,\" for you to use :)"},
+
+	"w_B3_1": {"message": "By now, you should have received a notification from it. (If not, check out our"},
+	"w_B3_link": {"message": "Troubleshooting"},
+	"w_B3_2": {"message": "section!)"},
+
+	"w_B4_1": {"message": "When you're ready, visit the"},
+	"w_B4_link": {"message": "Studio"},
+	"w_B4_2": {"message": "and start designing your own character!"},
+
+	"w_C1_1": {"message": "For more advanced settings (want to adjust how often you get messages?) visit the"},
+	"w_C1_link": {"message": "Options"},
+	"w_C1_2": {"message": "page."},
+
+	"w_C2_bold": {"message": "Thanks for installing Browserbug!"},
+	"w_C2_1": {"message": ":) Feel free to send us a"},
+	"w_C2_link": {"message": "ko-fi"},
+	"w_C2_2": {"message": "or rate our extension if you like it!"},
+
+	"w_D1": {"message": "PRIVACY"},
+	"w_D2": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us."},
+
+	"w_D3_1": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible. Check out our"},
+	"w_D3_link": {"message": "Privacy Policy"},
+	"w_D3_2": {"message": "for more details!"},
+
+	"w_E1": {"message": "NEED HELP?"},
+	"w_E1_2": {"message": "Can I change how long messages stay on my screen? Why am I missing certain notifications?"},
+
+	"w_E2_1": {"message": "For answers to these and more, take a look at our"},
+	"w_E2_link": {"message": "FAQ!"},
+	"w_E2_2": {"message": ""},
+
+	"w_E3_1": {"message": "We're also available to contact through"},
+	"w_E3_link1": {"message": "email,"},
+	"w_E3_link2": {"message": "Facebook,"},
+	"w_E3_4": {"message": "or"},
+	"w_E3_link3": {"message": "Twitter."},
+	"w_E3_5": {"message": ""},
+
+	"new": {"message": "New"},
+	"fOpen": {"message": "Upload local"},
+	"fServer": {"message": "Open from server"},
+	"export": {"message": "Download local"},
+	"uploadBbug": {"message": "Save to server"},
+
+	"tHelp": {"message": "Help"},
+	"acct": {"message": "Account"},
+	"tSett": {"message": "Settings"},
+	"tFForm": {"message": "Feedback Form"},
+	"tFB": {"message": "FB"},
+	"tTwitter": {"message": "Twitter"},
+	"tKofi": {"message": "Buy us Ko-Fi!"},
+
+	"personality": {"message": "Personality"},
+	"persToggle_T": {"message": "Experimental! Describe the typical attitude of your character."},
+
+	"p11": {"message": "Serious"},
+	"p12": {"message": "Cheerful"},
+	"p21": {"message": "Laidback"},
+	"p22": {"message": "Energetic"},
+	"p31": {"message": "Productivity"},
+	"p32": {"message": "Positivity"},
+
+	"textingstyle": {"message": "Texting style"},
+	"textToggle_T": {"message": "Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!"},
+
+	"txt1": {"message": "Emojis"},
+	"txt2": {"message": "Capitalization"},
+	"txt3": {"message": "Punctuation"},
+
+	"studWelcome": {"message": "Hello! Welcome to the Studio."},
+	"stud1": {"message": "Hover over any"},
+	"stud2": {"message": "to view tips."},
+	"tipToggle_T": {"message": "Don't forget to activate when you're done customizing!"},
+
+	"activate": {"message": "Finished! Activate this Browserbug."},
+
+	"pName": {"message": "Name"},
+	"nameToggle_T": {"message": "Pick a name!"},
+	"pAvatar": {"message": "Avatar"},
+	"imgToggle_T": {"message": "Pick an image!"},
+	"imgLabelr": {"message": "Pick image"},
+
+	"custMsgs": {"message": "Custom messages"},
+	"ccToggle_T": {"message": "Create your own messages! (Texting style is not applied to these.)"},
+	"proportion": {"message": "Proportion of custom messages"},
+	"ratioToggle_T": {"message": "How often to use custom messages rather than default messages"},
+
+	"ptCC": {"message": "% custom"},
+	"ptDef": {"message": "% default"},
+
+	"cm1": {"message": "Create message"},
+	"cm2": {"message": "Stats"},
+	"statToggle_T": {"message": "Grade this message! (0=no effect, 1=high effect)"},
+	"cm3": {"message": "Happiness"},
+	"m1Toggle_T": {"message": "Happiness: Reducing your stress and frustration"},
+	"cm4": {"message": "Focus"},
+	"m2Toggle_T": {"message": "Focus: Preventing boredom and distraction"},
+	"cm5": {"message": "Wellbeing"},
+	"m3Toggle_T": {"message": "Wellbeing: Helping you maintain healthy habits"},
+	"cm6": {"message": "Custom messages"},
+	"addMessage": {"message": "Add message"}
 }
+
+var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
+blankBbug.information = {
+    name: "",
+    imageS3Path: NULL_IMAGE_URL,
+    percentCustomQuotes: 0.5
+};
+blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 };
 
 var imageSource = "userInput"; // either userInput or localLoaded
 
 $(document).ready(function() {
+    if ($(window).width() < 960) {
+        alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
+    }
+
     // customizing fonts to language
     chrome.storage.sync.get(['user_lang'], function (result) {
         if (result['user_lang'] == 'es') {
@@ -29,24 +147,12 @@ $(document).ready(function() {
         
         $('.i18n-txt').each(function(index, element) { // translate text
             var ownId = this.id;
-            $.getJSON("_locales/" + result['user_lang'] + "/messages.json", function(msgObj) {
-                document.getElementById(ownId).textContent = msgObj[ownId]['message'];
-                document.getElementById(ownId).value = msgObj[ownId]['message'];
-            });
+            document.getElementById(ownId).textContent = en_text[ownId]['message'];
+            document.getElementById(ownId).value = en_text[ownId]['message'];
         });
 
     });
-});
 
-var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
-blankBbug.information = {
-    name: "",
-    imageS3Path: NULL_IMAGE_URL,
-    percentCustomQuotes: 0.5
-};
-blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 };
-
-$(document).ready(function() {
     // Initialize studio with the current bug
     absorbMemoryToDict(openJsonDat);
 
@@ -115,11 +221,6 @@ $(document).ready(function() {
         }
         fileReader.readAsText(fileTobeRead);
     }, false);
-
-    /*<!-- Old URL picker for images -->
-    <!-- <input type="text" id="im0-url" class="imgUrlBox" autocomplete="off"><button id="im0" class="urlButton">+</button> -->
-    <label for="open" class="custom-file-upload">Pick image</label>
-    <input name="uploaded-img" type="file" id="openImg" accept="image/*"></input>*/
 
     // process for importing images
     var imgSelected = document.getElementById('openImg');

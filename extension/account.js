@@ -18,11 +18,7 @@ $(document).ready(function() {
     });
 });
 
-<<<<<<< HEAD
 // Redeem premium code
-=======
-// Check premium code
->>>>>>> 50eb3788111a0b3b93dfac63f7fc4c69a3ae9f51
 function checkCode() {
     chrome.storage.sync.get(['user_bbug_id'], function(result) {
         result['code'] = document.getElementById("activationcode").value;

@@ -1,5 +1,5 @@
 {
-    "name": "Browserbug Beta",
+    "name": "Browserbug",
     "version": "2.00",
     "description": "A custom companion to make virtual work less lonely!",
     "icons": {
@@ -16,8 +16,12 @@
     },
     "content_scripts": [
         {
-          "matches": ["http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/getBbugFile*"],
-          "js": ["util.js", "constants.js", "jquery-3.5.1.min.js", "bbugImporter.js"]
+            "matches": ["http://imma.studio/browserbug/studio/"],
+            "js": ["util.js", "constants.js", "jquery-3.5.1.min.js", "studioInterface.js"]
+        },
+        {
+        "matches": ["http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/getBbugFile*"],
+        "js": ["util.js", "constants.js", "jquery-3.5.1.min.js", "bbugImporter.js"]
         }
     ],
     "manifest_version": 2,
