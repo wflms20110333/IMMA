@@ -1,9 +1,10 @@
 # IMMA
 
-![Rilakkuma message](readme_img1.PNG) ![Shia message](readme_img2.PNG)
+![Example message](readme_img1.PNG)
 
-* `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
-* `extension/` contains code for the chrome extension (client)
+* `docs/` contains code for [Browserbug's website](http://imma.studio/browserbug/)
+* `extension/` contains code for the Chrome extension (client)
+* `large images/` contains large images
 * `server/` contains code for the Flask server
 * `server/model/` contains code for the backend Python functions
 * `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > server/requirements.txt`)
@@ -131,19 +132,10 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 
 `placeholder.py` contains functions that the server performs to process data and so on.
 
-### Input files
-
-`MessageBank.txt` is a shared database of default messages for any Browserbug. Currently a tab-separated file. Messages should be grammatically capitalized & punctuated, with emojis within brackets. The code may later on edit the writing style of these messages, remove emojis, etc. Each message has a score that denotes that message's impact on each mood variable [being *happy* and *relaxed* (not stressed or frustrated), being properly *focused* (not distracted or bored), wellbeing (not discomfort)] as well as compatibility with character personality on a -1 to 1 scale [cheerful, energetic, positivity]. (User-created message scores only have the mood impact score, not personality.)
-
-`QuestionBank.txt` is likewise a tab-separated file containing general questions alongside their scores.
-
-`001_default.bbug` and similar are json character files that augment the MessageBank/QuestionBank. They contain general information about the character, as well as personality type and any custom messages/questions.
-
 ### Items kept in chrome extension memory
 
 ```
 General variables:
-#TODO add weird codes to the variable names in chrome memory
 'user_bbug_id': (string) unique, static id for each user
 'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
