@@ -450,6 +450,7 @@ function timeout(ms, promise) {
     })
 }
 
+//testing
 
 var msg_Bank_En = {
 	"You can do this![ :D]": [0.8,0.3,0,1,1,1],
