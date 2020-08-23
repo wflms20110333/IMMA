@@ -238,7 +238,7 @@ function absorbToDict() {
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 
-    dict.defaultBank = {"Vision": {}, "Posture": {}, "Care": {}, "Focus": {}, "Hydration": {}, "Support": {}};
+    dict.defaultBank = {"Wellness": {}, "Focus": {}, "Kudos": {}, "Support": {}};
     $('.quoteBlock').each(function(index, element) { // fill the message bank
         var qCategory = element.children[0].className.slice(0, -1);
         if (element.children[0].checked == true) { // only record if true

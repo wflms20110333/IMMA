@@ -72,39 +72,23 @@ var en_text = {
 }
 
 // Default messages, split into categories
-var Vision = {
-	"Be sure to rest your eyes![ :3]": true,
-	"Rest your eyes, look at a distant object![ :)]": true,
+var Wellness = {
+	"Rest your eyes: look at a distant object![ :)]": true,
 	"Don't forget to blink and rest your eyes![ ;)]": true,
-}
-var Posture = {
+	"Be sure to rest your eyes![ :)]": true,
 	"How long have you been sitting in this position?": true,
-	"A quick reminder to sit up straight![ :3]": true
-}
-var Care = {
-	"Remember to smile![ :)]": true,
-	"Hope things are going well![ :>]": true,
-	"Hope you're doing okay![ :)]": true,
-	"You can do this![ :D]": true,
-	"You've got this![ :)]": true,
-	"How are you feeling?": true,
-	"It's okay to ask for help![ :)]": true,
-	"I'm cheering you on![ :D]": true
+	"Time for a quick stretch maybe?[ :)]": true,
+	"A quick reminder to sit up straight![ :D]": true,
+	"Stay hydrated!": true,
+	"Don't forget to drink water![ :)]": true,
+	"A reminder to drink some water![ :)]": true,
+	"Is now a good time for a break?": true,
+	"Don't forget to take a break once in a while!": true
 }
 var Focus = {
-	"You've leveled up a lot today![ ;)]": true,
-	"You've worked hard![ :)]": true,
-	"You've been doing a good job![ :>]": true,
-	"You've been doing a great job![ :3]": true,
-	"You're getting better![ :)]": true,
-	"You're amazing![ XD]": true,
-	"You've done well![ :O]": true,
-	"Good job![ :3]": true,
-	"Great work![ :3]": true,
 	"Keep it up!": true,
-	"You've been doing well![ :)]": true,
-}
-var Hydration = {
+	"You can do this![ :D]": true,
+	"You've got this![ :)]": true,
 	"Don't give up![ :>]": true,
 	"Focus![ :>]": true,
 	"Concentrate!": true,
@@ -113,14 +97,33 @@ var Hydration = {
 	"Is that productivity I see?[ :O]": true,
 	"Don't get distracted![ :>]": true
 }
+var Kudos = {
+	"You've been doing well![ :)]": true,
+	"You've been doing a great job![ :D]": true,
+	"You've done well![ :O]": true,
+	"You've worked hard![ :)]": true,
+	"You've leveled up a lot today![ :)]": true,
+	"You're getting better![ :)]": true,
+	"That looks interesting![ :)]": true,
+	"Good job![ :)]": true,
+	"Great work![ :D]": true,
+	"You're amazing![ XD]": true,
+	"I'm cheering you on![ :D]": true
+}
 var Support = {
-	"Take a break?[ :)]": true,
-	"Let's take a quick break?[ :)]": true,
-	"Take a deep breath and recenter![ :)]": true
+	"Take a deep breath and recenter![ :)]": true,
+	"Close your eyes for a few seconds: how are you feeling?[ :)]": true,
+	"Time for a quick breather? Inhale, and slowly exhale.[ :)]": true,
+	"How are you feeling right now?": true,
+	"Remember to smile![ :)]": true,
+	"Don't forget to think about the big picture![ :)]": true,
+	"It's okay to ask for help![ :)]": true,
+	"Hope you're doing okay![ :)]": true,
+	"Are your muscles tense right now? Relax![ :)]": true
 }
 
 // mapping names of categories to the categories
-var nameMap = {"Vision": Vision, "Posture": Posture, "Care": Care, "Focus": Focus, "Hydration": Hydration, "Support": Support}
+var nameMap = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support}
 var menuInFocus = "none";
 
 // a blank browserbug
@@ -130,7 +133,7 @@ blankBbug.information = {
     imageS3Path: NULL_IMAGE_URL,
     percentCustomQuotes: 0.5
 };
-blankBbug.defaultBank = {Vision, Posture, Care, Focus, Hydration, Support}; // a full default bank
+blankBbug.defaultBank = {Wellness, Focus, Kudos, Support}; // a full default bank
 blankBbug.customBank = {}; // empty custom bank
 blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
 
