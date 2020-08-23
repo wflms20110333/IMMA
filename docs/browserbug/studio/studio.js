@@ -7,52 +7,9 @@
 var en_text = {
 	"translations_available": {"message": ""},
 
-	"w_A1": {"message": "Welcome"},
-	"w_B1": {"message": "HOW TO USE"},
-	"w_B2": {"message": "Welcome to Browserbug! We've already loaded a default character, \"Browserbee,\" for you to use :)"},
-
-	"w_B3_1": {"message": "By now, you should have received a notification from it. (If not, check out our"},
-	"w_B3_link": {"message": "Troubleshooting"},
-	"w_B3_2": {"message": "section!)"},
-
-	"w_B4_1": {"message": "When you're ready, visit the"},
-	"w_B4_link": {"message": "Studio"},
-	"w_B4_2": {"message": "and start designing your own character!"},
-
-	"w_C1_1": {"message": "For more advanced settings (want to adjust how often you get messages?) visit the"},
-	"w_C1_link": {"message": "Options"},
-	"w_C1_2": {"message": "page."},
-
-	"w_C2_bold": {"message": "Thanks for installing Browserbug!"},
-	"w_C2_1": {"message": ":) Feel free to send us a"},
-	"w_C2_link": {"message": "ko-fi"},
-	"w_C2_2": {"message": "or rate our extension if you like it!"},
-
-	"w_D1": {"message": "PRIVACY"},
-	"w_D2": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us."},
-
-	"w_D3_1": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible. Check out our"},
-	"w_D3_link": {"message": "Privacy Policy"},
-	"w_D3_2": {"message": "for more details!"},
-
-	"w_E1": {"message": "NEED HELP?"},
-	"w_E1_2": {"message": "Can I change how long messages stay on my screen? Why am I missing certain notifications?"},
-
-	"w_E2_1": {"message": "For answers to these and more, take a look at our"},
-	"w_E2_link": {"message": "FAQ!"},
-	"w_E2_2": {"message": ""},
-
-	"w_E3_1": {"message": "We're also available to contact through"},
-	"w_E3_link1": {"message": "email,"},
-	"w_E3_link2": {"message": "Facebook,"},
-	"w_E3_4": {"message": "or"},
-	"w_E3_link3": {"message": "Twitter."},
-	"w_E3_5": {"message": ""},
-
 	"new": {"message": "New"},
-	"fOpen": {"message": "Upload local"},
-	"fServer": {"message": "Open from server"},
-	"export": {"message": "Download local"},
+	"fOpen": {"message": "Load local"},
+	"export": {"message": "Download"},
 	"uploadBbug": {"message": "Save to server"},
 
 	"tHelp": {"message": "Help"},
@@ -63,8 +20,8 @@ var en_text = {
 	"tTwitter": {"message": "Twitter"},
 	"tKofi": {"message": "Buy us Ko-Fi!"},
 
-	"personality": {"message": "Personality"},
-	"persToggle_T": {"message": "Experimental! Describe the typical attitude of your character."},
+	"categories": {"message": "Default messages"},
+	"catToggle_T": {"message": "Experimental! Describe the typical attitude of your character."},
 
 	"p11": {"message": "Serious"},
 	"p12": {"message": "Cheerful"},
@@ -114,10 +71,147 @@ var en_text = {
 	"addMessage": {"message": "Add message"}
 }
 
+// Default messages, split into categories
+var Vision = {
+	"Be sure to rest your eyes![ :3]": true,
+	"Rest your eyes, look at a distant object![ :)]": true,
+	"Don't forget to blink and rest your eyes![ ;)]": true,
+}
+var Posture = {
+	"How long have you been sitting in this position?": true,
+	"A quick reminder to sit up straight![ :3]": true
+}
+var Care = {
+	"Remember to smile![ :)]": true,
+	"Hope things are going well![ :>]": true,
+	"Hope you're doing okay![ :)]": true,
+	"You can do this![ :D]": true,
+	"You've got this![ :)]": true,
+	"How are you feeling?": true,
+	"It's okay to ask for help![ :)]": true,
+	"I'm cheering you on![ :D]": true
+}
+var Focus = {
+	"You've leveled up a lot today![ ;)]": true,
+	"You've worked hard![ :)]": true,
+	"You've been doing a good job![ :>]": true,
+	"You've been doing a great job![ :3]": true,
+	"You're getting better![ :)]": true,
+	"You're amazing![ XD]": true,
+	"You've done well![ :O]": true,
+	"Good job![ :3]": true,
+	"Great work![ :3]": true,
+	"Keep it up!": true,
+	"You've been doing well![ :)]": true,
+}
+var Hydration = {
+	"Don't give up![ :>]": true,
+	"Focus![ :>]": true,
+	"Concentrate!": true,
+	"Keep going![ :)]": true,
+	"Your work is important, keep at it![ :>]": true,
+	"Is that productivity I see?[ :O]": true,
+	"Don't get distracted![ :>]": true
+}
+var Support = {
+	"Take a break?[ :)]": true,
+	"Let's take a quick break?[ :)]": true,
+	"Take a deep breath and recenter![ :)]": true
+}
+
+// mapping names of categories to the categories
+var nameMap = {"Vision": Vision, "Posture": Posture, "Care": Care, "Focus": Focus, "Hydration": Hydration, "Support": Support}
+var menuInFocus = "none";
+
+// a blank browserbug
+var blankBbug = {}; // empty object for "New" button
+blankBbug.information = {
+    name: "",
+    imageS3Path: NULL_IMAGE_URL,
+    percentCustomQuotes: 0.5
+};
+blankBbug.defaultBank = {Vision, Posture, Care, Focus, Hydration, Support}; // a full default bank
+blankBbug.customBank = {}; // empty custom bank
+blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
+
 $(document).ready(function() {
-    $('.i18n-txt').each(function(index, element) { // translate text
+	if ($(window).width() < 960) {
+        alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
+	}
+	
+    $('.i18n-txt').each(function(index, element) { // add text to page
         var ownId = this.id;
         document.getElementById(ownId).textContent = en_text[ownId]['message'];
         document.getElementById(ownId).value = en_text[ownId]['message'];
-    });
+	});
+
+	// Initially hide all category menus, & populate each with content
+	for (var category in nameMap) {
+		document.getElementById(category).style.display = "none";
+		for (var key in nameMap[category]) { // populate menu
+			// where to place next message
+			var iDiv = document.createElement('div');
+			iDiv.className = 'quoteBlock';
+			iDiv.textContent = key;
+			document.getElementById(category).appendChild(iDiv);
+	
+			// creating checkbox element 
+			var checkbox = document.createElement('input'); 
+			checkbox.type = "checkbox"; 
+			checkbox.checked = true;
+			checkbox.className = category+'B';
+
+			// export contents
+			iDiv.appendChild(checkbox);
+		}
+	}
+
+	// Show/hide all message category menus
+	document.getElementById("showAllQuotes").addEventListener('click', function(){
+		if (menuInFocus == "all") {
+			for (var category in nameMap) {
+				document.getElementById(category).style.display = "none";
+			};
+			this.textContent = "show all";
+			menuInFocus = "none";
+		} else {
+			for (var category in nameMap) {
+				document.getElementById(category).style.display = "block";
+			};
+			menuInFocus = "all";
+			this.textContent = "hide all";
+		}
+	});
+	
+	// When a button is clicked, show the relevant menu
+	document.querySelectorAll(".quoteButtons div").forEach(el => {
+		el.addEventListener('click', function(){
+			var elContent = el.textContent; // get which button was clicked
+			if (menuInFocus == elContent) { // same button clicked twice
+				document.getElementById(elContent).style.display = "none";
+				menuInFocus = "none";
+			} else if (menuInFocus == "none") { // new button clicked
+				document.getElementById(elContent).style.display = "block";
+				menuInFocus = elContent;
+			} else if (menuInFocus == "all") {
+				for (var category in nameMap) { document.getElementById(category).style.display = "none"; };
+				document.getElementById(elContent).style.display = "block";
+				menuInFocus = elContent;
+				document.getElementById("showAllQuotes").textContent = "show all";
+			} else { // unique click for a button, switch menu
+				document.getElementById(menuInFocus).style.display = "none";
+				document.getElementById(elContent).style.display = "block";
+				menuInFocus = elContent;
+			}
+		});
+	});
+
+	// When a main checkbox is clicked, check or uncheck all messages
+	document.querySelectorAll(".quoteButtons input").forEach(el => {
+		el.addEventListener('click', function(){
+			var category = this.id.slice(0, -1) + 'B';
+			checkboxes = document.getElementsByClassName(category);
+			for (var i in checkboxes) { checkboxes[i].checked = el.checked; }
+		});
+	});
 });
