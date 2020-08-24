@@ -7,28 +7,32 @@ var NULL_IMAGE_URL = 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_
 // Maps to convert between 1-10 and actual quantities + text
 // not the most efficient way to write welp but just getting it to work for now
 var fDict = {
-    1: [10, "every ~10 seconds"],
-    2: [20, "every ~20 seconds"],
-    3: [40, "every ~40 seconds"],
-    4: [60, "every ~1 minute"],
-    5: [120, "every ~2 minutes"],
-    6: [300, "every ~5 minutes"],
-    7: [600, "every ~10 minutes"],
-    8: [900, "every ~15 minutes"],
-    9: [1800, "every ~30 minutes"],
-    10: [3600, "every ~1 hour"]
+    1: [10, "every 10 seconds"],
+    2: [20, "every 20 seconds"],
+    3: [40, "every 40 seconds"],
+    4: [60, "every 1 minute"],
+    5: [120, "every 2 minutes"],
+    6: [300, "every 5 minutes"],
+    7: [600, "every 10 minutes"],
+    8: [900, "every 15 minutes"],
+    9: [1800, "every 30 minutes"],
+    10: [3600, "every 1 hour"],
+    11: [7200, "every 2 hours"],
+    12: [10800, "every 3 hours"]
 };
 var bDict = {
-    '10': [1, "every ~10 seconds"],
-    '20': [2, "every ~20 seconds"],
-    '40': [3, "every ~40 seconds"],
-    '60': [4, "every ~1 minute"],
-    '120': [5, "every ~2 minutes"],
-    '300': [6, "every ~5 minutes"],
-    '600': [7, "every ~10 minutes"],
-    '900': [8, "every ~15 minutes"],
-    '1800': [9, "every ~30 minutes"],
-    '3600': [10, "every ~1 hour"]
+    '10': [1, "every 10 seconds"],
+    '20': [2, "every 20 seconds"],
+    '40': [3, "every 40 seconds"],
+    '60': [4, "every 1 minute"],
+    '120': [5, "every 2 minutes"],
+    '300': [6, "every 5 minutes"],
+    '600': [7, "every 10 minutes"],
+    '900': [8, "every 15 minutes"],
+    '1800': [9, "every 30 minutes"],
+    '3600': [10, "every 1 hour"],
+    '7200': [11, "every 2 hours"],
+    '10800': [12, "every 3 hours"]
 };
 var shortDict = {
     '10': [1, "10 sec"],
@@ -40,7 +44,9 @@ var shortDict = {
     '600': [7, "10 min"],
     '900': [8, "15 min"],
     '1800': [9, "30 min"],
-    '3600': [10, "1 hr"]
+    '3600': [10, "1 hr"],
+    '7200': [11, "2 hrs"],
+    '10800': [12, "3 hrs"]
 };
 var shortDict2 = {
     1: [10, "10 sec"],
@@ -52,5 +58,7 @@ var shortDict2 = {
     7: [600, "10 min"],
     8: [900, "15 min"],
     9: [1800, "30 min"],
-    10: [3600, "1 hr"]
+    10: [3600, "1 hr"],
+    11: [7200, "2 hrs"],
+    12: [10800, "3 hrs"]
 };

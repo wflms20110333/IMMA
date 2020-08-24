@@ -124,7 +124,7 @@ function changeFreq(direction){
         freqIndex = parseInt(freqIndex);
         freqIndex += direction;
         if (freqIndex <= 0) {freqIndex = 1;} // bounds
-        if (freqIndex >= 11) {freqIndex = 10;}
+        if (freqIndex >= 13) {freqIndex = 12;}
         freqText.textContent = shortDict2[freqIndex][1];
         chrome.storage.sync.set({'alarm_spacing': shortDict2[freqIndex][0]});
         // clear alarms

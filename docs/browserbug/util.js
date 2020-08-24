@@ -362,20 +362,10 @@ function setQuickAlarm() {
 function setNextAlarm() {
     console.log('in setNextAlarm');
 
-    chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function(result) {
-        var nextNotifType = "none";
-        var lastMsgCt = parseInt(result['recent_message_ct']);
+    chrome.storage.sync.get(['alarm_spacing'], function(result) {
+        var nextNotifType = "message";
         var alarmSpc = parseFloat(result['alarm_spacing']);
-        var qRatio = parseFloat(result['question_ratio']);
 
-        if (qRatio >= lastMsgCt) {
-            nextNotifType = "message";
-            chrome.storage.sync.set({ 'recent_message_ct': lastMsgCt + 1 }); // will give message, increment counter
-        } else {
-            nextNotifType = "question";
-            chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
-        }
-        
         var nextDelay = Date.now() + (alarmSpc * 1000); // seconds to milliseconds past epoch
         chrome.alarms.create(nextNotifType, { when: nextDelay });
     });
