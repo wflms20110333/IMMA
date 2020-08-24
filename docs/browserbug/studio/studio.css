@@ -91,6 +91,19 @@ div label, div input{
     line-height: 0px;
 }
 
+.quoteButtons div {
+    width: 80px;
+    height: 30px;
+    margin: auto;
+    margin-bottom: 3px;
+    display: inline-block;
+    border: 1px black dotted;
+}
+
+.quoteButtons div:hover {
+    background-color: lightgray;
+}
+
 /* Scrollbar shows up on side so round the radius equally */
 ::-webkit-scrollbar-track {border-radius: 0px;}
 ::-webkit-scrollbar-thumb {

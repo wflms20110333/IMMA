@@ -4,132 +4,75 @@
  * You may not distribute, reproduce, or modify this code without written permission.
  */
 
-var en_text = {
-	"translations_available": {"message": ""},
+var imageSource = "userInput"; // either userInput or localLoaded
 
-	"w_A1": {"message": "Welcome"},
-	"w_B1": {"message": "HOW TO USE"},
-	"w_B2": {"message": "Welcome to Browserbug! We've already loaded a default character, \"Browserbee,\" for you to use :)"},
-
-	"w_B3_1": {"message": "By now, you should have received a notification from it. (If not, check out our"},
-	"w_B3_link": {"message": "Troubleshooting"},
-	"w_B3_2": {"message": "section!)"},
-
-	"w_B4_1": {"message": "When you're ready, visit the"},
-	"w_B4_link": {"message": "Studio"},
-	"w_B4_2": {"message": "and start designing your own character!"},
-
-	"w_C1_1": {"message": "For more advanced settings (want to adjust how often you get messages?) visit the"},
-	"w_C1_link": {"message": "Options"},
-	"w_C1_2": {"message": "page."},
-
-	"w_C2_bold": {"message": "Thanks for installing Browserbug!"},
-	"w_C2_1": {"message": ":) Feel free to send us a"},
-	"w_C2_link": {"message": "ko-fi"},
-	"w_C2_2": {"message": "or rate our extension if you like it!"},
-
-	"w_D1": {"message": "PRIVACY"},
-	"w_D2": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible, minimizing what's visible to us."},
-
-	"w_D3_1": {"message": "To preserve your privacy, we keep information locally on your own computer whenever possible. Check out our"},
-	"w_D3_link": {"message": "Privacy Policy"},
-	"w_D3_2": {"message": "for more details!"},
-
-	"w_E1": {"message": "NEED HELP?"},
-	"w_E1_2": {"message": "Can I change how long messages stay on my screen? Why am I missing certain notifications?"},
-
-	"w_E2_1": {"message": "For answers to these and more, take a look at our"},
-	"w_E2_link": {"message": "FAQ!"},
-	"w_E2_2": {"message": ""},
-
-	"w_E3_1": {"message": "We're also available to contact through"},
-	"w_E3_link1": {"message": "email,"},
-	"w_E3_link2": {"message": "Facebook,"},
-	"w_E3_4": {"message": "or"},
-	"w_E3_link3": {"message": "Twitter."},
-	"w_E3_5": {"message": ""},
-
-	"new": {"message": "New"},
-	"fOpen": {"message": "Upload local"},
-	"fServer": {"message": "Open from server"},
-	"export": {"message": "Download local"},
-	"uploadBbug": {"message": "Save to server"},
-
-	"tHelp": {"message": "Help"},
-	"acct": {"message": "Account"},
-	"tSett": {"message": "Settings"},
-	"tFForm": {"message": "Feedback Form"},
-	"tFB": {"message": "FB"},
-	"tTwitter": {"message": "Twitter"},
-	"tKofi": {"message": "Buy us Ko-Fi!"},
-
-	"personality": {"message": "Personality"},
-	"persToggle_T": {"message": "Experimental! Describe the typical attitude of your character."},
-
-	"p11": {"message": "Serious"},
-	"p12": {"message": "Cheerful"},
-	"p21": {"message": "Laidback"},
-	"p22": {"message": "Energetic"},
-	"p31": {"message": "Productivity"},
-	"p32": {"message": "Positivity"},
-
-	"textingstyle": {"message": "Texting style"},
-	"textToggle_T": {"message": "Choose how often your bug sends emojis :) or CAPITALIZES or uses punctuation!!!!"},
-
-	"txt1": {"message": "Emojis"},
-	"txt2": {"message": "Capitalization"},
-	"txt3": {"message": "Punctuation"},
-
-	"studWelcome": {"message": "Hello! Welcome to the Studio."},
-	"stud1": {"message": "Hover over any"},
-	"stud2": {"message": "to view tips."},
-	"tipToggle_T": {"message": "Don't forget to activate when you're done customizing!"},
-
-	"activate": {"message": "Finished! Activate this Browserbug."},
-
-	"pName": {"message": "Name"},
-	"nameToggle_T": {"message": "Pick a name!"},
-	"pAvatar": {"message": "Avatar"},
-	"imgToggle_T": {"message": "Pick an image!"},
-	"imgLabelr": {"message": "Pick image"},
-
-	"custMsgs": {"message": "Custom messages"},
-	"ccToggle_T": {"message": "Create your own messages! (Texting style is not applied to these.)"},
-	"proportion": {"message": "Proportion of custom messages"},
-	"ratioToggle_T": {"message": "How often to use custom messages rather than default messages"},
-
-	"ptCC": {"message": "% custom"},
-	"ptDef": {"message": "% default"},
-
-	"cm1": {"message": "Create message"},
-	"cm2": {"message": "Stats"},
-	"statToggle_T": {"message": "Grade this message! (0=no effect, 1=high effect)"},
-	"cm3": {"message": "Happiness"},
-	"m1Toggle_T": {"message": "Happiness: Reducing your stress and frustration"},
-	"cm4": {"message": "Focus"},
-	"m2Toggle_T": {"message": "Focus: Preventing boredom and distraction"},
-	"cm5": {"message": "Wellbeing"},
-	"m3Toggle_T": {"message": "Wellbeing: Helping you maintain healthy habits"},
-	"cm6": {"message": "Custom messages"},
-	"addMessage": {"message": "Add message"}
+// Default messages, split into categories
+var Wellness = {
+	"Rest your eyes: look at a distant object![ :)]": true,
+	"Don't forget to blink and rest your eyes![ ;)]": true,
+	"Be sure to rest your eyes![ :)]": true,
+	"How long have you been sitting in this position?": true,
+	"Time for a quick stretch maybe?[ :)]": true,
+	"A quick reminder to sit up straight![ :D]": true,
+	"Stay hydrated!": true,
+	"Don't forget to drink water![ :)]": true,
+	"A reminder to drink some water![ :)]": true,
+	"Is now a good time for a break?": true,
+	"Don't forget to take a break once in a while!": true
+}
+var Focus = {
+	"Keep it up!": true,
+	"You can do this![ :D]": true,
+	"You've got this![ :)]": true,
+	"Don't give up![ :>]": true,
+	"Focus![ :>]": true,
+	"Concentrate!": true,
+	"Keep going![ :)]": true,
+	"Your work is important, keep at it![ :>]": true,
+	"Is that productivity I see?[ :O]": true,
+	"Don't get distracted![ :>]": true
+}
+var Kudos = {
+	"You've been doing well![ :)]": true,
+	"You've been doing a great job![ :D]": true,
+	"You've done well![ :O]": true,
+	"You've worked hard![ :)]": true,
+	"You've leveled up a lot today![ :)]": true,
+	"You're getting better![ :)]": true,
+	"That looks interesting![ :)]": true,
+	"Good job![ :)]": true,
+	"Great work![ :D]": true,
+	"You're amazing![ XD]": true,
+	"I'm cheering you on![ :D]": true
+}
+var Support = {
+	"Take a deep breath and recenter![ :)]": true,
+	"Close your eyes for a few seconds: how are you feeling?[ :)]": true,
+	"Time for a quick breather? Inhale, and slowly exhale.[ :)]": true,
+	"How are you feeling right now?": true,
+	"Remember to smile![ :)]": true,
+	"Don't forget to think about the big picture![ :)]": true,
+	"It's okay to ask for help![ :)]": true,
+	"Hope you're doing okay![ :)]": true,
+	"Are your muscles tense right now? Relax![ :)]": true
 }
 
-var blankBbug = { 'personality': [0.0, 0.0, 0.0], 'messageBank': {} }; // empty object for "New" button
+// mapping names of categories to the categories
+var nameMap = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support}
+
+// a blank browserbug
+var blankBbug = {}; // empty object for "New" button
 blankBbug.information = {
     name: "",
     imageS3Path: NULL_IMAGE_URL,
     percentCustomQuotes: 0.5
 };
-blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 };
-
-var imageSource = "userInput"; // either userInput or localLoaded
+blankBbug.defaultBank = {Wellness, Focus, Kudos, Support}; // a full default bank
+blankBbug.customBank = {}; // empty custom bank
+blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
 
 $(document).ready(function() {
-    if ($(window).width() < 960) {
-        alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
-    }
-
-    // customizing fonts to language
+    // Customizing fonts to language
     chrome.storage.sync.get(['user_lang'], function (result) {
         if (result['user_lang'] == 'es') {
             document.querySelectorAll("h1, h2, h3, .question, input").forEach(el => {
@@ -144,51 +87,31 @@ $(document).ready(function() {
             document.querySelectorAll(".chn25px").forEach(el => { el.style.fontSize = 25; });
             document.querySelectorAll(".chn20px").forEach(el => { el.style.fontSize = 20; });
         }
-        
-        $('.i18n-txt').each(function(index, element) { // translate text
-            var ownId = this.id;
-            document.getElementById(ownId).textContent = en_text[ownId]['message'];
-            document.getElementById(ownId).value = en_text[ownId]['message'];
-        });
-
     });
 
     // Initialize studio with the current bug
     absorbMemoryToDict(openJsonDat);
 
-    $('.urlButton').each(function(index, element) { // link image-updating buttons
-        $(this).click(function() {
-            var urlBoxId = this.id + "-url";
-            var newImgUrl = document.getElementById(urlBoxId).value;
-            var imgBoxId = this.id + "-img";
-            document.getElementById(imgBoxId).src = newImgUrl;
-        });
-    });
-
-    $("#new").click(function() { // reload page
+    // Reload page
+    $("#new").click(function() {
         if (confirm("Start from scratch?")) {
             openJsonDat(blankBbug);
         }
     });
 
-    $("#add").click(function() { // process for creating custom messages
-        // where to place next message
+    // Add custom message
+    $("#add").click(function() {
+        // place the next message
         var iDiv = document.createElement('div');
         iDiv.className = 'messageBlock';
         document.getElementById('yourform').appendChild(iDiv);
-        // get contents
-        var flabel = document.getElementById('messagecontent').value;
-        var fstat1 = document.getElementById('msgstat1').value;
-        var fstat2 = document.getElementById('msgstat2').value;
-        var fstat3 = document.getElementById('msgstat3').value;
-        // clear contents
+
+        // get contents then clear contents
+        iDiv.innerHTML = document.getElementById('messagecontent').value;
+        iDiv.value = document.getElementById('messagecontent').value;
         document.getElementById('messagecontent').value = "";
-        document.getElementById('msgstat1').value = 0;
-        document.getElementById('msgstat2').value = 0;
-        document.getElementById('msgstat3').value = 0;
-        m1Update();
-        m2Update();
-        m3Update();
+
+        // add remove button
         var removeButton = document.createElement('button');
         removeButton.class = 'removeButton';
         removeButton.innerHTML = 'Remove';
@@ -199,18 +122,11 @@ $(document).ready(function() {
         removeButton.style.borderRadius = '5px';
         removeButton.style.border = 'none';
         removeButton.style.marginBottom = '5px';
-
-        removeButton.onclick = function() {
-            $(this).parent().remove();
-        };
-        // export contents
-        iDiv.value = [flabel, [fstat1, fstat2, fstat3]];
-        iDiv.innerHTML = (flabel + " (stats = " + fstat1 + ", " + fstat2 + ", " + fstat3 + ") ");
+        removeButton.onclick = function() { $(this).parent().remove(); };
         iDiv.appendChild(removeButton);
-
     });
 
-    // process for importing imma files
+    // Open local BBug file
     var fileSelected = document.getElementById('openBbug');
     fileSelected.addEventListener('change', function(e) {
         var fileTobeRead = fileSelected.files[0];
@@ -222,17 +138,16 @@ $(document).ready(function() {
         fileReader.readAsText(fileTobeRead);
     }, false);
 
-    // process for importing images
+    // Control image uploader button
     var imgSelected = document.getElementById('openImg');
     imgSelected.addEventListener('change', function(e) { // an image is uploaded!!
         imageSource = "userInput";
-        var imgx = document.getElementById('im0-img');
+        var imgx = document.getElementById('im0-img'); // find image previewer
         imgx.src = URL.createObjectURL(this.files[0]);
     }, false);
 
-    // process for activating imma files
+    // Activate BBug
     $("#activate").click(function() {
-        // allowExternalURLs();
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
             alert("Don't forget to select a name for your Browserbug!");
@@ -244,7 +159,7 @@ $(document).ready(function() {
         }
     });
 
-    // process for exporting imma files (local download)
+    // Locally download BBug file
     $("#export").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
@@ -264,7 +179,7 @@ $(document).ready(function() {
         }
     });
 
-    // process for uploading imma files (to server)
+    // Upload BBug file to server
     $("#uploadBbug").click(function() {
         // need to have these fields filled before save
         if (document.getElementById('imma-name').value == "") {
@@ -284,14 +199,13 @@ $(document).ready(function() {
                         exportBbug(true, function(jsonDict) {
                             var j_uid = jsonDict['information']['uid'];
                             var j_name = jsonDict['information']['name'];
-                            //var j_url = encodeURIComponent(jsonDict['information']['imageS3Path']);
                             var bbugPath = SERVER_URL + "getBbugFile?uid=" + j_uid + "&character_name=" + j_name;
                             window.open(bbugPath);
                         });
                     }
 
                     if (openAccount == true) { // open new tab to see browserbugs
-                        window.open("/account.html", "blank");
+                        window.open("http://imma.studio/browserbug/my_bbugs/", "blank");
                     }
                 });
             });
@@ -299,7 +213,8 @@ $(document).ready(function() {
     });
 });
 
-$(window).bind('beforeunload', function() { // warns users of an unsaved model
+// Warning before leaving studio
+$(window).bind('beforeunload', function() {
     return 'Are you sure you want to leave?';
 });
 
@@ -314,30 +229,61 @@ document.getElementById("messagecontent").addEventListener("keyup", function(eve
     }
 });
 
-function allowExternalURLs() {
-    chrome.permissions.request({
-        permissions: [] // #TODO work out optional image permissions, right now is required anyway? & only works for certain pictures!
-    }, function(granted) {
-        // The callback argument will be true if the user granted the permissions.
-        if (granted == false) {
-            alert("Please enable web permissions to use online image files");
-        }
-    });
-}
-
 function openJsonDat(jDat) {
     // load normal stuff
     document.getElementById('imma-name').value = jDat.information.name;
     document.getElementById('im0-img').src = jDat.information.imageS3Path;
-    document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
-    document.getElementById('personality1').value = jDat.personality[0]; // big #TODO, need to actually use personality
-    document.getElementById('personality2').value = jDat.personality[1];
-    document.getElementById('personality3').value = jDat.personality[2];
+    
     document.getElementById('tsSlider1').value = jDat.textstyle.emojis;
     document.getElementById('tsSlider2').value = jDat.textstyle.capitalization;
     document.getElementById('tsSlider3').value = jDat.textstyle.punctuation;
+
+    // Manage default messages
+    // Initially clear & hide all category menus, but populate each with content
+	for (var category in jDat.defaultBank) {
+        document.getElementById(category).innerHTML = "";
+        document.getElementById(category).style.display = "none";
+        document.getElementById(category+'C').checked = true; // keep category box checked until find unchecked child
+        for (var key in nameMap[category]) { // populate menu
+            // where to place next message
+            var iDiv = document.createElement('div');
+            iDiv.className = 'quoteBlock';
+            iDiv.value = category;
+            // Extract any emojis
+            var noEmoji = key;
+            if (noEmoji.includes('[') && noEmoji.includes(']')) {
+                noEmoji = noEmoji.replace(/ *\[[^\]]*]/, '');
+            }
+            iDiv.textContent = noEmoji;
+            iDiv.value = key;
+            document.getElementById(category).appendChild(iDiv);
+
+            // creating checkbox element 
+                // creating checkbox element 
+            // creating checkbox element 
+            var checkbox = document.createElement('input'); 
+                var checkbox = document.createElement('input'); 
+            var checkbox = document.createElement('input'); 
+            checkbox.type = "checkbox"; 
+                checkbox.type = "checkbox"; 
+            checkbox.type = "checkbox"; 
+            checkbox.checked = (key in jDat.defaultBank[category]);
+            checkbox.className = category+'B';
+
+            // export contents
+            iDiv.appendChild(checkbox);
+
+            if (!(key in jDat.defaultBank[category])) {
+                // message not selected. thus uncheck the main category box
+                document.getElementById(category+'C').checked = false;
+            }
+		}
+    }
+    
+    // Manage custom messages
     $(".messageBlock").remove(); // clear messages
-    for (var key in jDat.messageBank) { // import messages
+    document.getElementById('percentCustom').value = jDat.information.percentCustomQuotes;
+    for (var key in jDat.customBank) { // import messages
         // where to place next message
         var iDiv = document.createElement('div');
         iDiv.className = 'messageBlock';
@@ -345,42 +291,23 @@ function openJsonDat(jDat) {
 
         // create remove button
         var removeButton = document.createElement('button');
-        removeButton.class = 'removeButton';
-        removeButton.innerHTML = 'Remove';
-        removeButton.style.background = "white";
-        removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
-        removeButton.style.fontSize = '13px';
-        removeButton.style.color = 'black';
-        removeButton.style.borderRadius = '5px';
-        removeButton.style.border = 'none';
-        removeButton.style.marginBottom = '5px';
-        removeButton.onclick = function() {
-            $(this).parent().remove();
-        };
-
-        var flabel = key;
-        var fstats = jDat.messageBank[key];
+        removeButton.class = 'removeButton'; removeButton.innerHTML = 'Remove';
+        removeButton.style.background = "white"; removeButton.style.fontFamily = ['Assistant', 'Segoe UI', 'sans-serif'];
+        removeButton.style.fontSize = '13px'; removeButton.style.color = 'black';
+        removeButton.style.borderRadius = '5px'; removeButton.style.border = 'none';
+        removeButton.style.marginBottom = '5px'; removeButton.onclick = function() { $(this).parent().remove(); };
 
         // export contents
-        iDiv.value = [flabel, fstats];
-        iDiv.innerHTML = (flabel + " (stats = " + fstats[0] + ", " + fstats[1] + ", " + fstats[2] + ") ");
+        iDiv.innerHTML = key;
+        iDiv.value = key;
         iDiv.appendChild(removeButton);
     }
 
     // Text for sliders! Update on initialization
-    emojiUpdate();
-    capsUpdate();
-    punctUpdate();
+    emojiUpdate(); e1Update();
+    capsUpdate(); e2Update();
+    punctUpdate(); e3Update();
     ccRatioUpdate();
-    //p1Update();
-    //p2Update();
-    //p3Update();
-    e1Update();
-    e2Update();
-    e3Update();
-    m1Update();
-    m2Update();
-    m3Update();
 }
 
 function absorbToDict() {
@@ -392,24 +319,30 @@ function absorbToDict() {
         percentCustomQuotes: document.getElementById('percentCustom').value
     };
 
-    dict.personality = [document.getElementById('personality1').value, document.getElementById('personality2').value, document.getElementById('personality3').value];
+    dict.defaultBank = {"Wellness": {}, "Focus": {}, "Kudos": {}, "Support": {}};
+    $('.quoteBlock').each(function(index, element) { // fill the message bank
+        var qCategory = element.children[0].className.slice(0, -1);
+        if (element.children[0].checked == true) { // only record if true
+            dict.defaultBank[qCategory][element.value] = element.children[0].checked;
+        }
+    });
 
     dict.textstyle = {
         emojis: document.getElementById('tsSlider1').value,
         capitalization: document.getElementById('tsSlider2').value,
         punctuation: document.getElementById('tsSlider3').value
     };
-    dict.messageBank = {};
+
+    dict.customBank = {};
     $('.messageBlock').each(function(index, element) { // fill the message bank
-        var messageName = element.value[0];
-        dict.messageBank[messageName] = element.value[1];
+        dict.customBank[element.value] = true;
     });
 
     return dict;
 }
 
 function absorbMemoryToDict(callback) {
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'textingstyle', 'personality'], function(result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'default_bank', 'custom_bank', 'textingstyle'], function(result) {
         var dict = {}; // empty object to fill then export
 
         dict.information = {
@@ -417,11 +350,9 @@ function absorbMemoryToDict(callback) {
             imageS3Path: result['image_link'],
             percentCustomQuotes: result['custom_ratio']
         };
-
-        dict.personality = result['personality'];
-
+        dict.defaultBank = result['default_bank'];
         dict.textstyle = result['textingstyle'];
-        dict.messageBank = result['message_bank'];
+        dict.customBank = result['custom_bank'];
 
         callback(dict);
     });
@@ -494,12 +425,6 @@ document.getElementById('tsSlider3').oninput = function() {
     e3Update();
 }
 document.getElementById('percentCustom').oninput = function() { ccRatioUpdate(); }
-    //document.getElementById('personality1').oninput = function() { p1Update(); }
-    //document.getElementById('personality2').oninput = function() { p2Update(); }
-    //document.getElementById('personality3').oninput = function() { p3Update(); }
-document.getElementById('msgstat1').oninput = function() { m1Update(); }
-document.getElementById('msgstat2').oninput = function() { m2Update(); }
-document.getElementById('msgstat3').oninput = function() { m3Update(); }
 
 function emojiUpdate() {
     var scaleValue = document.getElementById('tsSlider1').value;
@@ -516,23 +441,11 @@ function punctUpdate() {
     if (scaleValue < 0.3) { document.getElementById('tsLabel3').textContent = "No punctuation"; } else if (scaleValue <= 0.5) { document.getElementById('tsLabel3').textContent = "Normal punctuation!"; } else if (scaleValue <= 0.9) { document.getElementById('tsLabel3').textContent = "More punctuation!!"; } else { document.getElementById('tsLabel3').textContent = "Unnecessary punctuation!!!!"; }
 }
 
-function p1Update() { document.getElementById('plabel1').textContent = document.getElementById('personality1').value; }
-
-function p2Update() { document.getElementById('plabel2').textContent = document.getElementById('personality2').value; }
-
-function p3Update() { document.getElementById('plabel3').textContent = document.getElementById('personality3').value; }
-
 function e1Update() { document.getElementById('etext1').textContent = document.getElementById('tsSlider1').value; }
 
 function e2Update() { document.getElementById('etext2').textContent = document.getElementById('tsSlider2').value; }
 
 function e3Update() { document.getElementById('etext3').textContent = document.getElementById('tsSlider3').value; }
-
-function m1Update() { document.getElementById('mtext1').textContent = document.getElementById('msgstat1').value; }
-
-function m2Update() { document.getElementById('mtext2').textContent = document.getElementById('msgstat2').value; }
-
-function m3Update() { document.getElementById('mtext3').textContent = document.getElementById('msgstat3').value; }
 
 function ccRatioUpdate() {
     var scaleValue = Math.round(100 * document.getElementById('percentCustom').value);

@@ -154,30 +154,35 @@ function sendMessage() {
 
 function sendNormalMessage(){
     // send normal message
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'message_bank', 'mood', 'textingstyle', 'user_lang'], function(result) {
+    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'default_bank', 'custom_bank', 'textingstyle', 'user_lang'], function(result) {
         // Use custom content
-        if (Math.random() < parseFloat(result['custom_ratio']) && Object.keys(result['message_bank']).length > 0) {
+        if (Math.random() < parseFloat(result['custom_ratio']) && Object.keys(result['custom_bank']).length > 0) {
             console.log("picking cc");
-            pickFromMsgBank(true, result['imma_name'], result['image_link'], result['message_bank'], result['textingstyle']);
+            pickFromMsgBank(true, result['imma_name'], result['image_link'], result['custom_bank'], result['textingstyle']);
         } else { // Server request
-            var msg_Bank = {}
-            if (result['user_lang'] == 'zh'){ msg_Bank = msg_Bank_Zh; }
-            else if (result['user_lang'] == 'es'){ msg_Bank = msg_Bank_Es; }
-            else { msg_Bank = msg_Bank_En; }
-            pickFromMsgBank(false, result['imma_name'], result['image_link'], msg_Bank, result['textingstyle']);
+            var flattened = {};
+            for (var i in result['default_bank']) {
+                for (var j in result['default_bank'][i]) {
+                    flattened[j] = true;
+                }
+            }
+            pickFromMsgBank(false, result['imma_name'], result['image_link'], flattened, result['textingstyle']);
         }
     });
 }
 
 function pickFromMsgBank(usingCC, bbName, bbImgLink, bbBank, bbStyle){
-    // TODO: add fancy smart personality mood code from server into this
     var keys = Object.keys(bbBank);
-    var chosenMsgKey = keys[ keys.length * Math.random() << 0];
-    var styledMsg = chosenMsgKey;
-    if (usingCC == false) {
-        styledMsg = stylize_string(chosenMsgKey, bbStyle); // stylize as long as not using cc
+    if (keys.length == 0) { // no keys available
+        sendNotification("Error: no available messages", bbName, bbImgLink);
+    } else {
+        var chosenMsgKey = keys[ keys.length * Math.random() << 0];
+        var styledMsg = chosenMsgKey;
+        if (usingCC == false) {
+            styledMsg = stylize_string(chosenMsgKey, bbStyle); // stylize as long as not using cc
+        }
+        sendNotification(styledMsg, bbName, bbImgLink);
     }
-    sendNotification(styledMsg, bbName, bbImgLink);
 }
 
 function stylize_string(msg, textstyle){
@@ -191,10 +196,6 @@ function stylize_string(msg, textstyle){
         emoji = emoji.replace(']', '');
         msg2 = msg2.replace(/ *\[[^\]]*]/, '');
     }
-    console.log("EMOJITIME");
-    console.log(emoji);
-    console.log(msg2);
-
     // Capitalization
     if (textstyle['capitalization'] < 0.3) { msg2 = msg2.toLowerCase(); }
     else if (textstyle['capitalization'] > 0.8) { msg2 = msg2.toUpperCase(); }
@@ -203,36 +204,17 @@ function stylize_string(msg, textstyle){
     if (textstyle['punctuation'] < 0.3) { // don't have punctuation
         msg2 = msg2.replace('!', '').replace('?', '').replace(',', '').replace('.', '');
     } else if (textstyle['punctuation'] > 0.9) { // extra extra punctuation
-        msg2 = msg2.replace('!', '!!!!').replace('?', '????').replace('¡', '¡¡¡¡').replace('¿', '¿¿¿¿');
+        msg2 = msg2.replace('!', '!!!!').replace('?', '???').replace('¡', '¡¡¡¡').replace('¿', '¿¿¿').replace('！', '！！！！').replace('？', '？？？');
     } else if (textstyle['punctuation'] > 0.5) { // extra punctuation
-        msg2 = msg2.replace('!', '!!').replace('?', '??').replace('¡', '¡¡').replace('¿', '¿¿');
+        msg2 = msg2.replace('!', '!!').replace('?', '??').replace('¡', '¡¡').replace('¿', '¿¿').replace('！', '！！').replace('？', '？？');
     } 
     
     // Re-add any emojis
     if (Math.random() < parseFloat(textstyle['emojis'])) {
         msg2 = msg2.concat(emoji);
     }
-    console.log(msg2);
 
     return msg2;
-}
-
-/**
- * Calls serverPOST to pick a question, then sends that question & updates memory of last question stats
- */
-function sendNewQuestion() {
-    console.log('in sendNewQuestion');
-
-    chrome.storage.sync.get(['imma_name', 'image_link', 'custom_ratio', 'question_bank', 'textingstyle', 'personality'], function(result) {
-        serverPOST('getQuestion', result, function(data) {
-            if (data['result'] == "qbank_empty") { // no questions to send
-                sendMessage();
-            } else {
-                sendNotifQuestion(data['question'], result['imma_name'], result['image_link'], result['persist_notifs']);
-                chrome.storage.sync.set({ 'last_q_weight': data['questionWeight'] });
-            }
-        });
-    });
 }
 
 /**
@@ -254,30 +236,11 @@ function updateWithAnswer(buttonIndex) {
     });
 }
 
-/**
- * Calls serverPOST to load a character file
- * @param {string} redeemCode a character code to redeem
- */
-
-function loadCharacterCode(redeemCode) {
-    console.log('in loadCharacterCode');
-    var jsonObj = { 'keycode': redeemCode }
-    if (redeemCode == "default") {
-        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"12345678901234567890"},"personality":["0.5","1","1"],"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"messageBank":{}};
-        loadCharacterFromJson(defaultChar);
-    } else {
-        serverPOST('retrieveIMMA', jsonObj, function(data) {
-            if (data['result'] == false) { // code invalid
-                sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
-            } else { // code valid
-                loadCharacterFromJson(data);
-            }
-        });
-    }
-}
-
 function loadCharacterFromJson(jsonData) {
     console.log('in loadCharacterFromJson');
+
+    chrome.storage.sync.remove(['default_bank','custom_bank']);
+
     if (typeof jsonData === 'string' || jsonData instanceof String) {
         var data = JSON.parse(jsonData);
     } else {
@@ -294,21 +257,93 @@ function loadCharacterFromJson(jsonData) {
         image_path = NULL_IMAGE_URL;
     }
     chrome.storage.sync.set({ 'image_link': image_path });
-    chrome.storage.sync.set({ 'personality': data['personality'] });
-    chrome.storage.sync.set({ 'color1': data['information']['color1'] });
-    chrome.storage.sync.set({ 'color2': data['information']['color2'] });
     chrome.storage.sync.set({ 'custom_ratio': data['information']['percentCustomQuotes'] });
-    chrome.storage.sync.set({ 'message_bank': data['messageBank'] });
-    chrome.storage.sync.set({ 'question_bank': {} });
+
     for (var key in data['textstyle']) {
         data['textstyle'][key] = parseFloat(data['textstyle'][key]);
     }
     chrome.storage.sync.set({ 'textingstyle': data['textstyle'] });
     chrome.storage.sync.set({ 'immaActive': true });
+
+    chrome.storage.sync.set({ 'default_bank': data['defaultBank'] });
+    chrome.storage.sync.set({ 'custom_bank': data['customBank'] });
+
     // #TODO fix, the below code fails sometimes (especially on export page), maybe because popup isn't active in the extensions bar?
     //chrome.browserAction.setBadgeText({ "text": "ON" });
     //chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
 };
+
+/**
+ * Calls serverPOST to load a character file
+ * @param {string} redeemCode a character code to redeem
+ */
+// Default messages, split into categories
+var Wellness = {
+	"Rest your eyes: look at a distant object![ :)]": true,
+	"Don't forget to blink and rest your eyes![ ;)]": true,
+	"Be sure to rest your eyes![ :)]": true,
+	"How long have you been sitting in this position?": true,
+	"Time for a quick stretch maybe?[ :)]": true,
+	"A quick reminder to sit up straight![ :D]": true,
+	"Stay hydrated!": true,
+	"Don't forget to drink water![ :)]": true,
+	"A reminder to drink some water![ :)]": true,
+	"Is now a good time for a break?": true,
+	"Don't forget to take a break once in a while!": true
+}
+var Focus = {
+	"Keep it up!": true,
+	"You can do this![ :D]": true,
+	"You've got this![ :)]": true,
+	"Don't give up![ :>]": true,
+	"Focus![ :>]": true,
+	"Concentrate!": true,
+	"Keep going![ :)]": true,
+	"Your work is important, keep at it![ :>]": true,
+	"Is that productivity I see?[ :O]": true,
+	"Don't get distracted![ :>]": true
+}
+var Kudos = {
+	"You've been doing well![ :)]": true,
+	"You've been doing a great job![ :D]": true,
+	"You've done well![ :O]": true,
+	"You've worked hard![ :)]": true,
+	"You've leveled up a lot today![ :)]": true,
+	"You're getting better![ :)]": true,
+	"That looks interesting![ :)]": true,
+	"Good job![ :)]": true,
+	"Great work![ :D]": true,
+	"You're amazing![ XD]": true,
+	"I'm cheering you on![ :D]": true
+}
+var Support = {
+	"Take a deep breath and recenter![ :)]": true,
+	"Close your eyes for a few seconds: how are you feeling?[ :)]": true,
+	"Time for a quick breather? Inhale, and slowly exhale.[ :)]": true,
+	"How are you feeling right now?": true,
+	"Remember to smile![ :)]": true,
+	"Don't forget to think about the big picture![ :)]": true,
+	"It's okay to ask for help![ :)]": true,
+	"Hope you're doing okay![ :)]": true,
+	"Are your muscles tense right now? Relax![ :)]": true
+}
+
+function loadCharacterCode(redeemCode) {
+    console.log('in loadCharacterCode');
+    var jsonObj = { 'keycode': redeemCode }
+    if (redeemCode == "default") {
+        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"12345678901234567890"},"defaultBank":{"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support},"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"customBank":{}};
+        loadCharacterFromJson(defaultChar);
+    } else {
+        serverPOST('retrieveIMMA', jsonObj, function(data) {
+            if (data['result'] == false) { // code invalid
+                sendNotification("Invalid code was entered", 'IMMA', 'null_image.png');
+            } else { // code valid
+                loadCharacterFromJson(data);
+            }
+        });
+    }
+}
 
 /**
  * Sets an alarm to quickly give a setup message
@@ -327,20 +362,10 @@ function setQuickAlarm() {
 function setNextAlarm() {
     console.log('in setNextAlarm');
 
-    chrome.storage.sync.get(['recent_message_ct', 'alarm_spacing', 'question_ratio'], function(result) {
-        var nextNotifType = "none";
-        var lastMsgCt = parseInt(result['recent_message_ct']);
+    chrome.storage.sync.get(['alarm_spacing'], function(result) {
+        var nextNotifType = "message";
         var alarmSpc = parseFloat(result['alarm_spacing']);
-        var qRatio = parseFloat(result['question_ratio']);
 
-        if (qRatio >= lastMsgCt) {
-            nextNotifType = "message";
-            chrome.storage.sync.set({ 'recent_message_ct': lastMsgCt + 1 }); // will give message, increment counter
-        } else {
-            nextNotifType = "question";
-            chrome.storage.sync.set({ 'recent_message_ct': 0 }); // will give a question, reset counter
-        }
-        
         var nextDelay = Date.now() + (alarmSpc * 1000); // seconds to milliseconds past epoch
         chrome.alarms.create(nextNotifType, { when: nextDelay });
     });
@@ -391,7 +416,6 @@ function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing
 }
 
 /**
- * UNUSED
  * Fetches from an endpoint, then processes the results with the provided function
  * E.g. serverQuery('helloWorld') fetches from 'http://127.0.0.1:5000/helloWorld'
  * Assumes the response is in JSON form
@@ -448,122 +472,4 @@ function timeout(ms, promise) {
         }, ms)
         promise.then(resolve, reject)
     })
-}
-
-//testing
-
-var msg_Bank_En = {
-	"You can do this![ :D]": [0.8,0.3,0,1,1,1],
-	"You've done well![ :O]": [0.8,0.2,0,1,1,1],
-	"Good job![ :3]": [0.8,0.2,0,1,1,1],
-	"Great work![ :3]": [0.8,0.2,0,1,1,1],
-	"Keep it up!": [0.6,0.4,0.1,1,1,1],
-	"You've been doing well![ :)]": [1.0,0.1,0,1,1,1],
-	"You've got this![ :)]": [0.8,0.1,0.0,1,1,1],
-	"You've worked hard![ :)]": [0.5,0,0.1,1,1,1],
-	"You've been doing a good job![ :>]": [1.0,0.1,0,1,1,1],
-	"You've been doing a great job![ :3]": [1.0,0.1,0,1,1,1],
-	"Hope things are going well![ :>]": [0.5,0.3,0.3,1,1,1],
-	"Hope you're doing okay![ :)]": [0.6,0.3,0.3,1,1,1],
-	"You're getting better![ :)]": [0.7,0.2,0.1,1,1,1],
-	"You're amazing![ XD]": [0.7,0.3,0.1,1,1,1],
-	"How are you feeling?": [0.6,0.2,0.5,1,1,1],
-	"You've leveled up a lot today![ ;)]": [0.5,0.2,0.1,1,1,1],
-	"Remember to smile![ :)]": [0.6,0.4,0.3,1,1,1],
-	"Thinking of you![ :)]": [0.6,0.2,0.0,1,1,1],
-	"You're not alone![ :3]": [0.6,0.2,0.1,1,1,1],
-	"It's okay to ask for help![ :)]": [0.5,0.3,0.1,1,1,1],
-	"I'm cheering you on![ :D]": [0.7,0.4,0.0,1,1,1],
-	"Don't give up![ :>]": [0.3,6,0,1,1,1],
-	"Focus![ :>]": [0,0.9,0,1,1,1],
-	"Concentrate!": [0,0.8,0,1,1,1],
-	"Keep going![ :)]": [0.3,0.7,0,1,1,1],
-	"Your work is important, keep at it![ :>]": [0.3,0.7,0,1,1,1],
-	"Is that productivity I see?[ :O]": [0.2,0.8,0.1,1,1,1],
-	"Don't get distracted![ :>]": [0.2,0.9,0.0,1,1,1],
-	"Stay hydrated!": [0.3,0.1,0.8,1,1,1],
-	"Be sure to rest your eyes![ :3]": [0.4,0,1.0,1,1,1],
-	"Take a break?[ :)]": [0.4,0.2,0.9,1,1,1],
-	"Let's take a quick break?[ :)]": [0.4,0.2,0.9,1,1,1],
-	"Take a deep breath and recenter![ :)]": [0.7,0.4,0.8,1,1,1],
-	"Rest your eyes, look at a distant object![ :)]": [0.3,0.1,1.0,1,1,1],
-	"Don't forget to blink and rest your eyes![ ;)]": [0.2,0.1,0.9,1,1,1],
-	"How long have you been sitting in this position?": [0.2,0.1,0.9,1,1,1],
-	"A quick reminder to sit up straight![ :3]": [0.2,0.0,1.0,1,1,1]
-}
-
-var msg_Bank_Es = {
-	"¡Puedes hacerlo![ :D]": [0.8,0.3,0,1,1,1],
-	"¡Bien hecho![ :O]": [0.8,0.2,0,1,1,1],
-    "¡Buen trabajo![ :3]": [0.8,0.2,0,1,1,1],
-    "¡Excelente trabajo![ :3]": [0.8,0.2,0,1,1,1],
-	"¡Sigue así!": [0.6,0.4,0.1,1,1,1],
-	"¡Lo conseguirás![ :)]": [0.5,0,0.1,1,1,1],
-	"¡Has trabajado duro![ :>]": [1.0,0.1,0,1,1,1],
-	"¡Has hecho un buen trabajo![ :>]": [0.5,0.3,0.3,1,1,1],
-	"¡Has hecho un excelente trabajo![ :)]": [0.6,0.3,0.3,1,1,1],
-	"¡Espero que estés bien![ :)]": [0.7,0.2,0.1,1,1,1],
-    "¡Estás mejorando![ XD]": [0.7,0.3,0.1,1,1,1],
-    "¡Eres espectacular![ XD]": [0.7,0.3,0.1,1,1,1],
-	"¿Cómo te sientes!": [0.6,0.2,0.5,1,1,1],
-	"¡Te has sobrepasado![ ;)]": [0.5,0.2,0.1,1,1,1],
-	"¡Acuérdate de sonreir![ :)]": [0.6,0.4,0.3,1,1,1],
-	"¡Pensando en ti![ :)]": [0.6,0.2,0.0,1,1,1],
-	"¡Está bien pedir ayuda![ :)]": [0.5,0.3,0.1,1,1,1],
-	"¡Te estoy alentando![ :D]": [0.7,0.4,0.0,1,1,1],
-	"¡No te rindas![ :>]": [0.3,0.6,0.0,1,1,1],
-	"¡Enfócate![ :>]": [0.0,0.9,0.0,1,1,1],
-	"¡Concéntrate!": [0.0,0.8,0.0,1,1,1],
-	"¡Sigue adelante![ :)]": [0.3,0.7,0.0,1,1,1],
-	"¡Tu trabajo es importante, sigue adelante![ :>]": [0.3,0.7,0.0,1,1,1],
-	"¿Qué veo aquí? ¿Productividad?[ :O]": [0.2,0.8,0.1,1,1,1],
-	"¡No te distraigas![ :>]": [0.2,0.9,0.0,1,1,1],
-	"¡Toma agua!": [0.3,0.1,0.8,1,1,1],
-	"¡Asegúrate de descansar la vista![ :3]": [0.4,0.0,1.0,1,1,1],
-	"¿Hora de un descanso?​[ :)]": [0.4,0.2,0.9,1,1,1],
-	"¿Qué tal si nos tomamos un descano?[ :)]": [0.4,0.2,0.9,1,1,1],
-	"¡Respira hondo y reenfócate![ :)]": [0.7,0.4,0.8,1,1,1],
-	"¡Descansa la vista y mira a un objeto distante![ :)]": [0.3,0.1,1.0,1,1,1],
-	"¡No te olvides de parpadear y de descansar la vista![ ;)]": [0.2,0.1,0.9,1,1,1],
-	"¿Cuanto tiempo llevas en esta posición?": [0.2,0.1,0.9,1,1,1],
-	"¡Acuérdate de mantener una buena postura![ :3]": [0.2,0.0,1.0,1,1,1]
-}
-
-var msg_Bank_Zh = {
-	"你可以做到[ :D]": [0.0,0.0,0.0,1,1,1],
-	"干得好！[ :0]": [0.0,0.0,0.0,1,1,1],
-	"太好了！[ :0]": [0.0,0.0,0.0,1,1,1],
-	"你做得不错！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你辛苦了！[ :)]": [0.0,0.0,0.0,1,1,1],
-    "辛苦了，加油！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你做得很棒！[ :0]": [0.0,0.0,0.0,1,1,1],
-	"希望一切顺利！[ :>]": [0.0,0.0,0.0,1,1,1],
-	"你好吗？希望你一切都好！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你越来越好了！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你真了不起！": [0.0,0.0,0.0,1,1,1],
-	"你感觉怎么样？": [0.0,0.0,0.0,1,1,1],
-	"你今天已经提高了很多！[ ;）]": [0.0,0.0,0.0,1,1,1],
-	"记得微笑！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"想着你！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你并不孤单！[ :0]": [0.0,0.0,0.0,1,1,1],
-	"可以寻求帮助！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"我为你加油！[ :D]": [0.0,0.0,0.0,1,1,1],
-	"不要放弃！[ :>]": [0.0,0.0,0.0,1,1,1],
-	"集中思想！[ :>]": [0.0,0.0,0.0,1,1,1],
-	"现在要集中思想！": [0.0,0.0,0.0,1,1,1],
-    "继续努力！[ :)]": [0.0,0.0,0.0,1,1,1],
-    "继续努力，你真棒！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"你的工作很重要，请继续努力！[ :>]": [0.0,0.0,0.0,1,1,1],
-	"我看到你的效率很高。真不错啊！[ :O]": [0.0,0.0,0.0,1,1,1],
-	"不要分心！[ :>]": [0.0,0.0,0.0,1,1,1],
-	"要不要起来倒杯水？": [0.0,0.0,0.0,1,1,1],
-	"请确保休息！[ :0]": [0.0,0.0,0.0,1,1,1],
-	"要不要休息一下？[ :)]": [0.0,0.0,0.0,1,1,1],
-	"让我们休息一下，好吗？[ :)]": [0.0,0.0,0.0,1,1,1],
-    "请深呼吸一下！[ :)]": [0.0,0.0,0.0,1,1,1],
-    "看看窗外！": [0.0,0.0,0.0,1,1,1],
-	"休息一下眼睛，看着远处的物体！[ :)]": [0.0,0.0,0.0,1,1,1],
-	"别忘了眨眨眼睛，休息一下！[ ;)]": [0.0,0.0,0.0,1,1,1],
-	"你坐在这个位置多久了？": [0.0,0.0,0.0,1,1,1],
-	"坐直了对你的健康有帮助！[ :0]": [0.0,0.0,0.0,1,1,1]
 }

@@ -137,10 +137,7 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 ```
 General variables:
 'user_bbug_id': (string) unique, static id for each user
-'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
-'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
-'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
 
 'immaActive': (bool) whether bug is currently active
 'lastMail': (string) last server-mail the user read (i.e. message from developers)
@@ -156,10 +153,8 @@ User preferences:
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
-'personality': (array) numbers for current character's cheer, energy, positivity
 'custom_ratio': (number) how often to use custom quotes rather than pull from general database
 'textingstyle': (json) describes texting style of the current imma
-'message_bank': (json) storage of custom/extra messages for the active character
-'question_bank': (json) storage of custom/extra questions for the active character
-'question_ratio': (array) ratio of 1 question per X messages
+'default_bank': (json) storage of prewritten messages for the active character
+'custom_bank': (json) storage of custom/extra messages for the active character
 ```

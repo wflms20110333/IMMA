@@ -16,23 +16,21 @@
     <header>
         <div>
             <h2>Browserbug Studio</h2>
-
+            <!-- New -->
             <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
-
-            <!-- TODO: change to real endpoint |#TODO process images down to icon size -->
-            <!-- <form action="http://0.0.0.0:5000/uploadImg" method="post" enctype="multipart/form-data"> -->
-
+            <!-- Download  -->
             <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
             <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
-            <!-- note #TODO encrypt JSONs -->
+            <!-- Upload -->
             <input type="file" id="openBbug" accept=".bbug">
             <a id="exporter" style="display:none;"></a>
+            <!-- Save -->
             <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
-            <!--<p class="filing" id="loadServer" title="Look for new Browserbugs...">Load from server #TODO</p>-->
         </div>
 
     </header>
 
+    <!-- Toolbar -->
     <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
     <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
     <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
@@ -41,34 +39,29 @@
     
     <div class="studio">
         <div class="column" id="leftCol">
+            <!-- Default messages -->
             <div class="bubble">
                 <br>
-                <span class="i18n-txt chn25px" style="font-size: 20px;" id="personality"></span>
-                <a class="toggler" id="persToggle">[?]<br></a>
-                <p class="toggling i18n-txt" id="persToggle_T"></p><br>
-                <div>
-                    <!--<span id="plabel1">test</span><br>-->
-                    <div class="personLabels i18n-txt" id="p11" style="text-align: right;"></div>
-                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality1">
-                    <div class="personLabels i18n-txt" id="p12" style="text-align: left;"></div>
+                <span class="chn25px" style="font-size: 20px;" id="categories">Default messages</span>
+                <a class="toggler" id="catToggle">[?]<br></a>
+                <p class="toggling" id="catToggle_T"></p>
+                <p id="showAllQuotes">show all</p>
+                <div class="quoteButtons">
+                    <div>Wellness</div><input type="checkbox" checked="true" id="WellnessC">
+                    <div>Focus</div><input type="checkbox" checked="true" id="FocusC"><br>
+                    <div>Support</div><input type="checkbox" checked="true" id="SupportC">
+                    <div>Kudos</div><input type="checkbox" checked="true" id="KudosC"><br>
                 </div>
-
-                <div>
-                    <!--<span id="plabel2">test</span><br>-->
-                    <div class="personLabels i18n-txt" id="p21" style="text-align: right;"></div>
-                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality2">
-                    <div class="personLabels i18n-txt" id="p22" style="text-align: left;"></div>
-                </div>
-
-                <div>
-                    <!--<span id="plabel3">test</span><br>-->
-                    <div class="personLabels i18n-txt" id="p31" style="text-align: right;"></div>
-                    <input type="range" min="-1" max="1" value="0" step="0.25" class="slider" id="personality3">
-                    <div class="personLabels i18n-txt" id="p32" style="text-align: left;"></div>
-                </div>
-
-                <br>
-                
+                <div id="selectQuote" style="background-color: lightgray;">
+                    <div id="Wellness"></div>
+                    <div id="Focus"></div>
+                    <div id="Support"></div>
+                    <div id="Kudos"></div>
+                </div><br>
+            </div>
+            
+            <!-- Texting style -->
+            <div class="bubble"><br>
                 <span class="i18n-txt chn25px" style="font-size: 20px;" id="textingstyle"></span>
                 <a class="toggler" id="textToggle">[?]<br></a>
                 <p class="toggling i18n-txt" id="textToggle_T"></p><br>
@@ -89,19 +82,22 @@
                 <p id="tsLabel3" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider3">
                 <span id="etext3">test</span>
-                <br><br>
+                <br>
             </div>
         </div>
 
         <div class="column" id="centerCol">
+            <!-- Welcome message -->
             <div class="bubble" id="main-bubble">
                 <p class="i18n-txt" id="studWelcome"></p>
                 <span class="i18n-txt" style="font-size: 15px;" id="tipToggle_T"></span><br>
                 <p class="filing i18n-txt" id="activate"></p>
             </div>
 
+            <!-- Name and avatar -->
             <div class="bubble">
                 <br>
+                <!-- Name space -->
                 <span class="i18n-txt chn25px" style="font-size: 20px;" id="pName"></span>
                 <a class="toggler" id="nameToggle">[?]<br></a>
                 <p class="toggling i18n-txt" id="nameToggle_T"></p>
@@ -117,7 +113,7 @@
                 <a class="toggler" id="imgToggle">[?]<br></a>
                 <p class="toggling i18n-txt" id="imgToggle_T"></p>
 
-                <!-- New image uploader -->
+                <!-- Uploader button -->
                 <br>
                 <label for="openImg" class="custom-file-upload2 i18n-txt" id="imgLabelr"></label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
@@ -126,6 +122,7 @@
         </div>
 
         <div class="column" id="rightCol">
+            <!-- Custom messages -->
             <div class="bubble" style="margin-bottom: 50px;">
                 <br>
                 <span class="i18n-txt chn25px" style="font-size: 20px;" id="custMsgs"></span>
@@ -150,33 +147,6 @@
                 <fieldset id="pullfrom">
                     <legend class="i18n-txt" id="cm1"></legend>
                     <textarea id="messagecontent" maxlength="90" style="resize: none;"></textarea>
-                    
-                    <br>
-                    <span class="i18n-txt chn20px" id="cm2"></span>
-                    <a class="toggler" id="statToggle">[?]</a>
-                    
-                    <p class="toggling">
-                        <span class="i18n-txt" id="statToggle_T"></span><br>
-                        <span class="i18n-txt" id="m1Toggle_T"></span><br>
-                        <span class="i18n-txt" id="m2Toggle_T"></span><br>
-                        <span class="i18n-txt" id="m3Toggle_T"></span>
-                    </p><br>
-
-                    <span class="i18n-txt" id="cm3"></span>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat1">
-                    <span id="mtext1">test</span>
-                    <br>
-
-                    <span class="i18n-txt" id="cm4"></span>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat2">
-                    <span id="mtext2">test</span>
-                    <br>
-
-                    <span class="i18n-txt" id="cm5"></span>
-                    <p class="toggling i18n-txt" id="m3Toggle_T"></p>
-                    <input type="range" class="slider" min="0" max="1" value="0" step="0.1" id="msgstat3">
-                    <span id="mtext3">test</span>
-                    
                 </fieldset>
                 <br>
                 <label for="add" class="custom-file-upload2 i18n-txt" id="addMessage"></label>
