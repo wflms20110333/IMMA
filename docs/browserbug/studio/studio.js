@@ -143,7 +143,9 @@ $(document).ready(function() {
 	}
 	
     $('.i18n-txt').each(function(index, element) { // add text to page
-        var ownId = this.id;
+		var ownId = this.id;
+		console.log("debugging xyz");
+		console.log(ownId);
         document.getElementById(ownId).textContent = en_text[ownId]['message'];
         document.getElementById(ownId).value = en_text[ownId]['message'];
 	});
