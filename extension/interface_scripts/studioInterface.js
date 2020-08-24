@@ -6,6 +6,71 @@
 
 var imageSource = "userInput"; // either userInput or localLoaded
 
+// Default messages, split into categories
+var Wellness = {
+	"Rest your eyes: look at a distant object![ :)]": true,
+	"Don't forget to blink and rest your eyes![ ;)]": true,
+	"Be sure to rest your eyes![ :)]": true,
+	"How long have you been sitting in this position?": true,
+	"Time for a quick stretch maybe?[ :)]": true,
+	"A quick reminder to sit up straight![ :D]": true,
+	"Stay hydrated!": true,
+	"Don't forget to drink water![ :)]": true,
+	"A reminder to drink some water![ :)]": true,
+	"Is now a good time for a break?": true,
+	"Don't forget to take a break once in a while!": true
+}
+var Focus = {
+	"Keep it up!": true,
+	"You can do this![ :D]": true,
+	"You've got this![ :)]": true,
+	"Don't give up![ :>]": true,
+	"Focus![ :>]": true,
+	"Concentrate!": true,
+	"Keep going![ :)]": true,
+	"Your work is important, keep at it![ :>]": true,
+	"Is that productivity I see?[ :O]": true,
+	"Don't get distracted![ :>]": true
+}
+var Kudos = {
+	"You've been doing well![ :)]": true,
+	"You've been doing a great job![ :D]": true,
+	"You've done well![ :O]": true,
+	"You've worked hard![ :)]": true,
+	"You've leveled up a lot today![ :)]": true,
+	"You're getting better![ :)]": true,
+	"That looks interesting![ :)]": true,
+	"Good job![ :)]": true,
+	"Great work![ :D]": true,
+	"You're amazing![ XD]": true,
+	"I'm cheering you on![ :D]": true
+}
+var Support = {
+	"Take a deep breath and recenter![ :)]": true,
+	"Close your eyes for a few seconds: how are you feeling?[ :)]": true,
+	"Time for a quick breather? Inhale, and slowly exhale.[ :)]": true,
+	"How are you feeling right now?": true,
+	"Remember to smile![ :)]": true,
+	"Don't forget to think about the big picture![ :)]": true,
+	"It's okay to ask for help![ :)]": true,
+	"Hope you're doing okay![ :)]": true,
+	"Are your muscles tense right now? Relax![ :)]": true
+}
+
+// mapping names of categories to the categories
+var nameMap = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support}
+
+// a blank browserbug
+var blankBbug = {}; // empty object for "New" button
+blankBbug.information = {
+    name: "",
+    imageS3Path: NULL_IMAGE_URL,
+    percentCustomQuotes: 0.5
+};
+blankBbug.defaultBank = {Wellness, Focus, Kudos, Support}; // a full default bank
+blankBbug.customBank = {}; // empty custom bank
+blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
+
 $(document).ready(function() {
     // Customizing fonts to language
     chrome.storage.sync.get(['user_lang'], function (result) {
@@ -178,23 +243,39 @@ function openJsonDat(jDat) {
 	for (var category in jDat.defaultBank) {
         document.getElementById(category).innerHTML = "";
         document.getElementById(category).style.display = "none";
-        for (var key in jDat.defaultBank[category]) { // populate menu
-            if (jDat.defaultBank[category][key] == true) {
-                // where to place next message
-                var iDiv = document.createElement('div');
-                iDiv.className = 'quoteBlock';
-                iDiv.value = category;
-                iDiv.textContent = key;
-                document.getElementById(category).appendChild(iDiv);
+        document.getElementById(category+'C').checked = true; // keep category box checked until find unchecked child
+        for (var key in nameMap[category]) { // populate menu
+            // where to place next message
+            var iDiv = document.createElement('div');
+            iDiv.className = 'quoteBlock';
+            iDiv.value = category;
+            // Extract any emojis
+            var noEmoji = key;
+            if (noEmoji.includes('[') && noEmoji.includes(']')) {
+                noEmoji = noEmoji.replace(/ *\[[^\]]*]/, '');
+            }
+            iDiv.textContent = noEmoji;
+            iDiv.value = key;
+            document.getElementById(category).appendChild(iDiv);
 
+            // creating checkbox element 
                 // creating checkbox element 
+            // creating checkbox element 
+            var checkbox = document.createElement('input'); 
                 var checkbox = document.createElement('input'); 
+            var checkbox = document.createElement('input'); 
+            checkbox.type = "checkbox"; 
                 checkbox.type = "checkbox"; 
-                checkbox.checked = true;
-                checkbox.className = category+'B';
+            checkbox.type = "checkbox"; 
+            checkbox.checked = (key in jDat.defaultBank[category]);
+            checkbox.className = category+'B';
 
-                // export contents
-                iDiv.appendChild(checkbox);
+            // export contents
+            iDiv.appendChild(checkbox);
+
+            if (!(key in jDat.defaultBank[category])) {
+                // message not selected. thus uncheck the main category box
+                document.getElementById(category+'C').checked = false;
             }
 		}
     }
@@ -242,7 +323,7 @@ function absorbToDict() {
     $('.quoteBlock').each(function(index, element) { // fill the message bank
         var qCategory = element.children[0].className.slice(0, -1);
         if (element.children[0].checked == true) { // only record if true
-            dict.defaultBank[qCategory][element.textContent] = element.children[0].checked;
+            dict.defaultBank[qCategory][element.value] = element.children[0].checked;
         }
     });
 

@@ -155,7 +155,13 @@ $(document).ready(function() {
 			// where to place next message
 			var iDiv = document.createElement('div');
 			iDiv.className = 'quoteBlock';
-			iDiv.textContent = key;
+			// Extract any emojis
+			var noEmoji = key;
+			if (noEmoji.includes('[') && noEmoji.includes(']')) {
+				noEmoji = noEmoji.replace(/ *\[[^\]]*]/, '');
+			}
+			iDiv.textContent = noEmoji;
+			iDiv.value = key;
 			document.getElementById(category).appendChild(iDiv);
 	
 			// creating checkbox element 
