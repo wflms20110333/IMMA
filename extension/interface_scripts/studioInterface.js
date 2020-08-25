@@ -67,7 +67,7 @@ blankBbug.information = {
     imageS3Path: NULL_IMAGE_URL,
     percentCustomQuotes: 0.5
 };
-blankBbug.defaultBank = {Wellness, Focus, Kudos, Support}; // a full default bank
+blankBbug.defaultBank = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support}; // a full default bank
 blankBbug.customBank = {}; // empty custom bank
 blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
 
@@ -241,6 +241,8 @@ function openJsonDat(jDat) {
     // Manage default messages
     // Initially clear & hide all category menus, but populate each with content
 	for (var category in jDat.defaultBank) {
+        console.log("debuggg abc");
+        console.log(category);
         document.getElementById(category).innerHTML = "";
         document.getElementById(category).style.display = "none";
         document.getElementById(category+'C').checked = true; // keep category box checked until find unchecked child
