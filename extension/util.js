@@ -331,7 +331,7 @@ function loadCharacterCode(redeemCode) {
     console.log('in loadCharacterCode');
     var jsonObj = { 'keycode': redeemCode }
     if (redeemCode == "default") {
-        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"12345678901234567890"},"defaultBank":{"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support},"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"customBank":{}};
+        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":NULL_IMAGE_URL,"uid":"12345678901234567890"},"defaultBank":{"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support},"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"customBank":{}};
         loadCharacterFromJson(defaultChar);
     } else {
         serverPOST('retrieveIMMA', jsonObj, function(data) {

@@ -144,8 +144,6 @@ General variables:
 
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)
-"persist_notifs": (bool) whether to have persistent notifications
-"silence": (bool) whether to silence notifications
 "flagged_sites": (json) maps site names to their score impacts
 "user_lang": (string) locale code for the user's preferred language
 "user_level": (number) save slots the user has available (lite users start at 3, infinite is 999)
