@@ -268,9 +268,8 @@ function loadCharacterFromJson(jsonData) {
     chrome.storage.sync.set({ 'default_bank': data['defaultBank'] });
     chrome.storage.sync.set({ 'custom_bank': data['customBank'] });
 
-    // #TODO fix, the below code fails sometimes (especially on export page), maybe because popup isn't active in the extensions bar?
-    //chrome.browserAction.setBadgeText({ "text": "ON" });
-    //chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
+    // update badge
+    chrome.extension.sendMessage('badge-on');
 };
 
 /**
@@ -332,7 +331,7 @@ function loadCharacterCode(redeemCode) {
     console.log('in loadCharacterCode');
     var jsonObj = { 'keycode': redeemCode }
     if (redeemCode == "default") {
-        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":"https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png","uid":"12345678901234567890"},"defaultBank":{"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support},"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"customBank":{}};
+        var defaultChar = {"information":{"name":"Browserbee","premade":true,"percentCustomQuotes":"0.1","imageS3Path":NULL_IMAGE_URL,"uid":"12345678901234567890"},"defaultBank":{"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support},"textstyle":{"emojis":"0.5","capitalization":"0.5","punctuation":"0.5"},"customBank":{}};
         loadCharacterFromJson(defaultChar);
     } else {
         serverPOST('retrieveIMMA', jsonObj, function(data) {

@@ -31,7 +31,7 @@ function countSlotsAvail() {
 
 // Update list of browserbugs
 function populateBrowserbugs() {
-    chrome.storage.sync.get(['user_bbug_id'], function(result) {
+    chrome.storage.sync.get(['user_bbug_id', 'imma_name'], function(result) {
         // update user id listed
         document.getElementById("uid-fill").textContent = result['user_bbug_id'].substring(0, 10);
 
@@ -67,6 +67,10 @@ function populateBrowserbugs() {
                 removeSpan.setAttribute('class', 'remover');
                 removeSpan.onclick = function() {
                     var removeData = { 'uid': result['user_bbug_id'], 'bbugname': key };
+                    // if deleted bug is the current bug, revert to browserbee
+                    if (key == result['imma_name']) {
+                        loadCharacterCode("default");
+                    }
                     serverPOST('removeBug', removeData, function(data) {
                         if (data['result'] == 'success') {
                             location.reload();
