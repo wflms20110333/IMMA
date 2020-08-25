@@ -51,6 +51,14 @@ chrome.alarms.onAlarm.addListener(function (alarmInfo) {
     });
 });
 
+// Command to update badge
+chrome.extension.onMessage.addListener(function(message, sender) {
+    if (message == 'badge-on') {
+        chrome.browserAction.setBadgeText({ "text": "ON" });
+        chrome.browserAction.setBadgeBackgroundColor({ "color": "#7057C9" });
+    }
+});
+
 // Things to do when window loaded
 chrome.runtime.onStartup.addListener(function () {
     console.log("Startup: running update, total clean");
