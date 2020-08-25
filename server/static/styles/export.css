@@ -15,9 +15,38 @@ html {
     linear-gradient(to bottom, rgb(187, 187, 187) 1px, transparent 1px);
 }
 
+
+/* Styling options icon */
+#help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
+#help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
+    margin: 5px;
+    width: 30px; height: 30px;
+    opacity: 70%;
+    position: absolute;
+    top: 5px;
+}
+#help-icon {
+    right: 88px;
+    width: 32px; height: 32px; top:4px;
+}
+#options-icon {
+    right: 123px;
+}
+#acct-icon {
+    right: 157px;
+}
+#studio-icon {
+    right: 190px;
+}
+#kofi-icon {
+    width: inherit; height: 25px;
+    top: 8px;
+    right: 12px;
+}
+
 /* Styling text */
 h1 {
-    color: #000000; font-size: 26px; margin-left: 25px;
+    color: #000000; font-size: 32px; margin-left: 25px;
     font-weight: 600;
     font-family: 'Gaegu', 'Segoe UI', sans-serif;
 }
@@ -41,10 +70,16 @@ p {
     text-align: center;
 }
 
+body {
+    text-align: center;
+}
+
 .bubble {
-    margin: 10%;
-    margin-top: 70px;
-	text-align: center;
+    margin: 10px;
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+    padding: 20px;
 	border-radius: 15px;
     background: rgba(255, 255, 255, 0.7);
     border: 2px rgb(197, 197, 197) solid;
@@ -57,9 +92,7 @@ a:hover {color: #0130ff; text-decoration: none;}
 
 /* Styling individual elements */
 #logo-icon {
-	position: absolute;
-	left: 10px;
-	top: 10px;
+	text-align: left;
 	width: 40px;
 }
 
@@ -71,7 +104,7 @@ a:hover {color: #0130ff; text-decoration: none;}
 
 #char-icon {
 	margin-top: 30px;
-	width: 10%;
+	width: 128px;
 }
 
 .fb_iframe_widget span {

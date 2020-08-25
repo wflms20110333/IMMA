@@ -13,81 +13,104 @@
     <meta name="twitter:site" content="@browser_bug">
     <meta name="twitter:title" content="This is: {{bbugName}}">
     <meta name="twitter:description" content="Make your own browser companion with Browserbug!">
-    <!-- <meta name="twitter:image" content="{{imgLink}}"> -->
-    <meta name="twitter:image:alt" content="A picture of {{bbugName}}">
-    <script data-ad-client="ca-pub-8341039910387687" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="twitter:image" content="{{imgLink}}">
+    <meta name="twitter:image:alt" content="A picture of Browserbug named {{bbugName}}">
 </head>
 
-<body>
+<header>
     <div id="maindiv" data-uid='{{uid}}' data-name='{{bbugName}}'></div>
-    <img id="logo-icon" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" alt="Browserbug">
-    <h1 id="logo-text">Browserbug Beta</h1>
+    
+    <a style="position:absolute; top:20px; left:20px;" href="http://imma.studio/browserbug">New to Browserbug?</a>
 
-    <div class="bubble" id="content">
-        <a style="position:absolute; top:calc(10%+5px); right:11%;" href="http://imma.studio/browserbug">New to Browserbug?</a>
-        <img id="char-icon" alt="Character image">
-        <br>
-        <h2 id="char-name" style="margin-bottom:0px;">{{bbugName}}</h2>
-        <h2 id="char-id" style="display:none;">{{uid}}</h2>
-        <p style="margin-top:0px;">Created with <b>Browserbug Beta!</b><br>Remember to locally download any important Browserbugs you create,<br>since we might reset our servers from time to time!</p>
-        
-        <a href="https://chrome.google.com/webstore/detail/browserbug-beta/pfggohdmelklomhabkeegajkjpdgppld">
-        <button class="mainbutton" id="bbug-link">Get the extension</button>
-        </a>
-        <button class="mainbutton" id="char-load">Load {{bbugName}}</button>
+    <h1>Your Browserbug</h1>
 
-        <h3>Share {{bbugName}} with others!</h3>
+    <a href="http://imma.studio/browserbug/faq"><img src="http://imma.studio/browserbug/icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
+    <a href="http://imma.studio/browserbug/my_bbugs"><img src="http://imma.studio/browserbug/icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
+    <a href="http://imma.studio/browserbug/studio"><img src="http://imma.studio/browserbug/icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
+    <a href="http://imma.studio/browserbug/options"><img src="http://imma.studio/browserbug/icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
+    <a href="https://ko-fi.com/browserbug"><img src="http://imma.studio/browserbug/icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
+</header>
 
-        <!-- Twitter button! -->
-        <div style="display:inline;">
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text='I made a "{{bbugName}}" character at' data-via="browser_bug" data-show-count="false" data-size="large" style="display:inline;margin-right:3px;">Tweet</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<body>
+    <div style="width:50%;float:left;">
+        <div class="bubble" style="float:right;">
+            <img id="char-icon" alt="Character image">
+            <br>
+            <h2 id="char-name" style="margin-bottom:0px;">{{bbugName}}</h2>
+            <h2 id="char-id" style="display:none;">{{uid}}</h2>
+            <p style="margin-top:0px;">Created with <b>Browserbug Beta!</b><br>Remember to locally download any important Browserbugs you create,<br>since we might reset our servers from time to time!</p>
+            
+            <a href="https://chrome.google.com/webstore/detail/browserbug-beta/pfggohdmelklomhabkeegajkjpdgppld">
+            <button class="mainbutton" id="bbug-link">Get the extension</button>
+            </a>
+            <button class="mainbutton" id="char-load">Load {{bbugName}}</button>
         </div>
 
-        <!-- Facebook button! -->
-        <div class="fb-share-button" data-href="http://imma.studio/browserbug" data-layout="button" data-size="large" style="display:inline;margin-left:3px;">
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fimma.studio%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-        </div>
+        <div class="bubble" style="float:right;">
+            <h3>Share {{bbugName}} with others!</h3>
 
-        <!-- other buttons, using addtoany -->
-        <div>
-            <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="display: flex; justify-content: center;">
-                <a class="a2a_button_tumblr"></a>
-                <a class="a2a_button_reddit"></a>
-                <a class="a2a_button_email"></a>
-                <a class="a2a_button_pinterest"></a>
-                <a class="a2a_button_wechat"></a>
-                <a class="a2a_button_line"></a>
-                <a class="a2a_button_kakao"></a>
-                <a class="a2a_button_whatsapp"></a>
-                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+            <!-- Twitter button! -->
+            <div style="display:inline;">
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text='I made a "{{bbugName}}" character at' data-via="browser_bug" data-show-count="false" data-size="large" style="display:inline;margin-right:3px;">Tweet</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
-        </div>
-        <!-- AddToAny END -->
+
+            <!-- Facebook button! -->
+            <div class="fb-share-button" data-href="http://imma.studio/browserbug" data-layout="button" data-size="large" style="display:inline;margin-left:3px;">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fimma.studio%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+            </div>
+
+            <!-- other buttons, using addtoany -->
+            <div>
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="display: inline-block; justify-content: center;">
+                    <a class="a2a_button_tumblr"></a>
+                    <a class="a2a_button_reddit"></a>
+                    <a class="a2a_button_email"></a>
+                    <a class="a2a_button_pinterest"></a>
+                    <a class="a2a_button_wechat"></a>
+                    <a class="a2a_button_line"></a>
+                    <a class="a2a_button_kakao"></a>
+                    <a class="a2a_button_whatsapp"></a>
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                </div>
+            </div>
+            <!-- AddToAny END -->
+            <br>
+            <a class="mainbutton" id="reportBug" href="mailto:support@imma.studio&subject=Reporting%20Browserbug&body=Reporting%20Browserbug%20[{{bbugName}}]%20by%20[{{uid}}]%0d%0dReason:%0d%0d">Report this Browserbug</a>
         
-        <p><span>Or copy link:</span>
-            <textarea readonly spellcheck="false" style="resize:none;width:300px;height:52px;font-size:15px;vertical-align:middle;font-size:12px;" id="selfLink"></textarea>
-        </p>
-        <!-- <button class="mainbutton" id="hearts-up" title="Heart this Browserbug!">&hearts; 0</button> -->
-        <br>
-        <br><a class="mainbutton" id="reportBug" href="mailto:support@imma.studio&subject=Reporting%20Browserbug&body=Reporting%20Browserbug%20[{{bbugName}}]%20by%20[{{uid}}]%0d%0dReason:%0d%0d">Report this Browserbug</a>
+        </div>
     </div>
 
-    <footer>
-        <p>Copyright &copy; IMMA Studio, LLC, 2020 |
-            <a href="https://imma.studio/browserbug/privacy_policy">Privacy Policy</a> |
-            <a href="https://imma.studio/browserbug/terms_of_use">Terms of Use</a> |
-            <a href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a> |
-            Send us <a href="https://ko-fi.com/browserbug">Ko-Fi</a>?
-        </p>
-    </footer>
+    <div style="width:50%;float:right;">
+        <div class="bubble" style="float:left;">
+            <div id="customMessageSpace">
+                <h3 id="cmTitle">Some messages you might receive from {{bbugName}}:</h3>
+            </div>
+        </div>
+
+        <div class="bubble" style="float:left;">
+            <p><span>Copy link to {{bbugName}}:</span>
+                <textarea readonly spellcheck="false" style="resize:none;width:300px;height:52px;font-size:15px;vertical-align:middle;font-size:12px;" id="selfLink"></textarea>
+            </p>
+        </div>
+    </div>
 </body>
+
+<footer>
+    <p>Copyright &copy; IMMA Studio, LLC, 2020 |
+        <a href="https://imma.studio/browserbug/privacy_policy">Privacy Policy</a> |
+        <a href="https://imma.studio/browserbug/terms_of_use">Terms of Use</a> |
+        <a href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a> |
+        Send us <a href="https://ko-fi.com/browserbug">Ko-Fi</a>
+    </p>
+</footer>
 
 <!-- Add to any script -->
 <script async src="https://static.addtoany.com/menu/page.js"></script>
-<!-- Load Facebook SDK for JavaScript -->
+<!-- For Facebook share button -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="Z6okW6ni"></script>
 <!-- For communicating with extension -->
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/export.js') }}"></script>
 
 </html>
