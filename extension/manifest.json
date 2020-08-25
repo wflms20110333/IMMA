@@ -38,5 +38,6 @@
         "default_icon": "images/new_imma_48.png",
         "default_popup": "popup/popup.html"
     },
+    "options_page": "optionsRedirect.html",
     "default_locale": "en"
 }
