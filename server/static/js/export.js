@@ -17,6 +17,25 @@ document.getElementById('char-icon').src = "https://imma-bucket.s3-us-west-2.ama
 var loadButton = document.getElementById('char-load');
 //loadButton.addEventListener('click', alert("The Browserbug extension doesn't seem to be installed :( Try installing it first?"));
 
+// Look up the url
+var bbug_path = 'https://imma-bucket.s3-us-west-2.amazonaws.com/browserbugs/' + uid + '/' + bbugName + '.bbug';
+
+// Show up to 10 messages of the browserbug
+$.getJSON(bbug_path, "", function(data){
+	var allMessages = Object.assign({}, data['customBank'], data['defaultBank']);
+	// Pick 10 random messages
+	const shuffled = Object.keys(allMessages).sort(() => 0.5 - Math.random());
+	let selected = shuffled.slice(0, 10);
+
+	for (var key in selected) { // import messages
+        var iDiv = document.createElement('div');
+		iDiv.className = 'messageBlock';
+		iDiv.innerHTML = selected[key];
+		iDiv.style.paddingBottom = "10px";
+        document.getElementById('customMessageSpace').appendChild(iDiv);
+    }
+})
+
 /*
 // Update heart counts
 fetch(SERVER_URL + "getHearts", { // todo use SERVER_URL constant instead
