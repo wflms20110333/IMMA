@@ -16,18 +16,10 @@ import android.widget.Toast;
 
 public class AboutActivity extends AppCompatActivity {
 
-    private String username;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        username = intent.getStringExtra(LoginActivity.USERNAME_MESSAGE);
-//        String welcome = getString(R.string.welcome) + username;
-//        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,11 +38,6 @@ public class AboutActivity extends AppCompatActivity {
 
     /** Called when the user taps the back button */
     public void back(View view) {
-        if (username.length() == 0) {
-            // return to login screen
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        // TODO: return to main page
+        this.finish();
     }
 }

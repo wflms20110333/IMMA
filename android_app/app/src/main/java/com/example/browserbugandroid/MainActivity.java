@@ -2,6 +2,7 @@ package com.example.browserbugandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String username = intent.getStringExtra(LoginActivity.USERNAME_MESSAGE);
+        username = intent.getStringExtra(LoginActivity.USERNAME_MESSAGE);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,11 +55,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        System.out.println("hi");
         // Set navigation header
         View header = navigationView.getHeaderView(0);
         TextView navHeaderTitle = header.findViewById(R.id.nav_header_title);
-        System.out.println("I'm still fine");
         TextView navHeaderText = header.findViewById(R.id.nav_header_text);
         navHeaderTitle.setText("Browserbee"); // TODO: change this to the name of their browserbug
         navHeaderText.setText(username);
@@ -75,5 +75,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    /** Called when the user taps the about action */
+    public void showAbout(MenuItem item) {
+        startActivity(new Intent(this, AboutActivity.class));
     }
 }

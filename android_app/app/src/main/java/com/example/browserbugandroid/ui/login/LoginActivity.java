@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String username = model.getDisplayName();
-        // TODO : initiate successful logged in experience
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(USERNAME_MESSAGE, username);
         startActivity(intent);
@@ -138,8 +137,6 @@ public class LoginActivity extends AppCompatActivity {
 
     /** Called when the user taps the about button */
     public void showAbout(View view) {
-        Intent intent = new Intent(this, AboutActivity.class);
-        intent.putExtra(USERNAME_MESSAGE, "");
-        startActivity(intent);
+        startActivity(new Intent(this, AboutActivity.class));
     }
 }
