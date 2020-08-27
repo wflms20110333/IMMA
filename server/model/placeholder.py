@@ -96,15 +96,19 @@ def queryTabbedFile(filename, textstyle, customMessages, customRatio, state=None
         messageBank = customMessages
     else: # use a general message
         print("default content! =-=-=-=-=-=-=-=-=-=-=")
-        with open(filename, "r") as f:
-            for line in f:
-                # Add valid lines to question bank
-                stripped_line = line.strip()
-                messageName = stripped_line.split('\t')[0] # get string part of score vector
-                messageStats = stripped_line.split('\t')[1:]
-                debugx = stripped_line.split('\t')
-                messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
-                messageBank[messageName] = messageStats
+        try:
+            with open(filename, "r") as f:
+                for line in f:
+                    # Add valid lines to question bank
+                    stripped_line = line.strip()
+                    messageName = stripped_line.split('\t')[0] # get string part of score vector
+                    messageStats = stripped_line.split('\t')[1:]
+                    debugx = stripped_line.split('\t')
+                    messageStats = np.array([np.float32(i) for i in messageStats]) # convert to nparray
+                    messageBank[messageName] = messageStats
+        except:
+            print("Error retrieving from filename")
+            return "Server error 330", "0.2,0.2,0.2"
 
     # First, pick a random message/question
     randomMessage = random.choice(list(messageBank.keys()))
@@ -202,7 +206,7 @@ def stylize_string(msg, textstyle):
 
     return msg2
 
-def pickMessage(state, messageBank, customRatio, textstyle, personality):
+def pickMessage(state, messageBank, customRatio, textstyle, languageCode):
     """ Picks which message will maximize predicted positive state change
 
     state -- a 5-vector of the predicted mood
@@ -213,11 +217,11 @@ def pickMessage(state, messageBank, customRatio, textstyle, personality):
 
     textstyle -- json of the current imma's texting style
 
-    personality -- json
+    languageCode -- code of the language to access
 
     Returns the message (string), and the full character name (string)"""
-
-    ans = queryTabbedFile("model/character files/MessageBank.txt", textstyle, messageBank, customRatio, state, personality)
+    
+    ans = queryTabbedFile("model/character files/MessageBank_" + languageCode + ".txt", textstyle, messageBank, customRatio, state)
     return ans
 
 def pickQuestion(questionBank, customRatio, textstyle, personality):

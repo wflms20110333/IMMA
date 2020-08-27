@@ -1,9 +1,10 @@
 # IMMA
 
-![Rilakkuma message](readme_img1.PNG) ![Shia message](readme_img2.PNG)
+![Example message](readme_img1.PNG)
 
-* `docs/` contains code for [IMMA's website](https://wflms20110333.github.io/IMMA/)
-* `extension/` contains code for the chrome extension (client)
+* `docs/` contains code for [Browserbug's website](http://imma.studio/browserbug/)
+* `extension/` contains code for the Chrome extension (client)
+* `large images/` contains large images
 * `server/` contains code for the Flask server
 * `server/model/` contains code for the backend Python functions
 * `server/requirements.txt` contains list of dependencies (is kept updated by running `pip freeze > server/requirements.txt`)
@@ -43,7 +44,9 @@ This will launch the server at `http://127.0.0.1:5000/`.
 
 ### Deploying the server
 
-The server is located at <http://ec2-35-161-78-68.us-west-2.compute.amazonaws.com/>.
+The server is located at <http://ec2-54-201-225-18.us-west-2.compute.amazonaws.com/>.
+
+The system hostname of the server is `server.imma.studio` (<https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-hostname.html>).
 
 #### Starting a new EC2 instance (Ubuntu)
 
@@ -68,7 +71,7 @@ sudo apt-get install postgresql-client
 SSH into the EC2 instance with
 
 ```shell
-ssh -i IMMA.pem ubuntu@ec2-35-161-78-68.us-west-2.compute.amazonaws.com
+ssh -i IMMA.pem ubuntu@ec2-54-201-225-18.us-west-2.compute.amazonaws.com
 ```
 
 The server has been containerized with docker. After changing directories to `server/`,
@@ -129,50 +132,27 @@ There are four main code files: `extension/background.js`, `extension/util.js`, 
 
 `placeholder.py` contains functions that the server performs to process data and so on.
 
-### Input files
-
-`MessageBank.txt` is a shared database of default messages for any Browserbug. Currently a tab-separated file. Messages should be grammatically capitalized & punctuated, with emojis within brackets. The code may later on edit the writing style of these messages, remove emojis, etc. Each message has a score that denotes that message's impact on each mood variable [being *happy* and *relaxed* (not stressed or frustrated), being properly *focused* (not distracted or bored), wellbeing (not discomfort)] as well as compatibility with character personality on a -1 to 1 scale [cheerful, energetic, positivity]. (User-created message scores only have the mood impact score, not personality.)
-
-`QuestionBank.txt` is likewise a tab-separated file containing general questions alongside their scores.
-
-`001_default.bbug` and similar are json character files that augment the MessageBank/QuestionBank. They contain general information about the character, as well as personality type and any custom messages/questions.
-
 ### Items kept in chrome extension memory
 
 ```
 General variables:
-#TODO add weird codes to the variable names in chrome memory
 'user_bbug_id': (string) unique, static id for each user
-'recent_message_ct': (number) messages sent since last question was sent
 'last_tabs': (json) list of the last retrieved tabs, time each opened in ms, e.g. {"calendar.google.com": 1592837352, "app.slack.com": 592835220}
-'mood': (array) on 5.0 scale, [happy, stressed, low-energy, distraction, wellbeing]
-'last_q_weight': (array) the question-score of the last question given, e.g. [0.5, 0, 0, 0.5, 0]
 
 'immaActive': (bool) whether bug is currently active
 'lastMail': (string) last server-mail the user read (i.e. message from developers)
 
 User preferences:
 "alarm_spacing": (number) preferred time interval between alarms (in seconds)
-"persist_notifs": (bool) whether to have persistent notifications
-"silence": (bool) whether to silence notifications
 "flagged_sites": (json) maps site names to their score impacts
+"user_lang": (string) locale code for the user's preferred language
+"user_level": (number) save slots the user has available (lite users start at 3, infinite is 999)
 
 Imma-specific character variables, updated with loadCharacterCode:
 'imma_name': (string) filename of the active character, e.g. '001_ironman'
 'image_link': (string) link to image for the active character
-'personality': (array) numbers for current character's cheer, energy, positivity
 'custom_ratio': (number) how often to use custom quotes rather than pull from general database
 'textingstyle': (json) describes texting style of the current imma
-'message_bank': (json) storage of custom/extra messages for the active character
-'question_bank': (json) storage of custom/extra questions for the active character
-'question_ratio': (array) ratio of 1 question per X messages
+'default_bank': (json) storage of prewritten messages for the active character
+'custom_bank': (json) storage of custom/extra messages for the active character
 ```
-
-## Other information
-
-### .bbug export pages
-
-If the server is deployed locally, an example of an export page link is
-<http://localhost:5000/getBbugFile?uid=12345abcde&character_name=browserbee>,
-where `12345abcde` is the UID of the creator, and browserbee is the name of
-the browserbug. These files can similarly be retrieved with HTTP GET requests.

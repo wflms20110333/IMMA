@@ -1,13 +1,13 @@
 html, body {
 	margin: 0px;
     height: 100%;
-	overflow: hidden;
-	
 	font-family: 'Assistant', 'Segoe UI', sans-serif;
     font-size: 16px;
 }
 
 html {
+	overflow-x: hidden;
+	overflow-y: scroll;
     background-size: 25px 25px;
     background-color: rgb(220, 223, 235);
     background-image:
@@ -15,9 +15,38 @@ html {
     linear-gradient(to bottom, rgb(187, 187, 187) 1px, transparent 1px);
 }
 
+
+/* Styling options icon */
+#help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
+#help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
+    margin: 5px;
+    width: 30px; height: 30px;
+    opacity: 70%;
+    position: absolute;
+    top: 5px;
+}
+#help-icon {
+    right: 88px;
+    width: 32px; height: 32px; top:4px;
+}
+#options-icon {
+    right: 123px;
+}
+#acct-icon {
+    right: 157px;
+}
+#studio-icon {
+    right: 190px;
+}
+#kofi-icon {
+    width: inherit; height: 25px;
+    top: 8px;
+    right: 12px;
+}
+
 /* Styling text */
 h1 {
-    color: #000000; font-size: 26px; margin-left: 25px;
+    color: #000000; font-size: 32px; margin-left: 25px;
     font-weight: 600;
     font-family: 'Gaegu', 'Segoe UI', sans-serif;
 }
@@ -41,10 +70,16 @@ p {
     text-align: center;
 }
 
+body {
+    text-align: center;
+}
+
 .bubble {
-    margin: 10%;
-    margin-top: 4%;
-	text-align: center;
+    margin: 10px;
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+    padding: 20px;
 	border-radius: 15px;
     background: rgba(255, 255, 255, 0.7);
     border: 2px rgb(197, 197, 197) solid;
@@ -57,9 +92,7 @@ a:hover {color: #0130ff; text-decoration: none;}
 
 /* Styling individual elements */
 #logo-icon {
-	position: absolute;
-	left: 10px;
-	top: 10px;
+	text-align: left;
 	width: 40px;
 }
 
@@ -71,7 +104,40 @@ a:hover {color: #0130ff; text-decoration: none;}
 
 #char-icon {
 	margin-top: 30px;
-	width: 10%;
+	width: 128px;
+}
+
+.fb_iframe_widget span {
+    vertical-align: baseline !important;
+}
+
+#sponsor-space {
+    border: gray dashed 2px;
+    border-radius: 15px;
+    margin-left: 10%;
+    width: 80%;
+    height: 150px;
+    text-align: center;
+}
+
+#sponsor-space p {
+    font-family: 'Gaegu', 'Segoe UI', sans-serif;
+    font-size: 18px;
+    float: left;
+    margin: 10px;
+    margin-left: 15px;
+}
+
+#sponsor-space:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#sp-obj {
+    background: rgb(212, 222, 240);
+    margin: auto;
+    margin-top: 40px;
+    width: calc(min(600px, 90%));
+    height: 90px;
 }
 
 .mainbutton {
@@ -87,17 +153,16 @@ a:hover {color: #0130ff; text-decoration: none;}
     margin: 5px;
     padding: 6px 12px;
     cursor: pointer;
-    border: none;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    border: rgba(128, 128, 128, 0.479) dotted 2px;
 	font-family: 'Assistant', 'Segoe UI', sans-serif;
     font-size: 16px;
-    color: rgb(39, 103, 240);
+    color: #1a86f9;
     vertical-align: middle;
 }
 
 .mainbutton:hover {
-    background: rgba(79, 139, 230, 0.7);
-    color: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.7);
+    color: rgb(0, 0, 0);
 }
 
 /* Styling scrollbar */
@@ -116,7 +181,7 @@ footer {
     position: fixed;
     left: 0; bottom: 0;
     height: 5%; width: 100%;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.7);
 }
 footer p {
     position: relative;

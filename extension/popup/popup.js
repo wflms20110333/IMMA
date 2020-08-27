@@ -1,3 +1,9 @@
+/* Copyright (C) 2020- IMMA Studio, LLC - All Rights Reserved
+ * This file is subject to the terms and conditions defined in
+ * file 'license.txt', which is part of this source code package.
+ * You may not distribute, reproduce, or modify this code without written permission.
+ */
+
 // Code for enabling hyperlinks in popup, do this first
 /*
 var links = document.getElementsByTagName("a");
@@ -13,7 +19,7 @@ for (var i = 0; i < links.length; i++) {
 */
 
 // Determine whether the mailbox flag should be up
-chrome.extension.getBackgroundPage().getMail(mailAuthenticate);
+getMail(mailAuthenticate, true);
 
 function mailAuthenticate(mailResponse) {
     var mailbox = document.getElementById('mailFlag');
@@ -26,14 +32,18 @@ function mailAuthenticate(mailResponse) {
 // Mailbox functionality
 var mailbox = document.getElementById('mailFlag');
 mailbox.addEventListener('click', function() {
-    chrome.extension.getBackgroundPage().getMail(mailCallback);
+    getMail(mailCallback, false);
 });
 
 function mailCallback(mailResponse) {
     if (mailResponse == "none") {
-        chrome.extension.getBackgroundPage().alert("No unread messages!"); // #TODO make this look less sketchy
+        chrome.runtime.getBackgroundPage(function(backgroundPage){
+            backgroundPage.alert("No unread messages!");
+        }); // #TODO make this look less sketchy
     } else {
-        chrome.extension.getBackgroundPage().alert(mailResponse[1]);
+        chrome.runtime.getBackgroundPage(function(backgroundPage){
+            backgroundPage.alert(mailResponse[1]);
+        });
         chrome.storage.sync.set({ 'lastMail': mailResponse[0] });
         mailbox.src = "/images/icons/openmail.png"; // #TODO adding coloring to the open mailbox when there's a new message?
         mailbox.style.opacity = "1";
@@ -66,7 +76,7 @@ fileSelected.addEventListener('change', function(e) {
     var fileTobeRead = fileSelected.files[0];
     var fileReader = new FileReader();
     fileReader.onload = function(e) {
-        chrome.extension.getBackgroundPage().loadCharacterFromJson(JSON.parse(fileReader.result));
+        loadCharacterFromJson(JSON.parse(fileReader.result));
     }
     fileReader.readAsText(fileTobeRead);
 }, false);
@@ -78,7 +88,7 @@ activeswitch.addEventListener('click', function() {
         chrome.storage.sync.set({ 'immaActive': true });
         chrome.browserAction.setBadgeText({"text":"ON"});
         chrome.browserAction.setBadgeBackgroundColor({"color": "#764fff"});
-        chrome.extension.getBackgroundPage().setQuickAlarm();
+        setQuickAlarm();
     } else { // deactivate imma
         document.getElementById('bbug-active').textContent = "inactive"; // update text in popup
         chrome.storage.sync.set({ 'immaActive': false });
@@ -114,14 +124,14 @@ function changeFreq(direction){
         freqIndex = parseInt(freqIndex);
         freqIndex += direction;
         if (freqIndex <= 0) {freqIndex = 1;} // bounds
-        if (freqIndex >= 11) {freqIndex = 10;}
+        if (freqIndex >= 13) {freqIndex = 12;}
         freqText.textContent = shortDict2[freqIndex][1];
         chrome.storage.sync.set({'alarm_spacing': shortDict2[freqIndex][0]});
         // clear alarms
         chrome.alarms.clearAll();
-        chrome.extension.getBackgroundPage().setNextAlarm();
+        setNextAlarm();
     });
 }
 
 console.log("Popup: running alarm clean");
-chrome.extension.getBackgroundPage().cleaner();
+cleaner();

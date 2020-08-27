@@ -19,8 +19,10 @@
             <p id="popup-title">Browserbug</p>
         </div>
         <div class="scaled-right">
-            <a href="/options.html" target="_blank">
-                <img src="/images/icons/settings.png" alt="Settings" class="logo-icon"></a>
+            <a href="http://imma.studio/browserbug/my_bbugs/" target="_blank">
+                <img src="/images/icons/beehive.png" alt="My BBugs" class="logo-icon" title="My Browserbugs"></a>
+                <a href="http://imma.studio/browserbug/options/" target="_blank">
+                <img src="/images/icons/settings_gear.png" alt="Settings" class="logo-icon" title="Settings"></a>
         </div>
     </header>
 
@@ -40,7 +42,7 @@
                 <input type="file" id="loader" accept=".bbug">
             </div>
             <div>
-                <a href="/studio.html" target="_blank" class="menu-button">OPEN STUDIO</a>
+                <a href="http://imma.studio/browserbug/studio" target="_blank" class="menu-button">OPEN STUDIO</a>
             </div>
         </div>
     </main>
@@ -53,12 +55,13 @@
                 <img src="/images/icons/twitter.png" alt="Twitter" class="logo-icon"></a>
         </div>
         <div style="position: absolute; right: 7px; bottom: -5px;">
-            <a href="/faq.html" target="_blank">
-                <p id="help-text">need help?</p></a>
+            <a href="https://imma.studio/browserbug/faq" target="_blank">
+                <p id="help-text">need help?</p>
+            </a>
         </div>
 
         <div style="position: absolute; left: 99px; bottom: 2px;">
-        <img src="/images/icons/leftarrow.png" alt="&lt;" class="logo-icon" id="freq-LEFT">
+            <img src="/images/icons/leftarrow.png" alt="&lt;" class="logo-icon" id="freq-LEFT">
             <span id="msg-freq" style="position:relative; bottom: 6px;">XXXXX</span>
             <img src="/images/icons/rightarrow.png" alt="&gt;" class="logo-icon" id="freq-RIGHT">
         </div>
@@ -67,6 +70,7 @@
 
 <!-- JavaScript and HTML must be in separate files -->
 <script src="../constants.js"></script>
+<script src="../util.js"></script>
 <script src="popup.js"></script>
 
 </html>
