@@ -224,3 +224,15 @@ $(document).ready(function() {
 		});
 	});
 });
+
+// function forwardOneScreen(curScreen){
+
+// 	if (curScreen === "name") {
+// 		document.getElementById("leftCol").style.display = "inline-block";
+// 		document.getElementById("leftCol").style.margin = "auto";
+// 		document.getElementById("centerCol").style.display = "none";
+// 		document.getElementById("right-arrow1").style.display = "inline-block";
+// 	}
+	
+	
+// }

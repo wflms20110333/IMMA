@@ -252,13 +252,13 @@ $(document).ready(function() {
 	});
 });
 
-function changeAnswerVisibility(answerId){
+function changeAnswerVisibility(answerId) {
 	
 	let curState = document.getElementById(answerId).style.display;
 
-	if(curState === "none"){
+	if (curState === "none") {
 		document.getElementById(answerId).style.display = "block";
-	}else{
+	} else {
 		document.getElementById(answerId).style.display = "none";
 	}
 	

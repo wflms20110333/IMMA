@@ -1,3 +1,4 @@
+
 html, body {
     overflow-y: visible;
     height: 101%;
@@ -7,7 +8,7 @@ html, body {
 }
 
 #studio-title{
-    font-size: 5.5vw; 
+    font-size:calc(max(5.5vw, 40px)); 
     margin-top: 1%;
     margin-bottom: -1%;
     
@@ -15,10 +16,9 @@ html, body {
 }
 
 
-
-/* #help-icon, #acct-icon, #studio-icon, #options-icon{
-   
-} */
+.studio{
+    display: flex;
+}
 
 
 .toggler{
@@ -69,7 +69,7 @@ input {
     margin-top: 0px;
     margin-bottom: 0px;
     background-color: rgba(0, 0, 0, 0.082);
-    border-radius: 10px;
+    border-radius: 1.5vh;
     padding: 4px;
     font-size: 14px;
     width: 80%; margin-left: 10%;
@@ -130,10 +130,14 @@ div label, div input{
     color: gray; 
     font-size: calc(max(1.5vw, 12px)); 
     border: none; 
-    border-radius: 15px; 
+    border-radius: 5vh; 
     margin-top: 1%;
 }
 
+#im0-img{
+    width: calc(max(12vw, 120px));
+    height: calc(max(12vw, 120px));
+}
 #imgLabelr{
     border-radius: 20px; 
     font-size: calc(max(1.2vw, 12px));
@@ -169,6 +173,8 @@ div label, div input{
      background-color: #F4A180;
      border-radius: 10px;
      font-weight: 700;
+     height: 2vw;
+     font-size: calc(max(1.5vw, 15px));
  }
 
  #new:hover, #export:hover, #openBbug:hover, #uploadBbug:hover, #fOpen:hover{
@@ -203,8 +209,8 @@ div label, div input{
     display: inline-block;
     color: gray;
     cursor: pointer;
-    font-size: calc(max(1.2vw, 12px));
-
+    font-size: calc(max(1.2vw, 10px));
+    line-height: 1em;
    
     
 }
@@ -243,7 +249,7 @@ div label, div input{
 #addMessage{
     border-radius: 10px;
     font-weight: 700;
-    background-color: #8CDAD8;
+    background-color: #90dddb;
     color: #3E4350;
 }
 
@@ -258,3 +264,75 @@ div label, div input{
 #cm1, #cm6{
     font-weight: 600;
 }
+
+
+#centerCol{
+    display: inline-block;
+}
+
+#center-bubble{
+    background: rgba(255, 255, 255, 0);
+}
+
+@media only screen and (max-width: 800px) {
+    #studio-title{
+        margin-top: 4%;
+        margin-bottom: 3%;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+}
+
+@media only screen and (max-width: 650px) {
+
+    #studio-title{
+        margin-top: 10%;
+        margin-bottom: 4%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .studio{
+        display:flex;
+        flex-direction: column;
+
+    }
+
+    #leftCol, #centerCol, #rightCol{
+        margin-left:auto;
+        margin-right: auto;
+        margin-bottom: 8%;
+        width: 70%;
+    }
+
+    #leftCol{
+        order:2;
+    }
+    #centerCol{
+        order: 1;
+    }
+
+    #rightCol{
+        order:3;
+        right: 0;
+    }
+
+    #center-bubble{
+        background: rgba(255, 255, 255, 0.7);
+    }
+
+    .quoteButtons div{
+        /* font-size: max(calc(1.2vw, 20px)); */
+        font-size: 2.5vw;
+    }
+    
+  }
+
+  
+
+
+  
+
+
+  

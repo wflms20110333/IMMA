@@ -105,16 +105,16 @@ footer p {
 
 #help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
 #help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
-    width: 2.5vw;
-    height: 2.5vw;
+    width: calc(max(2.5vw, 25px));
+    height: calc(max(2.5vw, 25px));
     margin: .5vw;
     opacity: 70%;
     top: 5px;
 }
 
 #kofi-icon{
-    width: 5vw; 
-    height: 2vw; 
+    width: calc(max(5vw, 50px)); 
+    height: calc(max(2vw, 20px)); 
 }
 
 /* Styling file selectors */
