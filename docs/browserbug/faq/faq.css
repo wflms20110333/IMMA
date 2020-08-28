@@ -1,5 +1,7 @@
 html {
     overflow-y: hidden;
+    cursor: default;
+    
 }
 
 #content {
@@ -15,3 +17,49 @@ html {
 
 #left {float: left; margin-left: 5%;}
 #right {float: right; margin-right: 5%;}
+
+#help-title{
+    font-size: 60px; 
+    margin-top: 2.5%;
+    margin-bottom: -3%;
+    text-align: center;
+}
+
+.question{
+    font-family: 'Assistant';
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 5%;
+    cursor: pointer;
+}
+
+.question:hover{
+    color: gray;
+}
+
+#q0, #t0{
+    font-size: 35px;
+    color: #3E4350;
+}
+
+.answer{
+    margin-top: -3%;
+    margin-bottom: 5%;
+    
+
+}
+
+.answer{
+    animation: fadeInText 500ms 0ms forwards;
+}
+
+
+@keyframes fadeInText {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    } to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }

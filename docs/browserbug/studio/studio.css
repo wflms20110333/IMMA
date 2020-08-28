@@ -1,8 +1,22 @@
 html, body {
     overflow-y: visible;
     height: 101%;
+    text-align: center;
+    font-family:'Assistant';
+    cursor: default;
 }
 
+#studio-title{
+    font-size: 70px; 
+    margin-top: 2.5%;
+    margin-bottom: -1%;
+    
+
+}
+
+.toggler{
+    cursor: pointer;
+}
 .column {
     margin-left: 2%;
     margin-right: 1%;
@@ -27,6 +41,7 @@ input {
 
 .slider {
     width: calc(max(30%, 50px));
+    cursor: pointer;
 }
 
 #main-bubble {
@@ -54,11 +69,7 @@ input {
     display: none;
 }
 
-#activate {
-    background-color: rgb(0, 117, 255);
-    color: rgb(255, 255, 255);
-    width: 70%;
-}
+
 
 #topright-toolbar {
     float: right;
@@ -66,9 +77,6 @@ input {
     margin-right: 2%;
 }
 
-#activate:hover {
-    background-color: rgb(0, 80, 175);
-}
 
 .bubble {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0);
@@ -91,18 +99,6 @@ div label, div input{
     line-height: 0px;
 }
 
-.quoteButtons div {
-    width: 80px;
-    height: 30px;
-    margin: auto;
-    margin-bottom: 3px;
-    display: inline-block;
-    border: 1px black dotted;
-}
-
-.quoteButtons div:hover {
-    background-color: lightgray;
-}
 
 /* Scrollbar shows up on side so round the radius equally */
 ::-webkit-scrollbar-track {border-radius: 0px;}
@@ -112,4 +108,134 @@ div label, div input{
     background: #333333a2;
     border: 5px solid transparent;
     background-clip: content-box;
+}
+
+/* Center Column  */
+#pName{
+    font-weight: 600; 
+    font-size: 15px;
+    color: #3E4350; 
+}
+
+#imma-name{
+    width: 45%; 
+    font-family: 'Assistant'; 
+    color: gray; 
+    font-size: 17px; 
+    border: none; 
+    border-radius: 15px; 
+    margin-top: 1%;
+}
+
+#imgLabelr{
+    border-radius: 20px; 
+    font-weight: 600; 
+}
+
+#imgLabelr:hover{
+    background-color: #ededed;
+}
+#activate {
+    margin-top: 3%;
+    border-radius: 20px;
+    font-size: 18px;
+    width: 45%;
+    font-weight: 700;
+    color: #3E4350;
+    background-color: #8CDAD8;
+}
+
+.top-buttons{
+    white-space: nowrap;
+    margin-bottom: 3%;
+    margin-top: 7%;
+    margin-left: -3.5%;
+ }
+ 
+ #new, #export, #openBbug, #uploadBbug, #fOpen{
+     background-color: #F4A180;
+     border-radius: 10px;
+     font-weight: 700;
+ }
+
+ #new:hover, #export:hover, #openBbug:hover, #uploadBbug:hover, #fOpen:hover{
+    background-color: #e89776;
+ }
+
+ 
+
+ #activate:hover{
+     background-color: #81c9c8;
+ }
+
+/* Left Column */
+
+.category-icons{
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#wellness-icon, #focus-icon, #support-icon, #kudos-icon{
+    padding: .5%;
+    cursor: pointer;
+}
+
+.quoteButtons div {
+    padding: .5%;
+    width: 75px;
+    white-space: nowrap;
+    display: inline-block;
+    color: gray;
+    cursor: pointer;
+   
+    
+}
+
+.quoteButtons div:hover {
+    color: rgb(50, 50, 50);
+}
+
+#WellnessC, #FocusC, #KudosC, #SupportC{
+   display: none;
+}
+
+#showAllQuotes:hover{
+    color: gray;
+    cursor: pointer;
+}
+
+#categories, #custMsgs, #textingstyle{
+    font-weight: 700;
+    
+}
+
+#txt1, #txt2, #txt3, #proportion{
+    font-weight: 600;
+    line-height: 30px;
+    
+}
+
+#tsLabel1{
+    line-height: 10px;
+}
+
+/* Right Column */
+
+#addMessage{
+    border-radius: 10px;
+    font-weight: 700;
+    background-color: #8CDAD8;
+    color: #3E4350;
+}
+
+#addMessage:hover{
+    background-color: #81c9c8;
+}
+
+#messagecontent{
+    border:none;
+}
+
+#cm1, #cm6{
+    font-weight: 600;
 }

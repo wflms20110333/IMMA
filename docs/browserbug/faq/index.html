@@ -6,12 +6,23 @@
     <title>Browserbug FAQ</title>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+  />
     <link rel="stylesheet" type="text/css" href="../master.css">
     <link rel="stylesheet" type="text/css" href="faq.css">
     <!-- #TODO This should be hosted on a webpage so it can be updated frequently -->
 </head>
 
 <body>
+    <header>
+        <h1 id="help-title" >Browserbug Help</h1>
+    </header>
     
     <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
     <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
@@ -23,49 +34,51 @@
         <div class="bubble" id="left">
             <h3 class="i18n-txt" id="q0"></h3>
 
-            <p class="question i18n-txt" id="q1"></p>
-            <p class="answer i18n-txt" id="a1_1"></p>
-            <p class="answer">
-                <span class="i18n-txt" id="a1_2"></span>
-                <span class="i18n-txt" id="a1_3"></span>
-                <span class="i18n-txt" id="a1_4"></span>
-            </p>
-            <p class="answer">
-                <span class="i18n-txt" id="a1_5"></span>
-                <a href="../privacy_policy"><span class="i18n-txt" id="a1_6"></span></a>
-                <span class="i18n-txt" id="a1_7"></span>
-            </p>
+            <p class="question i18n-txt" id="q1" onclick="changeAnswerVisibility('a1')"></p>
 
-            <p class="question i18n-txt" id="q2"></p>
-            <p class="answer">
-                <span class="i18n-txt" id="a2_1"></span>
+            <div class = "answer" id="a1" style="display: none">
+                <p class="answer i18n-txt"  id="a1_1" ></p>
+                <p class="answer" id = "a1"  >
+                    <span class="i18n-txt" id="a1_2"></span>
+                    <span class="i18n-txt" id="a1_3"></span>
+                    <span class="i18n-txt" id="a1_4"></span>
+                
+                    <br><br>
+                    <span class="i18n-txt" id="a1_5"></span>
+                    <a href="../privacy_policy"><span class="i18n-txt" id="a1_6"></span></a>
+                    <span class="i18n-txt" id="a1_7"></span>
+                </p>
+            </div>
+            <p class="question i18n-txt" id="q2" onclick="changeAnswerVisibility('a2')"></p>
+            <p class="answer" id = "a2" style="display: none">
+                <span class="i18n-txt" id="a2_1" ></span>
                 <a href="ms-settings:easeofaccess-display"><span class="i18n-txt" id="a2_2"></span></a>
                 <span class="i18n-txt" id="a2_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q3"></p>
-            <p class="answer">
+            <p class="question i18n-txt" id="q3" onclick="changeAnswerVisibility('a3')"></p>
+            <p class="answer" id = "a3" style="display: none">
                 <span class="i18n-txt" id="a3_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a3_2"></span></a>
                 <span class="i18n-txt" id="a3_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q4"></p>
-            <p class="answer">
+            <p class="question i18n-txt" id="q4" onclick="changeAnswerVisibility('a4')"></p>
+            <p class="answer" id = "a4" style="display: none">
                 <span class="i18n-txt" id="a4_1"></span>
                 <a href="ms-settings:notifications"><span class="i18n-txt" id="a4_2"></span></a>
                 <span class="i18n-txt" id="a4_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q5"></p>
-            <p class="answer">
+            <p class="question i18n-txt" id="q5" onclick="changeAnswerVisibility('a5')"></p>
+            <p class="answer" id = "a5" style="display: none">
                 <span class="i18n-txt" id="a5_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a5_2"></span></a>
                 <span class="i18n-txt" id="a5_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q6"></p>
-            <p class="answer">
+            <p class="question i18n-txt" id="q6" onclick="changeAnswerVisibility('a6')"></p>
+            <p class="answer" id = "a6" style="display: none">
                 <span class="i18n-txt" id="a6_1"></span>
                 <a href="../about" target="_blank"><span class="i18n-txt" id="a6_2"></span></a>
                 <span class="i18n-txt" id="a6_3"></span>
@@ -75,10 +88,11 @@
         <div class="bubble" id="right">
             <h3 class="i18n-txt" id="t0"></h3>
 
-            <p class="question i18n-txt" id="t1"></p>
-            <p class="answer i18n-txt" id="r1"></p>
+            <p class="question i18n-txt" id="t1" onclick="changeAnswerVisibility('r1')"></p>
+            <p class="answer i18n-txt" id="r1" style="display: none"></p>
 
-            <p class="question i18n-txt" id="t2"></p>
+            <p class="question i18n-txt" id="t2" onclick="changeAnswerVisibility('r2')"></p>
+            <div class = "answer" id = "r2" style="display: none"> 
             <p class="answer i18n-txt" id="r2_1"></p>
             <p class="answer"><b>
                 <span class="i18n-txt" id="r2_2"></span>
@@ -95,6 +109,7 @@
                         </li>
                     </ul>
                 </li>
+                <br>
                 <li><b><span class="i18n-txt" id="r3_0"></span></b>
                     <ul>
                         <li><span class="i18n-txt" id="r3_1"></span></li>
@@ -107,6 +122,7 @@
                         </li>
                     </ul>
                 </li>
+                <br>
                 <li><b><span class="i18n-txt" id="r4_0"></span></b>
                     <ul>
                         <li><span class="i18n-txt" id="r4_1"></span>
@@ -117,6 +133,7 @@
                         <li><span class="i18n-txt" id="r4_3"></span></li>
                     </ul>
                 </li>
+                <br>
                 <li><b><span class="i18n-txt" id="r5_0"></span></b>
                     <ul>
                         <li><span class="i18n-txt" id="r5_1"></span>
@@ -131,22 +148,26 @@
                     </ul>
                 </li>
             </ol>
-            
+            <br>
             <p class="answer i18n-txt" id="r5_6"></p>
-            
-            <p class="question">Known issues</p>
+        </div>
+            <p class="question" onclick="changeAnswerVisibility('r3')">Known issues</p>
+            <div class = "answer" id = "r3"  style="display: none">
+
+           
             <ul>
                 <li>Issue with customizing bugs named "Browserbee"
                 </li>
                 <li>Loading a BBug when the extension has been inactivated through the BBug popup console -- as a quick fix, use the blue switch to turn BBug off and on again!
                 </li>
             </ul>
-
+            <br>
             <p class="answer i18n-txt" id="r5_7"></p>
 
             <p class="answer">It's also possible that our server might be down - we'll try to post updates on any outages on our Twitter!</p>
-            <p class="question i18n-txt" id="t6"></p>
-            <p class="answer">
+        </div>
+            <p class="question i18n-txt" id="t6" onclick="changeAnswerVisibility('r4')"></p>
+            <p class="answer" id="r4" style="display: none;">
                 <span class="i18n-txt" id="r6_1"></span>
                 <a href="mailto:browserbug@imma.studio">
                     <span class="i18n-txt" id="r6_2"></span>

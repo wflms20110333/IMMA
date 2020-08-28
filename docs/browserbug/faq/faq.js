@@ -251,3 +251,16 @@ $(document).ready(function() {
 		this.value = temporary_i18n_messages[this.id]['message'];
 	});
 });
+
+function changeAnswerVisibility(answerId){
+	
+	let curState = document.getElementById(answerId).style.display;
+
+	if(curState === "none"){
+		document.getElementById(answerId).style.display = "block";
+	}else{
+		document.getElementById(answerId).style.display = "none";
+	}
+	
+
+}
