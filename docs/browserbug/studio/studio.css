@@ -120,7 +120,7 @@ div label, div input{
 /* Center Column  */
 #pName{
     font-weight: 600; 
-    font-size: calc(max(1.5vw, 12px));
+    font-size: calc(max(1.5vw, 15px));
     color: #3E4350; 
 }
 
@@ -166,6 +166,7 @@ div label, div input{
     margin-bottom: 3%;
     margin-top: 7%;
     margin-left: -3.5%;
+    
 
  }
  
@@ -173,7 +174,8 @@ div label, div input{
      background-color: #F4A180;
      border-radius: 10px;
      font-weight: 700;
-     height: 2vw;
+     height: 1.5vw;
+     line-height: 1.5vw;
      font-size: calc(max(1.5vw, 15px));
  }
 
@@ -326,7 +328,16 @@ div label, div input{
         /* font-size: max(calc(1.2vw, 20px)); */
         font-size: 2.5vw;
     }
+
+    .top-buttons{
+        margin-left: auto;
+        margin-bottom: -2%;
+    }
     
+    #new, #export, #openBbug, #uploadBbug, #fOpen{
+        height: 3vw;
+        line-height: 3vw;
+    }
   }
 
   
