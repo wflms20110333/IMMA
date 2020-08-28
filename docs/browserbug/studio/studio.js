@@ -123,8 +123,11 @@ var Support = {
 }
 
 // mapping names of categories to the categories
-var nameMap = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support}
+var nameMap = {"Wellness": Wellness, "Focus": Focus, "Kudos": Kudos, "Support": Support};
 var menuInFocus = "none";
+
+// Highlighting default message buttons if all messages are selected
+var activeGroup = {"Wellness": true, "Focus": true, "Kudos": true, "Support": true};
 
 // a blank browserbug
 var blankBbug = {}; // empty object for "New" button
@@ -216,11 +219,18 @@ $(document).ready(function() {
 	});
 
 	// When a main checkbox is clicked, check or uncheck all messages
-	document.querySelectorAll(".quoteButtons input").forEach(el => {
+	document.querySelectorAll(".categoryIcons img").forEach(el => {
 		el.addEventListener('click', function(){
-			var category = this.id.slice(0, -1) + 'B';
-			checkboxes = document.getElementsByClassName(category);
-			for (var i in checkboxes) { checkboxes[i].checked = el.checked; }
+			var category = this.id.slice(0, -1);
+			activeGroup[category] = !activeGroup[category]; // switch tracker variable on/off
+			if (activeGroup[category]) {
+				el.src = "http://imma.studio/browserbug/category_icons/"+category.toLowerCase()+"_checked.PNG";
+			} else {
+				el.src = "http://imma.studio/browserbug/category_icons/"+category.toLowerCase()+"_unchecked.PNG";
+			}
+			// Check or uncheck all checkboxes for that category
+			checkboxes = document.getElementsByClassName(category + 'B');
+			for (var i in checkboxes) { checkboxes[i].checked = activeGroup[category]; }
 		});
 	});
 });
