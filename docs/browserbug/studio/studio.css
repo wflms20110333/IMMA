@@ -7,12 +7,19 @@ html, body {
 }
 
 #studio-title{
-    font-size: 70px; 
+    font-size: 6.5vw; 
     margin-top: 2.5%;
     margin-bottom: -1%;
     
 
 }
+
+
+
+/* #help-icon, #acct-icon, #studio-icon, #options-icon{
+   
+} */
+
 
 .toggler{
     cursor: pointer;
@@ -113,7 +120,7 @@ div label, div input{
 /* Center Column  */
 #pName{
     font-weight: 600; 
-    font-size: 15px;
+    font-size: calc(max(1.5vw, 12px));
     color: #3E4350; 
 }
 
@@ -121,7 +128,7 @@ div label, div input{
     width: 45%; 
     font-family: 'Assistant'; 
     color: gray; 
-    font-size: 17px; 
+    font-size: calc(max(1.5vw, 12px)); 
     border: none; 
     border-radius: 15px; 
     margin-top: 1%;
@@ -129,7 +136,9 @@ div label, div input{
 
 #imgLabelr{
     border-radius: 20px; 
+    font-size: calc(max(1.2vw, 12px));
     font-weight: 600; 
+    width: 20%;
 }
 
 #imgLabelr:hover{
@@ -138,7 +147,7 @@ div label, div input{
 #activate {
     margin-top: 3%;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: calc(max(1.4vw, 15px));;
     width: 45%;
     font-weight: 700;
     color: #3E4350;
@@ -146,10 +155,14 @@ div label, div input{
 }
 
 .top-buttons{
-    white-space: nowrap;
+    /* white-space: nowrap; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 3%;
     margin-top: 7%;
     margin-left: -3.5%;
+
  }
  
  #new, #export, #openBbug, #uploadBbug, #fOpen{
@@ -171,25 +184,31 @@ div label, div input{
 /* Left Column */
 
 .category-icons{
-    display: inline-block;
-    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #wellness-icon, #focus-icon, #support-icon, #kudos-icon{
+    width: 20%;
+    height: 20%;
     padding: .5%;
     cursor: pointer;
 }
 
 .quoteButtons div {
-    padding: .5%;
-    width: 75px;
+    margin: 1%;
+    width: 18%;
     white-space: nowrap;
     display: inline-block;
     color: gray;
     cursor: pointer;
+    font-size: calc(max(1.2vw, 12px));
+
    
     
 }
+
 
 .quoteButtons div:hover {
     color: rgb(50, 50, 50);
