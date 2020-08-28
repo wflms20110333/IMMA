@@ -9,8 +9,8 @@ html, body {
 
 #studio-title{
     font-size:calc(max(5.5vw, 40px)); 
-    margin-top: 1%;
-    margin-bottom: -1%;
+    margin-top: 2vw;
+    margin-bottom: -1vw;
     
 
 }
@@ -165,7 +165,7 @@ div label, div input{
     flex-wrap: wrap;
     margin-bottom: 3%;
     margin-top: 7%;
-    margin-left: -3.5%;
+    margin-left: -.99%;
     
 
  }
@@ -174,9 +174,9 @@ div label, div input{
      background-color: #F4A180;
      border-radius: 10px;
      font-weight: 700;
-     height: 1.5vw;
-     line-height: 1.5vw;
-     font-size: calc(max(1.5vw, 15px));
+     height: 1.25vw;
+     line-height: 1.25vw;
+     font-size: calc(max(1vw, 15px));
  }
 
  #new:hover, #export:hover, #openBbug:hover, #uploadBbug:hover, #fOpen:hover{
