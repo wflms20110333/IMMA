@@ -213,6 +213,7 @@ div label, div input{
 
 #addMessage{
     border-radius: 10px;
+    font-weight: 600;
 }
 
 #addMessage:hover{
