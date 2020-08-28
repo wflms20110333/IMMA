@@ -1,3 +1,6 @@
+<!-- NOTE: checkboxes on the left column for default messages are hidden now as the image icons should act as 
+checkboxes -->
+
 <!doctype html>
 <html>
 <meta charset="UTF-8">
@@ -7,7 +10,10 @@
     <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Noto+Sans+SC' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+   <link
+    href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
     <link rel="stylesheet" type="text/css" href="../master.css">
     <link rel="stylesheet" type="text/css" href="studio.css">
 </head>
@@ -15,17 +21,8 @@
 <body>
     <header>
         <div>
-            <h2>Browserbug Studio</h2>
-            <!-- New -->
-            <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
-            <!-- Download  -->
-            <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
-            <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
-            <!-- Upload -->
-            <input type="file" id="openBbug" accept=".bbug">
-            <a id="exporter" style="display:none;"></a>
-            <!-- Save -->
-            <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
+            <h1 id="studio-title" >Browserbug Studio</h1>
+            
         </div>
 
     </header>
@@ -43,12 +40,19 @@
             <div class="bubble">
                 <br>
                 <span class="chn25px" style="font-size: 20px;" id="categories">Default messages</span>
-                <a class="toggler" id="catToggle">[?]<br></a>
+                <a class="toggler" id="catToggle">[?]</a>
                 <p class="toggling" id="catToggle_T"></p>
                 <p id="showAllQuotes">show all</p>
+            <div class = "category-icons">
+                <img id="wellness-icon" src="../category_icons/wellness_checked.PNG" width="75px" alt="Icon">
+                <img id="focus-icon" src="../category_icons/focus_checked.PNG" width="75px" alt="Icon">
+                <img id="support-icon" src="../category_icons/support_checked.PNG" width="75px" alt="Icon">
+                <img id="kudos-icon" src="../category_icons/kudos_checked.PNG" width="75px" alt="Icon">
+
+            </div>
                 <div class="quoteButtons">
                     <div>Wellness</div><input type="checkbox" checked="true" id="WellnessC">
-                    <div>Focus</div><input type="checkbox" checked="true" id="FocusC"><br>
+                    <div>Focus</div><input type="checkbox" checked="true" id="FocusC">
                     <div>Support</div><input type="checkbox" checked="true" id="SupportC">
                     <div>Kudos</div><input type="checkbox" checked="true" id="KudosC"><br>
                 </div>
@@ -57,26 +61,26 @@
                     <div id="Focus"></div>
                     <div id="Support"></div>
                     <div id="Kudos"></div>
-                </div><br>
-            </div>
+                </div>
+            
             
             <!-- Texting style -->
-            <div class="bubble"><br>
+            <br>
                 <span class="i18n-txt chn25px" style="font-size: 20px;" id="textingstyle"></span>
                 <a class="toggler" id="textToggle">[?]<br></a>
-                <p class="toggling i18n-txt" id="textToggle_T"></p><br>
+                <p class="toggling i18n-txt" id="textToggle_T"></p>
 
                 <span class="scaler-text i18n-txt" id="txt1"><b></b></span>
                 <p id="tsLabel1" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider1">
                 <span id="etext1">test</span>
-                <br><br>
+                <br>
 
                 <span class="scaler-text i18n-txt" id="txt2"><b></b></span>
                 <p id="tsLabel2" class="scaler-text">error</p>
                 <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="tsSlider2">
                 <span id="etext2">test</span>
-                <br><br>
+                <br>
 
                 <span class="scaler-text i18n-txt" id="txt3"><b></b></span>
                 <p id="tsLabel3" class="scaler-text">error</p>
@@ -87,38 +91,45 @@
         </div>
 
         <div class="column" id="centerCol">
-            <!-- Welcome message -->
-            <div class="bubble" id="main-bubble">
-                <p class="i18n-txt" id="studWelcome"></p>
-                <span class="i18n-txt" style="font-size: 15px;" id="tipToggle_T"></span><br>
-                <p class="filing i18n-txt" id="activate"></p>
+
+            <div class="top-buttons">
+                <!-- New -->
+                <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
+                <!-- Download  -->
+                <a class="filing2 i18n-txt" id="export" title="Download this Browserbug"></a>
+                <label for="openBbug" class="custom-file-upload2 i18n-txt" title="Load a saved Browserbug file from your computer" id="fOpen"></label>
+                <!-- Upload -->
+                <input type="file" id="openBbug" accept=".bbug">
+                <a id="exporter" style="display:none;"></a>
+                <!-- Save -->
+                <p class="filing2 i18n-txt" id="uploadBbug" title="Upload your Browserbug"></p>
             </div>
 
             <!-- Name and avatar -->
-            <div class="bubble">
+           
                 <br>
                 <!-- Name space -->
-                <span class="i18n-txt chn25px" style="font-size: 20px;" id="pName"></span>
-                <a class="toggler" id="nameToggle">[?]<br></a>
-                <p class="toggling i18n-txt" id="nameToggle_T"></p>
+                <span class="i18n-txt chn25px" id="pName" ></span>
+                
 
                 <br>
-                <input type="text" id="imma-name" name="imma-name" autocomplete="off"><br><br>
+                <input type="text" id="imma-name" name="imma-name"autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
-                <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" width="70px" height="70px" alt="Icon">
+                <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" width="200px" height="200px" alt="Icon">
 
                 <br><br>
-                <span class="i18n-txt chn25px" style="font-size: 20px;" id="pAvatar"></span>
-                <a class="toggler" id="imgToggle">[?]<br></a>
-                <p class="toggling i18n-txt" id="imgToggle_T"></p>
+               
 
                 <!-- Uploader button -->
                 <br>
                 <label for="openImg" class="custom-file-upload2 i18n-txt" id="imgLabelr"></label>
                 <input name="uploaded-img" type="file" id="openImg" accept="image/*">
 
-            </div>
+                <br>
+                <p class="filing i18n-txt" id="activate"></p>
+
+            
         </div>
 
         <div class="column" id="rightCol">

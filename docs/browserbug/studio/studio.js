@@ -42,7 +42,7 @@ var en_text = {
 	"stud2": {"message": "to view tips."},
 	"tipToggle_T": {"message": "Don't forget to activate when you're done customizing!"},
 
-	"activate": {"message": "Finished! Activate this Browserbug."},
+	"activate": {"message": "Activate changes"},
 
 	"pName": {"message": "Name"},
 	"nameToggle_T": {"message": "Pick a name!"},
