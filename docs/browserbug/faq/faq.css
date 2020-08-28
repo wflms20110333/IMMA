@@ -49,3 +49,17 @@ html {
 
 }
 
+.answer{
+    animation: fadeInText 500ms 0ms forwards;
+}
+
+
+@keyframes fadeInText {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    } to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
