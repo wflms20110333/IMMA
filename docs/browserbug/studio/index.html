@@ -28,12 +28,13 @@ checkboxes -->
     </header>
 
     <!-- Toolbar -->
-    <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
-    <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
-    <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
-    <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
-    <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
-    
+    <div class = "toolbar">
+        <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
+        <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
+        <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
+        <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
+        <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
+    </div>
     <div class="studio">
         <div class="column" id="leftCol">
             <!-- Default messages -->
@@ -90,7 +91,7 @@ checkboxes -->
         </div>
 
         <div class="column" id="centerCol">
-
+            <div class = "bubble" id = "center-bubble">
             <div class="top-buttons">
                 <!-- New -->
                 <p class="filing2 i18n-txt" id="new" title="Clear current bug and start from scratch"></p>
@@ -115,8 +116,7 @@ checkboxes -->
                 <input type="text" id="imma-name" name="imma-name"autocomplete="off"><br><br>
 
                 <!-- Image previewer -->
-                <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png" width="200px" height="200px" alt="Icon">
-
+                <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png"  alt="Icon">
                 <br><br>
                
 
@@ -128,12 +128,12 @@ checkboxes -->
                 <br>
                 <p class="filing i18n-txt" id="activate"></p>
 
-            
+            </div>
         </div>
 
         <div class="column" id="rightCol">
             <!-- Custom messages -->
-            <div class="bubble" style="margin-bottom: 50px;">
+            <div class="bubble" >
                 <br>
                 <span class="i18n-txt chn25px" style="font-size: 20px;" id="custMsgs"></span>
                 <a class="toggler" id="ccToggle">[?]<br></a>

@@ -92,31 +92,29 @@ footer p {
 }
 
 /* Styling options icon */
+
+.toolbar{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    right: 0;
+    top: 1vh;
+    align-items: center;
+}
+
 #help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
 #help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
-    margin: 5px;
-    width: 30px; height: 30px;
+    width: calc(max(2.5vw, 25px));
+    height: calc(max(2.5vw, 25px));
+    margin: .5vw;
     opacity: 70%;
-    position: absolute;
     top: 5px;
 }
-#help-icon {
-    right: 88px;
-    width: 32px; height: 32px; top:4px;
-}
-#options-icon {
-    right: 123px;
-}
-#acct-icon {
-    right: 157px;
-}
-#studio-icon {
-    right: 190px;
-}
-#kofi-icon {
-    width: inherit; height: 25px;
-    top: 8px;
-    right: 12px;
+
+#kofi-icon{
+    width: calc(max(5vw, 50px)); 
+    height: calc(max(2vw, 20px)); 
 }
 
 /* Styling file selectors */

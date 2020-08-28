@@ -1,3 +1,4 @@
+
 html, body {
     overflow-y: visible;
     height: 101%;
@@ -7,12 +8,18 @@ html, body {
 }
 
 #studio-title{
-    font-size: 70px; 
-    margin-top: 2.5%;
-    margin-bottom: -1%;
+    font-size:calc(max(5.5vw, 40px)); 
+    margin-top: 2vw;
+    margin-bottom: -1vw;
     
 
 }
+
+
+.studio{
+    display: flex;
+}
+
 
 .toggler{
     cursor: pointer;
@@ -62,7 +69,7 @@ input {
     margin-top: 0px;
     margin-bottom: 0px;
     background-color: rgba(0, 0, 0, 0.082);
-    border-radius: 10px;
+    border-radius: 1.5vh;
     padding: 4px;
     font-size: 14px;
     width: 80%; margin-left: 10%;
@@ -113,7 +120,7 @@ div label, div input{
 /* Center Column  */
 #pName{
     font-weight: 600; 
-    font-size: 15px;
+    font-size: calc(max(1.5vw, 15px));
     color: #3E4350; 
 }
 
@@ -121,15 +128,21 @@ div label, div input{
     width: 45%; 
     font-family: 'Assistant'; 
     color: gray; 
-    font-size: 17px; 
+    font-size: calc(max(1.5vw, 12px)); 
     border: none; 
-    border-radius: 15px; 
+    border-radius: 5vh; 
     margin-top: 1%;
 }
 
+#im0-img{
+    width: calc(max(12vw, 120px));
+    height: calc(max(12vw, 120px));
+}
 #imgLabelr{
     border-radius: 20px; 
+    font-size: calc(max(1.2vw, 12px));
     font-weight: 600; 
+    width: 20%;
 }
 
 #imgLabelr:hover{
@@ -138,7 +151,7 @@ div label, div input{
 #activate {
     margin-top: 3%;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: calc(max(1.4vw, 15px));;
     width: 45%;
     font-weight: 700;
     color: #3E4350;
@@ -146,16 +159,24 @@ div label, div input{
 }
 
 .top-buttons{
-    white-space: nowrap;
+    /* white-space: nowrap; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 3%;
     margin-top: 7%;
-    margin-left: -3.5%;
+    margin-left: -.99%;
+    
+
  }
  
  #new, #export, #openBbug, #uploadBbug, #fOpen{
      background-color: #F4A180;
      border-radius: 10px;
      font-weight: 700;
+     height: 1.25vw;
+     line-height: 1.25vw;
+     font-size: calc(max(1vw, 15px));
  }
 
  #new:hover, #export:hover, #openBbug:hover, #uploadBbug:hover, #fOpen:hover{
@@ -171,25 +192,31 @@ div label, div input{
 /* Left Column */
 
 .category-icons{
-    display: inline-block;
-    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #wellness-icon, #focus-icon, #support-icon, #kudos-icon{
+    width: 20%;
+    height: 20%;
     padding: .5%;
     cursor: pointer;
 }
 
 .quoteButtons div {
-    padding: .5%;
-    width: 75px;
+    margin: 1%;
+    width: 18%;
     white-space: nowrap;
     display: inline-block;
     color: gray;
     cursor: pointer;
+    font-size: calc(max(1.2vw, 10px));
+    line-height: 1em;
    
     
 }
+
 
 .quoteButtons div:hover {
     color: rgb(50, 50, 50);
@@ -224,7 +251,7 @@ div label, div input{
 #addMessage{
     border-radius: 10px;
     font-weight: 700;
-    background-color: #8CDAD8;
+    background-color: #90dddb;
     color: #3E4350;
 }
 
@@ -239,3 +266,84 @@ div label, div input{
 #cm1, #cm6{
     font-weight: 600;
 }
+
+
+#centerCol{
+    display: inline-block;
+}
+
+#center-bubble{
+    background: rgba(255, 255, 255, 0);
+}
+
+@media only screen and (max-width: 800px) {
+    #studio-title{
+        margin-top: 4%;
+        margin-bottom: 3%;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+}
+
+@media only screen and (max-width: 650px) {
+
+    #studio-title{
+        margin-top: 10%;
+        margin-bottom: 4%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .studio{
+        display:flex;
+        flex-direction: column;
+
+    }
+
+    #leftCol, #centerCol, #rightCol{
+        margin-left:auto;
+        margin-right: auto;
+        margin-bottom: 8%;
+        width: 70%;
+    }
+
+    #leftCol{
+        order:2;
+    }
+    #centerCol{
+        order: 1;
+    }
+
+    #rightCol{
+        order:3;
+        right: 0;
+    }
+
+    #center-bubble{
+        background: rgba(255, 255, 255, 0.7);
+    }
+
+    .quoteButtons div{
+        /* font-size: max(calc(1.2vw, 20px)); */
+        font-size: 2.5vw;
+    }
+
+    .top-buttons{
+        margin-left: auto;
+        margin-bottom: -2%;
+    }
+    
+    #new, #export, #openBbug, #uploadBbug, #fOpen{
+        height: 3vw;
+        line-height: 3vw;
+    }
+  }
+
+  
+
+
+  
+
+
+  
