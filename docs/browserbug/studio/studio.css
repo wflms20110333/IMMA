@@ -223,13 +223,19 @@ div label, div input{
 
 #addMessage{
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 700;
+    background-color: #8CDAD8;
+    color: #3E4350;
 }
 
 #addMessage:hover{
-    background-color: #ededed;
+    background-color: #81c9c8;
 }
 
 #messagecontent{
     border:none;
+}
+
+#cm1, #cm6{
+    font-weight: 600;
 }
