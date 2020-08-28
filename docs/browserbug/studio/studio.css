@@ -3,6 +3,7 @@ html, body {
     height: 101%;
     text-align: center;
     font-family:'Assistant';
+    cursor: default;
 }
 
 #studio-title{
@@ -11,6 +12,10 @@ html, body {
     margin-bottom: -1%;
     
 
+}
+
+.toggler{
+    cursor: pointer;
 }
 .column {
     margin-left: 2%;
@@ -36,6 +41,7 @@ input {
 
 .slider {
     width: calc(max(30%, 50px));
+    cursor: pointer;
 }
 
 #main-bubble {
@@ -180,6 +186,7 @@ div label, div input{
     white-space: nowrap;
     display: inline-block;
     color: gray;
+    cursor: pointer;
    
     
 }
@@ -194,15 +201,18 @@ div label, div input{
 
 #showAllQuotes:hover{
     color: gray;
+    cursor: pointer;
 }
 
 #categories, #custMsgs, #textingstyle{
     font-weight: 700;
+    
 }
 
 #txt1, #txt2, #txt3, #proportion{
     font-weight: 600;
     line-height: 30px;
+    
 }
 
 #tsLabel1{
