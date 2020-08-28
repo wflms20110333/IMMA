@@ -9,4 +9,38 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_about">About Browserbug</string>
+    <string name="large_text">
+        "Browserbug is a custom companion to provide messages of motivation and encouragement!\n\n"
+
+        "Whether you'd like your favorite music idol to give you a pep talk or an old friend to"
+        "remind you to take a break, Browserbugs make working virtually a more productive and less"
+        "lonely experience.\n\n"
+
+        "Download the Chrome extension; we're currently working on a bunch of cool new features,"
+        "so subscribe to our Facebook or Twitter to get sneak peeks of what's coming up next!\n\n"
+
+        "As college students, we've struggled to manage our browsing habits, and in quarantine,"
+        "we've felt more isolated than ever. So we were inspired to create Browserbug: we hope that"
+        "it brings a spark of life to your online work as well.\n\n"
+
+        "We'd love to hear your suggestions on how to improve! If you've enjoyed Browserbug, please"
+        "help us spread the word! And feel free to buy us some Ko-Fi so we can continue developing"
+        "Browserbug to become better and better :)\n\n"
+    </string>
+    <string name="action_about">About</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_my_account">My Account</string>
+    <string name="menu_my_browserbugs">My Browserbugs</string>
+    <string name="menu_studio">Studio</string>
+    <string name="menu_options">Options</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_support">Support</string>
 </resources>
