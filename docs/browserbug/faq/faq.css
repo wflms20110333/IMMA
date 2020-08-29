@@ -19,6 +19,18 @@ html {
     
 }
 
+#show-all-faq, #show-all-ts{
+    cursor: pointer;
+    color: gray;
+    margin-top: 1%;
+    margin-bottom: 4%;
+    font-size: 14px;
+}
+
+#show-all-faq:hover, #show-all-ts:hover{
+    color: black;
+}
+
 #left {float: left; margin-left: 5%;}
 #right {float: right; margin-right: 5%;}
 
@@ -45,6 +57,7 @@ html {
 #q0, #t0{
     font-size: calc(max(2.5vw, 25px));
     color: #8CDAD8;
+    margin-bottom: 0;
 }
 
 .answer{

@@ -252,15 +252,68 @@ $(document).ready(function() {
 	});
 });
 
-function changeAnswerVisibility(answerId) {
-	
-	let curState = document.getElementById(answerId).style.display;
 
-	if (curState === "none") {
-		document.getElementById(answerId).style.display = "block";
-	} else {
-		document.getElementById(answerId).style.display = "none";
+let questions = document.getElementsByClassName("question");
+
+for (let i = 0; i < questions.length; i++) {
+	let clickedQuestion = questions[i];
+	clickedQuestion.addEventListener ('click', function() {
+		let questionType = clickedQuestion.id.charAt(0);
+		let questionNumber = clickedQuestion.id.charAt(1);
+
+		let answerType;
+		if (questionType == 'q') {
+			answerType = 'a';
+		} else if (questionType == 't') {
+			answerType = 'r';
+		}
+		
+		let answerId = answerType + questionNumber;
+
+		let curState = document.getElementById(answerId).style.display;
+
+		if (curState === "none") {
+			document.getElementById(answerId).style.display = "block";
+		} else {
+			document.getElementById(answerId).style.display = "none";
+		}
+		
+	})
+}
+
+
+
+document.getElementById("show-all-faq").addEventListener('click', function() {
+	changeAnswersVisability("show-all-faq", "faqCol");
+
+})
+
+document.getElementById("show-all-ts").addEventListener('click', function() {
+	changeAnswersVisability("show-all-ts", "tsCol");
+
+})
+
+function changeAnswersVisability(id, section){
+	let answers = document.getElementsByClassName(section);
+	let curState = document.getElementById(id).textContent;
+	if (curState == "expand all") {
+		
+		for (let i = 0; i < answers.length; i++){
+			let answer = answers[i];
+			answer.style.display = "block";
+		}
+
+		document.getElementById(id).textContent = "collapse all";
+
+	} else if (curState == "collapse all") { 
+		for (let i = 0; i < answers.length; i++){
+			let answer = answers[i];
+			answer.style.display = "none";
+		}
+
+		document.getElementById(id).textContent = "expand all";
+
 	}
 	
-
 }
+
