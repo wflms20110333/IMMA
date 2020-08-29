@@ -6,15 +6,29 @@ html {
 
 #content {
     height: 70%;
-    display: flex;
-    flex-direction: row;
+    
+    
 }
 
 #left, #right {
-    width: 35%;
+    width: 43%;
     height: 100%;
     overflow-y: scroll;
     overflow-x: visible;
+    padding-left: 10px;
+    
+}
+
+#show-all-faq, #show-all-ts{
+    cursor: pointer;
+    color: gray;
+    margin-top: 1%;
+    margin-bottom: 4%;
+    font-size: 14px;
+}
+
+#show-all-faq:hover, #show-all-ts:hover{
+    color: black;
 }
 
 #left {float: left; margin-left: 5%;}
@@ -31,7 +45,7 @@ html {
 .question{
     font-family: 'Assistant';
     font-weight: 600;
-    font-size: calc(max(1.5vw, 15px));
+    font-size: calc(max(1.3vw, 13px));
     margin-bottom: 5%;
     cursor: pointer;
 }
@@ -41,8 +55,9 @@ html {
 }
 
 #q0, #t0{
-    font-size: calc(max(2.75vw, 25px));
+    font-size: calc(max(2.5vw, 25px));
     color: #8CDAD8;
+    margin-bottom: 0;
 }
 
 .answer{
