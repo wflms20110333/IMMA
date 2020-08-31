@@ -3,6 +3,7 @@ html, body {
     height: 100%;
 	font-family: 'Assistant', 'Segoe UI', sans-serif;
     font-size: 16px;
+    cursor: default;
 }
 
 html {
@@ -15,6 +16,9 @@ html {
     linear-gradient(to bottom, rgb(187, 187, 187) 1px, transparent 1px);
 }
 
+a {
+    text-decoration: none;
+}
 /* Styling text */
 h1, h2, h3, .question {
     font-family: 'Gaegu', 'Segoe UI', sans-serif;
@@ -89,6 +93,7 @@ footer p {
 	text-align: center;
 	color: #000000;
     font-weight: 400; font-size: 14px;
+    
 }
 
 /* Styling options icon */
