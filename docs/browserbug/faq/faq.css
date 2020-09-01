@@ -10,12 +10,21 @@ html {
     
 }
 
+ol, ul{
+    padding-left: 30px;
+}
+
+ol li{
+    padding-left: 10px;
+}
+
 #left, #right {
     width: 43%;
     height: 100%;
     overflow-y: scroll;
     overflow-x: visible;
     padding-left: 10px;
+    margin-top: 2%;
     
 }
 
@@ -38,7 +47,7 @@ html {
     margin-top: 2.5%;
     margin-bottom: -3%;
     text-align: center;
-    font-size:calc(max(5.5vw, 40px)); 
+    font-size:calc(max(4.5vw, 30px)); 
 
 }
 
@@ -103,15 +112,3 @@ html {
     }
   }
 
-  @media only screen and (max-width: 850px) {
-
-    #help-title{
-        margin-top: 5%;
-        margin-bottom: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-
-    
-  }

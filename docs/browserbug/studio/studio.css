@@ -1,4 +1,5 @@
 
+
 html, body {
     overflow-y: visible;
     height: 101%;
@@ -7,14 +8,9 @@ html, body {
     cursor: default;
 }
 
-#studio-title{
-    font-size:calc(max(5.5vw, 40px)); 
-    margin-top: 2vw;
-    margin-bottom: -1vw;
-    
-
+p{
+    padding:10px;
 }
-
 
 .studio{
     display: flex;
@@ -30,8 +26,12 @@ html, body {
     text-align: center;
     float: left;
     width: calc(max(30%, 300px));
+    
 }
 
+.bubble {
+    padding-top: 15px;
+}
 textarea {
     width: inherit;
     height: 50px;
@@ -78,11 +78,6 @@ input {
 
 
 
-#topright-toolbar {
-    float: right;
-    margin-top: 15px;
-    margin-right: 2%;
-}
 
 
 .bubble {
@@ -142,7 +137,7 @@ div label, div input{
     border-radius: 20px; 
     font-size: calc(max(1.2vw, 12px));
     font-weight: 600; 
-    width: 20%;
+    width: 25%;
 }
 
 #imgLabelr:hover{
@@ -158,25 +153,16 @@ div label, div input{
     background-color: #8CDAD8;
 }
 
-.top-buttons{
-    /* white-space: nowrap; */
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 3%;
-    margin-top: 7%;
-    margin-left: -.99%;
-    
 
- }
  
  #new, #export, #openBbug, #uploadBbug, #fOpen{
      background-color: #F4A180;
      border-radius: 10px;
      font-weight: 700;
-     height: 1.25vw;
-     line-height: 1.25vw;
+    
      font-size: calc(max(1vw, 15px));
+     
+     
  }
 
  #new:hover, #export:hover, #openBbug:hover, #uploadBbug:hover, #fOpen:hover{
@@ -277,15 +263,6 @@ div label, div input{
     background: rgba(255, 255, 255, 0);
 }
 
-@media only screen and (max-width: 800px) {
-    #studio-title{
-        margin-top: 4%;
-        margin-bottom: 3%;
-        margin-left: auto;
-        margin-right: auto;
-
-    }
-}
 
 @media only screen and (max-width: 650px) {
 
@@ -335,10 +312,7 @@ div label, div input{
         margin-bottom: -2%;
     }
     
-    #new, #export, #openBbug, #uploadBbug, #fOpen{
-        height: 3vw;
-        line-height: 3vw;
-    }
+    
   }
 
   

@@ -1,6 +1,9 @@
+
+
 html {
     overflow-y: hidden;
 }
+
 
 #sidebar {
     height: 70%; float: left;
@@ -9,10 +12,13 @@ html {
 }
 
 #settingscontent {
-    height: 70%; float: left;
+    height: 70%; 
     text-align: center;
-    width: 70%; margin-left: 5%;
+    width: 70%; 
+    margin: auto;
     overflow-y: scroll;
+    vertical-align: middle;
+    margin-top: 1vw;
 }
 
 .bbug-entry {
@@ -74,3 +80,4 @@ html {
     font-size: 15px;
     font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
+

@@ -1,27 +1,70 @@
-#content {
+#settingscontent {
     margin-left: 10%;
     width: 80%;
 }
 
+#check:checked ~ #settingscontent{
+    margin-left: 17%;
+    transition: .3s;
+}
+.sidebar{
+    top:0;
+}
+
+#title{
+    font-size:calc(max(3vw, 35px));
+    margin: 0;
+    padding-top: 0;
+    margin-bottom: 2%;
+    color: #e89776;
+
+
+}
+
+#first, #w_B1{
+    margin-top: 1%;
+}
+
+.bubble{
+    margin-top: 2%;
+}
+
+h2{
+    font-size:calc(max(2.5vw, 25px));
+    margin: 30px 10px 5px 10px;
+    text-transform: uppercase;
+    color: #3E4350;
+    
+
+}
+label #close-btn{
+    top:1%;
+}
 .bubble p {
     text-align: left;
+
 }
 
 #popup-image {
     width:50%;
     border-radius:15px;
-    display:inline-block;
     float:right;
     margin: 10px 30px 0px 30px;
 }
 
 .bubble {
     position: relative;
+    padding: 20px 10px;
 }
 
 #welcome-image {
-    width: 200px;
+    width: 20%;
     position: absolute;
     bottom: -22px;
     right: 10px;
+    
+}
+
+#last{
+    margin-bottom: 50px;
 }

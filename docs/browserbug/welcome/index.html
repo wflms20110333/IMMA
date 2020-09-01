@@ -8,38 +8,123 @@
     <link href='https://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Noto+Sans+SC' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" type="text/css" href="../master.css">
     <link rel="stylesheet" type="text/css" href="welcome.css">
 </head>
 
 <body>
-    <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
-    <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
-    <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
-    <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
-    <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
 
-    <div class="bubble" id="content">
+     <!----------------------------- SIDEBAR MENU ----------------------------------->
+     <input type="checkbox" id="check" checked="checked">
+
+     <label for="check">
+         <i class="fas fa-bars" id="menu-btn"></i>
+         <i class="fas fa-times" id="close-btn"></i></label>
+     <div class="sidebar">
+         <header>Menu</header>
+         <ul>
+             <li class="nav-link">
+                 <a target="_blank" href="welcome.html">Welcome</a>
+             </li>
+             <li class="nav-link"><p>Account <i class="fas fa-caret-down"></i></p>
+                 <div class="dropdown">
+                     <ul>
+                         <li class="dropdown-link">
+                             <a href="#">My Account</a>
+                         </li>
+                         <li class="dropdown-link">
+                             <a href="http://imma.studio/browserbug/options">Settings</a>
+                         </li>
+     
+                         <div class="arrow"></div>
+                     </ul>
+                 </div>
+             </li>
+             <li class="nav-link"><a href="http://imma.studio/browserbug/studio">Studio</a></li>
+             <li class="nav-link"> <p> Help <i class="fas fa-caret-down"></i></p>
+                 <div class="dropdown">
+                     <ul>
+                         <li class="dropdown-link">
+                             <a href="https://imma.studio/browserbug/faq/">FAQs</a>
+                         </li>
+                         <li class="dropdown-link">
+                             <a href="https://forms.gle/zHE8e4GiZrCb1uMe8">Bug Report</a>
+                         </li>
+                         <li class="dropdown-link">
+                             <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8">Feedback Form
+     
+                             </a>
+     
+                         </li>
+     
+                         <div class="arrow"></div>
+                     </ul>
+                 </div>
+             </li>
+             <li class="nav-link"> <p> About <i class="fas fa-caret-down"></i></p>
+                 <div class="dropdown">
+                     <ul>
+                         <li class="dropdown-link">
+                             <a href="https://imma.studio/browserbug/about_us">About Us</a>
+                         </li>
+                         <li class="dropdown-link">
+                             <a href="https://forms.gle/zHE8e4GiZrCb1uMe8">About Browserbug</a>
+                         </li>
+     
+                         <div class="arrow"></div>
+                     </ul>
+                 </div>
+             </li>
+             <li class="nav-link"><a href="https://imma.studio/browserbug">Website</a></li>
+     
+         </ul>
+         <ul class="icons">
+             <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
+                         src="../icons/facebook-icon.png"></a></li>
+             <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a></li>
+             <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
+                         style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
+     
+         </ul>
+     </div>
+ 
+     <!-----------XX---------------- SIDEBAR MENU -------------XX-------------------->
+    <!-- <div class="toolbar">
+        <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon"
+                title="Help"></a>
+        <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon"
+                title="My Browserbugs"></a>
+        <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon"
+                title="Studio"></a>
+        <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings"
+                id="options-icon" title="Options"></a>
+        <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon"
+                title="Ko-Fi"></a>
+    </div> -->
+    <h1>Welcome to Browserbug!</h1>
+    <h1 id="title">making virtual work less lonely :)</h1>
+
+    <div class="bubble" id="settingscontent">
         <img src="../../imgs/wings3welcome.png" alt="Welcome" id="welcome-image">
         <div style="text-align: left;">
             <img alt="Menu diagram" id="popup-image" src="../../imgs/welcomediagram/welcome_en2clear.png">
-            <h1>browserbug: making virtual work less lonely :)</h1>
-            <h1 class="i18n-txt" id="w_B1"></h1>
-            <p class="i18n-txt" id="w_B2"></p>
+            <h2 class="i18n-txt" id="w_B1"></h2>
+            <p class="i18n-txt" id="w_B2"></p><br>
             <p>
                 <span class="i18n-txt" id="w_B3_1"></span>
                 <a href="https://imma.studio/browserbug/faq"><span class="i18n-txt" id="w_B3_link"></span></a>
-                <span class="i18n-txt" id="w_B3_2"></span>
+                <span class="i18n-txt" id="w_B3_2"></span><br><br>
             </p>
             <p>
                 <span class="i18n-txt" id="w_B4_1"></span>
                 <b><a href="http://imma.studio/browserbug/studio"><span class="i18n-txt" id="w_B4_link"></span></a></b>
-                <span class="i18n-txt" id="w_B4_2"></span>
+                <span class="i18n-txt" id="w_B4_2"></span><br><br>
             </p>
             <p>
                 <span class="i18n-txt" id="w_C1_1"></span>
                 <a href="/options.html"><span class="i18n-txt" id="w_C1_link"></span></a>
-                <span class="i18n-txt" id="w_C1_2"></span>
+                <span class="i18n-txt" id="w_C1_2"></span><br><br>
             </p>
             <p>
                 <b><span class="i18n-txt" id="w_C2_bold"></span></b>
@@ -50,17 +135,18 @@
         </div>
 
         <div style="padding-right:170px;">
-            <h1 span class="i18n-txt" id="w_D1"></h1>
+            <h2 span class="i18n-txt" id="w_D1"></h2>
             <!--<p span class="i18n-txt" id="w_D2"></p>-->
             <p>
                 <span class="i18n-txt" id="w_D3_1"></span>
-                <a href="https://imma.studio/browserbug/privacy_policy"><span class="i18n-txt" id="w_D3_link"></span></a>
+                <a href="https://imma.studio/browserbug/privacy_policy"><span class="i18n-txt"
+                        id="w_D3_link"></span></a>
                 <span class="i18n-txt" id="w_D3_2"></span>
             </p>
         </div>
 
         <div style="padding-right:170px;">
-            <h1 class="i18n-txt" id="w_E1"></h1>
+            <h2 class="i18n-txt" id="w_E1"></h2>
             <p>
                 <b><span class="i18n-txt" id="w_E1_2"></span></b>
             </p>
@@ -70,7 +156,8 @@
                 <span class="i18n-txt" id="w_E2_2"></span>
                 <span class="i18n-txt" id="w_E3_1"></span>
                 <a href="mailto:browserbug@imma.studio"><span class="i18n-txt" id="w_E3_link1"></span></a>
-                <a href="https://www.facebook.com/Browserbug-107331981062490/"><span class="i18n-txt" id="w_E3_link2"></span></a>
+                <a href="https://www.facebook.com/Browserbug-107331981062490/"><span class="i18n-txt"
+                        id="w_E3_link2"></span></a>
                 <span class="i18n-txt" id="w_E3_4"></span>
                 <a href="https://twitter.com/browser_bug"><span class="i18n-txt" id="w_E3_link3"></span></a>
                 <span class="i18n-txt" id="w_E3_5"></span>
@@ -83,7 +170,8 @@
         <p>Copyright &copy; IMMA Studio, LLC, 2020 |
             <a href="https://imma.studio/browserbug/privacy_policy" target="_blank">Privacy Policy</a> |
             <a href="https://imma.studio/browserbug/terms_of_use" target="_blank">Terms of Use</a> |
-            <a class="mainbutton" id="report" href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>
+            <a class="mainbutton" id="report"
+                href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>
 
         </p>
     </footer>
