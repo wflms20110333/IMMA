@@ -85,4 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void showAbout(MenuItem item) {
         startActivity(new Intent(this, AboutActivity.class));
     }
+    public void startNotif(MenuItem item) {
+        startActivity(new Intent(this, NotifActivity.class));
+    }
 }

@@ -62,8 +62,7 @@ public class NotifActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_studio);
         Log.i("NotifActivity.java", "========== notif activity started ==========");
 
         // Alarm code
@@ -73,6 +72,8 @@ public class NotifActivity extends AppCompatActivity {
         bbug_name = (TextView) findViewById(R.id.bbugName); // initialize character label
         activation_switch = (Switch) findViewById(R.id.activationSwitch); // initialize switch
         final Calendar calendar = Calendar.getInstance(); // create instance of calendar
+
+        Log.i("NotifActivity.java", "=================== still ok so far");
 
         // populate menu of the spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.freqtimes, android.R.layout.simple_spinner_item);
@@ -121,7 +122,7 @@ public class NotifActivity extends AppCompatActivity {
                 }
             }
         });
-
+        /*
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         username = intent.getStringExtra(LoginActivity.USERNAME_MESSAGE);
@@ -153,25 +154,8 @@ public class NotifActivity extends AppCompatActivity {
         TextView navHeaderTitle = header.findViewById(R.id.nav_header_title);
         TextView navHeaderText = header.findViewById(R.id.nav_header_text);
         navHeaderTitle.setText("Browserbee"); // TODO: change this to the name of their browserbug
-        navHeaderText.setText(username);
+        navHeaderText.setText(username);*/
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    /** Called when the user taps the about action */
-    public void showAbout(MenuItem item) {
-        startActivity(new Intent(this, AboutActivity.class));
-    }
 }
