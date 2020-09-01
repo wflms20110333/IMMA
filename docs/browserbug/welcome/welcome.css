@@ -42,7 +42,7 @@ label #close-btn{
 }
 .bubble p {
     text-align: left;
-    padding: 3px;
+
 }
 
 #popup-image {
@@ -54,6 +54,7 @@ label #close-btn{
 
 .bubble {
     position: relative;
+    padding: 20px 10px;
 }
 
 #welcome-image {
@@ -64,3 +65,6 @@ label #close-btn{
     
 }
 
+#last{
+    margin-bottom: 50px;
+}
