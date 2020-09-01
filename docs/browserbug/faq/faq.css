@@ -10,12 +10,22 @@ html {
     
 }
 
+ol, ul{
+    padding-left: 30px;
+}
+
+ol li{
+    padding-left: 10px;
+}
+
 #left, #right {
     width: 43%;
     height: 100%;
     overflow-y: scroll;
     overflow-x: visible;
     padding-left: 10px;
+    padding-top: 15px;
+    margin-top: 2%;
     
 }
 
