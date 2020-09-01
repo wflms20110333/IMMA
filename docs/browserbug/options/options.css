@@ -1,7 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     overflow-y: hidden;
 }
 
+h1{
+    font-size:calc(max(4.5vw, 30px)); 
+    padding-top: 3vw;
+    text-align: center;
+    
+
+}
 #sidebar {
     height: 70%; float: left;
     text-align: center;
@@ -9,10 +22,13 @@ html {
 }
 
 #settingscontent {
-    height: 70%; float: left;
+    height: 70%; 
     text-align: center;
-    width: 70%; margin-left: 5%;
+    width: 70%; 
+    margin: auto;
     overflow-y: scroll;
+    vertical-align: middle;
+    margin-top: 1vw;
 }
 
 .bbug-entry {
@@ -74,3 +90,20 @@ html {
     font-size: 15px;
     font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
+
+/* TEMP FIX */
+footer p{
+    padding-top: 10px;
+}
+
+@media only screen and (max-width: 850px) {
+
+    h1{
+        padding-top: 7vw;
+        padding-bottom: 4vw;
+        
+    }
+
+
+    
+  }
