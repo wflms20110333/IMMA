@@ -1,6 +1,7 @@
 package com.example.browserbugandroid.ui.studio;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,16 @@ public class StudioFragment extends Fragment {
         studioViewModel =
                 ViewModelProviders.of(this).get(StudioViewModel.class);
         View root = inflater.inflate(R.layout.fragment_studio, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+
+        Log.i("StudioFragment.java", "========== fragment run ==========");
+
+        /*final TextView textView = root.findViewById(R.id.text_slideshow);
         studioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

@@ -2,14 +2,25 @@ package com.example.browserbugandroid;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.app.AlarmManager;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.CompoundButton;
+import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +37,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Calendar;
+
 // Notification imports
 
 public class NotifActivity extends AppCompatActivity {
@@ -38,13 +51,38 @@ public class NotifActivity extends AppCompatActivity {
     public int alarmSpacing;
     private static String CHANNEL_ID = "bbugChannel";
 
+    // to make an alarm manager
+    AlarmManager alarm_manager;
+    Spinner freq_picker;
+    TextView bbug_name;
+    Switch activation_switch;
+    Context context;
+    PendingIntent pending_intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // DO NOTIFICATION STUFF! ---------------
-        //alarmSpacing = (TextView) findViewById(R.id.alarm_spacing);
+        Log.i("NotifActivity.java", "========== notif activity started ==========");
+
+        // Alarm code
+        this.context = this;
+        alarm_manager = (AlarmManager) getSystemService(ALARM_SERVICE); // initialize alarm manager
+        freq_picker = (Spinner) findViewById(R.id.msgFreqSpinner); // initialize frequency picker
+        bbug_name = (TextView) findViewById(R.id.bbugName); // initialize character label
+        activation_switch = (Switch) findViewById(R.id.activationSwitch); // initialize switch
+        final Calendar calendar = Calendar.getInstance(); // create instance of calendar
+
+        // populate menu of the spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.freqtimes, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        freq_picker.setAdapter(adapter);
+        //freq_picker.setOnItemSelectedListener(this);
+
+        // create intent to the Alarm Receiver class
+        final Intent my_intent = new Intent(this.context, Alarm_Receiver.class);
+        my_intent.putExtra("chnl_id", CHANNEL_ID);
 
         // Create NotificationChannel, only on API 26+ bc class is new, not in support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -58,27 +96,31 @@ public class NotifActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-/*
-        // Define notification tap actions
-        Intent intent = new Intent(this, AlertDetails.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-*/
-        // Build notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo)
-            .setContentTitle("titling this notif!!")
-            .setContentText("content text here!! whooo!!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            //.setContentIntent(pendingIntent)
-            .setAutoCancel(true); // automatically removes notification on tap
 
-        // Send a notification
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(100, builder.build()); // notificationId is a unique int for each notification that you must define
 
-        // NOTIFICATION STUFF END ---------------
+        // listeners
+        // #TODO spinner listener
+        activation_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                Log.i("NotifActivity.java", "========== switch switched ==========");
+                if (isChecked) {
+                    pending_intent = PendingIntent.getBroadcast(context, 0,
+                        my_intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    alarm_manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
+                        AlarmManager.INTERVAL_HALF_HOUR, pending_intent);
+
+                    // #TODO experiment with setInexactRepeating to see if that consumes less battery
+                    // #TODO start alarms after restart https://developer.android.com/training/scheduling/alarms#boot
+                    // #TODO combine with spinner selected value
+                } else {
+                    // inactivate alarm
+                    alarm_manager.cancel(pending_intent);
+                }
+            }
+        });
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
