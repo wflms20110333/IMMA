@@ -57,7 +57,8 @@ a:hover {color: #7057C9; text-decoration: none;}
     background: rgba(255, 255, 255, 0.7);
     border: none;
 	padding-top: 5px;
-	padding-bottom: 20px;
+    padding-bottom: 20px;
+    
 }
 
 /* Styling fieldsets */
@@ -166,3 +167,182 @@ select {
     text-align-last:center;
 }
 
+/* ------------------- SIDE MENU ------------------------ */
+.sidebar{
+    position: fixed;
+    left: calc(min(-15%, -120px));
+    width: calc(max(15%, 120px));
+    background-color:#8CDAD8;
+    height: 100%;
+    z-index: 1000;
+    /* display:none; */
+    transition: all .5s ease;
+    
+    
+}
+
+#check{
+    display: none;
+}
+
+label #menu-btn, label #close-btn{
+    position: absolute;
+    z-index: 1001;
+    transition: all .5s;
+    color:#3E4350;
+    cursor: pointer;
+    
+    
+    padding: .75vh .75vw;
+    border-radius: 10px;
+    
+}
+
+label #close-btn {
+    left: calc(min(-15%, -120px));
+    opacity: 0;
+    pointer-events: none;
+    font-size: 3vh;
+    
+}
+
+label #close-btn:hover{
+    font-size: 3.5vh;
+}
+label #menu-btn{
+    left: 2%;
+    top: 3%;
+    background:#8CDAD8;
+    font-size: 4vh;
+    
+
+}
+.sidebar header {
+    padding: 1.5vh;
+    text-align: center;
+    font-size: 5vh;
+    font-family: 'Gaegu';
+    color: white;
+    background: #81c9c8;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+
+#check:checked ~ .sidebar{
+    left: 0;
+}
+
+#check:checked ~ #settingscontent{
+    margin-left: 22%;
+    transition: .3s;
+}
+
+#check:checked ~ h1{
+    margin-left: 13%;
+    transition: .3s;
+}
+
+#check:checked ~ label #menu-btn{
+    left: calc(min(-15%, -120px));
+    opacity: 0;
+    pointer-events: none;
+    
+}
+
+#check:checked ~ label #close-btn{
+    left: calc(max(12%, 90px));
+    padding: 1vh;
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.sidebar ul{
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    
+   
+}
+
+
+.sidebar ul li{
+   padding: 3vh 0;
+   text-align: center;
+   transition: 0.3s;
+   border-radius: 20px;
+   
+  
+}
+
+.nav-link:hover{
+    background: #81c9c8;
+    transform: translateX(7%) scale(1.02);
+    
+}
+.sidebar ul a{
+    color: #3E4350;
+    font-weight: 600;
+}
+
+.nav-link{
+    position: relative;
+
+}
+
+.nav-link:hover > .dropdown{
+    display: block;
+}
+
+.nav-link > a > i {
+    margin-left: .4rem;
+}
+
+.dropdown{
+    position: initial;
+    top: initial;
+    left: initial;
+    pointer-events: auto;
+    display: none;  
+}
+
+.dropdown ul a{
+    color: white;
+}
+
+.dropdown ul li{
+    text-align: left;
+    padding-left: 2vw;
+}
+.dropdown-link:hover{
+    transform: translateX(3%) scale(1.02);
+}
+
+.sidebar .icons{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background: #81c9c8;
+    justify-content: center;
+    padding: 1vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.sidebar .icons li{
+    padding: .6vw;
+}
+.sidebar .icons li img{
+    width: calc(max(2vw, 20px));
+    transition: .3s;
+    opacity: .8;
+}
+
+.sidebar .icons li img:hover{
+    transform: scale(1.1);
+}
+
+/* ----------XX-------- SIDE MENU ------------XX----------- */
