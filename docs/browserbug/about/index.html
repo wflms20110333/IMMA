@@ -17,7 +17,6 @@
 <body>
 
     <!----------------------------- SIDEBAR MENU ----------------------------------->
-
     <input type="checkbox" id="check" checked="checked">
 
     <label for="check">
@@ -26,11 +25,25 @@
     <div class="sidebar">
         <header>Menu</header>
         <ul>
-            <li class="nav-link"><a href="welcome.html">Welcome</a></li>
-            <li class="nav-link"><a href="#">Account</a></li>
+            <li class="nav-link">
+                <atarget="_blank" href="welcome.html">Welcome</a>
+            </li>
+            <li class="nav-link"><p>Account <i class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link">
+                            <a href="#">My Account</a>
+                        </li>
+                        <li class="dropdown-link">
+                            <a href="http://imma.studio/browserbug/options">Settings</a>
+                        </li>
+    
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-link"><a href="http://imma.studio/browserbug/studio">Studio</a></li>
-            <li class="nav-link"><a href="http://imma.studio/browserbug/options">Settings</a></li>
-            <li class="nav-link"><a href="../welcome/index.html">Help<i class="fas fa-caret-down"></i></a>
+            <li class="nav-link"> <p> Help <i class="fas fa-caret-down"></i></p>
                 <div class="dropdown">
                     <ul>
                         <li class="dropdown-link">
@@ -41,27 +54,39 @@
                         </li>
                         <li class="dropdown-link">
                             <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8">Feedback Form
-
+    
                             </a>
-
+    
                         </li>
-
+    
                         <div class="arrow"></div>
                     </ul>
                 </div>
             </li>
-            <li class="nav-link"><a href="https://imma.studio/browserbug/about_us">About Us</a></li>
+            <li class="nav-link"> <p> About <i class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link">
+                            <a href="https://imma.studio/browserbug/about_us">About Us</a>
+                        </li>
+                        <li class="dropdown-link">
+                            <a href="https://forms.gle/zHE8e4GiZrCb1uMe8">About Browserbug</a>
+                        </li>
+    
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-link"><a href="https://imma.studio/browserbug">Website</a></li>
-
+    
         </ul>
         <ul class="icons">
             <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
                         src="../icons/facebook-icon.png"></a></li>
-            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a>
-            </li>
+            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a></li>
             <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
                         style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
-
+    
         </ul>
     </div>
 

@@ -295,7 +295,7 @@ label #menu-btn{
     transform: translateX(7%) scale(1.02);
     
 }
-.sidebar ul a{
+.sidebar ul a, .sidebar ul p{
     color: #3E4350;
     font-weight: 600;
 }
@@ -359,7 +359,9 @@ label #menu-btn{
     transform: scale(1.1);
 }
 
-
+#active-page{
+    color:red;
+}
 
 
 /* -------------------- RESPONSIVENESS TO SMALLER SCREENS ------------------------- */
