@@ -8,13 +8,6 @@ html, body {
     cursor: default;
 }
 
-#studio-title{
-    font-size:calc(max(5.5vw, 40px)); 
-    margin-top: 2vw;
-    margin-bottom: -1vw;
-    
-
-}
 p{
     padding:10px;
 }
@@ -33,8 +26,12 @@ p{
     text-align: center;
     float: left;
     width: calc(max(30%, 300px));
+    
 }
 
+.bubble {
+    padding-top: 15px;
+}
 textarea {
     width: inherit;
     height: 50px;
