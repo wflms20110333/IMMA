@@ -103,22 +103,7 @@ h1{
 }
 
 
-/* TEMP FIX */
-footer p{
-    padding-top: 10px;
-}
 
 
-@media only screen and (max-width: 850px) {
-
-    h1{
-        padding-top: 7vw;
-        padding-bottom: 4vw;
-        
-    }
-
-
-    
-  }
 
   

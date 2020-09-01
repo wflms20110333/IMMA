@@ -1,20 +1,10 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 html {
     overflow-y: hidden;
 }
 
-h1{
-    font-size:calc(max(4.5vw, 30px)); 
-    padding-top: 3vw;
-    text-align: center;
-    
 
-}
 #sidebar {
     height: 70%; float: left;
     text-align: center;
@@ -91,19 +81,3 @@ h1{
     font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
 
-/* TEMP FIX */
-footer p{
-    padding-top: 10px;
-}
-
-@media only screen and (max-width: 850px) {
-
-    h1{
-        padding-top: 7vw;
-        padding-bottom: 4vw;
-        
-    }
-
-
-    
-  }

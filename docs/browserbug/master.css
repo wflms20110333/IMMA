@@ -1,3 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
 	margin: 0px;
     height: 100%;
@@ -26,6 +32,12 @@ h1, h2, h3, .question {
 h1 {
     color: #000000; font-size: 26px; margin-left: 25px;
     font-weight: 600;
+    font-size:calc(max(4.5vw, 30px)); 
+    padding-top: 3vw;
+    text-align: center;
+        
+    
+    
 }
 h2 {
     display: inline-block;
@@ -89,11 +101,10 @@ footer {
     background: rgba(255, 255, 255, 0.4);
 }
 footer p {
-    position: relative;
-    bottom: 17%;
 	text-align: center;
 	color: #000000;
     font-weight: 400; font-size: 14px;
+    padding-top: .6%;
     
 }
 
@@ -346,3 +357,15 @@ label #menu-btn{
 }
 
 /* ----------XX-------- SIDE MENU ------------XX----------- */
+
+@media only screen and (max-width: 850px) {
+
+    h1{
+        padding-top: 7vw;
+        padding-bottom: 4vw;
+        
+    }
+
+
+    
+  }

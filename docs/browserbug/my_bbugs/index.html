@@ -11,18 +11,21 @@
     <link rel="stylesheet" type="text/css" href="options.css">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"> </script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 </head>
 
 <body>
     <input type="checkbox" id="check" checked="checked">
-
+<!----------------------------- SIDEBAR MENU ----------------------------------->
     <label for="check">
         <i class="fas fa-bars" id="menu-btn"></i>
         <i class="fas fa-times" id="close-btn"></i></label>
     <div class="sidebar">
         <header>Menu</header>
         <ul>
-            <li class="nav-link"><atarget="_blank" href="welcome.html">Welcome</a></li>
+            <li class="nav-link">
+                <atarget="_blank" href="welcome.html">Welcome</a>
+            </li>
             <li class="nav-link"><a href="#">Account</a></li>
             <li class="nav-link"><a href="http://imma.studio/browserbug/studio">Studio</a></li>
             <li class="nav-link"><a href="http://imma.studio/browserbug/options">Settings</a></li>
@@ -48,18 +51,19 @@
             </li>
             <li class="nav-link"><a href="https://imma.studio/browserbug/about_us">About Us</a></li>
             <li class="nav-link"><a href="https://imma.studio/browserbug">Website</a></li>
-            
+
         </ul>
         <ul class="icons">
             <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
                         src="../icons/facebook-icon.png"></a></li>
-            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img
-                        src="../icons/twitter-icon.png"></a></li>
-            <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img style="width: calc(max(5vw, 50px)); padding-top: .1vw;"
-                        src="../icons/ko-fi_full.png"></a></li>
+            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a></li>
+            <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
+                        style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
 
         </ul>
     </div>
+ <!------------XX--------------- SIDEBAR MENU ----------------XX----------------->
+ 
     <!-- <div class="toolbar">
         <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon"
                 title="Help"></a>
@@ -74,9 +78,9 @@
     </div> -->
 
     <h1 style="margin-bottom:2px;">Your Browserbugs</h1>
-    
+
     <div class="bubble" id="settingscontent">
-        
+
         <span class="i18n-txt" id="translations_available"></span>
         <p style="margin-top:15px;margin-bottom:2px;">A list of all the Browserbugs you've saved to our server. <span
                 id="bbugs-used">1</span>/<span id="bbugs-avail">8</span> slots used.</p>
@@ -135,4 +139,5 @@
 <script src="../constants.js"></script>
 <script src="../util.js"></script>
 <script src="account.js"></script>
+
 </html>
