@@ -200,7 +200,7 @@ select {
 }
 
 label #menu-btn, label #close-btn{
-    position: absolute;
+    position: fixed;
     z-index: 1001;
     transition: all .5s;
     color:#3E4350;
@@ -359,8 +359,10 @@ label #menu-btn{
     transform: scale(1.1);
 }
 
-/* ----------XX-------- SIDE MENU ------------XX----------- */
 
+
+
+/* -------------------- RESPONSIVENESS TO SMALLER SCREENS ------------------------- */
 @media only screen and (max-width: 850px) {
 
     h1{

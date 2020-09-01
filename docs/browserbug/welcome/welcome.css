@@ -1,16 +1,37 @@
-#content {
+#settingscontent {
     margin-left: 10%;
     width: 80%;
 }
 
+#check:checked ~ #settingscontent{
+    margin-left: 17%;
+    transition: .3s;
+}
+.sidebar{
+    top:0;
+}
+
+#testing{
+    font-size:calc(max(4vw, 30px)); 
+
+}
+
+h2{
+    font-size:calc(max(2.5vw, 25px));
+    margin: 30px 10px 5px 10px;
+
+}
+label #close-btn{
+    top:1%;
+}
 .bubble p {
     text-align: left;
+    padding: 3px;
 }
 
 #popup-image {
     width:50%;
     border-radius:15px;
-    display:inline-block;
     float:right;
     margin: 10px 30px 0px 30px;
 }
