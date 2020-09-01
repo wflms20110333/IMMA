@@ -16,6 +16,7 @@
     margin: 0;
     padding-top: 0;
     margin-bottom: -2%;
+    color: #e89776;
 
 
 }
@@ -23,6 +24,7 @@
 h2{
     font-size:calc(max(2.5vw, 25px));
     margin: 30px 10px 5px 10px;
+    
 
 }
 label #close-btn{
@@ -51,14 +53,3 @@ label #close-btn{
     right: 10px;
 }
 
-@media only screen and (max-width: 525px) {
-
-    #popup-image{
-        display: block;
-  margin-left: auto;
-  margin-right: auto;
-    }
-
-
-    
-  }
