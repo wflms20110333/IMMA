@@ -11,8 +11,12 @@
     top:0;
 }
 
-#testing{
-    font-size:calc(max(4vw, 30px)); 
+#title{
+    font-size:calc(max(3vw, 35px));
+    margin: 0;
+    padding-top: 0;
+    margin-bottom: -2%;
+
 
 }
 
@@ -46,3 +50,15 @@ label #close-btn{
     bottom: -22px;
     right: 10px;
 }
+
+@media only screen and (max-width: 525px) {
+
+    #popup-image{
+        display: block;
+  margin-left: auto;
+  margin-right: auto;
+    }
+
+
+    
+  }
