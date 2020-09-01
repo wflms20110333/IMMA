@@ -21,22 +21,24 @@
 
 <body>
     <header>
-        <h1 id="help-title" >Browserbug Help</h1>
+        <h1 id="help-title" >Browserbug Help Center</h1>
     </header>
-    
-    <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
-    <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
-    <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
-    <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
-    <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
+    <div class="toolbar">
 
+    
+        <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
+        <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
+        <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
+        <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
+        <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
+    </div> 
     <div id="content">
         <div class="bubble" id="left">
             <h3 class="i18n-txt" id="q0"></h3>
+            <p id = "show-all-faq">expand all</p>
+            <p class="question i18n-txt" id="q1" ></p>
 
-            <p class="question i18n-txt" id="q1" onclick="changeAnswerVisibility('a1')"></p>
-
-            <div class = "answer" id="a1" style="display: none">
+            <div class = "answer faqCol" id="a1" style="display: none">
                 <p class="answer i18n-txt"  id="a1_1" ></p>
                 <p class="answer" id = "a1"  >
                     <span class="i18n-txt" id="a1_2"></span>
@@ -49,50 +51,54 @@
                     <span class="i18n-txt" id="a1_7"></span>
                 </p>
             </div>
-            <p class="question i18n-txt" id="q2" onclick="changeAnswerVisibility('a2')"></p>
-            <p class="answer" id = "a2" style="display: none">
+            <p class="question i18n-txt" id="q2"></p>
+            <p class="answer faqCol" id = "a2" style="display: none">
                 <span class="i18n-txt" id="a2_1" ></span>
                 <a href="ms-settings:easeofaccess-display"><span class="i18n-txt" id="a2_2"></span></a>
                 <span class="i18n-txt" id="a2_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q3" onclick="changeAnswerVisibility('a3')"></p>
-            <p class="answer" id = "a3" style="display: none">
+            <p class="question i18n-txt" id="q3" ></p>
+            <p class="answer faqCol" id = "a3" style="display: none">
                 <span class="i18n-txt" id="a3_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a3_2"></span></a>
                 <span class="i18n-txt" id="a3_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q4" onclick="changeAnswerVisibility('a4')"></p>
-            <p class="answer" id = "a4" style="display: none">
+            <p class="question i18n-txt" id="q4"></p>
+            <p class="answer faqCol" id = "a4" style="display: none">
                 <span class="i18n-txt" id="a4_1"></span>
                 <a href="ms-settings:notifications"><span class="i18n-txt" id="a4_2"></span></a>
                 <span class="i18n-txt" id="a4_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q5" onclick="changeAnswerVisibility('a5')"></p>
-            <p class="answer" id = "a5" style="display: none">
+            <p class="question i18n-txt" id="q5" ></p>
+            <p class="answer faqCol" id = "a5" style="display: none">
                 <span class="i18n-txt" id="a5_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a5_2"></span></a>
                 <span class="i18n-txt" id="a5_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q6" onclick="changeAnswerVisibility('a6')"></p>
-            <p class="answer" id = "a6" style="display: none">
+            <p class="question i18n-txt" id="q6" ></p>
+            <p class="answer faqCol" id = "a6" style="display: none">
                 <span class="i18n-txt" id="a6_1"></span>
                 <a href="../about" target="_blank"><span class="i18n-txt" id="a6_2"></span></a>
                 <span class="i18n-txt" id="a6_3"></span>
             </p>
         </div>
-
+        <!-- <div id="center">
+            <h3 class = "center-text" id = "need-help">Need help?</h3>
+            <img id="im0-img" src="https://imma-bucket.s3-us-west-2.amazonaws.com/browserbug_images/null_image.png"  alt="Icon">
+            <h3 class = "center-text">We've got you!</h3>
+        </div> -->
         <div class="bubble" id="right">
             <h3 class="i18n-txt" id="t0"></h3>
+            <p id = "show-all-ts">expand all</p>
+            <p class="question i18n-txt" id="t1" ></p>
+            <p class="answer i18n-txt tsCol" id="r1" style="display: none"></p>
 
-            <p class="question i18n-txt" id="t1" onclick="changeAnswerVisibility('r1')"></p>
-            <p class="answer i18n-txt" id="r1" style="display: none"></p>
-
-            <p class="question i18n-txt" id="t2" onclick="changeAnswerVisibility('r2')"></p>
-            <div class = "answer" id = "r2" style="display: none"> 
+            <p class="question i18n-txt" id="t2"></p>
+            <div class = "answer tsCol" id = "r2" style="display: none"> 
             <p class="answer i18n-txt" id="r2_1"></p>
             <p class="answer"><b>
                 <span class="i18n-txt" id="r2_2"></span>
@@ -151,8 +157,8 @@
             <br>
             <p class="answer i18n-txt" id="r5_6"></p>
         </div>
-            <p class="question" onclick="changeAnswerVisibility('r3')">Known issues</p>
-            <div class = "answer" id = "r3"  style="display: none">
+            <p class="question" id= "t3" >Known issues</p>
+            <div class = "answer tsCol" id = "r3"  style="display: none">
 
            
             <ul>
@@ -166,8 +172,8 @@
 
             <p class="answer">It's also possible that our server might be down - we'll try to post updates on any outages on our Twitter!</p>
         </div>
-            <p class="question i18n-txt" id="t6" onclick="changeAnswerVisibility('r4')"></p>
-            <p class="answer" id="r4" style="display: none;">
+            <p class="question i18n-txt" id="t6" ></p>
+            <p class="answer tsCol" id="r6" style="display: none;">
                 <span class="i18n-txt" id="r6_1"></span>
                 <a href="mailto:browserbug@imma.studio">
                     <span class="i18n-txt" id="r6_2"></span>
@@ -188,7 +194,7 @@
             </p>
         </div>
     </div>
-
+    
 
     </div>
     </div>
