@@ -43,4 +43,17 @@
     <string name="menu_options">Options</string>
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
+
+    <!-- Strings related to notifications -->
+    <string name="channel_name">Browserbug Messaging Channel</string>
+    <string name="channel_description">Sends reminders and notifications for Browserbug</string>
+
+    <string-array name="freqtimes">
+        <item>10 seconds</item>
+        <item>1 minute</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+    </string-array>
 </resources>
