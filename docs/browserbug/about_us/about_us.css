@@ -1,0 +1,82 @@
+
+.bubbles{
+    display: flex;
+    justify-content: center;
+    transition: .3s;
+}
+#test{
+    display: flex;
+    white-space: nowrap;
+    justify-content: center;
+    width: 80%;
+}
+
+
+#test div{
+    width: 20%;
+    margin: 1vw;
+    flex: 1;
+}
+
+#test div img{
+    margin-left: 15%;
+    margin-top: 5%;
+    width: 70%;
+    border-radius: 20px;
+    background-color: rgba(62, 67, 80, 0.3);
+}
+
+#description, #role, #school{
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+
+#check:checked ~ h1{
+    margin-left: 8%;
+}
+
+#check:checked ~ .bubbles{
+    margin-left: 8%;
+    
+}
+
+h3{
+    font-size: calc(max(2.5vw, 30px));
+    color: #3E4350;
+}
+
+#description{
+    padding: .5vw;
+
+}
+
+#role{
+    font-size: calc(max(1.1vw, 15px));
+    color: gray;
+
+}
+
+#school {
+    font-size: calc(max(1.2vw, 18px));
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 850px) {
+    html{
+        overflow: auto;
+    }
+    #test{
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    #test div{
+        width: 60%;
+        margin: 1vw;
+        flex: 1;
+        margin-bottom: 10%
+    }
+    
+  }
