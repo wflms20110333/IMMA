@@ -54,7 +54,6 @@ h1{
 
 #description, #role, #school{
     white-space: pre-line;
-    word-wrap: break-word;
 }
 
 
