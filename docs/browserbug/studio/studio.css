@@ -14,6 +14,8 @@ p{
 
 .studio{
     display: flex;
+    justify-content: space-between;
+    flex: 1;
 
 }
 
@@ -28,11 +30,14 @@ p{
     float: left;
     width: calc(max(30%, 300px));
     
+    
 }
 
 .bubble {
     padding-top: 15px;
 }
+
+
 textarea {
     width: inherit;
     height: 50px;

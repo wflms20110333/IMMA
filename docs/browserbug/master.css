@@ -61,8 +61,6 @@ p {
     text-align: center;
 }
 
-a:active, a:link, a:visited {color: #9c2add; text-decoration: none;}
-a:hover {color: #7057C9; text-decoration: none;}
 
 /* Styling menu bubbles */
 .bubble {
