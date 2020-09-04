@@ -35,9 +35,10 @@ h1, h2, h3, .question {
 h1 {
     color: #000000; font-size: 26px; margin-left: 25px;
     font-weight: 600;
-    font-size:calc(max(4.5vw, 30px)); 
+    font-size:calc(max(4.5vw, 3rem)); 
     padding-top: 3vw;
     text-align: center;
+    transition: .3s;
         
     
     
@@ -247,14 +248,18 @@ label #menu-btn{
     left: 0;
 }
 
-#check:checked ~ #settingscontent{
-    margin-left: 22%;
+#settingscontent {
     transition: .3s;
 }
+#check:checked ~ #settingscontent{
+    margin-left: 22%;
+    
+}
+
+
 
 #check:checked ~ h1{
     margin-left: 13%;
-    transition: .3s;
 }
 
 #check:checked ~ label #menu-btn{
@@ -289,6 +294,7 @@ label #menu-btn{
    
   
 }
+
 
 .nav-link:hover{
     background: #81c9c8;
@@ -359,9 +365,6 @@ label #menu-btn{
     transform: scale(1.1);
 }
 
-#active-page{
-    color:red;
-}
 
 
 /* -------------------- RESPONSIVENESS TO SMALLER SCREENS ------------------------- */
