@@ -33,11 +33,16 @@ h1{
 
 }
 
+#id-cards div:hover{
+    transform: scale(1.05);
+}
+
 
 #id-cards div{
     width: 20%;
     margin: 1vw;
     flex: 1;
+    transition: .2s;
 }
 
 #id-cards div img{
