@@ -44,6 +44,18 @@
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
 
+    <!-- Strings related to studio -->
+    <string name="bbug_default_name">Browserbee</string>
+    <string name="studio_upload">Upload image</string>
+    <string name="studio_category1">Wellness</string>
+    <string name="studio_category2">Focus</string>
+    <string name="studio_category3">Support</string>
+    <string name="studio_category4">Kudos</string>
+    <string name="studio_style1">Emojis</string>
+    <string name="studio_style2">Capitalization</string>
+    <string name="studio_style3">Punctuation</string>
+    <string name="studio_save">Save character</string>
+
     <!-- Strings related to notifications -->
     <string name="channel_name">Browserbug Messaging Channel</string>
     <string name="channel_description">Sends reminders and notifications for Browserbug</string>

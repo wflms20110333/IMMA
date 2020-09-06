@@ -7,42 +7,127 @@
     android:layout_height="match_parent"
     tools:context=".ui.mybrowserbugs.MyBrowserbugsFragment" >
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="276dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/activationSwitch"
-            android:layout_width="103dp"
-            android:layout_height="59dp"
-            android:text="Activateeeeeeeeeeeeeeeeeee" />
-
-        <Spinner
-            android:id="@+id/msgFreqSpinner"
-            android:layout_width="332dp"
-            android:layout_height="237dp" />
-
-        <EditText
-            android:id="@+id/bbugName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Your Browserbug" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/nav_header_title"
-            android:layout_width="79dp"
-            android:layout_height="20dp"
-            android:text="TextView" />
+            <EditText
+                android:id="@+id/bbugName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/bbug_default_name" />
 
-        <TextView
-            android:id="@+id/nav_header_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/avatar_preview"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:src="@drawable/logo" />
+
+            <Button
+                android:id="@+id/avatar_change_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_upload" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_category1" />
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_category2" />
+            <CheckBox
+                android:id="@+id/checkBox3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_category3" />
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_category4" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/emoji_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/studio_style1" />
+            <SeekBar
+                android:id="@+id/emoji_bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="3"
+                android:progress="2" />
+            <TextView
+                android:id="@+id/capital_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/studio_style2" />
+            <SeekBar
+                android:id="@+id/capital_bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="3"
+                android:progress="2" />
+            <TextView
+                android:id="@+id/punct_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/studio_style3" />
+            <SeekBar
+                android:id="@+id/punct_bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="3"
+                android:progress="2" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/studio_save" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
