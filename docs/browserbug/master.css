@@ -29,11 +29,11 @@ a {
     text-decoration: none;
 }
 /* Styling text */
-h1, h2, h3, .question {
+h1, h2, h3 {
     font-family: 'Gaegu', 'Segoe UI', sans-serif;
 }
 h1 {
-    color: #000000; font-size: 26px; margin-left: 25px;
+    color: #000000;
     font-weight: 600;
     font-size:calc(max(4.5vw, 3rem)); 
     padding-top: 3vw;
@@ -60,11 +60,7 @@ p {
     font-size: inherit;
     text-align: center;
 }
-.question {color: #000000; font-weight: 500; font-size: 23px; text-align: left;
-    margin:0px;margin-left:25px;}
-.answer {color: #000000; font-size: 15px; text-align: left;}
-a:active, a:link, a:visited {color: #9c2add; text-decoration: none;}
-a:hover {color: #7057C9; text-decoration: none;}
+
 
 /* Styling menu bubbles */
 .bubble {
