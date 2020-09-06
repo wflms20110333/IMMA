@@ -28,7 +28,7 @@ h1{
     display: flex;
     white-space: nowrap;
     justify-content: center;
-    width: 50%;
+    width: 70%;
     transition: 1s;
 
 }
@@ -54,7 +54,6 @@ h1{
 
 #description, #role, #school{
     white-space: pre-line;
-    word-wrap: break-word;
 }
 
 
