@@ -98,39 +98,6 @@ public class NotifActivity extends AppCompatActivity {
                 }
             }
         });
-        /*
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        username = intent.getStringExtra(LoginActivity.USERNAME_MESSAGE);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_my_account, R.id.nav_my_browserbugs, R.id.nav_studio, R.id.nav_options, R.id.nav_help, R.id.nav_support)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        // Set navigation header
-        View header = navigationView.getHeaderView(0);
-        TextView navHeaderTitle = header.findViewById(R.id.nav_header_title);
-        TextView navHeaderText = header.findViewById(R.id.nav_header_text);
-        navHeaderTitle.setText("Browserbee"); // TODO: change this to the name of their browserbug
-        navHeaderText.setText(username);*/
     }
 
     private void activateAlarms() {
