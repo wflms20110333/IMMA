@@ -135,13 +135,12 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 69%;
+    width: 70%;
     z-index: 1000;
 }
 .nav-links{
     display: flex;
     justify-content: space-between;
-    /* padding-left: 3vw; */
     width: 50%;
     height: 100%;
     font-size: 1.1rem;
@@ -217,18 +216,18 @@ footer a:not(#copyright):hover{
     color: #30343d;
 }
 
-/* MEDIA QUERY */
+/* MEDIA QUERIES */
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1050px){
     .nav-content{
-        width: 73%;
+        width: 80%;
     }
+
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 830px){
     body{
         overflow-x: hidden;
-        /* cursor: pointer; */
     }
 
     nav{
