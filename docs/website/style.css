@@ -172,6 +172,7 @@ nav{
 
 .btn:hover{
     background-color:#F4A180;
+    font-weight: 700;
     color: #3E4350;
     
    
@@ -195,12 +196,13 @@ nav{
     nav{
         justify-content: space-between;
         padding: 0 50px;
+        height: 12vh;
     }
     .nav-content{
         position: absolute;
         right: 0;
-        height: 92vh;
-        top: 8vh;
+        height: 88vh;
+        top: 12vh;
         background-color: #F4A180 ;
         display: flex;
         flex-direction: column;
