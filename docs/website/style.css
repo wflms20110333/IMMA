@@ -39,6 +39,7 @@ li{
 
 h2, h1{
     animation: 1.5s ease slideInFromRight;
+
 }
 
 
@@ -50,6 +51,7 @@ h2, h1{
     height: calc(min(80vh, 60vw));
     z-index: -999;
 }
+
 
 #grass{
     position: absolute;
