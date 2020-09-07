@@ -6,9 +6,4 @@
         android:onClick="showAbout"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <item android:id="@+id/action_notifstart"
-        android:title="aaaaaa"
-        android:onClick="startNotif"
-        android:orderInCategory="101"
-        app:showAsAction="never" />
 </menu>
