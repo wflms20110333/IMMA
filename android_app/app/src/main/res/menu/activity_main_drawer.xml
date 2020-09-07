@@ -21,11 +21,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_studio" />
         <item
-            android:id="@+id/action_notifstart"
+            android:id="@+id/nav_options"
             android:icon="@drawable/ic_menu_edit"
             android:title="@string/menu_options"
             android:onClick="startNotif" />
-        <!-- Add line separator -->
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_help"
@@ -34,5 +33,12 @@
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_support" />
+
+        <!-- Add line separator -->
+        <item
+            android:id="@+id/action_notifstart"
+            android:icon="@drawable/ic_menu_edit"
+            android:title="@string/menu_options"
+            android:onClick="startNotif" />
     </group>
 </menu>
