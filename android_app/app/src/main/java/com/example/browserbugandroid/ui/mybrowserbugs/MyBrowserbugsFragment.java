@@ -21,7 +21,7 @@ public class MyBrowserbugsFragment extends Fragment {
         myBrowserbugsViewModel =
                 ViewModelProviders.of(this).get(MyBrowserbugsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_my_browserbugs, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        final TextView textView = root.findViewById(R.id.text_my_browserbugs);
         myBrowserbugsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

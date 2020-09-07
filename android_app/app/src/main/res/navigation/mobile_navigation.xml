@@ -26,4 +26,16 @@
         android:id="@+id/nav_studio"
         android:name="com.example.browserbugandroid.ui.studio.StudioFragment"
         android:label="@string/menu_studio" />
+
+    <fragment
+        android:id="@+id/nav_options"
+        android:name="com.example.browserbugandroid.ui.options.OptionsFragment"
+        android:label="@string/menu_options"
+        tools:layout="@layout/fragment_options" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.browserbugandroid.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>
