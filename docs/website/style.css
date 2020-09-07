@@ -16,17 +16,6 @@ body{
     cursor: default;
     background-size: 25px 25px;
     background-color:#cffffd;
-    background-image:
-    linear-gradient(to right, #c1e0df, transparent 1px),
-    linear-gradient(to bottom, #c1e0df 1px, transparent 1px);
-
-    /* c1e0df */
-
-    /* background-image: linear-gradient(to top right, #a6f4f2, #ffffff); */
-    /* background-repeat: no-repeat; */
-    overflow-x: hidden;   
-    /* background-repeat: no-repeat;
-    background-attachment: fixed; */
     height: 100%; 
 }
 
@@ -178,6 +167,7 @@ nav{
 
 .burger{
     display: none;
+    cursor: pointer;
 }
 
 .btn:hover{
@@ -195,6 +185,7 @@ footer {
     height: 5%; width: 100%;
     background: rgba(255, 255, 255, 0.2);
     font-size: 14px;
+    white-space: nowrap;
 }
 
 footer ul{
@@ -235,7 +226,7 @@ footer a:not(#copyright):hover{
 @media screen and (max-width: 768px){
     body{
         overflow-x: hidden;
-        cursor: pointer;
+        /* cursor: pointer; */
     }
 
     nav{
@@ -278,7 +269,9 @@ footer a:not(#copyright):hover{
     .burger{
         display: block;
     }
-
+    .nav-links a:hover{
+        color: #000000;    
+    }
     .nav-active{
         transform: translateX(0%);
     }
