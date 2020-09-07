@@ -13,14 +13,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_my_account" />
         <item
-            android:id="@+id/nav_my_browserbugs"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_my_browserbugs" />
-        <item
             android:id="@+id/nav_studio"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_studio" />
-
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_help"
