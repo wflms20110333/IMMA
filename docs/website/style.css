@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css?family=Gaegu:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap');
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*  GLOBAL */
+body{
+    font-family: 'Assistant', sans-serif;
+    color: #3E4350;
+    cursor: default;
+    background-color: #a6f4f2;
+    /* background-image: linear-gradient(to top right, #a6f4f2, #ffffff); */
+    /* background-repeat: no-repeat; */
+    overflow-x: hidden;   
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%; 
+}
+
+
+a{
+    text-decoration: none;
+    color: #3E4350;
+    font-weight: 700;
+    padding: 20px;
+    
+
+} 
+
+/* MAIN CONTENT */
+#house{
+    animation: 1.5s ease slideInFromLeft;
+}
+
+h2, h1{
+    animation: 1.5s ease slideInFromRight;
+}
+
+
+/* BACKGROUND IMAGES */
+#house{
+    position: absolute;
+    left:0;
+    bottom:0;
+    height: calc(min(80vh, 60vw));
+    z-index: -999;
+}
+
+#grass{
+    position: absolute;
+    left:-20%;
+    bottom:0;
+    width: 120%;
+    height: 70%;
+    z-index: -1000;
+}
+
+.main-content{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    right: 5%;;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+
+}
+
+.main-content img{
+    width: 12vw;
+    height: 12vw;
+}
+
+.textBox{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+}
+
+.textBox h1{
+    font-family: 'Gaegu', sans-serif;
+    font-weight: 600;
+    text-transform: lowercase;
+    font-size: calc(max(8vw, 3rem));
+    text-shadow: 0px 2px 20px rgba(0, 0, 0, .3);
+}
+
+.textBox h2{
+    color: #F4A180;
+    font-size: calc(max(2vw, 1rem));
+
+}
+/* NAV BAR */
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    box-shadow: 0px 1px 20px rgba(0, 0, 0, .3);
+    background-color: #ffffff;
+    padding: 10px;
+    
+}
+
+.btn{
+    padding: .5rem;
+    background-color: #3E4350;
+    color: #ffffff;
+    border-radius: 20px;
+    width: 20%;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.logo h3{
+    font-family: 'Gaegu';
+    text-transform: lowercase;
+    font-size: 1.8rem;
+}
+
+.nav-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    z-index: 1000;
+}
+.nav-links{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 6%;
+    width: 50%;
+    height: 100%;
+    font-size: 1.1rem;
+
+}
+
+.nav-links li{
+    list-style: none;
+    position: relative;
+}
+.nav-links li:hover{
+    transform: scale(1.1);
+}
+
+
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: #3E4350;
+    margin: 5px;
+    border-radius: 20px;
+    transition: .5s;
+}
+
+.burger{
+    display: none;
+}
+
+.btn:hover{
+    background-color:#F4A180;
+    color: #3E4350;
+    
+   
+    
+}
+
+/* MEDIA QUERY */
+
+@media screen and (max-width: 768px){
+    body{
+        overflow-x: hidden;
+        cursor: pointer;
+    }
+
+    nav{
+        justify-content: space-between;
+        padding: 0 50px;
+    }
+    .nav-content{
+        position: absolute;
+        right: 0;
+        height: 92vh;
+        top: 8vh;
+        background-color: #F4A180 ;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transition: transform .5s ease-in;
+        transform: translateX(100%);
+        padding: 10% 0 5% 0;
+    }
+
+    .nav-links{
+        height: 70%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0 20% 0;
+        
+    }
+
+    .nav-links li{
+        opacity: 0;
+        
+    }
+
+    a{
+        cursor: pointer;
+    }
+    .burger{
+        display: block;
+    }
+
+    .nav-active{
+        transform: translateX(0%);
+    }
+
+    nav .btn{
+       width: 40%;
+       transform:translateX(200%);
+    }
+    .btn:hover{
+        background-color:#ffffff;
+        color: #3E4350;
+        
+       
+        
+    }
+    
+
+}
+
+/* FOR HAMBURGER MENU ANIMATION */
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px, 6px);
+
+}
+.toggle .line2{
+    opacity: 0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* ANIMATION */
+@keyframes slideInFromLeft {
+    from{
+        transform: translateX(-50px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+  }
+
+@keyframes slideInFromRight {
+    from{
+        transform: translateX(50px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+  }
+
+  @keyframes navLinkFade{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
