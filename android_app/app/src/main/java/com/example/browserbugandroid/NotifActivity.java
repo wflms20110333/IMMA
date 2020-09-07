@@ -8,13 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import android.app.AlarmManager;
 import android.widget.Spinner;
@@ -23,21 +18,8 @@ import android.widget.CompoundButton;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.browserbugandroid.ui.login.LoginActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Calendar;
 import java.util.Hashtable;
 
 // Notification imports
@@ -62,7 +44,7 @@ public class NotifActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_studio);
+        setContentView(R.layout.activity_notifpage);
 
         spinner_dict.put("10 seconds", 10000);
         spinner_dict.put("1 minute", 60000);
@@ -86,6 +68,7 @@ public class NotifActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.freqtimes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         freq_picker.setAdapter(adapter);
+        freq_picker.setSelection(0);
         //freq_picker.setOnItemSelectedListener(this);
 
         // Create NotificationChannel, only on API 26+ bc class is new, not in support library

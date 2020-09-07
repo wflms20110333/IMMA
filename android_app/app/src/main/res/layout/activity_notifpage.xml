@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grid_bg"
     tools:context=".NotifActivity">
 
     <LinearLayout
@@ -37,7 +38,8 @@
         <Spinner
             android:id="@+id/msgFreqSpinner"
             android:layout_width="345dp"
-            android:layout_height="237dp" />
+            android:layout_height="237dp"
+            android:entries="@array/freqtimes" />
 
     </LinearLayout>
 

@@ -46,6 +46,7 @@ public class StudioFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_studio, container, false);
         imageView = (ImageView) root.findViewById(R.id.avatar_preview);
         Button fab = (Button) root.findViewById(R.id.avatar_change_button);
+        Button saver = (Button) root.findViewById(R.id.save_button);
 
         context = getContext();
 
@@ -54,6 +55,12 @@ public class StudioFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 selectImage(context);
+            }
+        });
+        saver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveBbug(context);
             }
         });
 
@@ -70,8 +77,13 @@ public class StudioFragment extends Fragment {
         return root;
     }
 
+    private void saveBbug(Context context) {
+        Log.i("StudioFragment", "=== saving bbug?? ===");
+        startActivity(new Intent(context, NotifActivity.class));
+    }
+
     private void selectImage(Context context) {
-        Log.i("MyBrowserbugsFragment", "=== selecting image?? ===");
+        Log.i("StudioFragment", "=== selecting image?? ===");
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -80,7 +92,7 @@ public class StudioFragment extends Fragment {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                Log.i("MyBrowserbugsFragment", "=== image option click ===");
+                Log.i("StudioFragment", "=== image option click ===");
                 if (options[item].equals("Take Photo")) {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
@@ -101,7 +113,7 @@ public class StudioFragment extends Fragment {
         if(resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
-                    Log.i("MyBrowserbugsFragment", "== case 0 ==");
+                    Log.i("StudioFragment", "== case 0 ==");
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         imageView.setImageBitmap(selectedImage);
@@ -109,11 +121,12 @@ public class StudioFragment extends Fragment {
 
                     break;
                 case 1:
-                    Log.i("MyBrowserbugsFragment", "== case 1 ==");
+                    Log.i("StudioFragment", "== case 1 ==");
                     if (resultCode == RESULT_OK && data != null) {
                         Uri selectedImage =  data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
+                            Log.i("StudioFragment", "selected picture at" + selectedImage);
                             Cursor cursor = context.getContentResolver().query(selectedImage,
                                     filePathColumn, null, null, null);
                             if (cursor != null) {
