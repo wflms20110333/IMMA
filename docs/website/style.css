@@ -37,10 +37,12 @@ li{
     animation: 1.5s ease slideInFromLeft;
 }
 
-h2, h1{
+h2, h1, .socials{
     animation: 1.5s ease slideInFromRight;
 
 }
+
+
 
 
 /* BACKGROUND IMAGES */
