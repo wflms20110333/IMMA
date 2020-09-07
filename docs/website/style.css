@@ -14,12 +14,19 @@ body{
     font-family: 'Assistant', sans-serif;
     color: #3E4350;
     cursor: default;
-    background-color: #a6f4f2;
+    background-size: 25px 25px;
+    background-color:#cffffd;
+    background-image:
+    linear-gradient(to right, #c1e0df, transparent 1px),
+    linear-gradient(to bottom, #c1e0df 1px, transparent 1px);
+
+    /* c1e0df */
+
     /* background-image: linear-gradient(to top right, #a6f4f2, #ffffff); */
     /* background-repeat: no-repeat; */
     overflow-x: hidden;   
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* background-repeat: no-repeat;
+    background-attachment: fixed; */
     height: 100%; 
 }
 
@@ -112,7 +119,7 @@ nav{
     min-height: 8vh;
     box-shadow: 0px 1px 20px rgba(0, 0, 0, .3);
     background-color: #ffffff;
-    padding: 10px;
+    padding: 10px 20px;
     
 }
 
@@ -155,7 +162,7 @@ nav{
     
     position: relative;
 }
-.nav-links li:hover{
+.nav-links li:hover, .logo h3:hover{
     transform: scale(1.1);
 }
 
@@ -234,13 +241,13 @@ footer a:not(#copyright):hover{
     nav{
         justify-content: space-between;
         padding: 0 50px;
-        height: 12vh;
+        height: 10vh;
     }
     .nav-content{
         position: absolute;
         right: 0;
-        height: 88vh;
-        top: 12vh;
+        height: 90vh;
+        top: 10vh;
         background-color: #F4A180 ;
         display: flex;
         flex-direction: column;
