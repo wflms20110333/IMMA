@@ -181,19 +181,20 @@ nav{
    
     
 }
-
+/* FOOTER */
 footer {
     position: fixed;
     left: 0; bottom: 0;
     height: 5%; width: 100%;
     background: rgba(255, 255, 255, 0.2);
+    font-size: 14px;
 }
 
 footer ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: .4vw;
+    padding-top: 1vh;
 }
 footer p {
 	text-align: center;
