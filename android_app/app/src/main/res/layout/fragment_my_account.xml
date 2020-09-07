@@ -8,7 +8,7 @@
     tools:context=".ui.myaccount.MyAccountFragment" >
 
     <TextView
-        android:id="@+id/text_gallery"
+        android:id="@+id/text_my_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
