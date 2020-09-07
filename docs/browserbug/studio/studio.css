@@ -270,7 +270,7 @@ div label, div input{
 }
 
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 768px) {
 
     #studio-title{
         margin-top: 10%;
