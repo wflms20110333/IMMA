@@ -101,6 +101,25 @@ h2, h1{
 
 }
 
+.socials{
+    width: 100%;
+    padding-top: 3vh;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.socials li img {
+    width: 1.75rem;
+    height: 1.75rem;
+    opacity: .8;
+}
+
+.socials li img:hover{
+    transform: scale(1.1);
+}
+.socials li a{
+    padding: 0 10px;
+}
 
 /* NAV BAR */
 nav{
