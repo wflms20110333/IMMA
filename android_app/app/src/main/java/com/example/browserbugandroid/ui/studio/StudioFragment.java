@@ -4,29 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.browserbugandroid.AboutActivity;
-import com.example.browserbugandroid.NotifActivity;
 import com.example.browserbugandroid.R;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
@@ -79,7 +72,7 @@ public class StudioFragment extends Fragment {
 
     private void saveBbug(Context context) {
         Log.i("StudioFragment", "=== saving bbug?? ===");
-        startActivity(new Intent(context, NotifActivity.class));
+//        startActivity(new Intent(context, NotifActivity.class));
     }
 
     private void selectImage(Context context) {

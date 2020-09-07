@@ -42,7 +42,6 @@
     <string name="menu_studio">Studio</string>
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
-    <string name="menu_start_notif">Start Notification</string>
 
     <!-- Strings related to studio -->
     <string name="bbug_default_name">Browserbee</string>
