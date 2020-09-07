@@ -99,10 +99,12 @@ h2, h1{
     font-size: calc(max(2vw, 1rem));
 
 }
+
+
 /* NAV BAR */
 nav{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     min-height: 8vh;
     box-shadow: 0px 1px 20px rgba(0, 0, 0, .3);
@@ -132,16 +134,17 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60%;
+    width: 69%;
     z-index: 1000;
 }
 .nav-links{
     display: flex;
     justify-content: space-between;
-    padding-left: 6%;
+    /* padding-left: 3vw; */
     width: 50%;
     height: 100%;
     font-size: 1.1rem;
+    white-space: nowrap;
 
 }
 
@@ -176,6 +179,12 @@ nav{
 }
 
 /* MEDIA QUERY */
+
+@media screen and (max-width: 900px){
+    .nav-content{
+        width: 73%;
+    }
+}
 
 @media screen and (max-width: 768px){
     body{
