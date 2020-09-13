@@ -122,16 +122,16 @@ footer p {
 
 #help-icon:hover, #options-icon:hover, #acct-icon:hover, #studio-icon:hover, #kofi-icon:hover {opacity: 100%;}
 #help-icon, #options-icon, #acct-icon, #studio-icon, #kofi-icon {
-    width: calc(max(2.5vw, 25px));
-    height: calc(max(2.5vw, 25px));
+    width: calc(max(2.5vw, 30px));
+    height: calc(max(2.5vw, 30px));
     margin: .5vw;
     opacity: 70%;
     top: 5px;
 }
 
 #kofi-icon{
-    width: calc(max(5vw, 50px)); 
-    height: calc(max(2vw, 20px)); 
+    width: calc(max(5vw, 60px)); 
+    height: calc(max(2vw, 24px)); 
 }
 
 /* Styling file selectors */
@@ -364,11 +364,11 @@ label #menu-btn{
 
 
 /* -------------------- RESPONSIVENESS TO SMALLER SCREENS ------------------------- */
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 950px) {
 
     h1{
         padding-top: 7vw;
-        padding-bottom: 4vw;
+        padding-bottom: 2vw;
         
     }
 
