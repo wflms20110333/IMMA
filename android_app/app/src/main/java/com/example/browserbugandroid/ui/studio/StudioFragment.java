@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.browserbugandroid.R;
+import com.example.browserbugandroid.ui.options.OptionsFragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,27 +24,37 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import android.content.SharedPreferences;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class StudioFragment extends Fragment {
 
     private StudioViewModel studioViewModel;
     private ImageView imageView;
     private Context context;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
+        Log.i("StudioFragment.java", "========== fragment run ==========");
+        // Initialize variables
         studioViewModel =
                 ViewModelProviders.of(this).get(StudioViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_studio, container, false);
-        imageView = (ImageView) root.findViewById(R.id.avatar_preview);
-        Button fab = (Button) root.findViewById(R.id.avatar_change_button);
-        Button saver = (Button) root.findViewById(R.id.save_button);
-
+        root =
+                inflater.inflate(R.layout.fragment_studio, container, false);
+        imageView =
+                (ImageView) root.findViewById(R.id.avatar_preview);
         context = getContext();
 
-        // Link avatar change button
+        // Link buttons to listeners
+        Button fab = (Button) root.findViewById(R.id.avatar_change_button);
+        Button saver = (Button) root.findViewById(R.id.save_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,8 +67,6 @@ public class StudioFragment extends Fragment {
                 saveBbug(context);
             }
         });
-
-        Log.i("StudioFragment.java", "========== fragment run ==========");
 
         /*final TextView textView = root.findViewById(R.id.text_slideshow);
         studioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -72,7 +81,27 @@ public class StudioFragment extends Fragment {
 
     private void saveBbug(Context context) {
         Log.i("StudioFragment", "=== saving bbug?? ===");
-//        startActivity(new Intent(context, NotifActivity.class));
+
+        // absorb values chosen
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        // absorb name
+        TextView bbugView = root.findViewById(R.id.bbugName);
+        String bbugName = String.valueOf(bbugView.getText());
+        // absorb texting style
+        SeekBar emojiBar = root.findViewById(R.id.emoji_bar);
+        editor.putInt("emojiVal", emojiBar.getProgress());
+        SeekBar capitalBar = root.findViewById(R.id.capital_bar);
+        editor.putInt("capitalVal", capitalBar.getProgress());
+        SeekBar punctBar = root.findViewById(R.id.punct_bar);
+        editor.putInt("punctVal", punctBar.getProgress());
+
+        editor.commit();
+
+        Toast.makeText(context,bbugName+" has been saved!",Toast.LENGTH_SHORT).show();
+
+        // Open options page
+        Navigation.findNavController(root).navigate(R.id.nav_options);
     }
 
     private void selectImage(Context context) {
