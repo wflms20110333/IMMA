@@ -10,7 +10,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="152dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,8 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/gaegu_bold"
                 android:inputType="textPersonName"
-                android:text="@string/bbug_default_name" />
+                android:text="@string/bbug_default_name"
+                android:textColor="#3E4350"
+                android:textSize="35sp" />
 
             <ImageView
                 android:id="@+id/avatar_preview"
@@ -33,25 +38,32 @@
 
             <Button
                 android:id="@+id/avatar_change_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/studio_upload" />
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:background="@drawable/blue_button"
+                android:text="@string/studio_upload"
+                android:textAllCaps="false"
+
+                />
 
             <CheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/studio_category1" />
+
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/studio_category2" />
+
             <CheckBox
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/studio_category3" />
+
             <CheckBox
                 android:id="@+id/checkBox4"
                 android:layout_width="match_parent"
@@ -61,11 +73,13 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
+
             <View
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
@@ -76,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/studio_style1" />
+
             <SeekBar
                 android:id="@+id/emoji_bar"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
@@ -83,12 +98,14 @@
                 android:layout_height="wrap_content"
                 android:max="3"
                 android:progress="2" />
+
             <TextView
                 android:id="@+id/capital_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/studio_style2" />
+
             <SeekBar
                 android:id="@+id/capital_bar"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
@@ -96,12 +113,14 @@
                 android:layout_height="wrap_content"
                 android:max="3"
                 android:progress="2" />
+
             <TextView
                 android:id="@+id/punct_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/studio_style3" />
+
             <SeekBar
                 android:id="@+id/punct_bar"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
@@ -113,20 +132,24 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
+
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
             <Button
                 android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/studio_save" />
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:background="@drawable/blue_button"
+                android:text="@string/studio_save"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>
