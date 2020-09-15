@@ -39,6 +39,8 @@ public class StudioFragment extends Fragment {
     private ImageView imageView;
     private Context context;
     private View root;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class StudioFragment extends Fragment {
         imageView =
                 (ImageView) root.findViewById(R.id.avatar_preview);
         context = getContext();
+
+        // Initialize preference saver
+        sharedPref = getActivity().getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
+        editor = sharedPref.edit();
 
         // Link buttons to listeners
         Button fab = (Button) root.findViewById(R.id.avatar_change_button);
@@ -83,11 +89,10 @@ public class StudioFragment extends Fragment {
         Log.i("StudioFragment", "=== saving bbug?? ===");
 
         // absorb values chosen
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
         // absorb name
         TextView bbugView = root.findViewById(R.id.bbugName);
         String bbugName = String.valueOf(bbugView.getText());
+        editor.putString("bbugName", bbugName);
         // absorb texting style
         SeekBar emojiBar = root.findViewById(R.id.emoji_bar);
         editor.putInt("emojiVal", emojiBar.getProgress());
@@ -119,8 +124,9 @@ public class StudioFragment extends Fragment {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
                 } else if (options[item].equals("Choose from Gallery")) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    Intent pickPhoto = new Intent(Intent. ACTION_GET_CONTENT ) ;
+                    pickPhoto.setType( "image/*" ) ;
+                    startActivityForResult(pickPhoto, 1 ) ;
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -132,12 +138,17 @@ public class StudioFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.i("MyBrowserbugsFragment", "=== activity result?? ===");
+        Log.i("StudioFragment", "selected picture path" + data.getData());
+        editor.putString("avatarPath", String.valueOf(data.getData()));
+        editor.commit();
+
         if(resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     Log.i("StudioFragment", "== case 0 ==");
-                    if (resultCode == RESULT_OK && data != null) {
+                    if (resultCode == RESULT_OK && data != null) { // took photo with camera
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
                         imageView.setImageBitmap(selectedImage);
                     }
 
@@ -145,22 +156,14 @@ public class StudioFragment extends Fragment {
                 case 1:
                     Log.i("StudioFragment", "== case 1 ==");
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Log.i("StudioFragment", "selected picture at" + selectedImage);
-                            Cursor cursor = context.getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();
-                            }
+                        try {
+                            Uri imageUri = data.getData() ;
+                            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
+                            selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
+                            imageView.setImageBitmap(selectedImage);
+                        } catch (Exception e) {
+                            e.printStackTrace() ;
                         }
-
                     }
                     break;
             }

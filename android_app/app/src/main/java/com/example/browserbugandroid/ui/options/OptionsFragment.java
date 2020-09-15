@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -46,6 +48,9 @@ public class OptionsFragment extends Fragment {
     Context context;
     final String CHANNEL_ID = "bbugChannel";
 
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
     // temporarily store dictionary for spinner labels -> milliseconds
     Hashtable<String, Integer> spinner_dict = new Hashtable<String, Integer>();
 
@@ -63,9 +68,9 @@ public class OptionsFragment extends Fragment {
         activation_switch = (Switch) root.findViewById(R.id.activationSwitch); // initialize switch
 
         // Load the absorbed variables
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        final String storedBbugName = sharedPref.getString("bbugName", "Browserbee");
+        sharedPref = getActivity().getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
+        editor = sharedPref.edit();
+        final String storedBbugName = sharedPref.getString("bbugName", null);
         bbug_name.setText(storedBbugName);
 
         // Populate menu of the spinner
@@ -103,6 +108,16 @@ public class OptionsFragment extends Fragment {
                 }
             }
         });
+        freq_picker.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
+                Toast.makeText(context,"Message frequency updated!",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView){
+                Toast.makeText(context,"Message frequency not changed",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return root;
     }
@@ -127,12 +142,11 @@ public class OptionsFragment extends Fragment {
         my_intent.putExtra("chnl_id", CHANNEL_ID);
 
         // add the absorbed values to the intent
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
         my_intent.putExtra("bbugName", sharedPref.getString("bbugName", "Browserbee"));
         my_intent.putExtra("emojiVal", sharedPref.getInt("emojiVal", 1));
         my_intent.putExtra("capitalVal", sharedPref.getInt("capitalVal", 1));
         my_intent.putExtra("punctVal", sharedPref.getInt("punctVal", 1));
+        my_intent.putExtra("avatarPath", sharedPref.getString("avatarPath", null));
 
         // get frequency of notifications from the spinner
         String freq_of_notif = freq_picker.getSelectedItem().toString();
