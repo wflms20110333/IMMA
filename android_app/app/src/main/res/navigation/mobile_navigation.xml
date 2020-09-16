@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_options">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.browserbugandroid.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_options"
+        android:name="com.example.browserbugandroid.ui.options.OptionsFragment"
+        android:label="@string/menu_options"
+        tools:layout="@layout/fragment_options" />
 
     <fragment
         android:id="@+id/nav_my_account"
@@ -18,8 +18,13 @@
         tools:layout="@layout/fragment_my_account" />
 
     <fragment
-        android:id="@+id/nav_my_browserbugs"
-        android:name="com.example.browserbugandroid.ui.mybrowserbugs.MyBrowserbugsFragment"
-        android:label="@string/menu_my_browserbugs"
-        tools:layout="@layout/fragment_my_browserbugs" />
+        android:id="@+id/nav_studio"
+        android:name="com.example.browserbugandroid.ui.studio.StudioFragment"
+        android:label="@string/menu_studio" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.browserbugandroid.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

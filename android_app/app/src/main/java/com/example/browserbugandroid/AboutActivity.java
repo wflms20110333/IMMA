@@ -30,14 +30,19 @@ public class AboutActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /* Create the Intent */
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+                /* Fill it with Data */
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"browserbug@imma.studio"});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Browserbug Android");
+//                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Text");
+
+                /* Send it off to the Activity-Chooser */
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                // TODO: test email functionality
             }
         });
-    }
-
-    /** Called when the user taps the back button */
-    public void back(View view) {
-        this.finish();
     }
 }

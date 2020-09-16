@@ -5,26 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_options"
+            android:icon="@drawable/ic_menu_edit"
+            android:title="@string/menu_options" />
         <item
             android:id="@+id/nav_my_account"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_my_account" />
         <item
-            android:id="@+id/nav_my_browserbugs"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_my_browserbugs" />
-        <item
             android:id="@+id/nav_studio"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_studio" />
-        <item
-            android:id="@+id/nav_options"
-            android:icon="@drawable/ic_menu_edit"
-            android:title="@string/menu_options" />
-        <!-- Add line separator -->
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_help"

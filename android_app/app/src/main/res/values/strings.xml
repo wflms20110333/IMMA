@@ -10,7 +10,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_about">About Browserbug</string>
-    <string name="large_text">
+    <string name="about_text">
         "Browserbug is a custom companion to provide messages of motivation and encouragement!\n\n"
 
         "Whether you'd like your favorite music idol to give you a pep talk or an old friend to"
@@ -36,11 +36,34 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_my_account">My Account</string>
-    <string name="menu_my_browserbugs">My Browserbugs</string>
-    <string name="menu_studio">Studio</string>
     <string name="menu_options">Options</string>
+    <string name="menu_my_account">My Account</string>
+    <string name="menu_studio">Studio</string>
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
+
+    <!-- Strings related to studio -->
+    <string name="bbug_default_name">Browserbee</string>
+    <string name="studio_upload">Upload image</string>
+    <string name="studio_category1">Wellness</string>
+    <string name="studio_category2">Focus</string>
+    <string name="studio_category3">Support</string>
+    <string name="studio_category4">Kudos</string>
+    <string name="studio_style1">Emojis</string>
+    <string name="studio_style2">Capitalization</string>
+    <string name="studio_style3">Punctuation</string>
+    <string name="studio_save">Save character</string>
+
+    <!-- Strings related to notifications -->
+    <string name="channel_name">Browserbug Messaging Channel</string>
+    <string name="channel_description">Sends reminders and notifications for Browserbug</string>
+
+    <string-array name="freqtimes">
+        <item>10 seconds</item>
+        <item>1 minute</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+    </string-array>
 </resources>
