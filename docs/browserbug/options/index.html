@@ -96,19 +96,6 @@
         <span class="i18n-txt" id="translations_available"></span>
         <p>It may take a moment for changes to take effect!</p>
         <div>
-            <!--<div title="Should notifications be silent? Note that this may have different effects depending on your OS.">Silence Messages
-                <label class="switch"><input type="checkbox" id="silent-switch">
-            </div> this doesn't really do anything, silence apparently != mute -->
-
-            <div>
-                <label for="lang-chooser">Change language: </label>
-                <select name="lang-chooser" id="lang-chooser">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="zh">中文</option>
-                </select><br>
-                <span><i>Want to help us translate? Send an email to browserbug@imma.studio!</i></span><br>
-            </div>
             <br>
             <div>
                 Change message frequency:
@@ -120,16 +107,20 @@
                 <p style="margin-bottom:2px;">Your User ID: <span id="uid-fill"></span></p><br>
             </div>
 
-            <!--
             <div>
-                <p>Persistent messages <a title="Experimental! If enabled, messages won't automatically close themselves out.">[?]</a>
-                <label class="switch"><input type="checkbox" id="autofade-switch"></p>
-            </div>
-            -->
-            <div>
-                <br><br>
-                
                 <p><b>Experimental features below!</b></p>
+
+                <div>
+                    <label for="lang-chooser">Change language: </label>
+                    <select name="lang-chooser" id="lang-chooser">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="zh">中文</option>
+                    </select><br>
+                    <span><i>Want to help us translate? Send an email to browserbug@imma.studio!</i></span><br>
+                    <br>
+                </div>
+
                 <p>Site flagging is currently turned <b><span id="flagging-on">OFF</span></b>.<br>
                     Receive discouraging messages from your Browserbug when you visit certain sites.
                 </p>
