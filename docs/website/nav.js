@@ -33,11 +33,11 @@ navSlide();
 
 const house = document.querySelector('#house');
 house.addEventListener('mouseover', ()=>{
-    house.src = './website_images/house-wave.png';
+    house.src = '/docs/website/website_images/house-wave.png';
     
 });
 
 house.addEventListener('mouseout', ()=>{
-    house.src = './website_images/house.png';
+    house.src = '/docs/website/website_images/house.png';
    
 });
