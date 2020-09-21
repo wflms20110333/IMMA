@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_options, R.id.nav_my_account, R.id.nav_studio, R.id.nav_help, R.id.nav_support)
+                R.id.nav_about, R.id.nav_studio, R.id.nav_my_account, R.id.nav_options, R.id.nav_help)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         TextView navHeaderTitle = header.findViewById(R.id.nav_header_title);
         TextView navHeaderText = header.findViewById(R.id.nav_header_text);
-        navHeaderTitle.setText("Browserbee"); // TODO: change this to the name of their browserbug
+        navHeaderTitle.setText("Browserbee testttt"); // TODO: change this to the name of their browserbug
         navHeaderText.setText(username);
     }
 
