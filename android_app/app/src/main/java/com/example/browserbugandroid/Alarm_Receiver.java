@@ -32,7 +32,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
         String myMessage = pickMessage(storedEmoji, storedCapital, storedPunct);
 
         // Build notification
-        long[] vibrationStats = {10, 100}; // how long before turn on, how long until turn off vibrate
+        long[] vibrationStats = {10, 150}; // how long before turn on, how long until turn off vibrate
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(storedBbugName+" says:")

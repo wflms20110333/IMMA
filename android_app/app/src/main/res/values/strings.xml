@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Browserbug Android</string>
+    <string name="app_name">Browserbug</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -36,11 +36,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_options">Options</string>
+    <string name="menu_about">About</string>
+    <string name="menu_options">Settings</string>
     <string name="menu_my_account">My Account</string>
     <string name="menu_studio">Studio</string>
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
+    <string name="menu_home">Home</string>
 
     <!-- Strings related to studio -->
     <string name="bbug_default_name">Browserbee</string>
@@ -53,6 +55,12 @@
     <string name="studio_style2">Capitalization</string>
     <string name="studio_style3">Punctuation</string>
     <string name="studio_save">Save character</string>
+    <string name="studio_option_text1">More options to come soon!\nFollow us on Twitter for more updates:</string>
+    <string name="studio_option_text2">\@browser_bug</string>
+    <string name="studio_options">Customize messages</string>
+
+    <string name="options_yourbrowserbug">Your Browserbug</string>
+    <string name="options_customize_button">    Customize in Studio    </string>
 
     <!-- Strings related to notifications -->
     <string name="channel_name">Browserbug Messaging Channel</string>

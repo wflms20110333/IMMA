@@ -6,10 +6,15 @@
     app:startDestination="@+id/nav_options">
 
     <fragment
-        android:id="@+id/nav_options"
+        android:id="@+id/nav_about"
         android:name="com.example.browserbugandroid.ui.options.OptionsFragment"
-        android:label="@string/menu_options"
+        android:label="@string/menu_about"
         tools:layout="@layout/fragment_options" />
+
+    <fragment
+        android:id="@+id/nav_studio"
+        android:name="com.example.browserbugandroid.ui.studio.StudioFragment"
+        android:label="@string/menu_studio" />
 
     <fragment
         android:id="@+id/nav_my_account"
@@ -18,9 +23,10 @@
         tools:layout="@layout/fragment_my_account" />
 
     <fragment
-        android:id="@+id/nav_studio"
-        android:name="com.example.browserbugandroid.ui.studio.StudioFragment"
-        android:label="@string/menu_studio" />
+        android:id="@+id/nav_options"
+        android:name="com.example.browserbugandroid.ui.options.OptionsFragment"
+        android:label="@string/menu_options"
+        tools:layout="@layout/fragment_options" />
 
     <fragment
         android:id="@+id/nav_help"
