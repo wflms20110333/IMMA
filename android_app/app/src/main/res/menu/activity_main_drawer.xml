@@ -8,16 +8,18 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/bees"
             android:title="@string/menu_about" />
+
+        <item
+            android:id="@+id/nav_options"
+            android:icon="@drawable/beehive"
+            android:title="@string/menu_home" />
+
         <item
             android:id="@+id/nav_studio"
             android:icon="@drawable/customize"
             android:title="@string/menu_studio" />
         <item
             android:id="@+id/nav_my_account"
-            android:icon="@drawable/beehive"
-            android:title="@string/menu_my_account" />
-        <item
-            android:id="@+id/nav_options"
             android:icon="@drawable/settings_gear"
             android:title="@string/menu_options" />
         <item

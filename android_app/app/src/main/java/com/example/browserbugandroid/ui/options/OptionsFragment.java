@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -28,6 +29,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.browserbugandroid.Alarm_Receiver;
@@ -47,6 +50,7 @@ public class OptionsFragment extends Fragment {
     Switch activation_switch;
     PendingIntent pending_intent;
     Context context;
+    private View root;
     final String CHANNEL_ID = "bbugChannel";
 
     SharedPreferences sharedPref;
@@ -60,10 +64,20 @@ public class OptionsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_options, container, false);
         context = getContext();
         Log.i("NotifActivity.java", "========== notif activity started ==========");
         optionsViewModel = ViewModelProviders.of(this).get(OptionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_options, container, false);
+
+        Button toStudio = (Button) root.findViewById(R.id.to_studio_button);
+        toStudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_studio);
+            }
+        });
 
         // Initialize objects
         alarm_manager = (AlarmManager) getActivity().getSystemService(android.content.Context.ALARM_SERVICE); // initialize alarm manager

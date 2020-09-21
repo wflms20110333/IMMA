@@ -5,35 +5,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grid_bg"
     tools:context=".ui.options.OptionsFragment" >
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="276dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="152dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <EditText
-            android:id="@+id/bbugName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:gravity="center"
+            android:padding="32dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Your Browserbug" />
+            android:orientation="vertical">
 
-        <Switch
-            android:id="@+id/activationSwitch"
-            android:layout_width="103dp"
-            android:layout_height="59dp"
-            android:text="Activate" />
+            <TextView
+                android:id="@+id/bbugIntro"
+                android:fontFamily="@font/gaegu_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options_yourbrowserbug"
+                android:textColor="#3E4350"
+                android:textSize="20sp"/>
 
-        <Spinner
-            android:id="@+id/msgFreqSpinner"
-            android:layout_width="345dp"
-            android:layout_height="237dp"
-            android:entries="@array/freqtimes" />
+            <TextView
+                android:id="@+id/bbugName"
+                android:fontFamily="@font/gaegu_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bbug_default_name"
+                android:textColor="#3E4350"
+                android:textSize="36sp"/>
 
-    </LinearLayout>
+            <ImageView
+                android:padding="20dp"
+                android:id="@+id/avatar_preview"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:src="@drawable/logo" />
+
+
+            <Switch
+                android:id="@+id/activationSwitch"
+                android:fontFamily="@font/gaegu_regular"
+                android:switchMinWidth="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activate "
+                android:textColor="#3E4350"
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/spinnerIntro"
+                android:fontFamily="@font/gaegu_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change message frequency"
+                android:textColor="#3E4350"
+                android:textSize="24sp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="35dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#6AFFFFFF">
+                    <Spinner
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/msgFreqSpinner"
+                        android:entries="@array/freqtimes"
+                        />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <Button
+                android:id="@+id/to_studio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:text="@string/options_customize_button"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/pink_button"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
