@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.browserbugandroid.R;
 import com.example.browserbugandroid.ui.options.OptionsFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,6 +33,9 @@ import android.content.SharedPreferences;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class StudioFragment extends Fragment {
 
@@ -107,6 +111,29 @@ public class StudioFragment extends Fragment {
 
         // Open options page
         Navigation.findNavController(root).navigate(R.id.nav_options);
+
+        // Update header name + image (though not activation)
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView navHeaderTitle = header.findViewById(R.id.nav_header_title);
+        navHeaderTitle.setText(bbugName);
+
+        final Uri avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
+        try {
+            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarPath);
+            selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
+            ImageView headerIcon = header.findViewById(R.id.iconImageView);
+            headerIcon.setImageBitmap(selectedImage);
+        } catch (FileNotFoundException ex) { // set to default image
+            ImageView headerIcon = header.findViewById(R.id.iconImageView);
+            headerIcon.setImageResource(R.drawable.logo);
+            Log.i("StudioFragment", "file not found"+avatarPath);
+        } catch (IOException ex) { // set to default image
+            ImageView headerIcon = header.findViewById(R.id.iconImageView);
+            headerIcon.setImageResource(R.drawable.logo);
+            Log.i("StudioFragment", "can't access file"+avatarPath);
+        }
+
     }
 
     private void selectImage(Context context) {

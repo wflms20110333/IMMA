@@ -32,6 +32,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.browserbugandroid.Alarm_Receiver;
 import com.example.browserbugandroid.R;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Hashtable;
 
@@ -51,6 +52,9 @@ public class OptionsFragment extends Fragment {
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
+    NavigationView navigationView;
+    View header;
+
     // temporarily store dictionary for spinner labels -> milliseconds
     Hashtable<String, Integer> spinner_dict = new Hashtable<String, Integer>();
 
@@ -66,6 +70,9 @@ public class OptionsFragment extends Fragment {
         freq_picker = (Spinner) root.findViewById(R.id.msgFreqSpinner); // initialize frequency picker
         bbug_name = (TextView) root.findViewById(R.id.bbugName); // initialize character label
         activation_switch = (Switch) root.findViewById(R.id.activationSwitch); // initialize switch
+
+        navigationView = getActivity().findViewById(R.id.nav_view);
+        header = navigationView.getHeaderView(0);
 
         // Load the absorbed variables
         sharedPref = getActivity().getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
@@ -93,6 +100,16 @@ public class OptionsFragment extends Fragment {
             notificationManager.createNotificationChannel(channel);
         }
 
+        // Initialize the activation switch
+        String bbugActive = sharedPref.getString("bbugActive", "error 999");
+        if (bbugActive.equals("active")) {
+            activation_switch.setChecked(true);
+        } else if (bbugActive.equals("inactive")) {
+            activation_switch.setChecked(false);
+        } else {
+            Log.i("OptionsFragment", bbugActive + "error with bbugActive");
+        }
+
         // Listener for activation
         activation_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,11 +117,21 @@ public class OptionsFragment extends Fragment {
                 Log.i("NotifActivity.java", "========== switch switched ==========");
                 if (isChecked) {
                     activateAlarms();
+                    editor.putString("bbugActive", "active");
+                    editor.commit();
                     Toast.makeText(context,storedBbugName+" activated!",Toast.LENGTH_SHORT).show();
+                    // update header
+                    TextView navHeaderText = header.findViewById(R.id.nav_header_text);
+                    navHeaderText.setText("active");
                 } else {
                     // inactivate alarm
                     alarm_manager.cancel(pending_intent);
+                    editor.putString("bbugActive", "inactive");
+                    editor.commit();
                     Toast.makeText(context,storedBbugName+" deactivated",Toast.LENGTH_SHORT).show();
+                    // update header
+                    TextView navHeaderText = header.findViewById(R.id.nav_header_text);
+                    navHeaderText.setText("inactive");
                 }
             }
         });
