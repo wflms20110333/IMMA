@@ -66,6 +66,25 @@
     <string name="channel_name">Browserbug Messaging Channel</string>
     <string name="channel_description">Sends reminders and notifications for Browserbug</string>
 
+    <!-- About page -->
+    <string name="about_title">About our project</string>
+    <string name="back">Back</string>
+
+    <!-- Help page -->
+    <string name="help_title">Need help?</string>
+    <string name="help_email1">Send us an email at</string>
+    <string name="help_email2">browserbug@imma.studio</string>
+    <string name="help_socialmedia">or find us on social media!</string>
+    <string name="help_bugreport">Bug Report</string>
+    <string name="help_feedbackform">Feedback Form</string>
+
+    <string name="help_thanks">Thanks for using Browserbug!</string>
+    <string name="help_copyright">Copyright © IMMA Studio, LLC, 2020</string>
+    <string name="help_privacypolicy">Privacy Policy</string>
+    <string name="help_dmca">DMCA</string>
+    <string name="help_termsconditions">Terms of Use</string>
+    <string name="help_icon">Icons by icons8.com.</string>
+
     <string-array name="freqtimes">
         <item>10 seconds</item>
         <item>1 minute</item>

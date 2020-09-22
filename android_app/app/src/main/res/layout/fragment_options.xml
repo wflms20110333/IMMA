@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/options_yourbrowserbug"
                 android:textColor="#3E4350"
-                android:textSize="20sp"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/bbugName"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bbug_default_name"
                 android:textColor="#3E4350"
-                android:textSize="36sp"/>
+                android:textSize="42sp"/>
 
             <ImageView
                 android:padding="20dp"

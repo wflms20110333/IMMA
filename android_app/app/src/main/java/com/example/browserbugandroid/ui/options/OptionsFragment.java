@@ -7,9 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -37,6 +41,8 @@ import com.example.browserbugandroid.Alarm_Receiver;
 import com.example.browserbugandroid.R;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Hashtable;
 
 public class OptionsFragment extends Fragment {
@@ -112,6 +118,23 @@ public class OptionsFragment extends Fragment {
             // or other notification behaviors after this
             NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
+        }
+
+        // Initialize image preview
+        final Uri avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
+        try {
+            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarPath);
+            selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
+            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
+            headerIcon.setImageBitmap(selectedImage);
+        } catch (FileNotFoundException ex) { // set to default image
+            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
+            headerIcon.setImageResource(R.drawable.logo);
+            Log.i("OptionsFragment", "file not found"+avatarPath);
+        } catch (IOException ex) { // set to default image
+            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
+            headerIcon.setImageResource(R.drawable.logo);
+            Log.i("OptionsFragment", "can't access file"+avatarPath);
         }
 
         // Initialize the activation switch
