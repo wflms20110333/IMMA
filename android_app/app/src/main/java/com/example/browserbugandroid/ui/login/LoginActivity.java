@@ -134,9 +134,4 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
-
-    /** Called when the user taps the about button */
-    public void showAbout(View view) {
-        startActivity(new Intent(this, AboutActivity.class));
-    }
 }

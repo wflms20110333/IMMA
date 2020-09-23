@@ -79,7 +79,7 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
-            android:padding_horizontal="35px"
+            android:paddingHorizontal="35px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
@@ -88,8 +88,9 @@ tools:context=".ui.help.HelpFragment" >
             android:textSize="17sp" />
 
         <TextView
+            android:autoLink="email"
             android:gravity="center"
-            android:padding_horizontal="35px"
+            android:paddingHorizontal="35px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
@@ -99,7 +100,7 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
-            android:padding_horizontal="35px"
+            android:paddingHorizontal="35px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
@@ -145,7 +146,7 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
-            android:padding_horizontal="35px"
+            android:paddingHorizontal="35px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
@@ -163,15 +164,6 @@ tools:context=".ui.help.HelpFragment" >
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
             android:text="@string/help_copyright"
-            android:textColor="#3E4350"
-            android:textSize="15sp" />
-
-        <TextView
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gaegu_regular"
-            android:text="@string/help_icon"
             android:textColor="#3E4350"
             android:textSize="15sp" />
 
@@ -207,7 +199,7 @@ tools:context=".ui.help.HelpFragment" >
             android:layout_height="40dp" />
 
         <Button
-            android:id="@+id/save_button"
+            android:id="@+id/help_back_button"
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:background="@drawable/blue_button"

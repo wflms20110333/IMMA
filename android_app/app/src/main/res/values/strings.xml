@@ -56,7 +56,7 @@
     <string name="studio_style3">Punctuation</string>
     <string name="studio_save">Save character</string>
     <string name="studio_option_text1">More options to come soon!\nFollow us on Twitter for more updates:</string>
-    <string name="studio_option_text2">\@browser_bug</string>
+    <string name="studio_option_text2"><a href="https://twitter.com/browser_bug" target="_top">\@browser_bug</a></string>
     <string name="studio_options">Customize messages</string>
 
     <string name="options_yourbrowserbug">Your Browserbug</string>
@@ -73,17 +73,15 @@
     <!-- Help page -->
     <string name="help_title">Need help?</string>
     <string name="help_email1">Send us an email at</string>
-    <string name="help_email2">browserbug@imma.studio</string>
-    <string name="help_socialmedia">or find us on social media!</string>
+    <string name="help_email2"><a href="mailto:browserbug@imma.studio" target="_top">browserbug@imma.studio</a></string>
+    <string name="help_socialmedia">or visit us on <a href="https://www.facebook.com/browserbug" target="_top">Facebook</a> or <a href="https://twitter.com/browser_bug" target="_top">Twitter</a>!</string>
     <string name="help_bugreport">Bug Report</string>
     <string name="help_feedbackform">Feedback Form</string>
-
     <string name="help_thanks">Thanks for using Browserbug!</string>
     <string name="help_copyright">Copyright © IMMA Studio, LLC, 2020</string>
-    <string name="help_privacypolicy">Privacy Policy</string>
-    <string name="help_dmca">DMCA</string>
-    <string name="help_termsconditions">Terms of Use</string>
-    <string name="help_icon">Icons by icons8.com.</string>
+    <string name="help_privacypolicy"><a href="https://imma.studio/browserbug/privacy_policy/" target="_top">Privacy Policy</a></string>
+    <string name="help_termsconditions"><a href="https://imma.studio/browserbug/terms_of_use/" target="_top">Terms of Use</a></string>
+    <string name="help_dmca"><a href="mailto:support@imma.studio&amp;subject=DMCA%20Takedown%20Request" target="_top">DMCA</a></string>
 
     <string-array name="freqtimes">
         <item>10 seconds</item>

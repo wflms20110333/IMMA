@@ -98,9 +98,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-    /** Called when the user taps the about action */
-    public void showAbout(MenuItem item) {
-        startActivity(new Intent(this, AboutActivity.class));
-    }
 }

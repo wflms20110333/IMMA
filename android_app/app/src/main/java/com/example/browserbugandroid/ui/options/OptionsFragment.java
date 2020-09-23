@@ -125,16 +125,12 @@ public class OptionsFragment extends Fragment {
         try {
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
-            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
+            ImageView headerIcon = root.findViewById(R.id.avatar_preview);
             headerIcon.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException ex) { // set to default image
-            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
+        } catch (Exception ex) { // set to default image
+            ImageView headerIcon = root.findViewById(R.id.avatar_preview);
             headerIcon.setImageResource(R.drawable.logo);
-            Log.i("OptionsFragment", "file not found"+avatarPath);
-        } catch (IOException ex) { // set to default image
-            ImageView headerIcon = header.findViewById(R.id.avatar_preview);
-            headerIcon.setImageResource(R.drawable.logo);
-            Log.i("OptionsFragment", "can't access file"+avatarPath);
+            Log.i("OptionsFragment", "can't access file "+avatarPath);
         }
 
         // Initialize the activation switch

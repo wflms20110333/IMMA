@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.example.browserbugandroid.ui.options.OptionsFragment"
+        android:name="com.example.browserbugandroid.ui.about.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/activity_about" />
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_studio"
