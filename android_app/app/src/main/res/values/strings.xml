@@ -70,6 +70,13 @@
     <string name="about_title">About our project</string>
     <string name="back">Back</string>
 
+    <!-- Account page -->
+    <string name="settings_title">Experimental!</string>
+    <string name="reset_memory">Reset app memory</string>
+    <string name="reset">Reset</string>
+    <string name="more_settings">More features to come soon!</string>
+    <string name="help_email">If you encounter any issues with Browserbug, let us know at <a href="mailto:browserbug@imma.studio" target="_top">browserbug@imma.studio</a></string>
+
     <!-- Help page -->
     <string name="help_title">Need help?</string>
     <string name="help_email1">Send us an email at</string>

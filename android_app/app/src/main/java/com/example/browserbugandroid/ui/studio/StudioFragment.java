@@ -98,8 +98,9 @@ public class StudioFragment extends Fragment {
         SeekBar punctBar = root.findViewById(R.id.punct_bar); punctBar.setProgress(punctVal);
 
         // Update image
-        final Uri avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
+        Uri avatarPath = null;
         try {
+            avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
             ImageView headerIcon = root.findViewById(R.id.avatar_preview);

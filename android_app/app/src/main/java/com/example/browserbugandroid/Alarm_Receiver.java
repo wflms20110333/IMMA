@@ -45,8 +45,9 @@ public class Alarm_Receiver extends BroadcastReceiver {
                 .setAutoCancel(true); // automatically removes notification on tap
 
         // Try to set custom image
-        Uri avatarPath = Uri.parse(intent.getExtras().getString("avatarPath"));
+        Uri avatarPath = null;
         try {
+            avatarPath = Uri.parse(intent.getExtras().getString("avatarPath"));
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
             builder.setLargeIcon(selectedImage);
