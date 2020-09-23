@@ -59,6 +59,8 @@ public class OptionsFragment extends Fragment {
     private View root;
     final String CHANNEL_ID = "bbugChannel";
 
+    boolean spinnerFirstSelection; // prevent from showing a toast as soon as page is opened
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
@@ -75,6 +77,8 @@ public class OptionsFragment extends Fragment {
         Log.i("NotifActivity.java", "========== notif activity started ==========");
         optionsViewModel = ViewModelProviders.of(this).get(OptionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_options, container, false);
+
+        spinnerFirstSelection = false;
 
         Button toStudio = (Button) root.findViewById(R.id.to_studio_button);
         toStudio.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +156,7 @@ public class OptionsFragment extends Fragment {
                     activateAlarms();
                     editor.putString("bbugActive", "active");
                     editor.commit();
-                    Toast.makeText(context,storedBbugName+" activated!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, storedBbugName + " activated!", Toast.LENGTH_SHORT).show();
                     // update header
                     TextView navHeaderText = header.findViewById(R.id.nav_header_text);
                     navHeaderText.setText("active");
@@ -161,7 +165,7 @@ public class OptionsFragment extends Fragment {
                     alarm_manager.cancel(pending_intent);
                     editor.putString("bbugActive", "inactive");
                     editor.commit();
-                    Toast.makeText(context,storedBbugName+" deactivated",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, storedBbugName + " deactivated", Toast.LENGTH_SHORT).show();
                     // update header
                     TextView navHeaderText = header.findViewById(R.id.nav_header_text);
                     navHeaderText.setText("inactive");
@@ -171,11 +175,19 @@ public class OptionsFragment extends Fragment {
         freq_picker.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
-                Toast.makeText(context,"Message frequency updated!",Toast.LENGTH_SHORT).show();
+                if (spinnerFirstSelection == true) {
+                    Toast.makeText(context, "Message frequency updated!", Toast.LENGTH_SHORT).show();
+                } else {
+                    spinnerFirstSelection = true;
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView){
-                Toast.makeText(context,"Message frequency not changed",Toast.LENGTH_SHORT).show();
+                if (spinnerFirstSelection == true) {
+                    Toast.makeText(context, "Message frequency not changed", Toast.LENGTH_SHORT).show();
+                } else {
+                    spinnerFirstSelection = true;
+                }
             }
         });
 
