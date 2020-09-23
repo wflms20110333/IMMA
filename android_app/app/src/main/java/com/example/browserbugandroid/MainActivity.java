@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
         final String storedBbugName = sharedPref.getString("bbugName", "Default Browserbee");
         final String bbugActive = sharedPref.getString("bbugActive", "error 999");
-        final Uri avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
 
         // Update header
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -78,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
         navHeaderText.setText(bbugActive);
 
         // Update header image
+        Uri avatarPath = null;
         try {
+            avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 64, 64, true); // scale img
             ImageView headerIcon = header.findViewById(R.id.iconImageView);
@@ -97,10 +98,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    /** Called when the user taps the about action */
-    public void showAbout(MenuItem item) {
-        startActivity(new Intent(this, AboutActivity.class));
     }
 }

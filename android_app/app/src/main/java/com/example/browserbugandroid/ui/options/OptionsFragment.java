@@ -7,9 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -37,6 +41,8 @@ import com.example.browserbugandroid.Alarm_Receiver;
 import com.example.browserbugandroid.R;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Hashtable;
 
 public class OptionsFragment extends Fragment {
@@ -52,6 +58,8 @@ public class OptionsFragment extends Fragment {
     Context context;
     private View root;
     final String CHANNEL_ID = "bbugChannel";
+
+    boolean spinnerFirstSelection; // prevent from showing a toast as soon as page is opened
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -69,6 +77,8 @@ public class OptionsFragment extends Fragment {
         Log.i("NotifActivity.java", "========== notif activity started ==========");
         optionsViewModel = ViewModelProviders.of(this).get(OptionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_options, container, false);
+
+        spinnerFirstSelection = false;
 
         Button toStudio = (Button) root.findViewById(R.id.to_studio_button);
         toStudio.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +124,20 @@ public class OptionsFragment extends Fragment {
             notificationManager.createNotificationChannel(channel);
         }
 
+        // Initialize image preview
+        Uri avatarPath = null;
+        try {
+            avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
+            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), avatarPath);
+            selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
+            ImageView headerIcon = root.findViewById(R.id.avatar_preview);
+            headerIcon.setImageBitmap(selectedImage);
+        } catch (Exception ex) { // set to default image
+            ImageView headerIcon = root.findViewById(R.id.avatar_preview);
+            headerIcon.setImageResource(R.drawable.logo);
+            Log.i("OptionsFragment", "can't access file "+avatarPath);
+        }
+
         // Initialize the activation switch
         String bbugActive = sharedPref.getString("bbugActive", "error 999");
         if (bbugActive.equals("active")) {
@@ -133,7 +157,7 @@ public class OptionsFragment extends Fragment {
                     activateAlarms();
                     editor.putString("bbugActive", "active");
                     editor.commit();
-                    Toast.makeText(context,storedBbugName+" activated!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, storedBbugName + " activated!", Toast.LENGTH_SHORT).show();
                     // update header
                     TextView navHeaderText = header.findViewById(R.id.nav_header_text);
                     navHeaderText.setText("active");
@@ -142,7 +166,7 @@ public class OptionsFragment extends Fragment {
                     alarm_manager.cancel(pending_intent);
                     editor.putString("bbugActive", "inactive");
                     editor.commit();
-                    Toast.makeText(context,storedBbugName+" deactivated",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, storedBbugName + " deactivated", Toast.LENGTH_SHORT).show();
                     // update header
                     TextView navHeaderText = header.findViewById(R.id.nav_header_text);
                     navHeaderText.setText("inactive");
@@ -152,11 +176,19 @@ public class OptionsFragment extends Fragment {
         freq_picker.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
-                Toast.makeText(context,"Message frequency updated!",Toast.LENGTH_SHORT).show();
+                if (spinnerFirstSelection == true) {
+                    Toast.makeText(context, "Message frequency updated!", Toast.LENGTH_SHORT).show();
+                } else {
+                    spinnerFirstSelection = true;
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView){
-                Toast.makeText(context,"Message frequency not changed",Toast.LENGTH_SHORT).show();
+                if (spinnerFirstSelection == true) {
+                    Toast.makeText(context, "Message frequency not changed", Toast.LENGTH_SHORT).show();
+                } else {
+                    spinnerFirstSelection = true;
+                }
             }
         });
 
