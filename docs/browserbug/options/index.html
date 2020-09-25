@@ -11,83 +11,7 @@
 </head>
 
 <body>
-   <!----------------------------- SIDEBAR MENU ----------------------------------->
- <input type="checkbox" id="check" checked="checked">
-
- <label for="check">
-     <i class="fas fa-bars" id="menu-btn"></i>
-     <i class="fas fa-times" id="close-btn"></i></label>
- <div class="sidebar">
-     <header>Menu</header>
-     <ul>
-         <li class="nav-link">
-             <a target="_blank" href="http://imma.studio/browserbug/welcome">Welcome</a>
-         </li>
-         <li class="nav-link"><a href="http://imma.studio/browserbug/my_bbugs">My Account</a></li>
-         <li class="nav-link"><a href="http://imma.studio/browserbug/options">Settings</a></li>
-
-         <li class="nav-link"><a href="http://imma.studio/browserbug/studio">Studio</a></li>
-         <li class="nav-link"> <p> Help <i class="fas fa-caret-down"></i></p>
-             <div class="dropdown">
-                 <ul>
-                     <li class="dropdown-link">
-                         <a href="https://imma.studio/browserbug/faq/">FAQs</a>
-                     </li>
-                     <li class="dropdown-link">
-                         <a href="https://forms.gle/zHE8e4GiZrCb1uMe8">Bug Report</a>
-                     </li>
-                     <li class="dropdown-link">
-                         <a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8">Feedback Form
- 
-                         </a>
- 
-                     </li>
- 
-                     <div class="arrow"></div>
-                 </ul>
-             </div>
-         </li>
-         <li class="nav-link"> <p> About <i class="fas fa-caret-down"></i></p>
-             <div class="dropdown">
-                 <ul>
-                     <li class="dropdown-link">
-                         <a href="https://imma.studio/browserbug/about_us">About Us</a>
-                     </li>
-                     <li class="dropdown-link">
-                         <a href="https://imma.studio/browserbug/about">About Browserbug</a>
-                     </li>
- 
-                     <div class="arrow"></div>
-                 </ul>
-             </div>
-         </li>
-         <li class="nav-link"><a href="https://imma.studio/browserbug">Website</a></li>
- 
-     </ul>
-     <ul class="icons">
-         <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
-                     src="../icons/facebook-icon.png"></a></li>
-         <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a></li>
-         <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
-                     style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
- 
-     </ul>
- </div>
-
- <!-----------XX---------------- SIDEBAR MENU -------------XX-------------------->
-
-    <!-- <div class="toolbar">
-        <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon"
-                title="Help"></a>
-        <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon"
-                title="My Browserbugs"></a>
-        <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon"
-                title="Studio"></a>
-        <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings"
-                id="options-icon" title="Options"></a>
-        <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon"
-                title="Ko-Fi"></a>
-    </div> -->
+   <div class="menu"></div>
 
     <h1>Settings</h1>
     <div id="settingscontent">
@@ -151,15 +75,19 @@
     </div>
 </div>
     <footer>
-        <p>Copyright &copy; IMMA Studio, LLC, 2020 |
-            <a href="https://imma.studio/browserbug/privacy_policy" target="_blank">Privacy Policy</a> |
-            <a href="https://imma.studio/browserbug/terms_of_use" target="_blank">Terms of Use</a> |
-            <a class="mainbutton"
-                href="mailto:support@imma.studio&subject=DMCA%20Takedown%20Request&body=Full%20name:%0dAddress:%0dPhone%20number:%0dEmail:%0d%0dName%20of%20infringing%20content:%0d%0dLink%20to%20infringing%20content:%0d%0dDescription%20of%20original%20content:%0d%0dI%20am%20authorized%20to%20act%20on%20the%20behalf%20of%20the%20copyright%20or%20IP%20holder%20of%20the%20above%20content.%0d%0dElectronic%20signature:">DMCA</a>
-            |
-            <span>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></span>
-        </p>
+        <div class="footer"></div>
     </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // LOAD THE MENU FROM MENU.HTML
+            $('.menu').load('../menu.html');
+            $('.footer').load('../footer.html');
+           
+        })
+
+    </script>
 </body>
 
 <script src="../jquery-3.5.1.min.js"></script>
