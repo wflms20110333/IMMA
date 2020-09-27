@@ -179,6 +179,18 @@ select {
 }
 
 /* ------------------- SIDE MENU ------------------------ */
+
+.sidebarWrapper{
+    position: fixed;
+    left: calc(min(-15%, -120px));
+    width: calc(max(15%, 120px));
+    background-color:#ae6adb;
+    height: 100%;
+    z-index: 1000;
+    /* display:none; */
+    transition: all .5s ease;
+}
+
 .sidebar{
     position: fixed;
     left: calc(min(-15%, -120px));
