@@ -47,14 +47,10 @@ public class Alarm_Receiver extends BroadcastReceiver {
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
             builder.setLargeIcon(selectedImage);
-        } catch (FileNotFoundException ex) {
+        } catch (Exception ex) {
             Log.i("Alarm_Receiver", "image not good");
-        } catch (IOException e) {
-            Log.i("Alarm_Receiver", "can't access image");
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            Log.i("Alarm_Receiver", "cannot access old image, restart app");
-            e.printStackTrace();
+            Bitmap myLogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
+            builder.setLargeIcon(myLogo);
         }
 
         // Send a notification

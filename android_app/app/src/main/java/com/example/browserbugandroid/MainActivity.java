@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Get saved bbug name, activation status, image
         SharedPreferences sharedPref = this.getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
-        final String storedBbugName = sharedPref.getString("bbugName", "Default Browserbee");
-        final String bbugActive = sharedPref.getString("bbugActive", "error 999");
+        final String storedBbugName = sharedPref.getString("bbugName", "Browserbee");
+        final String bbugActive = sharedPref.getString("bbugActive", "inactive");
 
         // Update header
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -72,15 +72,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Update header image
         Uri avatarPath = null;
+        ImageView headerIcon = header.findViewById(R.id.iconImageView);
+        Bitmap selectedImage;
         try {
             avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
-            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarPath);
-            selectedImage = selectedImage.createScaledBitmap(selectedImage, 64, 64, true); // scale img
-            ImageView headerIcon = header.findViewById(R.id.iconImageView);
-            headerIcon.setImageBitmap(selectedImage);
+            selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarPath);
         } catch (Exception ex) {
-            Log.i("MainActivity", "image failed to load" + avatarPath);
+            selectedImage = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
         }
+        selectedImage = selectedImage.createScaledBitmap(selectedImage, 90, 90, true); // scale img
+        headerIcon.setImageBitmap(selectedImage);
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
