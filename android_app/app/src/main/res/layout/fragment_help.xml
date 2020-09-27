@@ -41,16 +41,18 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
+            android:layout_marginBottom="7dp"
             android:paddingHorizontal="35px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
             android:text="@string/help_email1"
             android:textColor="#3E4350"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:autoLink="email"
+            android:layout_marginBottom="7dp"
             android:textColorLink="#037083"
             android:gravity="center"
             android:paddingHorizontal="35px"
@@ -59,9 +61,10 @@ tools:context=".ui.help.HelpFragment" >
             android:fontFamily="@font/gaegu_regular"
             android:text="@string/help_email2"
             android:textColor="#3E4350"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/link_social_media"
             android:gravity="center"
             android:textColorLink="#037083"
             android:paddingHorizontal="35px"
@@ -70,7 +73,7 @@ tools:context=".ui.help.HelpFragment" >
             android:fontFamily="@font/gaegu_regular"
             android:text="@string/help_socialmedia"
             android:textColor="#3E4350"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -124,6 +127,7 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gaegu_regular"
@@ -132,7 +136,9 @@ tools:context=".ui.help.HelpFragment" >
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/link_privacy_policy"
             android:gravity="center"
+            android:layout_marginBottom="13dp"
             android:textColorLink="#037083"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,7 +148,9 @@ tools:context=".ui.help.HelpFragment" >
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/link_terms_of_use"
             android:gravity="center"
+            android:layout_marginBottom="13dp"
             android:textColorLink="#037083"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,6 +161,7 @@ tools:context=".ui.help.HelpFragment" >
 
         <TextView
             android:gravity="center"
+            android:autoLink="email"
             android:textColorLink="#037083"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

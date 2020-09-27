@@ -56,6 +56,13 @@ public class HelpFragment extends Fragment {
             }
         });
 
+        TextView t1 = (TextView) root.findViewById(R.id.link_social_media);
+        t1.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView t2 = (TextView) root.findViewById(R.id.link_privacy_policy);
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView t3 = (TextView) root.findViewById(R.id.link_terms_of_use);
+        t3.setMovementMethod(LinkMovementMethod.getInstance());
+
         return root;
     }
 }
