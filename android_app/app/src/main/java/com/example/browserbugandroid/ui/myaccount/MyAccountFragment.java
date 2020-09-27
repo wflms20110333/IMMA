@@ -35,14 +35,13 @@ public class MyAccountFragment extends Fragment {
                 // Clear up sharedPref
                 sharedPref = getActivity().getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
                 editor = sharedPref.edit();
-                editor.putString("bbugName", "Browserbee");
-                editor.putInt("emojiVal", 1);
-                editor.putInt("capitalVal", 1);
-                editor.putInt("punctVal", 1);
-                editor.putString("avatarPath", null);
+                editor.clear();
                 editor.commit();
 
                 Toast.makeText(context, "Successfully reset!", Toast.LENGTH_SHORT).show();
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_options);
             }
         });
 
