@@ -1,22 +1,18 @@
 package com.example.browserbugandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.browserbugandroid.ui.login.LoginActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,8 +21,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.security.spec.ECField;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Get saved bbug name, activation status, image
         SharedPreferences sharedPref = this.getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
-        final String storedBbugName = sharedPref.getString("bbugName", "Default Browserbee");
-        final String bbugActive = sharedPref.getString("bbugActive", "error 999");
+        final String storedBbugName = sharedPref.getString("bbugName", "Browserbee");
+        final String bbugActive = sharedPref.getString("bbugActive", "inactive");
 
         // Update header
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -78,15 +72,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Update header image
         Uri avatarPath = null;
+        ImageView headerIcon = header.findViewById(R.id.iconImageView);
+        Bitmap selectedImage;
         try {
             avatarPath = Uri.parse(sharedPref.getString("avatarPath", null));
-            Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarPath);
-            selectedImage = selectedImage.createScaledBitmap(selectedImage, 64, 64, true); // scale img
-            ImageView headerIcon = header.findViewById(R.id.iconImageView);
-            headerIcon.setImageBitmap(selectedImage);
+            selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarPath);
         } catch (Exception ex) {
-            Log.i("MainActivity", "image failed to load" + avatarPath);
+            selectedImage = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
         }
+        selectedImage = selectedImage.createScaledBitmap(selectedImage, 90, 90, true); // scale img
+        headerIcon.setImageBitmap(selectedImage);
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);

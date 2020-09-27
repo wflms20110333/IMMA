@@ -1,23 +1,16 @@
 package com.example.browserbugandroid.ui.myaccount;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -42,14 +35,13 @@ public class MyAccountFragment extends Fragment {
                 // Clear up sharedPref
                 sharedPref = getActivity().getSharedPreferences("BBugPref", Context.MODE_MULTI_PROCESS);
                 editor = sharedPref.edit();
-                editor.putString("bbugName", "Browserbee");
-                editor.putInt("emojiVal", 1);
-                editor.putInt("capitalVal", 1);
-                editor.putInt("punctVal", 1);
-                editor.putString("avatarPath", null);
+                editor.clear();
                 editor.commit();
 
                 Toast.makeText(context, "Successfully reset!", Toast.LENGTH_SHORT).show();
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_options);
             }
         });
 

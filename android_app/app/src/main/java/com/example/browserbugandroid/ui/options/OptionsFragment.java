@@ -29,20 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.browserbugandroid.Alarm_Receiver;
 import com.example.browserbugandroid.R;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Hashtable;
 
 public class OptionsFragment extends Fragment {
@@ -109,7 +103,13 @@ public class OptionsFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.freqtimes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         freq_picker.setAdapter(adapter);
-        freq_picker.setSelection(0);
+        String previousSpinnerVal = sharedPref.getString("msgFreq", null);
+        if (previousSpinnerVal != null) {
+            int spinnerPosition = adapter.getPosition(previousSpinnerVal);
+            freq_picker.setSelection(spinnerPosition);
+        } else {
+            freq_picker.setSelection(2);
+        }
 
         // Create NotificationChannel, only on API 26+ bc class is new, not in support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -139,11 +139,14 @@ public class OptionsFragment extends Fragment {
         }
 
         // Initialize the activation switch
-        String bbugActive = sharedPref.getString("bbugActive", "error 999");
+        String bbugActive = sharedPref.getString("bbugActive", "inactive");
         if (bbugActive.equals("active")) {
             activation_switch.setChecked(true);
+            alarm_manager.cancel(pending_intent);
+            activateAlarms();
         } else if (bbugActive.equals("inactive")) {
             activation_switch.setChecked(false);
+            alarm_manager.cancel(pending_intent);
         } else {
             Log.i("OptionsFragment", bbugActive + "error with bbugActive");
         }
@@ -177,6 +180,11 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
                 if (spinnerFirstSelection == true) {
+                    String freq_of_notif = freq_picker.getSelectedItem().toString();
+                    editor.putString("msgFreq", freq_of_notif);
+                    editor.commit();
+                    alarm_manager.cancel(pending_intent);
+                    activateAlarms();
                     Toast.makeText(context, "Message frequency updated!", Toast.LENGTH_SHORT).show();
                 } else {
                     spinnerFirstSelection = true;

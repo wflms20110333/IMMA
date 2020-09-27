@@ -1,12 +1,10 @@
 package com.example.browserbugandroid;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Random;
 
 import static android.app.PendingIntent.getActivity;
@@ -51,14 +47,10 @@ public class Alarm_Receiver extends BroadcastReceiver {
             Bitmap selectedImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), avatarPath);
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
             builder.setLargeIcon(selectedImage);
-        } catch (FileNotFoundException ex) {
+        } catch (Exception ex) {
             Log.i("Alarm_Receiver", "image not good");
-        } catch (IOException e) {
-            Log.i("Alarm_Receiver", "can't access image");
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            Log.i("Alarm_Receiver", "cannot access old image, restart app");
-            e.printStackTrace();
+            Bitmap myLogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
+            builder.setLargeIcon(myLogo);
         }
 
         // Send a notification

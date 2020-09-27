@@ -159,7 +159,7 @@ public class StudioFragment extends Fragment {
 
     private void selectImage(Context context) {
         Log.i("StudioFragment", "=== selecting image?? ===");
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = { "Choose from Gallery","Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose a picture");
@@ -168,10 +168,7 @@ public class StudioFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 Log.i("StudioFragment", "=== image option click ===");
-                if (options[item].equals("Take Photo")) {
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                } else if (options[item].equals("Choose from Gallery")) {
+                if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent. ACTION_GET_CONTENT ) ;
                     pickPhoto.setType( "image/*" ) ;
                     startActivityForResult(pickPhoto, 1 ) ;

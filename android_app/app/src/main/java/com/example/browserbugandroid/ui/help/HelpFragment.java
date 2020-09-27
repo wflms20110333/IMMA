@@ -3,15 +3,14 @@ package com.example.browserbugandroid.ui.help;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -56,6 +55,13 @@ public class HelpFragment extends Fragment {
                 navController.navigate(R.id.nav_options);
             }
         });
+
+        TextView t1 = (TextView) root.findViewById(R.id.link_social_media);
+        t1.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView t2 = (TextView) root.findViewById(R.id.link_privacy_policy);
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView t3 = (TextView) root.findViewById(R.id.link_terms_of_use);
+        t3.setMovementMethod(LinkMovementMethod.getInstance());
 
         return root;
     }
