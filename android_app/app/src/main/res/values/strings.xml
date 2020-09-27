@@ -17,13 +17,6 @@
         "remind you to take a break, Browserbugs make working virtually a more productive and less"
         "lonely experience.\n\n"
 
-        "Download the Chrome extension; we're currently working on a bunch of cool new features,"
-        "so subscribe to our Facebook or Twitter to get sneak peeks of what's coming up next!\n\n"
-
-        "As college students, we've struggled to manage our browsing habits, and in quarantine,"
-        "we've felt more isolated than ever. So we were inspired to create Browserbug: we hope that"
-        "it brings a spark of life to your online work as well.\n\n"
-
         "We'd love to hear your suggestions on how to improve! If you've enjoyed Browserbug, please"
         "help us spread the word! And feel free to buy us some Ko-Fi so we can continue developing"
         "Browserbug to become better and better :)\n\n"
@@ -38,7 +31,7 @@
 
     <string name="menu_about">About</string>
     <string name="menu_options">Settings</string>
-    <string name="menu_my_account">My Account</string>
+    <string name="menu_my_account">Settings</string> <!-- quick fix -->
     <string name="menu_studio">Studio</string>
     <string name="menu_help">Help</string>
     <string name="menu_support">Support</string>
