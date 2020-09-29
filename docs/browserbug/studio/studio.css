@@ -19,6 +19,10 @@ p{
 
 }
 
+.dropdown-arrow {
+    width: 14px;
+    opacity: 60%;
+}
 
 .toggler{
     cursor: pointer;

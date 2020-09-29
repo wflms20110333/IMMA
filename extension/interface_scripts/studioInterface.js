@@ -300,7 +300,7 @@ function openJsonDat(jDat) {
         removeButton.style.marginBottom = '5px'; removeButton.onclick = function() { $(this).parent().remove(); };
 
         // export contents
-        iDiv.innerHTML = key;
+        iDiv.innerHTML = key+" ";
         iDiv.value = key;
         iDiv.appendChild(removeButton);
     }
