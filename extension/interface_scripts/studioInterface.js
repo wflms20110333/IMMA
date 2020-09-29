@@ -4,7 +4,7 @@
  * You may not distribute, reproduce, or modify this code without written permission.
  */
 
-var imageSource = "userInput"; // either userInput or localLoaded
+var imageSource = "default"; // either userInput or localLoaded or default
 
 // Default messages, split into categories
 var Wellness = {
@@ -95,6 +95,7 @@ $(document).ready(function() {
     // Reload page
     $("#new").click(function() {
         if (confirm("Start from scratch?")) {
+            imageSource = "default";
             openJsonDat(blankBbug);
         }
     });
