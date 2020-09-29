@@ -141,11 +141,7 @@ blankBbug.customBank = {}; // empty custom bank
 blankBbug.textstyle = { 'emojis': 0.5, 'capitalization': 0.5, 'punctuation': 0.5 }; // default texting style
 
 $(document).ready(function() {
-	if ($(window).width() < 960) {
-        alert("If you can, please enlarge your browser window so that the Studio can properly display! :)");
-	}
-	
-    $('.i18n-txt').each(function(index, element) { // add text to page
+	$('.i18n-txt').each(function(index, element) { // add text to page
 		var ownId = this.id;
         document.getElementById(ownId).textContent = en_text[ownId]['message'];
         document.getElementById(ownId).value = en_text[ownId]['message'];
@@ -163,7 +159,7 @@ $(document).ready(function() {
 			if (noEmoji.includes('[') && noEmoji.includes(']')) {
 				noEmoji = noEmoji.replace(/ *\[[^\]]*]/, '');
 			}
-			iDiv.textContent = noEmoji;
+			iDiv.textContent = noEmoji + " ";
 			iDiv.value = key;
 			document.getElementById(category).appendChild(iDiv);
 	
