@@ -423,7 +423,7 @@ function sendNotifQuestion(msg, immaName, immaFilename, persistNotifs, silencing
  */
 function serverQuery(endpoint, f, suppressServerWarning=false) {
     console.log("Fetching from " + endpoint + "...");
-    timeout(500, fetch(SERVER_URL + endpoint).then(function(response) {
+    timeout(1000, fetch(SERVER_URL + endpoint).then(function(response) {
         // the response of a fetch() request is a Stream object, which means
         //  that when we call the json() method, a Promise is returned since
         //  the reading of the stream will happen asynchronously
@@ -431,7 +431,7 @@ function serverQuery(endpoint, f, suppressServerWarning=false) {
         response.json().then(f);
     })).then(data => {}).catch(error => {
         if (suppressServerWarning == false) {
-            alert("Server is currently down...");
+            alert("Connection error, try again?");
         }
         console.log(error);
     });
@@ -443,7 +443,7 @@ function serverQuery(endpoint, f, suppressServerWarning=false) {
  * @param {Object} inputObject the input JSON object
  * @param {function} f the function to process the JSON response from fetch()
  */
-function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=1500) {
+function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeoutMs=2500) {
     console.log("Fetching from " + endpoint + "...");
     timeout(timeoutMs, fetch(SERVER_URL + endpoint, {
         method: 'POST',
@@ -459,7 +459,7 @@ function serverPOST(endpoint, inputObject, f, suppressServerWarning=false, timeo
         response.json().then(f);
     }).then(data => {}).catch(error => {
         if (suppressServerWarning == false) {
-            alert("Server is currently down...");
+            alert("Connection error, try again?");
         }
         console.log(error);
     });
