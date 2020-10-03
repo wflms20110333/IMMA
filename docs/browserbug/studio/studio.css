@@ -16,14 +16,25 @@ p{
     display: flex;
     justify-content: space-between;
     flex: 1;
+    transition: .5s;
 
 }
 
-.dropdown-arrow {
-    width: 14px;
+
+/* .dropdown-arrow {
+    width: 10px;
     opacity: 60%;
-}
+} */
 
+.quoteButtons i{
+    margin-left: 2px;
+}
+#check:checked ~ .studio
+{
+    margin-left: 15%;
+    transition: .5s;
+    
+}
 .toggler{
     cursor: pointer;
 }
@@ -147,7 +158,7 @@ div label, div input{
     border-radius: 20px; 
     font-size: calc(max(1.2vw, 12px));
     font-weight: 600; 
-    width: 25%;
+    min-width: 25%;
 }
 
 #imgLabelr:hover{
@@ -157,7 +168,7 @@ div label, div input{
     margin-top: 3%;
     border-radius: 20px;
     font-size: calc(max(1.4vw, 15px));;
-    width: 45%;
+    min-width: 45%;
     font-weight: 700;
     color: #3E4350;
     background-color: #8CDAD8;

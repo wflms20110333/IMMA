@@ -4,41 +4,84 @@
 
 <head>
     <title>Browserbug FAQ</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="../master.css">
     <link rel="stylesheet" type="text/css" href="faq.css">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"> </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- #TODO This should be hosted on a webpage so it can be updated frequently -->
 </head>
 
 <body>
-    <header>
-        <h1>Browserbug Help Center</h1>
-    </header>
-    <div class="toolbar">
 
     
-        <a href="http://imma.studio/browserbug/faq"><img src="../icons/help_circle.png" alt="Help" id="help-icon" title="Help"></a>
-        <a href="http://imma.studio/browserbug/my_bbugs"><img src="../icons/beehive.png" alt="My BBugs" id="acct-icon" title="My Browserbugs"></a>
-        <a href="http://imma.studio/browserbug/studio"><img src="../icons/customize.png" alt="Studio" id="studio-icon" title="Studio"></a>
-        <a href="http://imma.studio/browserbug/options"><img src="../icons/settings_gear.png" alt="Settings" id="options-icon" title="Options"></a>
-        <a href="https://ko-fi.com/browserbug"><img src="../icons/ko-fi_full.png" alt="Buy Us Ko-Fi" id="kofi-icon" title="Ko-Fi"></a>
-    </div> 
+
+    <input type="checkbox" id="check" checked="checked">
+    <label for="check">
+        <i class="fas fa-bars" id="menu-btn"></i>
+        <i class="fas fa-times" id="close-btn"></i></label>
+    <div class="sidebar">
+        <header>Menu</header>
+        <!----------------------------- SIDEBAR MENU ----------------------------------->
+        <ul>
+            <li class="nav-link">
+                <p><img src="../icons/bees.png" style="width:20px;vertical-align:middle;"><br> About <i
+                        class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/about_us">About Us</a></li>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/about">About Browserbug</a>
+                        </li>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug">Our Website</a></li>
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-link">
+                <p><img src="../icons/help.png" style="width:20px;vertical-align:middle;"><br> Help <i
+                        class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/faq/">FAQs</a></li>
+                        <li class="dropdown-link"><a href="https://forms.gle/zHE8e4GiZrCb1uMe8">Bug Report</a></li>
+                        <li class="dropdown-link"><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8">Feedback Form</a></li>
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/studio">
+                    <img src="../icons/customize.png" style="width:20px;vertical-align:middle;"><br>Studio</a></li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/my_bbugs">
+                    <img src="../icons/beehive.png" style="width:20px;vertical-align:middle;"><br>My BBugs</a></li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/options">
+                    <img src="../icons/settings_gear.png" style="width:20px;vertical-align:middle;"><br>Settings</a>
+            </li>
+        </ul>
+        <ul class="icons">
+            <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
+                        src="../icons/facebook-icon.png"></a></li>
+            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a>
+            </li>
+            <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
+                        style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
+
+        </ul>
+    </div>
+
+    <h1>Browserbug Help Center</h1>
     <div id="content">
         <div class="bubble" id="left">
             <h3 class="i18n-txt" id="q0"></h3>
-            <p id = "show-all-faq">expand all</p>
-            <p class="question i18n-txt" id="q1" ></p>
+            <p id="show-all-faq">expand all</p>
+            <p class="question i18n-txt" id="q1"></p>
 
-            <div class = "answer faqCol" id="a1" style="display: none">
-                <p class="answer i18n-txt"  id="a1_1" ></p>
-                <p class="answer" id = "a1"  >
+            <div class="answer faqCol" id="a1" style="display: none">
+                <p class="answer i18n-txt" id="a1_1"></p>
+                <p class="answer" id="a1">
                     <span class="i18n-txt" id="a1_2"></span>
                     <span class="i18n-txt" id="a1_3"></span>
                     <span class="i18n-txt" id="a1_4"></span>
-                
+
                     <br><br>
                     <span class="i18n-txt" id="a1_5"></span>
                     <a href="../privacy_policy"><span class="i18n-txt" id="a1_6"></span></a>
@@ -46,35 +89,35 @@
                 </p>
             </div>
             <p class="question i18n-txt" id="q2"></p>
-            <p class="answer faqCol" id = "a2" style="display: none">
-                <span class="i18n-txt" id="a2_1" ></span>
+            <p class="answer faqCol" id="a2" style="display: none">
+                <span class="i18n-txt" id="a2_1"></span>
                 <a href="ms-settings:easeofaccess-display"><span class="i18n-txt" id="a2_2"></span></a>
                 <span class="i18n-txt" id="a2_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q3" ></p>
-            <p class="answer faqCol" id = "a3" style="display: none">
+            <p class="question i18n-txt" id="q3"></p>
+            <p class="answer faqCol" id="a3" style="display: none">
                 <span class="i18n-txt" id="a3_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a3_2"></span></a>
                 <span class="i18n-txt" id="a3_3"></span>
             </p>
 
             <p class="question i18n-txt" id="q4"></p>
-            <p class="answer faqCol" id = "a4" style="display: none">
+            <p class="answer faqCol" id="a4" style="display: none">
                 <span class="i18n-txt" id="a4_1"></span>
                 <a href="ms-settings:notifications"><span class="i18n-txt" id="a4_2"></span></a>
                 <span class="i18n-txt" id="a4_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q5" ></p>
-            <p class="answer faqCol" id = "a5" style="display: none">
+            <p class="question i18n-txt" id="q5"></p>
+            <p class="answer faqCol" id="a5" style="display: none">
                 <span class="i18n-txt" id="a5_1"></span>
                 <a href="https://ko-fi.com/browserbug" target="_blank"><span class="i18n-txt" id="a5_2"></span></a>
                 <span class="i18n-txt" id="a5_3"></span>
             </p>
 
-            <p class="question i18n-txt" id="q6" ></p>
-            <p class="answer faqCol" id = "a6" style="display: none">
+            <p class="question i18n-txt" id="q6"></p>
+            <p class="answer faqCol" id="a6" style="display: none">
                 <span class="i18n-txt" id="a6_1"></span>
                 <a href="../about" target="_blank"><span class="i18n-txt" id="a6_2"></span></a>
                 <span class="i18n-txt" id="a6_3"></span>
@@ -82,86 +125,88 @@
         </div>
         <div class="bubble" id="right">
             <h3 class="i18n-txt" id="t0"></h3>
-            <p id = "show-all-ts">expand all</p>
-            <p class="question i18n-txt" id="t1" ></p>
+            <p id="show-all-ts">expand all</p>
+            <p class="question i18n-txt" id="t1"></p>
             <p class="answer i18n-txt tsCol" id="r1" style="display: none"></p>
 
             <p class="question i18n-txt" id="t2"></p>
-            <div class = "answer tsCol" id = "r2" style="display: none"> 
-            <p class="answer i18n-txt" id="r2_1"></p>
-            <p class="answer"><b>
-                <span class="i18n-txt" id="r2_2"></span>
-            </b></p>
-            <ol>
-                <li><b><span class="i18n-txt" id="r2_3"></span></b>
-                    <ul>
-                        <li><span class="i18n-txt" id="r2_4"></span></li>
-                        <li>
-                            <span class="i18n-txt" id="r2_5"></span>
-                            <a href="ms-settings:quiethours">
-                                <span class="i18n-txt" id="r2_6"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+            <div class="answer tsCol" id="r2" style="display: none">
+                <p class="answer i18n-txt" id="r2_1"></p>
+                <p class="answer"><b>
+                        <span class="i18n-txt" id="r2_2"></span>
+                    </b></p>
+                <ol>
+                    <li><b><span class="i18n-txt" id="r2_3"></span></b>
+                        <ul>
+                            <li><span class="i18n-txt" id="r2_4"></span></li>
+                            <li>
+                                <span class="i18n-txt" id="r2_5"></span>
+                                <a href="ms-settings:quiethours">
+                                    <span class="i18n-txt" id="r2_6"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li><b><span class="i18n-txt" id="r3_0"></span></b>
+                        <ul>
+                            <li><span class="i18n-txt" id="r3_1"></span></li>
+                            <li>
+                                <span class="i18n-txt" id="r3_2"></span>
+                                <a href="ms-settings:notifications">
+                                    <span class="i18n-txt" id="r3_3"></span>
+                                </a>
+                                <span class="i18n-txt" id="r3_4"></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li><b><span class="i18n-txt" id="r4_0"></span></b>
+                        <ul>
+                            <li><span class="i18n-txt" id="r4_1"></span>
+                                <a href="ms-settings:notifications">
+                                    <span class="i18n-txt" id="r4_2"></span>
+                                </a>
+                            </li>
+                            <li><span class="i18n-txt" id="r4_3"></span></li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li><b><span class="i18n-txt" id="r5_0"></span></b>
+                        <ul>
+                            <li><span class="i18n-txt" id="r5_1"></span>
+                                <i>
+                                    <span class="i18n-txt" id="r5_2"></span>
+                                </i>
+                            </li>
+                            <li><span class="i18n-txt" id="r5_3"></span></li>
+                            <li><span class="i18n-txt" id="r5_4"></span>
+                                <span class="i18n-txt" id="r5_5"></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
                 <br>
-                <li><b><span class="i18n-txt" id="r3_0"></span></b>
-                    <ul>
-                        <li><span class="i18n-txt" id="r3_1"></span></li>
-                        <li>
-                            <span class="i18n-txt" id="r3_2"></span>
-                            <a href="ms-settings:notifications">
-                                <span class="i18n-txt" id="r3_3"></span>
-                            </a>
-                            <span class="i18n-txt" id="r3_4"></span>
-                        </li>
-                    </ul>
-                </li>
-                <br>
-                <li><b><span class="i18n-txt" id="r4_0"></span></b>
-                    <ul>
-                        <li><span class="i18n-txt" id="r4_1"></span>
-                            <a href="ms-settings:notifications">
-                                <span class="i18n-txt" id="r4_2"></span>
-                            </a>
-                        </li>
-                        <li><span class="i18n-txt" id="r4_3"></span></li>
-                    </ul>
-                </li>
-                <br>
-                <li><b><span class="i18n-txt" id="r5_0"></span></b>
-                    <ul>
-                        <li><span class="i18n-txt" id="r5_1"></span>
-                            <i>
-                            <span class="i18n-txt" id="r5_2"></span>
-                        </i>
-                        </li>
-                        <li><span class="i18n-txt" id="r5_3"></span></li>
-                        <li><span class="i18n-txt" id="r5_4"></span>
-                            <span class="i18n-txt" id="r5_5"></span>
-                        </li>
-                    </ul>
-                </li>
-            </ol>
-            <br>
-            <p class="answer i18n-txt" id="r5_6"></p>
-        </div>
-            <p class="question" id= "t3" >Known issues</p>
-            <div class = "answer tsCol" id = "r3"  style="display: none">
+                <p class="answer i18n-txt" id="r5_6"></p>
+            </div>
+            <p class="question" id="t3">Known issues</p>
+            <div class="answer tsCol" id="r3" style="display: none">
 
-           
-            <ul>
-                <li>Issue with customizing bugs named "Browserbee"
-                </li>
-                <li>Loading a BBug when the extension has been inactivated through the BBug popup console -- as a quick fix, use the blue switch to turn BBug off and on again!
-                </li>
-            </ul>
-            <br>
-            <p class="answer i18n-txt" id="r5_7"></p>
 
-            <p class="answer">It's also possible that our server might be down - we'll try to post updates on any outages on our Twitter!</p>
-        </div>
-            <p class="question i18n-txt" id="t6" ></p>
+                <ul>
+                    <li>Issue with customizing bugs named "Browserbee"
+                    </li>
+                    <li>Loading a BBug when the extension has been inactivated through the BBug popup console -- as a
+                        quick fix, use the blue switch to turn BBug off and on again!
+                    </li>
+                </ul>
+                <br>
+                <p class="answer i18n-txt" id="r5_7"></p>
+
+                <p class="answer">It's also possible that our server might be down - we'll try to post updates on any
+                    outages on our Twitter!</p>
+            </div>
+            <p class="question i18n-txt" id="t6"></p>
             <p class="answer tsCol" id="r6" style="display: none;">
                 <span class="i18n-txt" id="r6_1"></span>
                 <a href="mailto:browserbug@imma.studio">
@@ -183,7 +228,7 @@
             </p>
         </div>
     </div>
-    
+
 
     </div>
     </div>
@@ -193,12 +238,12 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             // LOAD THE MENU FROM MENU>HTML
             $('.footer').load('../footer.html');
-           
+
         })
 
     </script>

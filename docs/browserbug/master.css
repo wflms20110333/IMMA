@@ -200,6 +200,7 @@ select {
     z-index: 1000;
     /* display:none; */
     transition: all .5s ease;
+    top:0;
     
     
 }
@@ -214,7 +215,7 @@ label #menu-btn, label #close-btn{
     transition: all .5s;
     color:#3E4350;
     cursor: pointer;
-    
+    top: 0;
     
     padding: .75vh .75vw;
     border-radius: 10px;
@@ -261,13 +262,14 @@ label #menu-btn{
 }
 #check:checked ~ #settingscontent{
     margin-left: 22%;
+   
     
 }
 
 
 
 #check:checked ~ h1{
-    margin-left: 13%;
+    padding-left: 13%;
 }
 
 #check:checked ~ label #menu-btn{
@@ -289,6 +291,8 @@ label #menu-btn{
     list-style: none;
     display: flex;
     flex-direction: column;
+    padding-left: 0;
+   
     
    
 }
