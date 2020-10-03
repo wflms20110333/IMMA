@@ -262,13 +262,14 @@ label #menu-btn{
 }
 #check:checked ~ #settingscontent{
     margin-left: 22%;
+   
     
 }
 
 
 
 #check:checked ~ h1{
-    margin-left: 13%;
+    padding-left: 13%;
 }
 
 #check:checked ~ label #menu-btn{
@@ -290,6 +291,8 @@ label #menu-btn{
     list-style: none;
     display: flex;
     flex-direction: column;
+    padding-left: 0;
+   
     
    
 }

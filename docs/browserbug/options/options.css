@@ -18,7 +18,8 @@ html {
     margin: auto;
     overflow-y: scroll;
     vertical-align: middle;
-    margin-top: 1vw;
+    margin-top: 0;
+    
 }
 
 .bbug-entry {
@@ -80,4 +81,14 @@ html {
     font-size: 15px;
     font-family: 'Assistant', 'Segoe UI', sans-serif;
 }
+.filing{
+    background-color: #f4a180;
+    color: #000;
+    font-weight: 600;
+    border-radius: 10px;
+}
 
+.filing:hover{
+    background-color: #e89776;
+
+}
