@@ -16,14 +16,22 @@ p{
     display: flex;
     justify-content: space-between;
     flex: 1;
+    transition: .5s;
 
 }
+
 
 .dropdown-arrow {
     width: 14px;
     opacity: 60%;
 }
 
+#check:checked ~ .studio
+{
+    margin-left: 12%;
+    transition: .5s;
+    
+}
 .toggler{
     cursor: pointer;
 }

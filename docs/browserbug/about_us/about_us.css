@@ -10,7 +10,7 @@ h1{
 }
 
 .sidebar, #close-btn{
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 .special-thanks{
     display: flex;
