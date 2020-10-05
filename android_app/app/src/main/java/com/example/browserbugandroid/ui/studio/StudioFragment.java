@@ -2,24 +2,19 @@ package com.example.browserbugandroid.ui.studio;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.browserbugandroid.R;
-import com.example.browserbugandroid.ui.options.OptionsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -38,24 +33,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class StudioFragment extends Fragment {
-
-    private StudioViewModel studioViewModel;
     private ImageView imageView;
     private Context context;
     private View root;
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        Log.i("StudioFragment.java", "========== fragment run ==========");
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Initialize variables
-        studioViewModel =
-                ViewModelProviders.of(this).get(StudioViewModel.class);
-        root =
-                inflater.inflate(R.layout.fragment_studio, container, false);
-        imageView =
-                (ImageView) root.findViewById(R.id.avatar_preview);
+        root = inflater.inflate(R.layout.fragment_studio, container, false);
+        imageView = (ImageView) root.findViewById(R.id.avatar_preview);
         context = getContext();
 
         // Initialize preference saver
@@ -79,7 +67,6 @@ public class StudioFragment extends Fragment {
             }
         });
 
-        Log.i("StudioFragment.java", "========== fragment run done ==========");
         return root;
     }
 
@@ -106,13 +93,11 @@ public class StudioFragment extends Fragment {
             ImageView headerIcon = root.findViewById(R.id.avatar_preview);
             headerIcon.setImageBitmap(selectedImage);
         } catch (Exception ex) {
-            Log.i("StudioFragment", "image failed to load" + avatarPath);
+            //Log.i("StudioFragment", "image failed to load" + avatarPath);
         }
     }
 
     private void saveBbug(Context context) {
-        Log.i("StudioFragment", "=== saving bbug?? ===");
-
         // absorb values chosen
         // absorb name
         TextView bbugView = root.findViewById(R.id.bbugName);
@@ -148,17 +133,16 @@ public class StudioFragment extends Fragment {
         } catch (FileNotFoundException ex) { // set to default image
             ImageView headerIcon = header.findViewById(R.id.iconImageView);
             headerIcon.setImageResource(R.drawable.logo);
-            Log.i("StudioFragment", "file not found"+avatarPath);
+            //Log.i("StudioFragment", "file not found"+avatarPath);
         } catch (IOException ex) { // set to default image
             ImageView headerIcon = header.findViewById(R.id.iconImageView);
             headerIcon.setImageResource(R.drawable.logo);
-            Log.i("StudioFragment", "can't access file"+avatarPath);
+            //Log.i("StudioFragment", "can't access file"+avatarPath);
         }
 
     }
 
     private void selectImage(Context context) {
-        Log.i("StudioFragment", "=== selecting image?? ===");
         final CharSequence[] options = { "Choose from Gallery","Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -167,14 +151,13 @@ public class StudioFragment extends Fragment {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                Log.i("StudioFragment", "=== image option click ===");
-                if (options[item].equals("Choose from Gallery")) {
-                    Intent pickPhoto = new Intent(Intent. ACTION_GET_CONTENT ) ;
-                    pickPhoto.setType( "image/*" ) ;
-                    startActivityForResult(pickPhoto, 1 ) ;
-                } else if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
+            if (options[item].equals("Choose from Gallery")) {
+                Intent pickPhoto = new Intent(Intent. ACTION_GET_CONTENT ) ;
+                pickPhoto.setType( "image/*" ) ;
+                startActivityForResult(pickPhoto, 1 ) ;
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
             }
         });
         builder.show();
@@ -182,24 +165,19 @@ public class StudioFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("MyBrowserbugsFragment", "=== activity result?? ===");
-        Log.i("StudioFragment", "selected picture path" + data.getData());
         editor.putString("avatarPath", String.valueOf(data.getData()));
         editor.commit();
 
         if(resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
-                    Log.i("StudioFragment", "== case 0 ==");
                     if (resultCode == RESULT_OK && data != null) { // took photo with camera
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
                         imageView.setImageBitmap(selectedImage);
                     }
-
                     break;
                 case 1:
-                    Log.i("StudioFragment", "== case 1 ==");
                     if (resultCode == RESULT_OK && data != null) {
                         try {
                             Uri imageUri = data.getData() ;
