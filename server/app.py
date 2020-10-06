@@ -215,11 +215,11 @@ def get_alarm():
 @app.route('/getMail', methods=['POST'])
 def get_mail():
     """ Return duration til next alarm (in seconds) & type of alarm """
-    # #TODO have able to check for multiple update messages, not just one
     inputParams = request.get_json()
     lastMail = inputParams['lastMail']
 
-    update = ["002", "Hi there, Browserbug user! We're currently updating our servers, so you might experience some connection issues - if things don't work after refreshing the page, let us know at support@imma.studio :)"]
+    # Increment update[0] every time you update update[1] for unread updates to be automatically sensed
+    update = ["003", "We've launched Browserbug v2.1! Thank you everyone for the support, and welcome to our new users :)"]
     if lastMail == update[0]:
         return jsonify({'mail': "none"}) # already read that update
     else:
