@@ -31,7 +31,7 @@ var temporary_i18n_messages = {
 	"a5_3": {"message": "donations and advertisements. We're working on adding in-app purchases with extra cool features that you can buy to support us, but in the meantime, we'd really appreciate any donations! :)"},
 
 	"q6": {"message": "Who are you?"},
-	"a6_1": {"message": "We're Michelle and Elizabeth, two college students! IMMA Studio, LLC is our side project, a way to make the Internet a happier place and a way to help pay for our tuition ;) Feel free to visit our"},
+	"a6_1": {"message": "We're Michelle, Elizabeth, and Ayana - three college students! IMMA Studio, LLC is our side project, a way to make the Internet a happier place :) Feel free to visit our"},
 	"a6_2": {"message": "About"},
 	"a6_3": {"message": "page to learn more about us!"},
 

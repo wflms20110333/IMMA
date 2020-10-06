@@ -7,19 +7,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Random;
 
-import static android.app.PendingIntent.getActivity;
-
 public class Alarm_Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("Alarm_Receiver.java", "========== alarm received ==========");
         String CHANNEL_ID = intent.getExtras().getString("chnl_id");
         String storedBbugName = intent.getExtras().getString("bbugName");
         int storedEmoji = intent.getExtras().getInt("emojiVal");
@@ -35,7 +31,6 @@ public class Alarm_Receiver extends BroadcastReceiver {
                 .setContentText(myMessage)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVibrate(vibrationStats) // vibrate
-                //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 //.setContentIntent(pendingIntent)
                 .setAutoCancel(true); // automatically removes notification on tap
@@ -48,7 +43,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
             selectedImage = selectedImage.createScaledBitmap(selectedImage, 128, 128, true); // scale img
             builder.setLargeIcon(selectedImage);
         } catch (Exception ex) {
-            Log.i("Alarm_Receiver", "image not good");
+            //Log.i("Alarm_Receiver", "image not good");
             Bitmap myLogo = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
             builder.setLargeIcon(myLogo);
         }
@@ -68,8 +63,10 @@ public class Alarm_Receiver extends BroadcastReceiver {
         int randomNumber;
 
         String[] msgs ={"Don't forget to rest your eyes!", "How is your posture right now?", "Don't forget to drink water!",
-                      "How are you doing?", "Smile!", "Take a break once in a while!"};
-        String[] emojis ={" :)", " :D", " :3", " :P"};
+                        "How are you doing?", "Don't get too distracted!", "How are you feeling?", "Take a break once in a while!",
+                        "Hope you're doing okay!", "You've been doing a great job.", "Your work is important!", "Are your muscles tense?",
+                        "Stay hydrated!", "Remember that you are amazing!", "Take a deep breath and recenter!"};
+        String[] emojis ={" :)", " :D"};
 
         Random r = new Random();
         randomNumber = r.nextInt(msgs.length);

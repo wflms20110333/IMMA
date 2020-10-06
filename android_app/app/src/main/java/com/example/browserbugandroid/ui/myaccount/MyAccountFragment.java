@@ -17,14 +17,11 @@ import androidx.navigation.Navigation;
 import com.example.browserbugandroid.R;
 
 public class MyAccountFragment extends Fragment {
-
-    private MyAccountViewModel myAccountViewModel;
     Context context;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getContext();
         View root = inflater.inflate(R.layout.fragment_my_account, container, false);
 

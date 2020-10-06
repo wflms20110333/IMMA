@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -40,20 +38,18 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.Hashtable;
 
 public class OptionsFragment extends Fragment {
-
-    private OptionsViewModel optionsViewModel;
-
-    // to make an alarm manager
     AlarmManager alarm_manager;
     Spinner freq_picker;
     TextView bbug_name;
     Switch activation_switch;
     PendingIntent pending_intent;
+
     Context context;
     private View root;
-    final String CHANNEL_ID = "bbugChannel";
 
+    final String CHANNEL_ID = "bbugChannel";
     boolean spinnerFirstSelection; // prevent from showing a toast as soon as page is opened
+    Hashtable<String, Integer> spinner_dict = new Hashtable<String, Integer>(); // temporarily store dictionary for spinner labels -> milliseconds
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -61,19 +57,13 @@ public class OptionsFragment extends Fragment {
     NavigationView navigationView;
     View header;
 
-    // temporarily store dictionary for spinner labels -> milliseconds
-    Hashtable<String, Integer> spinner_dict = new Hashtable<String, Integer>();
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_options, container, false);
         context = getContext();
-        Log.i("NotifActivity.java", "========== notif activity started ==========");
-        optionsViewModel = ViewModelProviders.of(this).get(OptionsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_options, container, false);
-
         spinnerFirstSelection = false;
 
+        // Back button
         Button toStudio = (Button) root.findViewById(R.id.to_studio_button);
         toStudio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +125,7 @@ public class OptionsFragment extends Fragment {
         } catch (Exception ex) { // set to default image
             ImageView headerIcon = root.findViewById(R.id.avatar_preview);
             headerIcon.setImageResource(R.drawable.logo);
-            Log.i("OptionsFragment", "can't access file "+avatarPath);
+            //Log.i("OptionsFragment", "can't access file "+avatarPath);
         }
 
         // Initialize the activation switch
@@ -148,34 +138,35 @@ public class OptionsFragment extends Fragment {
             activation_switch.setChecked(false);
             alarm_manager.cancel(pending_intent);
         } else {
-            Log.i("OptionsFragment", bbugActive + "error with bbugActive");
+            //Log.i("OptionsFragment", bbugActive + "error with bbugActive");
         }
 
         // Listener for activation
         activation_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                Log.i("NotifActivity.java", "========== switch switched ==========");
-                if (isChecked) {
-                    activateAlarms();
-                    editor.putString("bbugActive", "active");
-                    editor.commit();
-                    Toast.makeText(context, storedBbugName + " activated!", Toast.LENGTH_SHORT).show();
-                    // update header
-                    TextView navHeaderText = header.findViewById(R.id.nav_header_text);
-                    navHeaderText.setText("active");
-                } else {
-                    // inactivate alarm
-                    alarm_manager.cancel(pending_intent);
-                    editor.putString("bbugActive", "inactive");
-                    editor.commit();
-                    Toast.makeText(context, storedBbugName + " deactivated", Toast.LENGTH_SHORT).show();
-                    // update header
-                    TextView navHeaderText = header.findViewById(R.id.nav_header_text);
-                    navHeaderText.setText("inactive");
-                }
+            if (isChecked) {
+                activateAlarms();
+                editor.putString("bbugActive", "active");
+                editor.commit();
+                Toast.makeText(context, storedBbugName + " activated!", Toast.LENGTH_SHORT).show();
+                // update header
+                TextView navHeaderText = header.findViewById(R.id.nav_header_text);
+                navHeaderText.setText("active");
+            } else {
+                // inactivate alarm
+                alarm_manager.cancel(pending_intent);
+                editor.putString("bbugActive", "inactive");
+                editor.commit();
+                Toast.makeText(context, storedBbugName + " deactivated", Toast.LENGTH_SHORT).show();
+                // update header
+                TextView navHeaderText = header.findViewById(R.id.nav_header_text);
+                navHeaderText.setText("inactive");
+            }
             }
         });
+
+        // Listener to pick frequency
         freq_picker.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
@@ -213,11 +204,7 @@ public class OptionsFragment extends Fragment {
     }
 
     private void activateAlarms() {
-        // #TODO start alarms after restart https://developer.android.com/training/scheduling/alarms#boot
-        Log.i("NotifActivity.java", "========== setting alarm ==========");
-
-        //String CHANNEL_ID = "bbugChannel";
-
+        // start alarms after restart? https://developer.android.com/training/scheduling/alarms#boot
         // create intent to the Alarm Receiver class
         final Intent my_intent = new Intent(getActivity(), Alarm_Receiver.class);
         my_intent.putExtra("chnl_id", CHANNEL_ID);
@@ -232,7 +219,6 @@ public class OptionsFragment extends Fragment {
         // get frequency of notifications from the spinner
         String freq_of_notif = freq_picker.getSelectedItem().toString();
         Integer freq_in_ms = spinner_dict.get(freq_of_notif);
-        Log.i("NotifActivity.java", "Selecting notification frequency of " + String.valueOf(freq_in_ms) + "ms");
 
         pending_intent = PendingIntent.getBroadcast(getActivity(), 0,
                 my_intent, PendingIntent.FLAG_UPDATE_CURRENT);
