@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     
+    transition: .5s;
 }
 
 
@@ -104,6 +105,14 @@ ol li{
 .answer{
     animation: fadeInText 500ms 0ms forwards;
 }
+
+#check:checked ~ #content
+{
+    margin-left: 12%;
+    
+    
+}
+
 
 
 @keyframes fadeInText {

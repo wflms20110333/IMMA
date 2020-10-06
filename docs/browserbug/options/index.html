@@ -5,86 +5,136 @@
 <head>
     <title>Browserbug Options</title>
     <link rel="stylesheet" type="text/css" href="../master.css">
-    <link rel="stylesheet" type="text/css" href="../my_bbugs/options.css">
+    <link rel="stylesheet" type="text/css" href="options.css">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"> </script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
 <body>
-   <div class="menu"></div>
+    <input type="checkbox" id="check" checked="checked">
+    <label for="check">
+        <i class="fas fa-bars" id="menu-btn"></i>
+        <i class="fas fa-times" id="close-btn"></i></label>
+    <div class="sidebar">
+        <header>Menu</header>
+        <!----------------------------- SIDEBAR MENU ----------------------------------->
+        <ul>
+            <li class="nav-link">
+                <p><img src="../icons/bees.png" style="width:20px;vertical-align:middle;"><br> About <i
+                        class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/about_us">About Us</a></li>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/about">About Browserbug</a>
+                        </li>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug">Our Website</a></li>
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-link">
+                <p><img src="../icons/help.png" style="width:20px;vertical-align:middle;"><br> Help <i
+                        class="fas fa-caret-down"></i></p>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-link"><a href="https://imma.studio/browserbug/faq/">FAQs</a></li>
+                        <li class="dropdown-link"><a href="https://forms.gle/zHE8e4GiZrCb1uMe8">Bug Report</a></li>
+                        <li class="dropdown-link"><a href="https://forms.gle/M1YS2Ch1Ku2BFHWb8">Feedback Form</a></li>
+                        <div class="arrow"></div>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/studio">
+                    <img src="../icons/customize.png" style="width:20px;vertical-align:middle;"><br>Studio</a></li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/my_bbugs">
+                    <img src="../icons/beehive.png" style="width:20px;vertical-align:middle;"><br>My BBugs</a></li>
+            <li class="nav-link"><a href="http://imma.studio/browserbug/options">
+                    <img src="../icons/settings_gear.png" style="width:20px;vertical-align:middle;"><br>Settings</a>
+            </li>
+        </ul>
+        <ul class="icons">
+            <li><a target="_blank" href="https://www.facebook.com/Browserbug-107331981062490/"> <img
+                        src="../icons/facebook-icon.png"></a></li>
+            <li><a target="_blank" href="https://twitter.com/browser_bug"> <img src="../icons/twitter-icon.png"></a>
+            </li>
+            <li><a target="_blank" href="https://ko-fi.com/browserbug"> <img
+                        style="width: calc(max(5vw, 50px)); padding-top: .1vw;" src="../icons/ko-fi_full.png"></a></li>
 
-    <h1>Settings</h1>
+        </ul>
+    </div>
+    <!-----------XX---------------- SIDEBAR MENU -------------XX-------------------->
+
+    <h1 style="margin-bottom: 20px">Settings</h1>
     <div id="settingscontent">
-    <div class="bubble" >
-        
-        <span class="i18n-txt" id="translations_available"></span>
-        <p>It may take a moment for changes to take effect!</p>
-        <div>
-            <br>
-            <div>
-                Change message frequency:
-                <span id="slider-text"></span><br>
-                <span><i>Message frequency can also be changed in the popup menu!</i></span><br>
-                <input type="range" min="1" max="12" value="5" class="slider" id="frequency-slider"><br>
-            </div>
-            <div>
-                <p style="margin-bottom:2px;">Your User ID: <span id="uid-fill"></span></p><br>
-            </div>
+        <div class="bubble" style="margin-top: 0;">
 
+            <span class="i18n-txt" id="translations_available"></span>
+            <p>It may take a moment for changes to take effect!</p>
             <div>
-                <p><b>Experimental features below!</b></p>
-
+                <br>
                 <div>
-                    <label for="lang-chooser">Change language: </label>
-                    <select name="lang-chooser" id="lang-chooser">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="zh">中文</option>
-                    </select><br>
-                    <span><i>Want to help us translate? Send an email to browserbug@imma.studio!</i></span><br>
-                    <br>
+                    Change message frequency:
+                    <span id="slider-text"></span><br>
+                    <span><i>Message frequency can also be changed in the popup menu!</i></span><br>
+                    <input type="range" min="1" max="12" value="5" class="slider" id="frequency-slider"><br>
+                </div>
+                <div>
+                    <p style="margin-bottom:2px;">Your User ID: <span id="uid-fill"></span></p><br>
                 </div>
 
-                <p>Site flagging is currently turned <b><span id="flagging-on">OFF</span></b>.<br>
-                    Receive discouraging messages from your Browserbug when you visit certain sites.
-                </p>
-                <button class="filing" id="flagging-button">Change site flagging</button><br><br>
-                <fieldset id="pullfrom">
-                    <legend>Flag a site <a
-                            title="Choose how being on different sites will affect the messages you receive">[?]</a>
-                    </legend>
-                    <span>Name of site:</span><br>
-                    <textarea id="flagname" maxlength="90" style="resize: none;">Twitter</textarea><br>
-                    <span>Address of site:</span><br>
-                    <textarea id="flagcontent" maxlength="90" style="resize: none;">twitter.com</textarea>
-                    <p style="font-size: 12px;">We match the section between "http://" or "https://" and before the
-                        first "/".</p>
-                    <p style="font-size: 12px;">Some other valid examples: "www.youtube.com", "www.facebook.com",
-                        "www.reddit.com"</p>
-                    <p style="font-size: 12px;">An example message: Don't spend too much time on <b>Twitter</b>!</p>
-                </fieldset>
+                <div>
+                    <p><b>Experimental features below!</b></p>
+
+                    <div>
+                        <label for="lang-chooser">Change language: </label>
+                        <select name="lang-chooser" id="lang-chooser">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="zh">中文</option>
+                        </select><br>
+                        <span><i>Want to help us translate? Send an email to browserbug@imma.studio!</i></span><br>
+                        <br>
+                    </div>
+
+                    <p>Site flagging is currently turned <b><span id="flagging-on">OFF</span></b>.<br>
+                        Receive discouraging messages from your Browserbug when you visit certain sites.
+                    </p>
+                    <button class="filing" id="flagging-button">Change site flagging</button><br><br>
+                    <fieldset id="pullfrom">
+                        <legend>Flag a site <a
+                                title="Choose how being on different sites will affect the messages you receive">[?]</a>
+                        </legend>
+                        <span>Name of site:</span><br>
+                        <textarea id="flagname" maxlength="90" style="resize: none;">Twitter</textarea><br>
+                        <span>Address of site:</span><br>
+                        <textarea id="flagcontent" maxlength="90" style="resize: none;">twitter.com</textarea>
+                        <p style="font-size: 12px;">We match the section between "http://" or "https://" and before the
+                            first "/".</p>
+                        <p style="font-size: 12px;">Some other valid examples: "www.youtube.com", "www.facebook.com",
+                            "www.reddit.com"</p>
+                        <p style="font-size: 12px;">An example message: Don't spend too much time on <b>Twitter</b>!</p>
+                    </fieldset>
+                    <br>
+                    <input type="button" value="Add flag to site" class="filing" id="add">
+                    <br><br>
+                    <fieldset id="yourform">
+                        <legend>Your flagged sites</legend>
+                    </fieldset>
+                </div>
                 <br>
-                <input type="button" value="Add flag to site" class="filing" id="add">
-                <br><br>
-                <fieldset id="yourform">
-                    <legend>Your flagged sites</legend>
-                </fieldset>
             </div>
-            <br>
         </div>
     </div>
-</div>
     <footer>
         <div class="footer"></div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
-            // LOAD THE MENU FROM MENU.HTML
-            $('.menu').load('../menu.html');
+
             $('.footer').load('../footer.html');
-           
+
         })
 
     </script>
