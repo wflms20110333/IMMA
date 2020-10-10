@@ -9,24 +9,27 @@
     box-sizing: border-box;
 }
 
+html{
+    width:100%;
+    height:100%;
+    background-image: radial-gradient(rgb(225, 243, 233), rgb(232, 247, 245), #b2e7e7);
+}
+
 /*  GLOBAL */
 body{
     font-family: 'Assistant', sans-serif;
     color: #3E4350;
     cursor: default;
     background-size: 25px 25px;
-    background-color:#cffffd;
+    /*background-color:#cffffd;*/
     height: 100%; 
 }
-
 
 a{
     text-decoration: none;
     color: #3E4350;
     font-weight: 700;
     padding: 20px;
-    
-
 } 
 
 li{
@@ -42,9 +45,6 @@ h2, h1, .socials{
 
 }
 
-
-
-
 /* BACKGROUND IMAGES */
 #house{
     position: absolute;
@@ -53,7 +53,6 @@ h2, h1, .socials{
     height: calc(min(80vh, 60vw));
     z-index: -999;
 }
-
 
 #grass{
     position: absolute;
@@ -82,27 +81,26 @@ h2, h1, .socials{
 }
 
 .textBox{
-    
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    
-    
 }
 
 .textBox h1{
     font-family: 'Gaegu', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: lowercase;
     font-size: calc(max(8vw, 3rem));
-    text-shadow: 0px 2px 20px rgba(0, 0, 0, .3);
+    color: #000000;
+    /*text-shadow: 0px 2px 20px rgba(0, 0, 0, .3);*/
 }
 
 .textBox h2{
-    color: #F4A180;
+    color: #000000;
+    opacity: .6;
+    font-family: 'Gaegu', sans-serif;
     font-size: calc(max(2vw, 1rem));
     white-space: nowrap;
-
 }
 
 .socials{
@@ -201,16 +199,13 @@ nav{
     background-color:#F4A180;
     font-weight: 700;
     color: #3E4350;
-    
-   
-    
 }
 /* FOOTER */
 footer {
     position: fixed;
     left: 0; bottom: 0;
     height: 35px; width: 100%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.5);
     font-size: 14px;
     white-space: nowrap;
 }
@@ -224,10 +219,7 @@ footer ul{
 footer p {
 	text-align: center;
 	color: #000000;
-    font-weight: 400; font-size: 14px;
-
-    
-    
+    font-weight: 400; font-size: 14px;    
 }
 #copyright{
     font-weight: 400;
@@ -248,7 +240,6 @@ footer a:not(#copyright):hover{
     .nav-content{
         width: 75%;
     }
-
 }
 
 @media screen and (max-width: 830px){
@@ -310,12 +301,7 @@ footer a:not(#copyright):hover{
     .btn:hover{
         background-color:#ffffff;
         color: #3E4350;
-        
-       
-        
     }
-    
-
 }
 
 /* FOR HAMBURGER MENU ANIMATION */
